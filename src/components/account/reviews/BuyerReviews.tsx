@@ -1,0 +1,43 @@
+import { Ratings } from '@/components/global'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { formatCreatedAt } from '@/utils/format'
+import type { ReviewsType } from '@/utils/types'
+import React from 'react'
+
+function BuyerReviews({ reviews }: { reviews: ReviewsType[] | undefined }) {
+  return (
+    <div>
+      {reviews?.map(
+        ({ rating, comment, id, createdat, productname, vendorname }) => (
+          <Card
+            key={id}
+            className="shadow-sm border-border/50 hover:shadow-md transition-shadow"
+          >
+            <CardHeader>
+              <div className="flex flex-col sm:flex-row items-start justify-between">
+                <div className="space-y-2">
+                  <div>
+                    <CardTitle className="text-lg">{productname}</CardTitle>
+                    <p className="text-sm text-muted-foreground">
+                      {vendorname}
+                    </p>
+                  </div>
+                  <Ratings rating={rating} />
+                </div>
+                <div className="text-right">
+                  <p className="text-sm text-muted-foreground">
+                    {formatCreatedAt(createdat)}
+                  </p>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <p className="text-foreground leading-relaxed">{comment}</p>
+            </CardContent>
+          </Card>
+        )
+      )}
+    </div>
+  )
+}
+export default React.memo(BuyerReviews)

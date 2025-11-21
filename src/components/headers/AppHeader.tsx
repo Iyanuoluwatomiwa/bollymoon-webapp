@@ -1,0 +1,92 @@
+import { Logo, SearchBar } from '../global'
+import { useSidebar } from '../ui/sidebar'
+import { useEffect, useState } from 'react'
+import Navbar from './Navbar'
+import { Menu, Search, X } from 'lucide-react'
+import Wishlist from './Wishlist'
+import Profile from './Profile'
+import Cart from './Cart'
+import Container from '../global/Container'
+
+function AppHeader() {
+  const [showHeader, setShowHeader] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const { toggleSidebar } = useSidebar()
+  const [showSearchBar, setShowSearchBar] = useState(false)
+  const onSearch = (searchQuery: string) => {
+    console.log(searchQuery)
+  }
+  useEffect(() => {
+    let ticking = false
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY
+          setShowHeader(currentScrollY <= 50 || currentScrollY < lastScrollY)
+          setLastScrollY(currentScrollY)
+          ticking = false
+        })
+
+        ticking = true
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [lastScrollY])
+  return (
+    <header
+      className={`sticky w-full top-0 z-50    ${
+        showHeader
+          ? 'translate-y-0'
+          : `${showSearchBar ? '-translate-y-[152px]' : '-translate-y-full'}`
+      }`}
+    >
+      <Container
+        className={`fixed bg-accent  top-0 inset-0  transition duration-300 -z-10 h-[72px] `}
+      >
+        <div className="flex items-center h-[72px] relative">
+          <SearchBar onSearch={onSearch} placeholder="Search Our Store" />
+        </div>
+        <button
+          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2"
+          onClick={() => setShowSearchBar(false)}
+        >
+          <X className="h-6 w-6 text-primary hover:text-secondary cursor-pointer" />
+        </button>
+      </Container>
+      <Container
+        className={`bg-navbarbg transition duration-300 ${
+          showSearchBar && 'translate-y-[72px] relative z-50'
+        }`}
+      >
+        <div className={`flex items-center justify-between h-20`}>
+          <div className="flex items-center gap-2">
+            <div className="lg:hidden">
+              <button
+                onClick={toggleSidebar}
+                className="p-1 cursor-pointer hover:bg-gray-100"
+              >
+                <Menu className="w-5 h-5" />
+              </button>
+            </div>
+            <Logo />
+          </div>
+          <div className="hidden lg:flex">
+            <Navbar />
+          </div>
+          <div className="flex flex-row gap-x-4 md:gap-6 items-center">
+            <button onClick={() => setShowSearchBar(true)}>
+              <Search className="h-5 w-5 md:h-6 md:w-6 hover:text-secondary text-foreground cursor-pointer" />
+            </button>
+            <Wishlist />
+            <Cart />
+            <Profile />
+          </div>
+        </div>
+      </Container>
+    </header>
+  )
+}
+export default AppHeader

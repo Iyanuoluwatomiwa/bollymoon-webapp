@@ -1,0 +1,49 @@
+import Logo from '../global/Logo'
+import { Container } from '../global'
+import { footer } from '@/assets/data'
+import Contact from './Contact'
+import SocialLink from './SocialLink'
+import FooterLink from './FooterLink'
+
+function AppFooter() {
+  return (
+    <Container className="bg-navbarbg/70 pt-12 pb-6">
+      <footer>
+        <div className="grid lg:grid-cols-5 gap-8">
+          <div className="space-y-4 border-b lg:border-b-0 pb-8 lg:col-span-2">
+            <div className="space-y-2">
+              <Logo />
+              <p className=" text-sm text-gray-600 font-medium">
+                Connecting fashion enthusiasts with diverse vendors.
+              </p>
+            </div>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                {footer.contacts.map((contact) => (
+                  <Contact key={contact.text} {...contact} />
+                ))}
+              </div>
+              <div className="flex items-center gap-3 ">
+                {footer.socials.map((social) => (
+                  <SocialLink key={social.text} {...social} />
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:col-span-3">
+            {footer.footerLinks.map((linksGroup) => (
+              <FooterLink key={linksGroup.heading} {...linksGroup} />
+            ))}
+          </div>
+        </div>
+        <div className="border-t mt-8 pt-4 text-center">
+          <p>
+            &copy; 2025 <span className="font-semibold">Bollymoon</span>. All
+            rights reserved.
+          </p>
+        </div>
+      </footer>
+    </Container>
+  )
+}
+export default AppFooter

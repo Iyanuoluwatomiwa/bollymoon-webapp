@@ -1,0 +1,72 @@
+import { BuyerRecentOrdersSkeleton } from '@/components/skeletons'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { ShoppingBag } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Link } from 'react-router-dom'
+import type { OrdersByBuyer } from '@/utils/types'
+import Orders from './Orders'
+import { lazy } from 'react'
+import { nullSuspense } from '@/utils/suspense'
+
+interface RecentOrdersCardProp {
+  ordersData: OrdersByBuyer | undefined
+  ordersDataLoading: boolean
+  isError: boolean
+}
+const NoResult = lazy(() => import('@/components/global/NoResult'))
+
+function RecentOrdersCard({
+  ordersData,
+  ordersDataLoading,
+  isError,
+}: RecentOrdersCardProp) {
+  const buyerOrdersDetails = ordersData?.sortedOrders?.map((order) => {
+    const orderItems = ordersData?.orderItems?.filter(
+      (item) => item.order_id === order.order_id
+    )
+    return {
+      orderItems,
+      ...order,
+    }
+  })
+
+  return (
+    <Card>
+      <CardHeader className="">
+        <CardTitle className="flex items-center gap-4 justify-between text-sm font-semibold">
+          <div className="flex items-center gap-2">
+            <div className="p-2 bg-primary/10 rounded-lg w-max">
+              <ShoppingBag className="h-5 w-5 text-primary" />
+            </div>
+            Recent Orders
+          </div>
+          <Button asChild size="sm" className="cursor-pointer">
+            <Link to="/account/orders">View all</Link>
+          </Button>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        {ordersDataLoading ? (
+          <BuyerRecentOrdersSkeleton />
+        ) : (
+          <>
+            <Orders sortedOrders={buyerOrdersDetails} />
+            {nullSuspense(
+              <>
+                {ordersData?.sortedOrders?.length == 0 && (
+                  <NoResult
+                    errorText="your recent orders"
+                    isError={isError}
+                    icon={ShoppingBag}
+                    text="No recent orders found"
+                  />
+                )}{' '}
+              </>
+            )}
+          </>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+export default RecentOrdersCard
