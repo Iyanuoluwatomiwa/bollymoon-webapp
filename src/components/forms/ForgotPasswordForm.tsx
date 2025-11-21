@@ -47,12 +47,12 @@ function ForgotPasswordForm() {
         <form onSubmit={handleSubmit} className="space-y-4 pb-4">
           <FormInput
             name="email"
-            label="Email"
             value={formData.email}
             handleInputChange={handleInputChange}
             type="email"
             placeholder="Enter your email address"
             required
+            className="mt-4"
           />
           <FormSubmitButton
             submitting={submitting}

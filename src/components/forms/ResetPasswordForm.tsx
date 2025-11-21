@@ -7,6 +7,7 @@ import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
+import { Logo } from '../global'
 
 function ResetPasswordForm() {
   const [formData, setFormData] = useState({
@@ -38,24 +39,26 @@ function ResetPasswordForm() {
   }
 
   return (
-    <Card>
+    <Card className="bg-white py-0 gap-4 ">
+      <div className="flex  justify-center py-4 border-b">
+        <Logo />
+      </div>
       <AuthFormsHeading
         title="Reset Password"
         desc="Create a new password for your account."
       />
       <CardContent>
-        <form onSubmit={handleSubmit} className="space-y-8">
+        <form onSubmit={handleSubmit} className="space-y-4 pb-4">
           <FormPassword
             name="password"
-            label="Password"
             value={formData.password}
             handleInputChange={handleInputChange}
             placeholder="Create a new password"
             required
+            className="mt-4"
           />
           <FormPassword
             name="confirmPassword"
-            label="Confirm Password"
             placeholder="Confirm your password"
             value={formData.password}
             handleInputChange={handleInputChange}

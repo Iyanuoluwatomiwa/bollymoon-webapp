@@ -7,26 +7,32 @@ import { FaEyeSlash } from 'react-icons/fa6'
 
 interface FormPasswordProp {
   name: string
-  label: string
+  label?: string
+  labelSize?: string
   value: string
   handleInputChange: (key: string, value: any) => void
   placeholder: string
   required?: boolean
+  className?: string
 }
 
 function FormPassword({
   name,
   label,
+  labelSize,
   value,
   handleInputChange,
   placeholder,
   required,
+  className,
 }: FormPasswordProp) {
   const [showPassword, setShowPassword] = useState<boolean>(true)
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name} className={`text-sm md:text-base ${labelSize}`}>
+        {label}
+      </Label>
       <div className="relative">
         <Input
           id={name}
@@ -35,6 +41,7 @@ function FormPassword({
           placeholder={placeholder}
           type={`${showPassword ? 'password' : 'text'}`}
           required={required}
+          className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base`}
         />
         <Button
           asChild={true}
