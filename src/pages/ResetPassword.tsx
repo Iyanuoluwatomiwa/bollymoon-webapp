@@ -1,5 +1,6 @@
 import ResetPasswordForm from '@/components/forms/ResetPasswordForm'
 import { Container } from '@/components/global'
+import PageTitle from '@/components/global/PageTitle'
 import BackNavHeader from '@/components/headers/BackNavHeader'
 
 function ResetPassword() {
@@ -45,6 +46,7 @@ function ResetPassword() {
   } */
   return (
     <>
+      <PageTitle title="Reset Password" />
       <BackNavHeader />
       <Container>
         <div className="flex items-center justify-center  py-10 min-h-screen w-full ">

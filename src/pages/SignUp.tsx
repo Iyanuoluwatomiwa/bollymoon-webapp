@@ -1,11 +1,13 @@
 import SignUpForm from '@/components/forms/SignUpForm'
 import { Container } from '@/components/global'
+import PageTitle from '@/components/global/PageTitle'
 import BackNavHeader from '@/components/headers/BackNavHeader'
 import { Link } from 'react-router-dom'
 
 function SignUp() {
   return (
     <>
+      <PageTitle title="Create account" />
       <BackNavHeader />
       <Container>
         <div className="flex items-center justify-center  py-10 min-h-screen w-full ">
