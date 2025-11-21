@@ -16,8 +16,8 @@ function Navbar() {
     const baseClasses =
       "h-full flex items-center relative after:content-[''] text-lg after:absolute after:left-0 after:bottom-0 after:w-0 after:h-[2px] after:bg-primary after:transition-all after:duration-300 hover:after:w-full hover:text-primary font-medium"
     const activeClasses = isActive
-      ? 'text-secondary hover:text-secondary after:w-full'
-      : 'text-foreground'
+      ? 'text-primary hover:text-primary after:w-full'
+      : 'text-white'
     return `${baseClasses} ${activeClasses}`
   }
 
@@ -62,7 +62,7 @@ function Navbar() {
                 <li key={category.name} className="row-span-3">
                   <Link
                     to={category.url}
-                    className="mb-2.5 text-lg text-gray-800 hover:text-secondary"
+                    className="mb-2.5 text-lg text-foreground font-medium hover:text-primary"
                   >
                     {category.name}
                   </Link>

@@ -1,5 +1,4 @@
 import { CartItems, EmptyCart } from '@/components/cart'
-import AppHeader from '@/components/headers/AppHeader'
 import { PageHeading } from '@/components/headings'
 import { sectionSuspense } from '@/utils/suspense'
 import { lazy } from 'react'
@@ -14,7 +13,6 @@ function Cart() {
   return (
     <div className="relative">
       <PageHeading pageDesc="Cart items" pageTitle="Cart" />
-      <AppHeader />
       <main
         className={`min-h-screen container space-y-18 my-12 ${
           numItemsInCart && 'lg:grid-cols-3'

@@ -44,20 +44,20 @@ function AppHeader() {
       }`}
     >
       <Container
-        className={`fixed bg-accent  top-0 inset-0  transition duration-300 -z-10 h-[72px] `}
+        className={`fixed bg-primary  top-0 inset-0  transition duration-300 -z-10 h-[72px] `}
       >
         <div className="flex items-center h-[72px] relative">
           <SearchBar onSearch={onSearch} placeholder="Search Our Store" />
         </div>
         <button
-          className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2"
+          className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2"
           onClick={() => setShowSearchBar(false)}
         >
-          <X className="h-6 w-6 text-primary hover:text-secondary cursor-pointer" />
+          <X className="h-6 w-6 text-foreground hover:text-secondary cursor-pointer" />
         </button>
       </Container>
       <Container
-        className={`bg-navbarbg transition duration-300 ${
+        className={`bg-header transition duration-300 ${
           showSearchBar && 'translate-y-[72px] relative z-50'
         }`}
       >
@@ -66,7 +66,7 @@ function AppHeader() {
             <div className="lg:hidden">
               <button
                 onClick={toggleSidebar}
-                className="p-1 cursor-pointer hover:bg-gray-100"
+                className="p-1 cursor-pointer hover:bg-primary text-white rounded-xs"
               >
                 <Menu className="w-5 h-5" />
               </button>
@@ -78,7 +78,7 @@ function AppHeader() {
           </div>
           <div className="flex flex-row gap-x-4 md:gap-6 items-center">
             <button onClick={() => setShowSearchBar(true)}>
-              <Search className="h-5 w-5 md:h-6 md:w-6 hover:text-secondary text-foreground cursor-pointer" />
+              <Search className="h-5 w-5 md:h-6 md:w-6 hover:text-primary text-white cursor-pointer" />
             </button>
             <Wishlist />
             <Cart />

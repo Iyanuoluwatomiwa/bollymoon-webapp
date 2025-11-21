@@ -11,7 +11,7 @@ interface FooterLinkProp {
 function FooterLink({ heading, links }: FooterLinkProp) {
   return (
     <div>
-      <h2 className="font-semibold text-sm mb-4 uppercase text-gray-800">
+      <h2 className="font-semibold text-sm mb-4 uppercase text-background">
         {heading}
       </h2>
       <ul>
@@ -20,7 +20,7 @@ function FooterLink({ heading, links }: FooterLinkProp) {
             <li key={label} className="py-1">
               <Link
                 to={url}
-                className="hover:text-secondary text-sm text-gray-600"
+                className="hover:text-primary text-sm text-accent-foreground"
               >
                 {label}
               </Link>

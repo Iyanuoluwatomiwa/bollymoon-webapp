@@ -12,7 +12,7 @@ function Contact({ href, text, icon }: ContactProp) {
   const IconComponent = icon
   return (
     <div className="flex items-center gap-2">
-      <IconComponent className="w-4 h-4 text-gray-600" />
+      <IconComponent className="w-4 h-4 text-accent-foreground" />
       <a
         href={href}
         className="text-primary/70 hover:text-primary text-sm cursor-pointer font-medium"

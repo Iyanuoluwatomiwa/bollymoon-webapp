@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 function Logo() {
   return (
-    <Link to="/" className="flex items-center text-primary">
-      <span className={`font-bold`}>Bollymoon</span>
+    <Link to="/" className="flex items-center text-primary text-xl">
+      <span className={`font-bold`}>BOLLYMOON</span>
     </Link>
   )
 }

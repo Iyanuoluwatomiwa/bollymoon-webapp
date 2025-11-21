@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button'
 import { SlidersHorizontal } from 'lucide-react'
 import type { ProductFilter } from '@/utils/types'
 import { SearchBar, Sorting, ViewModeToggle } from '@/components/global'
-import AppHeader from '@/components/headers/AppHeader'
+
 import {
   ProductGridCardSkeleton,
   ProductListCardSkeleton,
@@ -129,7 +129,6 @@ function Shop() {
         pageTitle="Marketplace"
         pageDesc="Discover exclusive fashion collections from verified sellers worldwide."
       />
-      <AppHeader />
       <main className="container min-h-screen container space-y-2 my-12 relative">
         <section className="space-y-2">
           <h2 className="text-3xl font-bold text-foreground">Shop Now</h2>

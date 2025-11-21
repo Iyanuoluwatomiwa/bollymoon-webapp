@@ -9,7 +9,7 @@ function Profile() {
       <TooltipTrigger>
         <NavLink to="/login">
           <span className="sr-only">user</span>
-          <User className="h-5 w-5 md:h-6 fill-foreground text-foreground md:w-6 hover:text-secondary hover:fill-secondary" />
+          <User className="h-5 w-5 md:h-6 fill-white text-white md:w-6 hover:text-primary hover:fill-primary" />
         </NavLink>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={0} className="translate-x-0">

@@ -17,8 +17,8 @@ function Cart() {
             <ShoppingCart
               className={`h-5 w-5 lg:h-6 lg:w-6 ${
                 pathname === '/cart'
-                  ? 'text-secondary fill-secondary'
-                  : 'text-foreground fill-foreground hover:text-secondary hover:fill-secondary'
+                  ? 'text-primary fill-primary'
+                  : 'text-white fill-white hover:text-primary hover:fill-primary'
               }`}
             />
           </NavLink>

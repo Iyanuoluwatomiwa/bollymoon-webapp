@@ -10,10 +10,10 @@ export const navLinks = {
     name: 'collections',
     url: '/collections',
     categories: [
-      { name: 'New Arrivals', href: '/collection/#new-arrivals' },
-      { name: 'Best Sellers', href: '/collection/#best-sellers' },
-      { name: 'Trending Now', href: '/collection/#trending' },
-      { name: 'Sale Items', href: '/collection/#sale' },
+      { name: 'New Arrivals', href: '/collection#new-arrivals' },
+      { name: 'Best Sellers', href: '/collection#best-sellers' },
+      { name: 'Trending Now', href: '/collection#trending' },
+      { name: 'Sale Items', href: '/collection#sale' },
     ],
   },
   shop: {
@@ -24,11 +24,11 @@ export const navLinks = {
         name: 'Hairs',
         url: '/shop/hairs',
         subcategories: [
-          { name: 'Wigs', href: '#wigs' },
-          { name: 'Hair Extensions', href: '#extensions' },
-          { name: 'Lace Frontals', href: '#lace-frontals' },
-          { name: 'Closures', href: '#closures' },
-          { name: 'Bundles', href: '#bundles' },
+          { name: 'Wigs', href: '/shop/hairs#wigs' },
+          { name: 'Hair Extensions', href: '/shop/hairs#extensions' },
+          { name: 'Lace Frontals', href: '/shop/hairs#lace-frontals' },
+          { name: 'Closures', href: '/shop/hairs#closures' },
+          { name: 'Bundles', href: '/shop/hairs#bundles' },
         ],
       },
       clothing: {

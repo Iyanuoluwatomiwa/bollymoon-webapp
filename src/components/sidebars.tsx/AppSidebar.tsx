@@ -21,9 +21,9 @@ import {
 function AppSidebar() {
   const getClassName = ({ isActive }: { isActive: boolean }) => {
     const baseClasses =
-      "h-full flex flex-1 items-center relative after:content-[''] text-sm after:absolute py-1.5 px-1 after:left-0 after:bottom-0 font-medium capitalize"
+      "h-full flex flex-1 items-center relative after:content-[''] text-sm after:absolute py-1.5 px-1 after:left-0 after:bottom-0 font-medium capitalize rounded-xs"
     const activeClasses = isActive
-      ? 'text-secondary bg-secondary/10 hover:text-secondary'
+      ? 'text-white bg-primary hover:text-white'
       : 'text-foreground hover:text-primary hover:bg-primary/10'
     return `${baseClasses} ${activeClasses}`
   }
@@ -32,15 +32,15 @@ function AppSidebar() {
   return (
     <div>
       <Sidebar side="left" variant="sidebar">
-        <SidebarHeader>
+        <SidebarHeader className="bg-background pb-6">
           <button
             onClick={toggleSidebar}
-            className="ml-auto cursor-pointer hover:bg-gray-100"
+            className="ml-auto cursor-pointer text-foreground hover:bg-primary hover:text-white rounded-xs"
           >
             <X className="w-5 h-5" />
           </button>
         </SidebarHeader>
-        <SidebarContent className="px-3 gap-0">
+        <SidebarContent className="px-3 gap-0 bg-background space-y-1">
           <SidebarMenu>
             <SidebarMenuItem>
               <NavLink to={navLinks.home.url} className={getClassName}>

@@ -7,13 +7,13 @@ import FooterLink from './FooterLink'
 
 function AppFooter() {
   return (
-    <Container className="bg-navbarbg/70 pt-12 pb-6">
+    <Container className="bg-footer pt-12 pb-6">
       <footer>
         <div className="grid lg:grid-cols-5 gap-8">
-          <div className="space-y-4 border-b lg:border-b-0 pb-8 lg:col-span-2">
+          <div className="space-y-4 border-b border-accent lg:border-b-0 pb-8 lg:col-span-2">
             <div className="space-y-2">
               <Logo />
-              <p className=" text-sm text-gray-600 font-medium">
+              <p className=" text-sm text-accent-foreground font-medium">
                 Connecting fashion enthusiasts with diverse vendors.
               </p>
             </div>
@@ -36,7 +36,7 @@ function AppFooter() {
             ))}
           </div>
         </div>
-        <div className="border-t mt-8 pt-4 text-center">
+        <div className="border-t mt-8 pt-4 text-center text-accent-foreground">
           <p>
             &copy; 2025{' '}
             <span className="font-semibold text-primary">Bollymoon</span>. All

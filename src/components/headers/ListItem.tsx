@@ -18,7 +18,7 @@ function ListItem({
         <Link
           to={href}
           className={cn(
-            'block select-none rounded-md py-2 px-0 leading-none text-gray-600 no-underline outline-none transition-colors hover:bg-transparent hover:text-secondary focus:bg-transparent focus:text-secondary',
+            'block select-none rounded-md py-2 px-0 leading-none text-foreground no-underline outline-none transition-colors hover:bg-transparent hover:text-primary  focus:bg-transparent focus:text-primary font-medium',
             className
           )}
           {...props}
