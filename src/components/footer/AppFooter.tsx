@@ -36,7 +36,7 @@ function AppFooter() {
             ))}
           </div>
         </div>
-        <div className="border-t mt-8 pt-4 text-center text-accent-foreground">
+        <div className="border-t mt-8 pt-4 text-center text-background">
           <p>
             &copy; 2025{' '}
             <span className="font-semibold text-primary">Bollymoon</span>. All

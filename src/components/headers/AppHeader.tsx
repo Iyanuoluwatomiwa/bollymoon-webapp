@@ -7,12 +7,15 @@ import Wishlist from './Wishlist'
 import Profile from './Profile'
 import Cart from './Cart'
 import Container from '../global/Container'
+import { Tooltip, TooltipTrigger } from '../ui/tooltip'
+import { TooltipContent } from '@radix-ui/react-tooltip'
 
 function AppHeader() {
   const [showHeader, setShowHeader] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
   const { toggleSidebar } = useSidebar()
   const [showSearchBar, setShowSearchBar] = useState(false)
+  const [open, setOpen] = useState(false)
   const onSearch = (searchQuery: string) => {
     console.log(searchQuery)
   }
@@ -77,9 +80,28 @@ function AppHeader() {
             <Navbar />
           </div>
           <div className="flex flex-row gap-x-4 md:gap-6 items-center">
-            <button onClick={() => setShowSearchBar(true)}>
-              <Search className="h-5 w-5 md:h-6 md:w-6 hover:text-primary text-white cursor-pointer" />
-            </button>
+            <Tooltip open={open} onOpenChange={setOpen}>
+              <TooltipTrigger
+                onMouseEnter={() => setOpen(true)}
+                onMouseLeave={() => setOpen(false)}
+              >
+                <button onClick={() => setShowSearchBar(true)}>
+                  <Search className="h-5 w-5 md:h-6 md:w-6 hover:text-primary text-white cursor-pointer" />
+                </button>
+              </TooltipTrigger>
+              <TooltipContent
+                side="bottom"
+                sideOffset={0}
+                className="translate-x-6"
+                onMouseEnter={() => setOpen(false)}
+                onMouseLeave={() => setOpen(false)}
+              >
+                <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-none border">
+                  Search
+                </span>
+              </TooltipContent>
+            </Tooltip>
+
             <Wishlist />
             <Cart />
             <Profile />

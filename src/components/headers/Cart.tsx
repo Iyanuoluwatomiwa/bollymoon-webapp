@@ -3,14 +3,18 @@ import { ShoppingCart } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
+import { useState } from 'react'
 
 function Cart() {
   const { numItemsInCart } = useSelector((state: any) => state.cartState)
   const pathname = useLocation().pathname
-
+  const [open, setOpen] = useState(false)
   return (
-    <Tooltip>
-      <TooltipTrigger>
+    <Tooltip open={open} onOpenChange={setOpen}>
+      <TooltipTrigger
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
         <div className="relative">
           <NavLink to="/cart">
             <span className="sr-only">cart</span>
@@ -27,7 +31,13 @@ function Cart() {
           </span>
         </div>
       </TooltipTrigger>
-      <TooltipContent side="bottom" sideOffset={0} className="translate-x-6">
+      <TooltipContent
+        side="bottom"
+        sideOffset={0}
+        className="translate-x-6"
+        onMouseEnter={() => setOpen(false)}
+        onMouseLeave={() => setOpen(false)}
+      >
         <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-none border">
           Cart
         </span>

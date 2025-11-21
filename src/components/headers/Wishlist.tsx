@@ -2,13 +2,17 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { Heart } from 'lucide-react'
 import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
+import { useState } from 'react'
 
 function Wishlist() {
   const pathname = useLocation().pathname
-
+  const [open, setOpen] = useState(false)
   return (
-    <Tooltip>
-      <TooltipTrigger>
+    <Tooltip open={open} onOpenChange={setOpen}>
+      <TooltipTrigger
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
         <div className="relative">
           <NavLink to="/wishlist">
             <span className="sr-only">wishlist</span>
@@ -28,7 +32,9 @@ function Wishlist() {
       <TooltipContent
         side="bottom"
         sideOffset={0}
-        className="translate-x-6 hover:hidden"
+        className="translate-x-6"
+        onMouseEnter={() => setOpen(false)}
+        onMouseLeave={() => setOpen(false)}
       >
         <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-none border">
           Wishlist
