@@ -12,22 +12,18 @@ function Wishlist() {
       <TooltipTrigger
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
+        asChild
       >
-        <div className="relative">
-          <NavLink to="/wishlist">
-            <span className="sr-only">wishlist</span>
-            <Heart
-              className={`h-5 w-5 lg:h-6 lg:w-6 ${
-                pathname === '/wishlist'
-                  ? 'text-primary fill-primary'
-                  : 'text-white fill-white hover:text-primary hover:fill-primary'
-              }`}
-            />
-          </NavLink>
-          <span className="absolute -top-1.5 lg:-top-2 -right-2.5 lg:-right-3 text-[10px] lg:text-xs font-bold bg-primary text-primary-foreground w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center">
-            0{/* {numItemsInCart <= 9 ? numItemsInCart : '9+'} */}
-          </span>
-        </div>
+        <NavLink to="/wishlist" className="hidden lg:inline-block">
+          <span className="sr-only">wishlist</span>
+          <Heart
+            className={`h-5 w-5 lg:h-6 lg:w-6 ${
+              pathname === '/wishlist'
+                ? 'text-primary fill-primary'
+                : 'text-white fill-white hover:text-primary hover:fill-primary'
+            }`}
+          />
+        </NavLink>
       </TooltipTrigger>
       <TooltipContent
         side="bottom"

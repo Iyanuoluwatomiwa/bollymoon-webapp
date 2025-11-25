@@ -1,36 +1,25 @@
-import { useDispatch, useSelector } from 'react-redux'
-import CartItem from './CartItem'
-import type { CartItemType } from '@/utils/types'
-import { Button } from '../ui/button'
-import { X } from 'lucide-react'
-import { clearCart } from '@/features/cart/cartSlice'
-import { toast } from 'sonner'
+import { useSelector } from 'react-redux'
+import CartItemCard from './CartItemCard'
+import type { CartItem } from '@/types/product.types'
 
 function CartItems() {
-  const { numItemsInCart, cartItems } = useSelector(
+  const {
+    numItemsInCart,
+    cartItems,
+  }: { numItemsInCart: number; cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
-  const dispatch = useDispatch()
-  const clearCartItems = () => {
-    dispatch(clearCart())
-    toast.success('Cart Cleared')
-  }
 
   return (
     <>
       <div className="flex items-center justify-between mb-8">
-        <h1 className="text-xl font-bold text-foreground/80">
+        <h1 className="text-2xl md:text-3xl font-bold text-foreground">
           Cart ({numItemsInCart})
         </h1>
-        <Button variant="destructive" size="sm" onClick={clearCartItems}>
-          Clear Cart
-          <X className="w-6 h-6" />
-        </Button>
       </div>
-
-      <div className="space-y-6">
-        {cartItems.map((cartItem: CartItemType, index: number) => {
-          return <CartItem key={index} cartItem={cartItem} />
+      <div className="space-y-4">
+        {cartItems.map((cartItem) => {
+          return <CartItemCard key={cartItem.id} {...cartItem} />
         })}
       </div>
     </>

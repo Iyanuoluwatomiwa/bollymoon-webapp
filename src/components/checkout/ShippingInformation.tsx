@@ -1,10 +1,10 @@
 import { Truck } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
-import { ShippingInformationForm } from '../formTypes'
+import ShippingInformationForm from '../forms/ShippingInformationForm'
 
 function ShippingInformation() {
   return (
-    <Card>
+    <Card className="rounded-sm">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <Truck className="w-5 h-5" />

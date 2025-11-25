@@ -6,7 +6,7 @@ function ShippingAddress() {
   const { firstname, lastname, address, city, state, zipcode, country } =
     shippingForm
   return (
-    <Card className="bg-muted border-0">
+    <Card className="bg-muted border-0 rounded-sm">
       <CardHeader>
         <CardTitle>Shipping Address</CardTitle>
       </CardHeader>

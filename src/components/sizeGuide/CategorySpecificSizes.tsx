@@ -20,7 +20,10 @@ function CategorySpecificSizes({
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
         <Info className="h-4 w-4" />
-        Available sizes for {categoryTitle && categoryTitle.toLowerCase()}
+        Available sizes for{' '}
+        <span className="capitalize">
+          {categoryTitle && categoryTitle.toLowerCase()}
+        </span>
       </div>
       <div className="grid grid-cols-4 gap-2">
         {sizes?.map((size) => (

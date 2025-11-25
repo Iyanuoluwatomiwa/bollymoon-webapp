@@ -1,15 +1,13 @@
 import { Button } from '../components/ui/button'
 import { Link } from 'react-router-dom'
-import { PageHeading } from '@/components/headings'
 import accessDenied from '../assets/images/access-denied.svg'
+import PageTitle from '@/components/global/PageTitle'
 
 function RestrictedAccess() {
   return (
     <main className="grid min-h-[100vh] place-items-center px-8">
-      <PageHeading
-        pageTitle="Access Restricted"
-        pageDesc="Sorry, you don't have the necessary authorization to view this page."
-      />
+      <PageTitle title="Access Restricted" />
+
       <div className="text-center my-10">
         <figure className="w-1/3 mx-auto">
           <img src={accessDenied} alt="access denied" />

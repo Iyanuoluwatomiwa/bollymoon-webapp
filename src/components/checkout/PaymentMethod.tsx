@@ -1,10 +1,10 @@
 import { Check } from 'lucide-react'
 import { Card } from '../ui/card'
-import type { PaymentMethodOption } from '@/utils/types'
 import { useDispatch, useSelector } from 'react-redux'
 import { handlePaymentMethod } from '@/features/checkout/checkoutSlice'
 import { Badge } from '../ui/badge'
-import { paymentMethods } from '@/utils/data'
+import { paymentMethods } from '@/assets/data'
+import type { PaymentMethodOption } from '@/types/payment.types'
 
 function PaymentMethod() {
   const { paymentMethod } = useSelector((state: any) => state.checkoutState)

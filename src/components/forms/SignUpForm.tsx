@@ -1,16 +1,15 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { AuthFormsHeading } from '../headings'
+import { Link } from 'react-router-dom'
 import { Card, CardContent } from '../ui/card'
 import { signupFormSchema } from '@/utils/schema'
-import { useContext, useState, type FormEvent } from 'react'
-import { SignInOptions } from '../auth'
-import { Logo } from '../global'
+import { useState, type FormEvent } from 'react'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
-import { RedirectPathContext } from '../redirectPath/redirectPathProvider'
 import FormInput from '../form-fields/FormInput'
 import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
+import Logo from '../global/Logo'
+import AuthFormsHeading from '../headings/AuthFormsHeading'
+import SignInOptions from '../auth/SignInOptions'
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -19,8 +18,6 @@ function SignUpForm() {
     confirmPassword: '',
   })
   const [submitting, setSubmitting] = useState<boolean>(false)
-  const navigate = useNavigate()
-  const { pathname, setPathname } = useContext(RedirectPathContext)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -37,9 +34,8 @@ function SignUpForm() {
     const { signUp } = await import('@/utils/action')
     signUp(request) */
     toast.success('Account created successfully!')
-    navigate(pathname)
-    setSubmitting(false)
-    return setPathname('/')
+
+    return setSubmitting(false)
   }
   return (
     <Card className="bg-white py-0 gap-4 ">

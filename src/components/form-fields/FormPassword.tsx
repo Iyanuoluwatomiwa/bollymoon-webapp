@@ -41,7 +41,7 @@ function FormPassword({
           placeholder={placeholder}
           type={`${showPassword ? 'password' : 'text'}`}
           required={required}
-          className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base`}
+          className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base h-10`}
         />
         <Button
           asChild={true}

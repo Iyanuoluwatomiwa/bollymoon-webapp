@@ -1,7 +1,7 @@
-import type { CheckoutType } from '@/utils/types'
+import type { Checkout } from '@/types/checkout.types'
 import { createSlice } from '@reduxjs/toolkit'
 
-const defaultState: CheckoutType = {
+const defaultState: Checkout = {
   shippingForm: {
     email: '',
     firstname: '',
@@ -9,9 +9,9 @@ const defaultState: CheckoutType = {
     address: '',
     city: '',
     state: '',
-    zipcode: '',
+    postcode: '',
     phone: '',
-    country: 'Nigeria',
+    country: 'United Kingdom',
   },
   step: 1,
   paymentMethod: {
@@ -49,9 +49,9 @@ const checkoutSlice = createSlice({
         address: '',
         city: '',
         state: '',
-        zipcode: '',
+        postcode: '',
         phone: '',
-        country: 'Nigeria',
+        country: 'United Kingdom',
       }
     },
   },

@@ -1,4 +1,3 @@
-import { sizeGuide } from '@/utils/data'
 import {
   Table,
   TableBody,
@@ -8,6 +7,7 @@ import {
   TableRow,
 } from '../ui/table'
 import { Label } from '../ui/label'
+import { sizeGuide } from '@/assets/data'
 
 function ClothingTable() {
   return (

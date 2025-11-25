@@ -1,17 +1,11 @@
-import { ProgressIndicator } from '@/components/checkout'
 import { useSelector } from 'react-redux'
 import SubPagesHeader from '@/components/headers/SubPagesHeader'
-import { sectionSuspense } from '@/utils/suspense'
-import { lazy } from 'react'
-import { PageHeading } from '@/components/headings'
-
-const ShippingInformation = lazy(
-  () => import('@/components/checkout/ShippingInformation')
-)
-const OrderReview = lazy(() => import('@/components/checkout/OrderReview'))
-const PaymentInformation = lazy(
-  () => import('@/components/checkout/PaymentInformation')
-)
+import PageTitle from '@/components/global/PageTitle'
+import ShippingInformation from '@/components/checkout/ShippingInformation'
+import OrderReview from '@/components/checkout/OrderReview'
+import PaymentInformation from '@/components/checkout/PaymentInformation'
+import Container from '@/components/global/Container'
+import ProgressIndicator from '@/components/checkout/ProgressIndicator'
 
 const Checkout = () => {
   const { step }: { step: number } = useSelector(
@@ -26,18 +20,19 @@ const Checkout = () => {
   const Component = checkoutComponents[step]
 
   return (
-    <div className="min-h-screen container">
-      <PageHeading pageTitle="Checkout" pageDesc="Place your order" />
-      <SubPagesHeader currentPage="Checkout" previousPage="cart" />
+    <>
+      <PageTitle title="Checkout" />
+      <Container className="py-10">
+        <div className="space-y-6">
+          <SubPagesHeader currentPage="Checkout" previousPage="cart" />
 
-      <div className="pt-2 pb-12 space-y-8">
-        <ProgressIndicator />
-
-        <section className="max-w-4xl mx-auto">
-          {sectionSuspense(<Component />)}
-        </section>
-      </div>
-    </div>
+          <ProgressIndicator />
+          <section className="max-w-lg mt-16 mx-auto">
+            <Component />
+          </section>
+        </div>
+      </Container>
+    </>
   )
 }
 

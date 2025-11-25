@@ -1,5 +1,4 @@
 import { useState, type FormEvent } from 'react'
-import { AuthFormsHeading } from '../headings'
 import { Card, CardContent } from '../ui/card'
 import { useNavigate } from 'react-router-dom'
 import { resetPasswordSchema } from '@/utils/schema'
@@ -7,7 +6,8 @@ import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { toast } from 'sonner'
 import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
-import { Logo } from '../global'
+import Logo from '../global/Logo'
+import AuthFormsHeading from '../headings/AuthFormsHeading'
 
 function ResetPasswordForm() {
   const [formData, setFormData] = useState({

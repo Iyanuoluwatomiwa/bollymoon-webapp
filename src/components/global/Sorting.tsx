@@ -1,4 +1,3 @@
-import type { SelectItems } from '@/utils/types'
 import { Label } from '../ui/label'
 import {
   Select,
@@ -12,7 +11,10 @@ import { ArrowUpDown } from 'lucide-react'
 interface SortingProp {
   sortBy: string
   setSortBy: (value: string) => void
-  options: SelectItems[]
+  options: {
+    label: string
+    value: string
+  }[]
 }
 
 function Sorting({ sortBy, setSortBy, options }: SortingProp) {

@@ -1,10 +1,10 @@
-import { Ratings } from '@/components/global'
 import { Card, CardContent } from '@/components/ui/card'
 import { formatCreatedAt } from '@/utils/format'
-import type { ReviewsType } from '@/utils/types'
+import Ratings from './Ratings'
+import type { Review } from '@/types/reviews.type'
 
 interface ProductReviewsProp {
-  reviews: ReviewsType[] | undefined
+  reviews: Review[] | undefined
   displayProductName?: boolean
 }
 

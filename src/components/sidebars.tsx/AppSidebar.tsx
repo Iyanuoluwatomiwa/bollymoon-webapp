@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/sidebar'
 import { Link, NavLink } from 'react-router-dom'
 import { ChevronDown, X } from 'lucide-react'
-import { navLinks } from '@/assets/data'
+import { sidebarLinks } from '@/assets/data'
 import {
   Collapsible,
   CollapsibleContent,
@@ -43,16 +43,19 @@ function AppSidebar() {
         <SidebarContent className="px-3 gap-0 bg-background space-y-1">
           <SidebarMenu>
             <SidebarMenuItem>
-              <NavLink to={navLinks.home.url} className={getClassName}>
-                {navLinks.home.name}
+              <NavLink to={sidebarLinks.home.url} className={getClassName}>
+                {sidebarLinks.home.name}
               </NavLink>
             </SidebarMenuItem>
           </SidebarMenu>
           <Collapsible className="group/collapsible">
             <SidebarGroup className=" p-0">
               <SidebarGroupLabel className="rounded-none p-0 w-full flex items-center justify-between gap-2">
-                <NavLink className={getClassName} to={navLinks.collections.url}>
-                  {navLinks.collections.name}
+                <NavLink
+                  className={getClassName}
+                  to={sidebarLinks.collections.url}
+                >
+                  {sidebarLinks.collections.name}
                 </NavLink>
                 <CollapsibleTrigger>
                   <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180 text-foreground cursor-pointer hover:text-primary" />
@@ -61,7 +64,7 @@ function AppSidebar() {
               <CollapsibleContent>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {navLinks.collections.categories.map((category) => (
+                    {sidebarLinks.collections.categories.map((category) => (
                       <SidebarMenuItem key={category.name}>
                         <Link
                           to={category.href}
@@ -79,8 +82,8 @@ function AppSidebar() {
           <Collapsible className="group/collapsible">
             <SidebarGroup className="p-0">
               <SidebarGroupLabel className="rounded-none p-0 w-full flex items-center justify-between gap-2">
-                <NavLink to={navLinks.shop.url} className={getClassName}>
-                  {navLinks.shop.name}
+                <NavLink to={sidebarLinks.shop.url} className={getClassName}>
+                  {sidebarLinks.shop.name}
                 </NavLink>
                 <CollapsibleTrigger>
                   <ChevronDown className="ml-auto transition-transform group-data-[state=open]/collapsible:rotate-180 text-foreground cursor-pointer hover:text-primary" />
@@ -88,56 +91,65 @@ function AppSidebar() {
               </SidebarGroupLabel>
               <CollapsibleContent>
                 <SidebarGroupContent>
-                  {Object.values(navLinks.shop.categories).map((category) => {
-                    return (
-                      <Collapsible key={category.name} className="group">
-                        <SidebarGroup className="px-0 pr-1 py-0">
-                          <SidebarGroupLabel className="rounded-none p-0 w-full flex items-center justify-between gap-2">
-                            <Link
-                              to={category.url}
-                              className="flex-1 text-sm text-gray-800 hover:text-primary hover:bg-primary/10 py-1 px-2"
-                            >
-                              {category.name}
-                            </Link>
-                            <CollapsibleTrigger>
-                              <ChevronDown className="ml-auto transition-transform group-data-[state=open]:rotate-180 text-foreground cursor-pointer hover:text-primary" />
-                            </CollapsibleTrigger>
-                          </SidebarGroupLabel>
-                          <CollapsibleContent>
-                            <SidebarGroupContent>
-                              <SidebarMenu>
-                                {category.subcategories.map((sub) => (
-                                  <SidebarMenuItem key={sub.name}>
-                                    <Link
-                                      to={sub.href}
-                                      className="block  py-1 px-3 text-xs font-normal text-gray-600 hover:text-primary hover:bg-primary/10"
-                                    >
-                                      {sub.name}
-                                    </Link>
-                                  </SidebarMenuItem>
-                                ))}
-                              </SidebarMenu>
-                            </SidebarGroupContent>
-                          </CollapsibleContent>
-                        </SidebarGroup>
-                      </Collapsible>
-                    )
-                  })}
+                  {Object.values(sidebarLinks.shop.categories).map(
+                    (category) => {
+                      return (
+                        <Collapsible key={category.name} className="group">
+                          <SidebarGroup className="px-0 pr-1 py-0">
+                            <SidebarGroupLabel className="rounded-none p-0 w-full flex items-center justify-between gap-2">
+                              <Link
+                                to={category.url}
+                                className="flex-1 text-sm text-gray-800 hover:text-primary hover:bg-primary/10 py-1 px-2"
+                              >
+                                {category.name}
+                              </Link>
+                              <CollapsibleTrigger>
+                                <ChevronDown className="ml-auto transition-transform group-data-[state=open]:rotate-180 text-foreground cursor-pointer hover:text-primary" />
+                              </CollapsibleTrigger>
+                            </SidebarGroupLabel>
+                            <CollapsibleContent>
+                              <SidebarGroupContent>
+                                <SidebarMenu>
+                                  {category.subcategories.map((sub) => (
+                                    <SidebarMenuItem key={sub.name}>
+                                      <Link
+                                        to={sub.href}
+                                        className="block  py-1 px-3 text-xs font-normal text-gray-600 hover:text-primary hover:bg-primary/10"
+                                      >
+                                        {sub.name}
+                                      </Link>
+                                    </SidebarMenuItem>
+                                  ))}
+                                </SidebarMenu>
+                              </SidebarGroupContent>
+                            </CollapsibleContent>
+                          </SidebarGroup>
+                        </Collapsible>
+                      )
+                    }
+                  )}
                 </SidebarGroupContent>
               </CollapsibleContent>
             </SidebarGroup>
           </Collapsible>
           <SidebarMenu>
             <SidebarMenuItem>
-              <NavLink to={navLinks.about.url} className={getClassName}>
-                {navLinks.about.name}
+              <NavLink to={sidebarLinks.wishlist.url} className={getClassName}>
+                {sidebarLinks.wishlist.name}
               </NavLink>
             </SidebarMenuItem>
           </SidebarMenu>
           <SidebarMenu>
             <SidebarMenuItem>
-              <NavLink to={navLinks.contact.url} className={getClassName}>
-                {navLinks.contact.name}
+              <NavLink to={sidebarLinks.about.url} className={getClassName}>
+                {sidebarLinks.about.name}
+              </NavLink>
+            </SidebarMenuItem>
+          </SidebarMenu>
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <NavLink to={sidebarLinks.contact.url} className={getClassName}>
+                {sidebarLinks.contact.name}
               </NavLink>
             </SidebarMenuItem>
           </SidebarMenu>

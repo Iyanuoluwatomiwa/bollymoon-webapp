@@ -1,4 +1,4 @@
-import type { productSizesList } from '@/utils/data'
+import type { productSizesList } from '@/assets/data'
 import { useState } from 'react'
 
 export const useProductDialog = () => {

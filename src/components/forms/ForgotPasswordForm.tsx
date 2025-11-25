@@ -1,12 +1,12 @@
 import { useState, type FormEvent } from 'react'
-import { AuthFormsHeading } from '../headings'
 import { Card, CardContent } from '../ui/card'
 import { forgotPasswordSchema } from '@/utils/schema'
-import { Logo } from '../global'
 import { toast } from 'sonner'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import FormInput from '../form-fields/FormInput'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
+import Logo from '../global/Logo'
+import AuthFormsHeading from '../headings/AuthFormsHeading'
 
 function ForgotPasswordForm() {
   const [formData, setFormData] = useState({

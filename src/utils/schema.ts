@@ -1,27 +1,6 @@
 import { toast } from 'sonner'
 import { z, ZodSchema } from 'zod'
 
-export const signupFormSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  password: z
-    .string()
-    .min(6, { message: 'Password must contain at least 6 character(s).' })
-    .max(50),
-  confirmPassword: z
-    .string()
-    .min(6, { message: 'Password must contain at least 6 character(s).' })
-    .max(50),
-})
-
-export type SignupFormSchema = z.infer<typeof signupFormSchema>
-
-export const loginFormSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6).max(50),
-})
-
-export type LoginFormSchema = z.infer<typeof loginFormSchema>
-
 export const logisticsFormSchema = z.object({
   role: z.enum(['buyer', 'vendor', 'logistics'], {
     required_error: 'You need to select an account type',
@@ -142,25 +121,6 @@ export const emptySchema = z.object({
 
 export type EmptySchema = z.infer<typeof emptySchema>
 
-export const forgotPasswordSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-})
-
-export type ForgotPasswordSchema = z.infer<typeof forgotPasswordSchema>
-
-export const resetPasswordSchema = z.object({
-  password: z
-    .string()
-    .min(6, { message: 'Password must contain at least 6 character(s)' })
-    .max(50),
-  confirmPassword: z
-    .string()
-    .min(6, { message: 'Password must contain at least 6 character(s)' })
-    .max(50),
-})
-
-export type ResetPasswordSchema = z.infer<typeof resetPasswordSchema>
-
 export function validateWithZodSchema<T>(schema: ZodSchema<T>, data: unknown) {
   const result = schema.safeParse(data)
   if (!result.success) {
@@ -225,37 +185,6 @@ export const reviewSchema = z.object({
   userid: z.string(),
 })
 
-export const shippingInfoSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email' }),
-  firstname: z
-    .string()
-    .trim()
-    .min(2, { message: 'Please enter a valid first name' }),
-  lastname: z.string().trim().min(2, { message: 'Please enter a last name.' }),
-  address: z.string().refine(
-    (address) => {
-      const wordCount = address.split(' ').length
-      return wordCount >= 4
-    },
-    {
-      message: 'Please enter a valid address',
-    }
-  ),
-  zipcode: z
-    .string()
-    .length(6, { message: 'Please enter a valid zip or postal code' }),
-  city: z.string().trim().min(3, { message: 'Please enter valid city' }),
-  state: z.string().trim().min(3, { message: 'Please enter valid state' }),
-  country: z.string(),
-  phone: z
-    .string()
-    .trim()
-    .startsWith('0', { message: 'Phone number must start with 0' })
-    .length(11, {
-      message: 'Please enter a valid 11-digit phone number',
-    }),
-})
-
 export const registrationSchemaMap = {
   buyer: buyerFormSchema,
   vendor: vendorFormSchema,
@@ -297,4 +226,67 @@ export const ProfileFormSchema = z.object({
 
 export const PasswordFormSchema = z.object({
   password: z.string().min(6).max(50),
+})
+
+////
+
+export const signupFormSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email address' }),
+  password: z
+    .string()
+    .min(6, { message: 'Password must contain at least 6 character(s).' })
+    .max(50),
+  confirmPassword: z
+    .string()
+    .min(6, { message: 'Password must contain at least 6 character(s).' })
+    .max(50),
+})
+
+export const loginFormSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(6).max(50),
+})
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email address' }),
+})
+
+export const resetPasswordSchema = z.object({
+  password: z
+    .string()
+    .min(6, { message: 'Password must contain at least 6 character(s)' })
+    .max(50),
+  confirmPassword: z
+    .string()
+    .min(6, { message: 'Password must contain at least 6 character(s)' })
+    .max(50),
+})
+
+export const shippingInfoSchema = z.object({
+  email: z.string().email({ message: 'Please enter a valid email' }),
+  firstname: z
+    .string()
+    .trim()
+    .min(2, { message: 'Please enter a valid first name' }),
+  lastname: z.string().trim().min(2, { message: 'Please enter a last name.' }),
+  address: z.string().refine(
+    (address) => {
+      const wordCount = address.split(' ').length
+      return wordCount >= 4
+    },
+    {
+      message: 'Please enter a valid address',
+    }
+  ),
+  postcode: z.string().min(5, { message: 'Please enter a valid postal code' }),
+  city: z.string().trim().min(3, { message: 'Please enter valid city' }),
+  state: z.string().trim().min(3, { message: 'Please enter valid state' }),
+  country: z.string(),
+  phone: z
+    .string()
+    .trim()
+    .startsWith('0', { message: 'Phone number must start with 0' })
+    .length(11, {
+      message: 'Please enter a valid 11-digit phone number',
+    }),
 })

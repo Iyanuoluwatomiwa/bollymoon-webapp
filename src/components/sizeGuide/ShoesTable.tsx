@@ -1,4 +1,4 @@
-import { sizeGuide } from '@/utils/data'
+import { sizeGuide } from '@/assets/data'
 import {
   Table,
   TableBody,

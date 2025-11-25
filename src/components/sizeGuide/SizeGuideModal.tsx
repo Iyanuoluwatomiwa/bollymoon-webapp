@@ -4,14 +4,13 @@ import CategorySpecificSizes from './CategorySpecificSizes'
 import { Button } from '../ui/button'
 import { lazy } from 'react'
 import { Separator } from '../ui/separator'
-import type { productSizesList } from '@/utils/data'
+import type { productSizesList } from '@/assets/data'
 
 interface SizeGuideModalProp {
   onClose: () => void
   isSizeGuideOpen: boolean
   productCategory: keyof typeof productSizesList | null | undefined
 }
-
 const ClothingTable = lazy(() => import('@/components/sizeGuide/ClothingTable'))
 const ShoesTable = lazy(() => import('@/components/sizeGuide/ShoesTable'))
 const Numeric = lazy(() => import('@/components/sizeGuide/Numeric'))
@@ -42,8 +41,8 @@ function SizeGuideModal({
         isSizeGuideOpen ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
       } animation duration-150 inset-0 fixed flex items-center justify-center z-[100] bg-background/50`}
     >
-      <div className="max-w-[700px] w-[90%] max-h-[85vh] overflow-y-auto bg-background p-6 border rounded-xl relative">
-        <div className="flex items-center text-lg font-semibold gap-2 mb-4">
+      <div className="max-w-[600px] w-[95%] max-h-[70vh] overflow-y-auto space-y-6 p-3 md:p-4 pt-8 border rounded-xl relative z-50 bg-white">
+        <div className="flex items-center text-lg font-semibold gap-2 mb-4 capitalize">
           <Ruler className="h-5 w-5" />
           Size Guide - {categoryTitle}
         </div>

@@ -10,7 +10,7 @@ function OrderSummary() {
   )
 
   return (
-    <Card className="sticky top-20">
+    <Card className="sticky top-20 rounded-sm py-4 px-0">
       <CardHeader>
         <CardTitle>Order Summary</CardTitle>
       </CardHeader>
@@ -39,11 +39,8 @@ function OrderSummary() {
         </div>
 
         {/* Checkout Button */}
-        <Link to="checkout" className="block">
-          <Button
-            className="w-full bg-purple-600 hover:bg-purple-700"
-            size="lg"
-          >
+        <Link to="/checkout" className="block">
+          <Button className="w-full " size="lg">
             Proceed to Checkout
           </Button>
         </Link>

@@ -1,5 +1,5 @@
 import SignUpForm from '@/components/forms/SignUpForm'
-import { Container } from '@/components/global'
+import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
 import BackNavHeader from '@/components/headers/BackNavHeader'
 import { Link } from 'react-router-dom'

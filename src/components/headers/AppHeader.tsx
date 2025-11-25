@@ -1,4 +1,3 @@
-import { Logo, SearchBar } from '../global'
 import { useSidebar } from '../ui/sidebar'
 import { useEffect, useState } from 'react'
 import Navbar from './Navbar'
@@ -9,6 +8,8 @@ import Cart from './Cart'
 import Container from '../global/Container'
 import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
+import SearchBar from '../global/SearchBar'
+import Logo from '../global/Logo'
 
 function AppHeader() {
   const [showHeader, setShowHeader] = useState(true)
@@ -25,7 +26,11 @@ function AppHeader() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY
+          if (currentScrollY > lastScrollY || currentScrollY < lastScrollY) {
+            setShowSearchBar(false)
+          }
           setShowHeader(currentScrollY <= 50 || currentScrollY < lastScrollY)
+
           setLastScrollY(currentScrollY)
           ticking = false
         })
@@ -50,10 +55,14 @@ function AppHeader() {
         className={`fixed bg-primary  top-0 inset-0  transition duration-300 -z-10 h-[72px] `}
       >
         <div className="flex items-center h-[72px] relative">
-          <SearchBar onSearch={onSearch} placeholder="Search Our Store" />
+          <SearchBar
+            onSearch={onSearch}
+            placeholder="Search Our Store"
+            width={`w-[85%] md:w-[70%] max-w-xl mx-auto`}
+          />
         </div>
         <button
-          className="absolute right-0 md:right-4 top-1/2 -translate-y-1/2"
+          className="absolute right-0.5 sm:right-2 md:right-4 top-1/2 -translate-y-1/2"
           onClick={() => setShowSearchBar(false)}
         >
           <X className="h-6 w-6 text-foreground hover:text-secondary cursor-pointer" />
@@ -84,8 +93,9 @@ function AppHeader() {
               <TooltipTrigger
                 onMouseEnter={() => setOpen(true)}
                 onMouseLeave={() => setOpen(false)}
+                asChild
               >
-                <button onClick={() => setShowSearchBar(true)}>
+                <button onClick={() => setShowSearchBar(true)} className="">
                   <Search className="h-5 w-5 md:h-6 md:w-6 hover:text-primary text-white cursor-pointer" />
                 </button>
               </TooltipTrigger>
@@ -101,7 +111,6 @@ function AppHeader() {
                 </span>
               </TooltipContent>
             </Tooltip>
-
             <Wishlist />
             <Cart />
             <Profile />

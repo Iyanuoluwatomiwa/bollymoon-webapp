@@ -5,19 +5,20 @@ import { useState } from 'react'
 interface SearchBarProp {
   placeholder: string
   onSearch: (searchQuery: string) => void
+  width?: string
 }
-function SearchBar({ onSearch, placeholder }: SearchBarProp) {
+function SearchBar({ onSearch, placeholder, width }: SearchBarProp) {
   const [searchQuery, setSearchQuery] = useState('')
   const handleSearch = (searchQuery: string) => {
     onSearch(searchQuery)
   }
   return (
-    <div className="relative w-[85%] md:w-[70%] max-w-xl mx-auto">
+    <div className={`relative ${width} `}>
       <Input
         placeholder={placeholder}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="px-8 text-sm outline-none focus-visible:outline-none focus-visible:ring-0 w-full rounded-full bg-white h-10 
+        className="px-8 text-sm outline-none focus-visible:outline-none  w-full rounded-full bg-white h-10 
           placeholder:text-sm"
         type="search"
         name="search"

@@ -4,7 +4,6 @@ import PaymentMethod from './PaymentMethod'
 import { Button } from '../ui/button'
 import { useDispatch } from 'react-redux'
 import { handleStepChange } from '@/features/checkout/checkoutSlice'
-import PaystackPaymentButton from './PaystackPaymentButton'
 
 function PaymentInformation() {
   const dispatch = useDispatch()
@@ -12,7 +11,7 @@ function PaymentInformation() {
     dispatch(handleStepChange({ step }))
   }
   return (
-    <Card>
+    <Card className="rounded-sm">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <CreditCard className="w-5 h-5" />
@@ -24,12 +23,12 @@ function PaymentInformation() {
         <div className="flex space-x-3 mt-8">
           <Button
             variant="outline"
+            size="lg"
             onClick={() => handleStep(2)}
             className="flex-1"
           >
             Back to Review
           </Button>
-          <PaystackPaymentButton />
         </div>
       </CardContent>
     </Card>

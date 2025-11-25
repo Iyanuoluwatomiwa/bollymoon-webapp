@@ -1,7 +1,7 @@
 import type { VendorCard } from '@/utils/types'
 import VendorListCard from './VendorListCard'
 import { lazy } from 'react'
-import { nullSuspense } from '@/utils/suspense'
+import { nullSuspense } from '@/components/skeletons/suspense'
 import { Users } from 'lucide-react'
 
 interface VendorListProp {

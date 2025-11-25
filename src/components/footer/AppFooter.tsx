@@ -1,9 +1,10 @@
 import Logo from '../global/Logo'
-import { Container } from '../global'
+
 import { footer } from '@/assets/data'
 import Contact from './Contact'
 import SocialLink from './SocialLink'
 import FooterLink from './FooterLink'
+import Container from '../global/Container'
 
 function AppFooter() {
   return (
@@ -17,7 +18,7 @@ function AppFooter() {
                 Connecting fashion enthusiasts with diverse vendors.
               </p>
             </div>
-            <div className="space-y-4">
+            <div className="space-y-6">
               <div className="space-y-2">
                 {footer.contacts.map((contact) => (
                   <Contact key={contact.text} {...contact} />

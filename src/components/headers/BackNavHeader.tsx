@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { Container } from '../global'
 import { ChevronLeft } from 'lucide-react'
+import Container from '../global/Container'
 
 export default function BackNavHeader() {
   const navigate = useNavigate()

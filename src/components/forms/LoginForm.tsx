@@ -1,27 +1,23 @@
-import { RedirectPathContext } from '@/components/redirectPath/redirectPathProvider'
 import { loginFormSchema } from '@/utils/schema'
-import { useContext, useState, type FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useState, type FormEvent } from 'react'
+import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Card, CardContent } from '../ui/card'
-import { AuthFormsHeading } from '../headings'
-
-import { SignInOptions } from '../auth'
-import { Logo } from '../global'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import FormInput from '../form-fields/FormInput'
 import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
+import Logo from '../global/Logo'
+import AuthFormsHeading from '../headings/AuthFormsHeading'
+import SignInOptions from '../auth/SignInOptions'
 
 function LoginForm() {
-  const navigate = useNavigate()
   /* const dispatch = useDispatch() */
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
   const [submitting, setSubmitting] = useState(false)
-  const { pathname, setPathname } = useContext(RedirectPathContext)
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -44,9 +40,8 @@ function LoginForm() {
       })
     ) */
     toast.success("Welcome, you've logged in successfully!")
-    navigate(pathname)
-    setSubmitting(false)
-    return setPathname('/')
+
+    return setSubmitting(false)
   }
   return (
     <Card className="bg-white py-0 gap-4 w-full">

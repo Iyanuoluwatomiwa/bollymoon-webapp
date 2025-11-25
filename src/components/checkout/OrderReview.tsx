@@ -13,7 +13,7 @@ function OrderReview() {
   }
 
   return (
-    <Card>
+    <Card className="rounded-sm">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <MapPin className="w-5 h-5" />
@@ -31,6 +31,7 @@ function OrderReview() {
           <div className="flex space-x-3 mt-8">
             <Button
               variant="outline"
+              size="lg"
               onClick={() => handleStep(1)}
               className="flex-1"
             >
@@ -38,6 +39,7 @@ function OrderReview() {
             </Button>
             <Button
               type="submit"
+              size="lg"
               className="flex-1"
               onClick={() => handleStep(3)}
             >

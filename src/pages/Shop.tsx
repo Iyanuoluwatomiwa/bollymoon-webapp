@@ -1,31 +1,17 @@
-import { lazy, Suspense, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { SlidersHorizontal } from 'lucide-react'
-import type { ProductFilter } from '@/utils/types'
-import { SearchBar, Sorting, ViewModeToggle } from '@/components/global'
-
-import {
-  ProductGridCardSkeleton,
-  ProductListCardSkeleton,
-} from '@/components/skeletons'
-import { useAllProducts } from '@/utils/hooks'
-import { PageHeading, QueryHeading } from '@/components/headings'
-import { marketplaceSorting } from '@/utils/data'
-import { advancedFilterSuspense, sectionSuspense } from '@/utils/suspense'
-import LazyLoad from 'react-lazyload'
-
-const AdvancedFilters = lazy(
-  () => import('@/components/marketplace/AdvancedFilters')
-)
-const CategoriesCarousel = lazy(
-  () => import('@/components/marketplace/CategoriesCarousel')
-)
-const ProductGrid = lazy(() => import('@/components/marketplace/ProductGrid'))
-const ProductList = lazy(() => import('@/components/marketplace/ProductList'))
-
-const CustomPagination = lazy(
-  () => import('@/components/global/CustomPagination')
-)
+import { Funnel } from 'lucide-react'
+import PageTitle from '@/components/global/PageTitle'
+import Sorting from '@/components/shop/Sorting'
+import ViewModeToggle from '@/components/shop/ViewModeToggle'
+import ProductsGrid from '@/components/shop/ProductsGrid'
+import { productsMock } from '@/database'
+import ProductsList from '@/components/shop/ProductsList'
+import CustomPagination from '@/components/shop/CustomPagination'
+import CategoriesCarousel from '@/components/shop/CategoriesCarousel'
+import { shop } from '@/assets/data'
+import Container from '@/components/global/Container'
+import SearchBar from '@/components/global/SearchBar'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
@@ -33,16 +19,16 @@ const getViewMode =
 
 function Shop() {
   //filters
-  const [searchQuery, setSearchQuery] = useState('')
+  /*  const [searchQuery, setSearchQuery] = useState('') */
   const [selectedCategory, setSelectedCategory] = useState('all')
-  const [filters, setFilters] = useState<ProductFilter>({
+  /* const [filters, setFilters] = useState<ProductFilter>({
     priceRange: [0, 1000000],
     selectedMaterials: [],
     selectedBrands: [],
     inStockOnly: false,
     minRating: 0,
     searchQuery: '',
-  })
+  }) */
   const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
 
   //sorting
@@ -59,39 +45,35 @@ function Shop() {
     setViewMode(mode)
   }
 
-  const handleSearchQuery: (searchQuery: string) => void = (searchQuery) => {
+  /* const handleSearchQuery: (searchQuery: string) => void = (searchQuery) => {
     setFilters({ ...filters, searchQuery })
     setCurrentPage(1)
+  } */
+  const onSearch = (searchQuery: string) => {
+    console.log(searchQuery)
   }
 
-  const itemsPerPage = 12
+  /* const itemsPerPage = 1 */
   //fetch filtered products
-  const { data, isLoading, isError } = useAllProducts({
-    currentPage,
-    itemsPerPage,
-    filters,
-  })
-  const maxPrice =
-    data && Math.max(...data?.products?.map((product) => product?.price))
+  /* const maxPrice = 100 */
 
-  const products = data?.products
+  /* const totalPages = data && Math.ceil(data?.total / itemsPerPage) */
+  const totalPages = 12
 
-  const totalPages = data && Math.ceil(data?.total / itemsPerPage)
-
-  const filteredProducts = products?.filter((product) => {
+  /* const filteredProducts = productsMock?.filter((product) => {
     const matchesCategory =
       selectedCategory == 'all' || product.category == selectedCategory
 
     return matchesCategory
-  })
+  }) */
 
   // Sort products
-  const sortedProducts =
+  /* const sortedProducts =
     filteredProducts &&
     filteredProducts.flat().sort((a, b) => {
       switch (sortBy) {
         case 'price-low':
-          return a.price - b.price
+          return a. - b.price
         case 'price-high':
           return b.price - a.price
         case 'rating':
@@ -99,9 +81,9 @@ function Shop() {
         default:
           return 0
       }
-    })
+    }) */
 
-  let productView
+  /* let productView
   if (isLoading) {
     productView =
       viewMode === 'grid' ? (
@@ -117,7 +99,7 @@ function Shop() {
         <ProductList sortedProducts={sortedProducts} isError={isError} />
       )
   }
-
+ */
   const handlePageChange: (page: number) => void = (page) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -125,21 +107,18 @@ function Shop() {
 
   return (
     <>
-      <PageHeading
-        pageTitle="Marketplace"
-        pageDesc="Discover exclusive fashion collections from verified sellers worldwide."
-      />
-      <main className="container min-h-screen container space-y-2 my-12 relative">
+      <PageTitle title="Shop" />
+      <Container className="py-10">
         <section className="space-y-2">
-          <h2 className="text-3xl font-bold text-foreground">Shop Now</h2>
+          <h1 className="text-3xl font-bold text-foreground">Shop Now</h1>
           <p className="text-muted-foreground">
-            Browse our marketplace to find what you need.
+            Discover carefully curated products designed for quality, comfort,
+            and style.
           </p>
         </section>
-
-        <div className=" lg:grid lg:grid-cols-8 gap-10">
-          <div className="hidden lg:block col-span-3 py-8">
-            {advancedFilterSuspense(
+        <div className="lg:grid lg:grid-cols-8 gap-10">
+          <div className="hidden lg:block col-span-3 border-r border-accent-foreground my-8">
+            {/* {advancedFilterSuspense(
               <AdvancedFilters
                 searchQuery={searchQuery}
                 setFilters={setFilters}
@@ -147,13 +126,13 @@ function Shop() {
                 maxPrice={maxPrice}
                 setCurrentPage={setCurrentPage}
               />
-            )}
+            )} */}
           </div>
-          <div className="py-8 col-span-5">
+          <div className="my-8 col-span-5">
             <div className="mb-8">
-              <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row gap-4 mb-6 items-center">
                 <SearchBar
-                  onSearch={handleSearchQuery}
+                  onSearch={onSearch}
                   placeholder="Search products by name..."
                 />
                 <Button
@@ -161,12 +140,12 @@ function Shop() {
                   className="lg:w-auto lg:hidden"
                   onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 >
-                  <SlidersHorizontal className="w-4 h-4 mr-2" />
-                  Advanced Filters
+                  <Funnel className="w-4 h-4 mr-2" />
+                  Filters
                 </Button>
               </div>
 
-              {advancedFilterSuspense(
+              {/* {advancedFilterSuspense(
                 showAdvancedFilters && (
                   <div className="lg:hidden">
                     <AdvancedFilters
@@ -179,27 +158,25 @@ function Shop() {
                     />
                   </div>
                 )
-              )}
+              )} */}
 
-              <Suspense fallback={<div className="h-[34px] w-full" />}>
-                <CategoriesCarousel
-                  selectedCategory={selectedCategory}
-                  setSelectedCategory={setSelectedCategory}
-                />
-              </Suspense>
+              <CategoriesCarousel
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+              />
             </div>
             <section>
-              <QueryHeading
+              {/* <QueryHeading
                 query={filters.searchQuery}
                 queryResult={sortedProducts}
                 type="product"
-              />
+              /> */}
 
               <div className="flex items-center justify-between gap-2 mb-8">
                 <Sorting
                   sortBy={sortBy}
                   setSortBy={setSortBy}
-                  options={marketplaceSorting}
+                  options={shop.sorting}
                 />
 
                 <ViewModeToggle
@@ -207,23 +184,25 @@ function Shop() {
                   handleViewMode={handleViewMode}
                 />
               </div>
-
-              {sectionSuspense(productView)}
-            </section>
-            <LazyLoad>
-              <Suspense fallback={null}>
-                {sortedProducts && sortedProducts.length >= 1 && totalPages && (
-                  <CustomPagination
-                    totalPages={totalPages}
-                    currentPage={currentPage}
-                    handlePageChange={handlePageChange}
-                  />
+              <>
+                {viewMode === 'grid' ? (
+                  <ProductsGrid products={productsMock} />
+                ) : (
+                  <ProductsList products={productsMock} />
                 )}
-              </Suspense>
-            </LazyLoad>
+              </>
+              {/* {sectionSuspense(productView)} */}
+              {productsMock && (
+                <CustomPagination
+                  totalPages={totalPages}
+                  currentPage={currentPage}
+                  handlePageChange={handlePageChange}
+                />
+              )}
+            </section>
           </div>
         </div>
-      </main>
+      </Container>
     </>
   )
 }

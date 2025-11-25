@@ -1,6 +1,8 @@
-import { CartItems, EmptyCart } from '@/components/cart'
-import { PageHeading } from '@/components/headings'
-import { sectionSuspense } from '@/utils/suspense'
+import CartItems from '@/components/cart/CartItems'
+import EmptyCart from '@/components/cart/EmptyCart'
+import Container from '@/components/global/Container'
+import PageTitle from '@/components/global/PageTitle'
+import { sectionSuspense } from '@/components/skeletons/suspense'
 import { lazy } from 'react'
 import LazyLoad from 'react-lazyload'
 import { useSelector } from 'react-redux'
@@ -11,23 +13,23 @@ function Cart() {
   const { numItemsInCart } = useSelector((state: any) => state.cartState)
 
   return (
-    <div className="relative">
-      <PageHeading pageDesc="Cart items" pageTitle="Cart" />
-      <main
-        className={`min-h-screen container space-y-18 my-12 ${
-          numItemsInCart && 'lg:grid-cols-3'
-        }  lg:grid gap-10`}
-      >
-        <section className="col-span-2">
-          {!numItemsInCart ? <EmptyCart /> : <CartItems />}
-        </section>
-        <section>
-          <LazyLoad>
-            {sectionSuspense(<>{!numItemsInCart || <OrderSummary />}</>)}
-          </LazyLoad>
-        </section>
-      </main>
-    </div>
+    <>
+      <PageTitle title="Cart" />
+      <Container className="py-10 relative">
+        <div
+          className={` ${numItemsInCart && 'md:grid-cols-3'}  md:grid gap-x-6`}
+        >
+          <section className="col-span-2">
+            {!numItemsInCart ? <EmptyCart /> : <CartItems />}
+          </section>
+          {!numItemsInCart || (
+            <section className="mt-10 md:mt-17">
+              <LazyLoad>{sectionSuspense(<OrderSummary />)}</LazyLoad>
+            </section>
+          )}
+        </div>
+      </Container>
+    </>
   )
 }
 export default Cart

@@ -1,5 +1,5 @@
 import ForgotPasswordForm from '@/components/forms/ForgotPasswordForm'
-import { Container } from '@/components/global'
+import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
 import BackNavHeader from '@/components/headers/BackNavHeader'
 
