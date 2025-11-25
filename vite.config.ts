@@ -90,7 +90,6 @@ export default defineConfig({
             'embla-carousel-react',
             'embla-carousel-autoplay',
             'swiper',
-            'framer-motion',
           ],
           // Other
           payment: ['react-paystack'],
