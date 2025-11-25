@@ -17,8 +17,14 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
     stock,
     description,
   } = wishlistItem
+  const minPrice = discountPrice?.min
+    ? Math.min(discountPrice.min, originalPrice.min)
+    : originalPrice.min
+  const maxPrice = discountPrice?.max
+    ? Math.max(discountPrice?.max, originalPrice.max)
+    : originalPrice.max
   const discountPercent =
-    discountPrice && discount(originalPrice, discountPrice)
+    discountPrice?.max && discount(originalPrice.max, discountPrice.max)
 
   const dispatch = useDispatch()
   const removeItemFromWishlist = () => {
@@ -27,7 +33,7 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
   return (
     <section>
       <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow rounded-sm duration-200 p-2 md:p-4 h-full">
-        <CardContent className="p-0 flex flex-col gap-3 justify-between h-full">
+        <CardContent className="p-0 flex flex-col gap-3 justify-between">
           {/* product image */}
           <div className="flex gap-2 md:gap-4 flex-1">
             <figure className="w-20 md:w-32 relative">
@@ -51,23 +57,24 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
                 </p>
               </div>
               {/* Discount and original price */}
-              <div className="flex flex-col gap-x-2 ">
-                <span className="text-[15px]/5 sm:text-lg font-semibold text-foreground">
-                  {discountPrice
-                    ? currencyFormatter(discountPrice)
-                    : currencyFormatter(originalPrice)}
-                </span>
-                {discountPrice && (
-                  <div className="flex items-center gap-2">
-                    <span className="text-[12px] sm:text-sm text-muted-foreground line-through font-medium italic">
-                      {currencyFormatter(originalPrice)}
-                    </span>
-                    <span className="text-xs font-bold px-2 py-1 md:py-1.5 md:px-3 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
-                      -{discountPercent}%
-                    </span>
+              <div className="flex items-center gap-2">
+                {minPrice !== maxPrice ? (
+                  <div className="text-[15px]/5 sm:text-lg  font-semibold text-foreground">
+                    {currencyFormatter(minPrice)} -{' '}
+                    {currencyFormatter(maxPrice)}
+                  </div>
+                ) : (
+                  <div className="text-[15px]/5 sm:text-lg  font-semibold text-foreground">
+                    {currencyFormatter(minPrice)}
                   </div>
                 )}
+                {discountPrice && (
+                  <span className="text-xs font-bold px-2 py-1 md:py-1.5 md:px-3 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
+                    -{discountPercent}%
+                  </span>
+                )}
               </div>
+
               {/* Stock alert */}
               <div>
                 {stock === 0 ? (
