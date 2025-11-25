@@ -13,6 +13,8 @@ import SignInOptions from '../auth/SignInOptions'
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
+    firstname: '',
+    lastname: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -44,8 +46,28 @@ function SignUpForm() {
       </div>
       <AuthFormsHeading title="Create Account" />
       <SignInOptions text="Sign up with Google" />
-      <CardContent className="space-y-6 px-4">
+      <CardContent className="space-y-6 px-4 mt-2">
         <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <FormInput
+              name="firstname"
+              value={formData.firstname}
+              handleInputChange={handleInputChange}
+              type="text"
+              placeholder="First Name"
+              label="First Name"
+              required
+            />
+            <FormInput
+              name="lastname"
+              value={formData.lastname}
+              handleInputChange={handleInputChange}
+              type="text"
+              placeholder="Last Name"
+              label="Last Name"
+              required
+            />
+          </div>
           <FormInput
             name="email"
             label="Email"

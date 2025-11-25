@@ -231,6 +231,11 @@ export const PasswordFormSchema = z.object({
 ////
 
 export const signupFormSchema = z.object({
+  firstname: z
+    .string()
+    .trim()
+    .min(2, { message: 'Please enter a valid first name' }),
+  lastname: z.string().trim().min(2, { message: 'Please enter a last name.' }),
   email: z.string().email({ message: 'Please enter a valid email address' }),
   password: z
     .string()
