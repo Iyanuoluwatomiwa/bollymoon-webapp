@@ -92,7 +92,6 @@ export default defineConfig({
             'swiper',
           ],
           // Other
-          payment: ['react-paystack'],
           sitemap: ['sitemap'],
         },
       },
