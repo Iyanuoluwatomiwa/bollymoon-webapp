@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Funnel } from 'lucide-react'
+import { SlidersHorizontal } from 'lucide-react'
 import PageTitle from '@/components/global/PageTitle'
 import Sorting from '@/components/shop/Sorting'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
@@ -60,12 +60,12 @@ function Shop() {
   /* const totalPages = data && Math.ceil(data?.total / itemsPerPage) */
   const totalPages = 12
 
-  /* const filteredProducts = productsMock?.filter((product) => {
+  const filteredProductsByCategory = productsMock?.filter((product) => {
     const matchesCategory =
       selectedCategory == 'all' || product.category == selectedCategory
 
     return matchesCategory
-  }) */
+  })
 
   // Sort products
   /* const sortedProducts =
@@ -134,13 +134,14 @@ function Shop() {
                 <SearchBar
                   onSearch={onSearch}
                   placeholder="Search products by name..."
+                  width="w-full"
                 />
                 <Button
                   variant="outline"
-                  className="lg:w-auto lg:hidden"
+                  className="lg:w-auto lg:hidden rounded-full h-10"
                   onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
                 >
-                  <Funnel className="w-4 h-4 mr-2" />
+                  <SlidersHorizontal className="w-4 h-4 mr-2" />
                   Filters
                 </Button>
               </div>
@@ -186,13 +187,13 @@ function Shop() {
               </div>
               <>
                 {viewMode === 'grid' ? (
-                  <ProductsGrid products={productsMock} />
+                  <ProductsGrid products={filteredProductsByCategory} />
                 ) : (
-                  <ProductsList products={productsMock} />
+                  <ProductsList products={filteredProductsByCategory} />
                 )}
               </>
               {/* {sectionSuspense(productView)} */}
-              {productsMock && (
+              {filteredProductsByCategory && (
                 <CustomPagination
                   totalPages={totalPages}
                   currentPage={currentPage}
