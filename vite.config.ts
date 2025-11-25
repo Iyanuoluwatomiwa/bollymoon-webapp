@@ -56,10 +56,7 @@ export default defineConfig({
           state: ['@reduxjs/toolkit', 'react-redux'],
           router: ['react-router-dom', 'react-lazyload'],
           reactQuery: ['@tanstack/react-query'],
-          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
-
-          // Supabase
-          supabase: ['@supabase/supabase-js'],
+          forms: ['zod'],
 
           // Radix UI (grouped together)
           slot: [
@@ -89,10 +86,13 @@ export default defineConfig({
           utils: ['dayjs', 'relative-time'],
 
           // Animation / Carousel
-          carousel: ['embla-carousel-react'],
-
+          carousel: [
+            'embla-carousel-react',
+            'embla-carousel-autoplay',
+            'swiper',
+            'framer-motion',
+          ],
           // Other
-          theming: ['next-themes'],
           payment: ['react-paystack'],
           sitemap: ['sitemap'],
         },
