@@ -109,7 +109,7 @@ function CartItemCard({
                     <span className="text-[12px] sm:text-sm text-muted-foreground line-through font-medium italic">
                       {currencyFormatter(originalPrice)}
                     </span>
-                    <span className="text-xs font-bold px-2 py-1 md:py-1.5 md:px-3 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
+                    <span className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
                       -{discountPercent}%
                     </span>
                   </div>

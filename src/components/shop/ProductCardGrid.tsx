@@ -98,7 +98,7 @@ const ProductCardGrid = ({ product }: { product: Product }) => {
               {currencyFormatter(minPrice)}
             </div>
           )}
-          <div className="ml-auto w-max">
+          <div>
             {/* Action Button */}
             <AddToCart product={product} />
           </div>

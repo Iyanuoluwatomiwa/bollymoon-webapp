@@ -83,11 +83,12 @@ function AddToCart({ product }: { product: Product }) {
     <>
       {inCart ? (
         <Tooltip>
-          <TooltipTrigger>
+          <TooltipTrigger asChild>
             <button
-              className="text-white font-semibold  rounded-md transition-all duration-200 flex items-center justify-center gap-2 bg-primary cursor-pointer hover:bg-primary/90 w-[36px] h-[36px] sm:w-[40px] sm:h-[40px]"
+              className="text-white font-medium  rounded-md transition-all duration-200 flex items-center justify-center gap-2 bg-primary cursor-pointer hover:bg-primary/90 w-full text-sm sm:text-base h-10 rounded-sm"
               onClick={() => setIsAddToCartOpen(true)}
             >
+              <span>In Cart</span>
               <LiaCartArrowDownSolid className="w-6.5 h-6.5 sm:w-7.5 md:h-7.5" />
             </button>
           </TooltipTrigger>
@@ -102,9 +103,10 @@ function AddToCart({ product }: { product: Product }) {
           <TooltipTrigger asChild>
             <button
               disabled={stock === 0}
-              className="text-white font-semibold rounded-md transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-secondary/90 cursor-pointer bg-secondary h-[36px] w-[36px] sm:w-[40px] sm:h-[40px]"
+              className="text-white font-medium rounded-md transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-secondary/90 cursor-pointer bg-secondary w-full text-sm sm:text-base h-10 rounded-sm"
               onClick={() => setIsAddToCartOpen(true)}
             >
+              <span>Add to Cart</span>
               <MdAddShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
             </button>
           </TooltipTrigger>

@@ -35,14 +35,19 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
       <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow rounded-sm duration-200 p-2 md:p-4 h-full">
         <CardContent className="p-0 flex flex-col gap-3 justify-between">
           {/* product image */}
-          <div className="flex gap-2 md:gap-4 flex-1">
-            <figure className="w-20 md:w-32 relative">
+          <div className="flex gap-2 md:gap-4 ">
+            <figure className="w-26 sm:w-30 md:w-36  flex-shrink-0 relative">
               <img
                 src={images[0]}
                 alt={name}
                 className="aspect-square w-full object-cover"
                 loading="lazy"
               />
+              {discountPrice && (
+                <span className="text-xs font-bold px-2 py-1 absolute top-1 left-1 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
+                  -{discountPercent}%
+                </span>
+              )}
             </figure>
             <div className="flex-1 space-y-1.5">
               {/* Product name, size, and color */}
@@ -67,11 +72,6 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
                   <div className="text-[15px]/5 sm:text-lg  font-semibold text-foreground">
                     {currencyFormatter(minPrice)}
                   </div>
-                )}
-                {discountPrice && (
-                  <span className="text-xs font-bold px-2 py-1 md:py-1.5 md:px-3 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
-                    -{discountPercent}%
-                  </span>
                 )}
               </div>
 
@@ -107,7 +107,9 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
               Remove
             </button>
             {/* Add to cart button */}
-            <AddToCart product={wishlistItem} />
+            <div className="w-32">
+              <AddToCart product={wishlistItem} />
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -50,7 +50,7 @@ function ProductCardList({ product }: { product: Product }) {
 
           {/* Badges */}
           {discountPercent && (
-            <div className="text-xs font-bold px-2 py-1 md:py-1.5 md:px-3 rounded-sm text-primary bg-primary/20 absolute top-1 left-1 flex justify-between items-center">
+            <div className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-primary/20 absolute top-1 left-1 flex justify-between items-center">
               -{discountPercent}%
             </div>
           )}
@@ -105,7 +105,7 @@ function ProductCardList({ product }: { product: Product }) {
           </div>
 
           {/* Price & Actions */}
-          <div className="flex items-center justify-between gap-x-4 flex-wrap">
+          <div className="flex flex-col items-start justify-between gap-2">
             {/* Price Section */}
             {minPrice !== maxPrice ? (
               <div className="text-[15px]/5 sm:text-lg  font-semibold text-foreground">
