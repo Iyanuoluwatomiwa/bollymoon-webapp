@@ -67,7 +67,7 @@ const router = createBrowserRouter([
         element: pageSuspense(<ShopCategory />),
       },
       {
-        path: 'shop/:category/:productname/:productid',
+        path: 'shop/:category/:productName/:productId',
         element: pageSuspense(<ProductDetails />),
       },
       {

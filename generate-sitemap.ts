@@ -2,26 +2,24 @@ import { SitemapStream, streamToPromise } from 'sitemap'
 import { createWriteStream } from 'fs'
 import { resolve } from 'path'
 
-const sitemap = new SitemapStream({ hostname: 'https://stylinked.netlify.app' })
+const sitemap = new SitemapStream({ hostname: 'https://bollymoon.com' })
 
 const routes = [
-  'auth/login',
-  'auth/sign-up',
-  'auth/verification/email',
-  'auth/complete-registration',
-  'auth/forgot-password',
-  'auth/reset-password',
+  '/login',
+  '/sign-up',
+  '/forgot-password',
+  '/reset-password',
   '/',
-  ' /marketplace',
-  '/marketplace/product-name/product-id',
+  '/collections',
+  '/shop/category/product-id',
+  '/shop/category/productName/productId',
   '/cart',
-  '/cart/checkout',
-  '/vendors',
-  '/vendors/vendor-name/vendor-id',
-  '/account/dashboard',
-  '/account/products',
-  '/account/orders',
-  '/account/settings',
+  '/about',
+  '/contact',
+  '/wishlist',
+  '/privacy-policy',
+  '/shipping-delivery',
+  '/refunds-returns',
   '/restricted_access',
 ]
 
