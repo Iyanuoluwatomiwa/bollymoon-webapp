@@ -806,3 +806,34 @@ export const paymentMethods = [
     icon: Hash,
   },
 ]
+
+export const profile = {
+  account: [
+    {
+      name: 'orders',
+      url: '/orders',
+    },
+    {
+      name: 'Reviews',
+      url: '/reviews',
+    },
+  ],
+  settings: [
+    {
+      name: 'Payment Settings',
+      url: '/payment-settings',
+    },
+    {
+      name: 'Address Book',
+      url: '/address-book',
+    },
+    {
+      name: 'Account Management',
+      url: '/account-management',
+    },
+    {
+      name: 'Close Account',
+      url: '/close-account',
+    },
+  ],
+}

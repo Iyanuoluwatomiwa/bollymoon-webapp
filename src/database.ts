@@ -171,3 +171,9 @@ export const productsMock = [
     ],
   },
 ]
+
+export const user = {
+  firstName: 'Jane',
+  lastName: 'Doe',
+  email: 'janedoe@gmail.com',
+}

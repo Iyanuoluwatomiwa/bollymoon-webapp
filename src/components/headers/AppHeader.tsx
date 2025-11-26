@@ -1,4 +1,3 @@
-import { useSidebar } from '../ui/sidebar'
 import { useEffect, useState } from 'react'
 import Navbar from './Navbar'
 import { Menu, Search, X } from 'lucide-react'
@@ -10,13 +9,14 @@ import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
 import SearchBar from '../global/SearchBar'
 import Logo from '../global/Logo'
+import { useSidebar } from '../ui/sidebar'
 
-function AppHeader() {
+function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const [showHeader, setShowHeader] = useState(true)
   const [lastScrollY, setLastScrollY] = useState(0)
-  const { toggleSidebar } = useSidebar()
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [open, setOpen] = useState(false)
+  const { toggleSidebar } = useSidebar()
   const onSearch = (searchQuery: string) => {
     console.log(searchQuery)
   }
@@ -45,7 +45,7 @@ function AppHeader() {
   }, [lastScrollY])
   return (
     <header
-      className={`sticky w-full top-0 z-50    ${
+      className={`sticky w-full top-0 z-40    ${
         showHeader
           ? 'translate-y-0'
           : `${showSearchBar ? '-translate-y-[152px]' : '-translate-y-full'}`
@@ -88,7 +88,7 @@ function AppHeader() {
           <div className="hidden lg:flex">
             <Navbar />
           </div>
-          <div className="flex flex-row gap-x-4 md:gap-6 items-center">
+          <div className="flex flex-row gap-x-4 sm:gap-6 items-center">
             <Tooltip open={open} onOpenChange={setOpen}>
               <TooltipTrigger
                 onMouseEnter={() => setOpen(true)}
@@ -113,7 +113,7 @@ function AppHeader() {
             </Tooltip>
             <Wishlist />
             <Cart />
-            <Profile />
+            <Profile toggleAccountMenu={toggleAccountMenu} />
           </div>
         </div>
       </Container>

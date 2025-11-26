@@ -1,6 +1,6 @@
 import { loginFormSchema } from '@/utils/schema'
 import { useState, type FormEvent } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { Card, CardContent } from '../ui/card'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
@@ -10,6 +10,8 @@ import FormSubmitButton from '../form-fields/FormSubmitButton'
 import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
 import SignInOptions from '../auth/SignInOptions'
+import { useDispatch } from 'react-redux'
+import { setIsUser } from '@/features/user/userSlice'
 
 function LoginForm() {
   /* const dispatch = useDispatch() */
@@ -22,7 +24,8 @@ function LoginForm() {
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
-
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
@@ -39,8 +42,9 @@ function LoginForm() {
         user,
       })
     ) */
+    dispatch(setIsUser({ isUser: true }))
     toast.success("Welcome, you've logged in successfully!")
-
+    navigate('/')
     return setSubmitting(false)
   }
   return (

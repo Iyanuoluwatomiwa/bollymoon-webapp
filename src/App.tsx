@@ -1,10 +1,14 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 
-import { lazy } from 'react'
+import { lazy, useEffect } from 'react'
 import { pageSuspense } from './components/skeletons/suspense'
 
 //layouts
 import AppLayout from './components/layouts/AppLayout'
+import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { setUserProfile } from './features/user/userSlice'
+import { user } from './database'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -112,6 +116,24 @@ const router = createBrowserRouter([
 ])
 
 function App() {
+  const dispatch = useDispatch()
+  const { isUser }: { isUser: boolean } = useSelector(
+    (state: any) => state.userState
+  )
+
+  useEffect(() => {
+    const getUserDetails = async () => {
+      if (isUser) {
+        dispatch(
+          setUserProfile({
+            userProfile: user,
+          })
+        )
+      }
+    }
+    getUserDetails()
+  }, [isUser, dispatch])
+
   return (
     <RouterProvider
       router={router}

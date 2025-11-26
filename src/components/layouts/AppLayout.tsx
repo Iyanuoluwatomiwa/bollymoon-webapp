@@ -1,23 +1,39 @@
-import { SidebarProvider } from '@/components/ui/sidebar'
+import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Outlet } from 'react-router-dom'
 import AppHeader from '../headers/AppHeader'
 import AppSidebar from '../sidebars.tsx/AppSidebar'
 import AppFooter from '../footer/AppFooter'
 import ScrollToTop from '../global/ScrollToTop'
+import AccountSidebarSheet from '../sidebars.tsx/AccountSidebarSheet'
+import { useState } from 'react'
+import { useSelector } from 'react-redux'
 
 function AppLayout() {
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false)
+  const { isUser }: { isUser: boolean } = useSelector(
+    (state: any) => state.userState
+  )
   return (
     <>
       <ScrollToTop />
       <SidebarProvider defaultOpen={false}>
         <AppSidebar />
-        <div className="bg-gradient-to-b from-primary/10 to-accent/50 w-full">
-          <AppHeader />
-          <main className="min-h-screen">
-            <Outlet />
-          </main>
-          <AppFooter />
-        </div>
+        <SidebarInset>
+          {isUser && (
+            <AccountSidebarSheet
+              open={accountMenuOpen}
+              onOpenChange={setAccountMenuOpen}
+            />
+          )}
+
+          <div className="bg-gradient-to-b from-primary/10 to-accent/50 w-full">
+            <AppHeader toggleAccountMenu={() => setAccountMenuOpen(true)} />
+            <main className="min-h-screen">
+              <Outlet />
+            </main>
+            <AppFooter />
+          </div>
+        </SidebarInset>
       </SidebarProvider>
     </>
   )
