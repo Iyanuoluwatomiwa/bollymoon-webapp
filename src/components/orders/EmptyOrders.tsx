@@ -1,19 +1,18 @@
-import { ShoppingCart } from 'lucide-react'
+import { ShoppingBag } from 'lucide-react'
 import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
 
-function EmptyCart() {
+function EmptyOrders({ label }: { label: string }) {
   return (
     <div className="py-10">
       <div className="p-4 md:p-6 bg-primary/20 rounded-full w-max mx-auto mb-4 ">
-        <ShoppingCart className="w-10 md:w-16 h-10 md:h-16  text-primary " />
+        <ShoppingBag className="w-10 md:w-16 h-10 md:h-16 text-primary " />
       </div>
-
       <h1 className="text-lg md:text-xl font-semibold  mb-2 text-center">
-        Your cart is empty
+        You don't have a {label} order yet
       </h1>
       <p className="text-muted-foreground mb-6 text-center text-sm md:text-base">
-        Looks like you haven't added any items to your cart yet.
+        All your {label} orders will be saved here for you to access anytime
       </p>
       <div className="text-center">
         <Button size="lg" asChild>
@@ -23,4 +22,4 @@ function EmptyCart() {
     </div>
   )
 }
-export default EmptyCart
+export default EmptyOrders

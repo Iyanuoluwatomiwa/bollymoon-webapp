@@ -42,7 +42,11 @@ function AppSidebar() {
       <SidebarContent className="px-3 gap-0 bg-background space-y-1">
         <SidebarMenu>
           <SidebarMenuItem>
-            <NavLink to={sidebarLinks.home.url} className={getClassName}>
+            <NavLink
+              to={sidebarLinks.home.url}
+              className={getClassName}
+              onClick={toggleSidebar}
+            >
               {sidebarLinks.home.name}
             </NavLink>
           </SidebarMenuItem>
@@ -53,6 +57,7 @@ function AppSidebar() {
               <NavLink
                 className={getClassName}
                 to={sidebarLinks.collections.url}
+                onClick={toggleSidebar}
               >
                 {sidebarLinks.collections.name}
               </NavLink>
@@ -68,6 +73,7 @@ function AppSidebar() {
                       <Link
                         to={category.href}
                         className="block  py-1 px-2 text-xs font-normal text-gray-600 hover:text-primary hover:bg-primary/10"
+                        onClick={toggleSidebar}
                       >
                         {category.name}
                       </Link>
@@ -81,7 +87,12 @@ function AppSidebar() {
         <Collapsible className="group/collapsible">
           <SidebarGroup className="p-0">
             <SidebarGroupLabel className="rounded-none p-0 w-full flex items-center justify-between gap-2">
-              <NavLink to={sidebarLinks.shop.url} className={getClassName}>
+              <NavLink
+                to={sidebarLinks.shop.url}
+                className={getClassName}
+                onClick={toggleSidebar}
+                end
+              >
                 {sidebarLinks.shop.name}
               </NavLink>
               <CollapsibleTrigger>
@@ -98,6 +109,7 @@ function AppSidebar() {
                           <Link
                             to={category.url}
                             className="flex-1 text-sm text-gray-800 hover:text-primary hover:bg-primary/10 py-1 px-2"
+                            onClick={toggleSidebar}
                           >
                             {category.name}
                           </Link>
@@ -113,6 +125,7 @@ function AppSidebar() {
                                   <Link
                                     to={sub.href}
                                     className="block  py-1 px-3 text-xs font-normal text-gray-600 hover:text-primary hover:bg-primary/10"
+                                    onClick={toggleSidebar}
                                   >
                                     {sub.name}
                                   </Link>
@@ -131,21 +144,33 @@ function AppSidebar() {
         </Collapsible>
         <SidebarMenu>
           <SidebarMenuItem>
-            <NavLink to={sidebarLinks.wishlist.url} className={getClassName}>
+            <NavLink
+              to={sidebarLinks.wishlist.url}
+              className={getClassName}
+              onClick={toggleSidebar}
+            >
               {sidebarLinks.wishlist.name}
             </NavLink>
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
           <SidebarMenuItem>
-            <NavLink to={sidebarLinks.about.url} className={getClassName}>
+            <NavLink
+              to={sidebarLinks.about.url}
+              className={getClassName}
+              onClick={toggleSidebar}
+            >
               {sidebarLinks.about.name}
             </NavLink>
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
           <SidebarMenuItem>
-            <NavLink to={sidebarLinks.contact.url} className={getClassName}>
+            <NavLink
+              to={sidebarLinks.contact.url}
+              className={getClassName}
+              onClick={toggleSidebar}
+            >
               {sidebarLinks.contact.name}
             </NavLink>
           </SidebarMenuItem>

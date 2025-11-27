@@ -70,15 +70,24 @@ export const getSizeGuideType = (
   )
 }
 
-export const formatCreatedAt = (timestamp: string | undefined) => {
+export const formatCreatedAt = (timestamp: string | number | undefined) => {
   if (timestamp) {
     const date = new Date(timestamp)
     const formattedDate = date.toLocaleDateString('en-US', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: '2-digit',
     })
 
     return formattedDate
   }
+}
+
+export const getStatusColor: Record<string, { bg: string; border: string }> = {
+  pending: {
+    bg: 'bg-yellow-600',
+    border: 'border-yellow-600',
+  },
+  delivered: { bg: 'bg-green-600', border: 'border-green-600' },
+  canceled: { bg: 'bg-red-600', border: 'border-red-600' },
 }

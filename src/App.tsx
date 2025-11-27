@@ -1,14 +1,13 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
-
 import { lazy, useEffect } from 'react'
 import { pageSuspense } from './components/skeletons/suspense'
-
-//layouts
-import AppLayout from './components/layouts/AppLayout'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { setUserProfile } from './features/user/userSlice'
 import { user } from './database'
+
+//layouts
+import AppLayout from './components/layouts/AppLayout'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -30,6 +29,9 @@ const ShippingDelivery = lazy(() => import('./pages/ShippingDelivery'))
 const ShopCategory = lazy(() => import('./pages/ShopCategory'))
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Collections = lazy(() => import('./pages/Collections'))
+const Orders = lazy(() => import('./pages/Orders'))
+const OrderDetails = lazy(() => import('./pages/OrderDetails'))
+const Reviews = lazy(() => import('./pages/Reviews'))
 
 const router = createBrowserRouter([
   {
@@ -105,6 +107,18 @@ const router = createBrowserRouter([
       {
         path: 'refunds-returns',
         element: pageSuspense(<RefundsReturns />),
+      },
+      {
+        path: 'orders',
+        element: pageSuspense(<Orders />),
+      },
+      {
+        path: 'orders/:id',
+        element: pageSuspense(<OrderDetails />),
+      },
+      {
+        path: 'reviews',
+        element: pageSuspense(<Reviews />),
       },
     ],
   },

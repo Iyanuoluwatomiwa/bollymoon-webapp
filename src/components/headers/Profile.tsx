@@ -16,6 +16,7 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
       <TooltipTrigger
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
+        asChild
       >
         {isUser ? (
           <button onClick={toggleAccountMenu}>

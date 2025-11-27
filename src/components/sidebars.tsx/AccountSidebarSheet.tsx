@@ -1,7 +1,14 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { profile } from '@/assets/data'
-import { Sheet, SheetContent, SheetFooter, SheetHeader } from '../ui/sheet'
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '../ui/sheet'
 import { useSelector } from 'react-redux'
 import type { UserProfile } from '@/types/user.types'
 import { useDispatch } from 'react-redux'
@@ -40,10 +47,17 @@ function AccountSidebarSheet({
         side="right"
         className="w-[14rem] md:w-[16rem] bg-gray-100 gap-2"
       >
-        <SheetHeader className="bg-white">
+        <SheetHeader className="bg-white relative pl-3 pt-2 pr-2 space-y-2">
+          <div className="sr-only">
+            <SheetTitle>Account Sidebar </SheetTitle>
+            <SheetDescription>
+              Displays the account menu sidebar for authenticated users.
+            </SheetDescription>
+          </div>
+
           <button
             onClick={() => onOpenChange(false)}
-            className="ml-auto cursor-pointer text-foreground hover:bg-primary hover:text-white rounded-xs"
+            className="ml-auto cursor-pointer text-foreground hover:bg-primary hover:text-white rounded-xs "
           >
             <X className="w-5 h-5" />
           </button>
@@ -61,7 +75,12 @@ function AccountSidebarSheet({
           <div className="px-3 space-y-1">
             {profile.account.map(({ name, url }) => (
               <div key={name}>
-                <NavLink to={url} className={getClassName}>
+                <NavLink
+                  to={url}
+                  className={getClassName}
+                  onClick={() => onOpenChange(false)}
+                  end
+                >
                   {name}
                 </NavLink>
               </div>
@@ -75,7 +94,11 @@ function AccountSidebarSheet({
           <div className="px-3 space-y-1">
             {profile.settings.map(({ name, url }) => (
               <div key={name}>
-                <NavLink to={url} className={getClassName}>
+                <NavLink
+                  to={url}
+                  className={getClassName}
+                  onClick={() => onOpenChange(false)}
+                >
                   {name}
                 </NavLink>
               </div>

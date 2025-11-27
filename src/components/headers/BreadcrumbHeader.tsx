@@ -13,7 +13,7 @@ interface SubPagesHeaderProp {
   previousPage: string
 }
 
-function SubPagesHeader({ currentPage, previousPage }: SubPagesHeaderProp) {
+function BreadcrumbHeader({ currentPage, previousPage }: SubPagesHeaderProp) {
   return (
     <header className="py-5 mb-4">
       <Breadcrumb>
@@ -42,4 +42,4 @@ function SubPagesHeader({ currentPage, previousPage }: SubPagesHeaderProp) {
     </header>
   )
 }
-export default SubPagesHeader
+export default BreadcrumbHeader
