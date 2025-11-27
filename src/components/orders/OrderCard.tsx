@@ -7,13 +7,13 @@ function OrderCard({
   id,
   orderId,
   createdAt,
-  orderItemsNo,
+  orderItems,
   orderTotal,
   status,
 }: Order) {
   return (
     <div
-      className={`px-2 py-4 shadow-sm hover:shadow-md transition-shadow border-0 border-l-4 ${getStatusColor[status].border} rounded-sm bg-white space-y-4`}
+      className={`p-2 md:p-4 shadow-sm hover:shadow-md transition-shadow border-0 border-l-4 ${getStatusColor[status].border} rounded-sm bg-white space-y-4`}
     >
       <div className="flex items-center gap-2 justify-between">
         <span className="text-xs">Order {orderId}</span>
@@ -22,7 +22,7 @@ function OrderCard({
             {currencyFormatter(orderTotal)}
           </p>
           <span className="text-xs">
-            {orderItemsNo} item{orderItemsNo > 1 && 's'}
+            {orderItems.length} item{orderItems.length > 1 && 's'}
           </span>
         </div>
       </div>

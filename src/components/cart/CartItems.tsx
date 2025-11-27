@@ -12,8 +12,8 @@ function CartItems() {
 
   return (
     <>
-      <div className="flex items-center justify-between mb-8">
-        <h1 className="text-2xl md:text-3xl font-semibold text-foreground">
+      <div className="flex items-center justify-between mb-6">
+        <h1 className="text-lg md:text-xl font-semibold text-foreground">
           Cart ({numItemsInCart})
         </h1>
       </div>

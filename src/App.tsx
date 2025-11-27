@@ -31,7 +31,8 @@ const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Collections = lazy(() => import('./pages/Collections'))
 const Orders = lazy(() => import('./pages/Orders'))
 const OrderDetails = lazy(() => import('./pages/OrderDetails'))
-const Reviews = lazy(() => import('./pages/Reviews'))
+const RatingsReviews = lazy(() => import('./pages/RatingsReviews'))
+const RateProduct = lazy(() => import('./pages/RateProduct'))
 
 const router = createBrowserRouter([
   {
@@ -117,8 +118,12 @@ const router = createBrowserRouter([
         element: pageSuspense(<OrderDetails />),
       },
       {
-        path: 'reviews',
-        element: pageSuspense(<Reviews />),
+        path: 'ratings-reviews',
+        element: pageSuspense(<RatingsReviews />),
+      },
+      {
+        path: 'rate-product/:id',
+        element: pageSuspense(<RateProduct />),
       },
     ],
   },

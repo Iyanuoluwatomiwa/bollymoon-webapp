@@ -814,22 +814,12 @@ export const profile = {
       url: '/orders',
     },
     {
-      name: 'Reviews',
-      url: '/reviews',
-    },
-  ],
-  settings: [
-    {
-      name: 'Payment Settings',
-      url: '/payment-settings',
+      name: 'Rating & Reviews',
+      url: '/ratings-reviews',
     },
     {
-      name: 'Address Book',
-      url: '/address-book',
-    },
-    {
-      name: 'Account Management',
-      url: '/account-management',
+      name: 'Settings',
+      url: '/settings',
     },
     {
       name: 'Close Account',

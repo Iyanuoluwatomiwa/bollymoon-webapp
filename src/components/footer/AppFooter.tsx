@@ -31,7 +31,7 @@ function AppFooter() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 lg:col-span-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-8 lg:col-span-3">
             {footer.footerLinks.map((linksGroup) => (
               <FooterLink key={linksGroup.heading} {...linksGroup} />
             ))}

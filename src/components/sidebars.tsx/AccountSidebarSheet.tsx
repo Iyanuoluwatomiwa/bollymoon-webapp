@@ -87,24 +87,6 @@ function AccountSidebarSheet({
             ))}
           </div>
         </div>
-        <div className="bg-white space-y-2 mb-2 pb-2">
-          <h2 className="text-sm font-medium py-2 px-3 border-b">
-            My Settings
-          </h2>
-          <div className="px-3 space-y-1">
-            {profile.settings.map(({ name, url }) => (
-              <div key={name}>
-                <NavLink
-                  to={url}
-                  className={getClassName}
-                  onClick={() => onOpenChange(false)}
-                >
-                  {name}
-                </NavLink>
-              </div>
-            ))}
-          </div>
-        </div>
         <SheetFooter className="p-0">
           <button
             className="text-primary font-medium text-sm w-full text-center bg-gray-200 py-2.5"
