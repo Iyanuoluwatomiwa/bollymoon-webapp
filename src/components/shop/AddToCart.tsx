@@ -136,9 +136,12 @@ function AddToCart({ product }: { product: Product }) {
               <div className="space-y-6">
                 <div className="space-y-2">
                   <div className="flex items-center gap-8 justify-between">
+                    {' '}
                     {hasSize && (
                       <h3 className="text-xs uppercase font-medium">
-                        {category === 'hair' ? 'Length' : 'Size'}
+                        {category === 'hair'
+                          ? 'Available Length(s)'
+                          : 'Available Size(s)'}
                       </h3>
                     )}
                     {category === 'clothing' && (
