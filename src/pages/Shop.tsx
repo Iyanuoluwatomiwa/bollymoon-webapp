@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { SlidersHorizontal } from 'lucide-react'
 import PageTitle from '@/components/global/PageTitle'
 import Sorting from '@/components/shop/Sorting'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
@@ -12,6 +10,11 @@ import CategoriesCarousel from '@/components/shop/CategoriesCarousel'
 import { shop } from '@/assets/data'
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
+import type { ProductFilter } from '@/types/product.types'
+import AdvancedFilters from '@/components/shop/AdvancedFilters'
+import { advancedFilterSuspense } from '@/components/skeletons/suspense'
+import FiltersDialog from '@/components/shop/FiltersDialog'
+import FiltersMobileDisplay from '@/components/shop/FiltersMobileDisplay'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
@@ -21,15 +24,11 @@ function Shop() {
   //filters
   /*  const [searchQuery, setSearchQuery] = useState('') */
   const [selectedCategory, setSelectedCategory] = useState('all')
-  /* const [filters, setFilters] = useState<ProductFilter>({
-    priceRange: [0, 1000000],
-    selectedMaterials: [],
-    selectedBrands: [],
-    inStockOnly: false,
-    minRating: 0,
-    searchQuery: '',
-  }) */
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false)
+  const [filters, setFilters] = useState<ProductFilter>({
+    priceRange: null,
+    inStockOnly: null,
+    minRating: null,
+  })
 
   //sorting
   const [sortBy, setSortBy] = useState('relevance')
@@ -68,20 +67,26 @@ function Shop() {
   })
 
   // Sort products
-  /* const sortedProducts =
-    filteredProducts &&
-    filteredProducts.flat().sort((a, b) => {
-      switch (sortBy) {
+  /*  const sortedProducts =
+    filteredProductsByCategory &&
+    filteredProductsByCategory.flat().sort((a, b) => {
+    const aMaxPrice = a.discountPrice?.max
+    ? Math.max(a.discountPrice?.max, a.originalPrice.max)
+    const bMaxPrice = b.discountPrice?.max
+    ? Math.max(b.discountPrice?.max, b.originalPrice.max)
+    switch (sortBy) {
         case 'price-low':
-          return a. - b.price
+          return  - b.discountPrice.max
         case 'price-high':
-          return b.price - a.price
+          return b.discountPrice?.max - a.discountPrice.min
         case 'rating':
-          return b.averageRating - a.averageRating
+          return b.rating - a.rating
         default:
           return 0
       }
-    }) */
+      
+     
+    })  */
 
   /* let productView
   if (isLoading) {
@@ -110,56 +115,45 @@ function Shop() {
       <PageTitle title="Shop" />
       <Container className="py-10">
         <section className="space-y-2">
-          <h1 className="text-3xl font-bold text-foreground">Shop Now</h1>
-          <p className="text-muted-foreground">
+          <h1 className="text-lg md:text-xl font-bold text-foreground">
+            Shop Now
+          </h1>
+          <p className="text-sm md:text-base text-muted-foreground">
             Discover carefully curated products designed for quality, comfort,
             and style.
           </p>
         </section>
-        <div className="lg:grid lg:grid-cols-8 gap-10">
-          <div className="hidden lg:block col-span-3 border-r border-accent-foreground my-8">
-            {/* {advancedFilterSuspense(
+        <div className="lg:grid lg:grid-cols-8 gap-4">
+          <div className="hidden lg:block col-span-2 border-r border-accent-foreground my-8">
+            {advancedFilterSuspense(
               <AdvancedFilters
-                searchQuery={searchQuery}
                 setFilters={setFilters}
-                isLoading={isLoading}
-                maxPrice={maxPrice}
+                maxPrice={50}
                 setCurrentPage={setCurrentPage}
+                filters={filters}
               />
-            )} */}
+            )}
           </div>
-          <div className="my-8 col-span-5">
-            <div className="mb-8">
-              <div className="flex flex-col sm:flex-row gap-4 mb-6 items-center">
+          <div className="my-8 col-span-6">
+            <div className="mb-8 space-y-4">
+              {/* search bar */}
+              <div className="flex flex-row gap-2 items-center">
                 <SearchBar
                   onSearch={onSearch}
                   placeholder="Search products by name..."
                   width="w-full"
                 />
-                <Button
-                  variant="outline"
-                  className="lg:w-auto lg:hidden rounded-full h-10"
-                  onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
-                >
-                  <SlidersHorizontal className="w-4 h-4 mr-2" />
-                  Filters
-                </Button>
+
+                <FiltersDialog
+                  setFilters={setFilters}
+                  maxPrice={50}
+                  setCurrentPage={setCurrentPage}
+                  filters={filters}
+                />
               </div>
 
-              {/* {advancedFilterSuspense(
-                showAdvancedFilters && (
-                  <div className="lg:hidden">
-                    <AdvancedFilters
-                      onClose={() => setShowAdvancedFilters(false)}
-                      searchQuery={searchQuery}
-                      setFilters={setFilters}
-                      isLoading={isLoading}
-                      maxPrice={maxPrice}
-                      setCurrentPage={setCurrentPage}
-                    />
-                  </div>
-                )
-              )} */}
+              {/* filters */}
+              <FiltersMobileDisplay filters={filters} />
 
               <CategoriesCarousel
                 selectedCategory={selectedCategory}

@@ -31,6 +31,7 @@ function LoginForm() {
     setSubmitting(true)
     const validatedData = useValidateSchema(loginFormSchema, formData)
     if (!validatedData) {
+      setSubmitting(false)
       return
     }
     /* login logic here */

@@ -18,8 +18,7 @@ import { currencyFormatter } from '@/utils/format'
 const SizeGuideModal = lazy(
   () => import('@/components/sizeGuide/SizeGuideModal')
 )
-function AddToCart({ product }: { product: Product }) {
-  const { id, name, category, stock, images, specs, subcategory } = product
+function AddToCart({ product }: { product: Product | undefined }) {
   const {
     isSizeGuideOpen,
     setIsSizeGuideOpen,
@@ -43,11 +42,12 @@ function AddToCart({ product }: { product: Product }) {
   const { cartItems }: { cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
-  const inCart = cartItems.find((item) => item.id === id)
-  const hasSize = specs?.some(({ size }) => size !== '')
+  const inCart = cartItems.find((item) => item.id === product?.id)
+  const hasSize = product?.specs?.some(({ size }) => size !== '')
   const getQuantityFromCart = (color: string, size: string) => {
     const cartItem = cartItems.find(
-      (item) => item.id === id && item.color === color && item.size === size
+      (item) =>
+        item.id === product?.id && item.color === color && item.size === size
     )
     return cartItem?.quantity
   }
@@ -68,24 +68,25 @@ function AddToCart({ product }: { product: Product }) {
     )
   }
   const cartItem = {
-    image: images[0],
-    name: name,
+    image: product?.images[0],
+    name: product?.name,
     price: 0,
     color: '',
     size: '',
     quantity: 0,
-    id: id,
-    category,
+    id: product?.id,
+    category: product?.category,
     discountPrice: 0,
     originalPrice: 0,
   }
   return (
     <>
+      {/* trigger */}
       {inCart ? (
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              className="text-white font-medium  rounded-md transition-all duration-200 flex items-center justify-center gap-2 bg-primary cursor-pointer hover:bg-primary/90 w-full text-sm sm:text-base h-10 rounded-sm"
+              className="text-white font-medium  rounded-md transition-all duration-200 flex items-center justify-center gap-2 bg-primary cursor-pointer hover:bg-primary/90 w-full text-xs sm:text-sm h-8 sm:h-9  rounded-sm"
               onClick={() => setIsAddToCartOpen(true)}
             >
               <span>In Cart</span>
@@ -102,8 +103,8 @@ function AddToCart({ product }: { product: Product }) {
         <Tooltip>
           <TooltipTrigger asChild>
             <button
-              disabled={stock === 0}
-              className="text-white font-medium rounded-md transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-secondary/90 cursor-pointer bg-secondary w-full text-sm sm:text-base h-10 rounded-sm"
+              disabled={product?.stock === 0}
+              className="text-white font-medium rounded-md transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-secondary/90 cursor-pointer bg-secondary w-full text-xs sm:text-sm h-8 sm:h-9  rounded-sm"
               onClick={() => setIsAddToCartOpen(true)}
             >
               <span>Add to Cart</span>
@@ -139,12 +140,12 @@ function AddToCart({ product }: { product: Product }) {
                     {' '}
                     {hasSize && (
                       <h3 className="text-xs uppercase font-medium">
-                        {category === 'hair'
+                        {product?.category === 'hair'
                           ? 'Available Length(s)'
                           : 'Available Size(s)'}
                       </h3>
                     )}
-                    {category === 'clothing' && (
+                    {product?.category === 'clothing' && (
                       <button
                         className="font-medium text-secondary text-sm"
                         onClick={() => {
@@ -156,7 +157,7 @@ function AddToCart({ product }: { product: Product }) {
                     )}
                   </div>
                   <div className="flex flex-wrap gap-2">
-                    {specs?.map(
+                    {product?.specs?.map(
                       ({ size }) =>
                         size && (
                           <span
@@ -171,7 +172,7 @@ function AddToCart({ product }: { product: Product }) {
                 </div>
 
                 <ul className="flex flex-col gap-4">
-                  {specs?.map(
+                  {product?.specs?.map(
                     ({ size, colors, originalPrice, discountPrice }) => {
                       return colors.map((color) => {
                         const quantityFromCart =
@@ -180,7 +181,7 @@ function AddToCart({ product }: { product: Product }) {
                         return (
                           <li
                             key={color.color}
-                            className="grid grid-cols-2 gap-4 place-items-start border-b pb-4 "
+                            className="grid grid-cols-2 gap-4 place-items-start border-b last:border-b-0 pb-4 "
                           >
                             <div>
                               <h3 className="capitalize text-base/5">{size}</h3>
@@ -286,22 +287,24 @@ function AddToCart({ product }: { product: Product }) {
               </div>
             </section>
             {inCart && (
-              <>
-                <div className="flex items-center ml-auto gap-2 sm:gap-4 w-max mt-2">
-                  <Link to="/checkout" className="ml-auto">
+              <div className="border-t -mt-2">
+                <div className="flex items-center  gap-2 sm:gap-4 w-full max-w-sm ml-auto mt-4 ">
+                  <Link to="/checkout" className="block w-full">
                     <Button
                       variant="secondary"
                       size="lg"
-                      className="text-white"
+                      className="text-white w-full"
                     >
                       Checkout
                     </Button>
                   </Link>
-                  <Link to="/cart" className="ml-auto">
-                    <Button size="lg">View Cart</Button>
+                  <Link to="/cart" className="block w-full">
+                    <Button size="lg" className="w-full">
+                      View Cart
+                    </Button>
                   </Link>
                 </div>
-              </>
+              </div>
             )}
           </div>
           <button
@@ -322,7 +325,9 @@ function AddToCart({ product }: { product: Product }) {
             <SizeGuideModal
               onClose={() => setIsSizeGuideOpen(false)}
               isSizeGuideOpen={isSizeGuideOpen}
-              productCategory={subcategory as keyof typeof productSizesList}
+              productCategory={
+                product?.subcategory as keyof typeof productSizesList
+              }
             />
           )}
         </>

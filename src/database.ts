@@ -8,7 +8,7 @@ export const productsMock = [
     name: 'Silk Hair Serum',
     description:
       'Premium silk-infused serum that smooths and adds shine to all hair types. Reduces frizz and provides heat protection up to 450°F.',
-    images: [productImage],
+    images: [productImage, productImage, productImage],
     originalPrice: {
       min: 45,
       max: 56,
@@ -20,6 +20,16 @@ export const productsMock = [
     stock: 15,
     rating: 4.8,
     reviews: 312,
+    ratingsReviews: [
+      {
+        id: '1',
+        rating: 4,
+        productId: '1',
+        name: 'jane doe',
+        comment: 'Good product',
+        createdAt: Date.now(),
+      },
+    ],
     specs: [
       {
         originalPrice: 45,
@@ -61,7 +71,7 @@ export const productsMock = [
     name: 'Premium Cotton T-Shirt',
     description:
       'Comfortable, breathable 100% organic cotton t-shirt perfect for everyday wear. Available in multiple colors with a modern fit that flatters all body types.',
-    images: [productImage],
+    images: [productImage, productImage, productImage],
     originalPrice: {
       min: 35,
       max: 56,
@@ -73,6 +83,7 @@ export const productsMock = [
     stock: 42,
     rating: 4.6,
     reviews: 187,
+    ratingsReviews: null,
     specs: [
       {
         originalPrice: 35,
@@ -120,6 +131,7 @@ export const productsMock = [
     stock: 8,
     rating: 4.9,
     reviews: 456,
+    ratingsReviews: null,
     collection: 'Limited',
     specs: [
       {
@@ -152,6 +164,7 @@ export const productsMock = [
     stock: 8,
     rating: 4.9,
     reviews: 456,
+    ratingsReviews: null,
     collection: 'Limited',
     specs: [
       {

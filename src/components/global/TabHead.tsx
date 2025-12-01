@@ -12,7 +12,7 @@ export default function TabHead({
           <TabsTrigger
             key={index}
             value={status}
-            className=" cursor-pointer capitalize rounded-none  font-medium hover:text-secondary hover:bg-secondary/20 data-[state=active]:bg-secondary data-[state=active]:text-white data-[state=active]:h-10 h-8 text-sm  "
+            className=" cursor-pointer capitalize rounded-none transition duration-150  font-medium hover:text-secondary hover:bg-secondary/20 data-[state=active]:bg-secondary data-[state=active]:text-white data-[state=active]:h-10 h-8 text-sm  "
           >
             {label}
           </TabsTrigger>

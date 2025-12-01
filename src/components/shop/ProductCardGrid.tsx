@@ -15,7 +15,7 @@ const ProductCardGrid = ({ product }: { product: Product }) => {
     : originalPrice.min
   const maxPrice = discountPrice?.max
     ? Math.max(discountPrice?.max, originalPrice.max)
-    : originalPrice.max
+    : originalPrice?.max
   const discountPercent =
     discountPrice?.max && discount(originalPrice.max, discountPrice.max)
   const { wishlistItems }: { wishlistItems: Product[] } = useSelector(

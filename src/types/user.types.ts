@@ -3,6 +3,8 @@ export type UserProfile = {
   lastName: string
   email: string
   uid: string
+  phone?: string
+  gender?: string
 }
 
 export type User = {

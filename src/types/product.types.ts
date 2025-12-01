@@ -1,3 +1,5 @@
+import type { RatingsAndReviews } from './ratings_reviews.types'
+
 type Specs = {
   size: string
   colors: { color: string; quantity: number }[]
@@ -15,6 +17,7 @@ export type Product = {
   stock: number
   rating: number
   reviews: number
+  ratingsReviews: RatingsAndReviews[] | null
   specs?: Specs[] | undefined
   collection: string
   discountPrice?: {
@@ -28,16 +31,23 @@ export type Product = {
 }
 
 export type CartItem = {
-  image: string
-  name: string
+  image: string | undefined
+  name: string | undefined
   price: number
   color: string
   size?: string
   length?: string
   quantity: number
-  id: string
-  category: string
+  id: string | undefined
+  category: string | undefined
   discountPrice?: number
   originalPrice: number
   stock: number
+}
+
+export type ProductFilter = {
+  priceRange: number[] | null
+  minRating: number | null
+  inStockOnly: boolean | null
+  searchQuery?: string
 }

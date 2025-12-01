@@ -18,7 +18,7 @@ function SearchBar({ onSearch, placeholder, width }: SearchBarProp) {
         placeholder={placeholder}
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
-        className="px-8 text-sm outline-none focus-visible:outline-none  w-full rounded-full bg-white h-10 
+        className="pr-8 pl-3 md:pl-5 text-sm outline-none focus-visible:outline-none  w-full rounded-full bg-white h-10 
           placeholder:text-sm"
         type="search"
         name="search"

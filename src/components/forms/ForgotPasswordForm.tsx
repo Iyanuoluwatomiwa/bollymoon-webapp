@@ -23,6 +23,7 @@ function ForgotPasswordForm() {
     setSubmitting(true)
     const validatedData = useValidateSchema(forgotPasswordSchema, formData)
     if (!validatedData) {
+      setSubmitting(false)
       return
     }
     /* forgot password logic here */

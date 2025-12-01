@@ -818,6 +818,10 @@ export const profile = {
       url: '/ratings-reviews',
     },
     {
+      name: 'Wishlist',
+      url: '/wishlist',
+    },
+    {
       name: 'Settings',
       url: '/settings',
     },
@@ -840,5 +844,15 @@ export const ordersTabHeadList = [
   {
     status: 'canceled',
     label: 'canceled',
+  },
+]
+export const settingsTabHeadList = [
+  {
+    status: 'profile',
+    label: 'Profile Details',
+  },
+  {
+    status: 'security',
+    label: 'Security',
   },
 ]

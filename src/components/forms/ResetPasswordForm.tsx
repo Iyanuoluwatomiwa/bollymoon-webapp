@@ -24,6 +24,7 @@ function ResetPasswordForm() {
     setSubmitting(true)
     const validatedData = useValidateSchema(resetPasswordSchema, formData)
     if (!validatedData) {
+      setSubmitting(false)
       return
     }
 
