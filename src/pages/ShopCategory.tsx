@@ -26,10 +26,6 @@ const getViewMode =
 
 function ShopCategory() {
   const { category } = useParams()
-  const finalProducts = productsMock?.filter(
-    (product) => product.category === category
-  )
-
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [filters, setFilters] = useState<ProductFilter>({
     priceRange: null,
@@ -40,6 +36,15 @@ function ShopCategory() {
   const [sortBy, setSortBy] = useState('relevance')
   const [viewMode, setViewMode] = useState<ViewMode>(getViewMode)
 
+  const products = productsMock?.filter(
+    (product) => product.category === category
+  )
+  const finalProducts = products?.filter((product) => {
+    const matchesCategory =
+      selectedCategory == 'all' || product.subcategory == selectedCategory
+
+    return matchesCategory
+  })
   const onSearch = (searchQuery: string) => {
     console.log(searchQuery)
   }
