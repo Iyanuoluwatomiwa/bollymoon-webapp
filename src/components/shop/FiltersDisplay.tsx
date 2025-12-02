@@ -2,11 +2,16 @@ import type { ProductFilter } from '@/types/product.types'
 import { currencyFormatter } from '@/utils/format'
 import { Minus, Star, X } from 'lucide-react'
 
-export default function FiltersMobileDisplay({
+export default function FiltersDisplay({
   filters,
+  setFilters,
 }: {
   filters: ProductFilter
+  setFilters: ({ priceRange, inStockOnly, minRating }: ProductFilter) => void
 }) {
+  const cancelFilter = (field: string) => {
+    setFilters({ ...filters, [field]: null })
+  }
   return (
     <>
       {' '}
@@ -21,8 +26,8 @@ export default function FiltersMobileDisplay({
                   <Minus className="w-4 h-4" />{' '}
                   {currencyFormatter(filters.priceRange[1])}
                 </span>
-                <button>
-                  <X className="w-4 h-4" />
+                <button onClick={() => cancelFilter('priceRange')}>
+                  <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
                 </button>
               </div>
             )}
@@ -32,8 +37,8 @@ export default function FiltersMobileDisplay({
                   min. {filters.minRating}
                   <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
                 </span>
-                <button>
-                  <X className="w-4 h-4" />
+                <button onClick={() => cancelFilter('minRating')}>
+                  <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
                 </button>
               </div>
             )}
@@ -42,8 +47,8 @@ export default function FiltersMobileDisplay({
                 <span className="text-xs flex items-center gap-1">
                   In stock
                 </span>
-                <button>
-                  <X className="w-4 h-4" />
+                <button onClick={() => cancelFilter('inStockOnly')}>
+                  <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
                 </button>
               </div>
             )}

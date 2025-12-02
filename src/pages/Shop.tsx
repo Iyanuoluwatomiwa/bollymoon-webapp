@@ -11,9 +11,9 @@ import { shop } from '@/assets/data'
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
 import type { ProductFilter } from '@/types/product.types'
-import AdvancedFilters from '@/components/shop/AdvancedFilters'
+import Filters from '@/components/shop/Filters'
 import FiltersDialog from '@/components/shop/FiltersDialog'
-import FiltersMobileDisplay from '@/components/shop/FiltersMobileDisplay'
+import FiltersDisplay from '@/components/shop/FiltersDisplay'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
@@ -124,7 +124,7 @@ function Shop() {
         </section>
         <div className="lg:grid lg:grid-cols-8 gap-4">
           <div className="hidden lg:block col-span-2 border-r border-accent-foreground my-8">
-            <AdvancedFilters
+            <Filters
               setFilters={setFilters}
               maxPrice={50}
               setCurrentPage={setCurrentPage}
@@ -148,7 +148,7 @@ function Shop() {
               </div>
 
               {/* filters */}
-              <FiltersMobileDisplay filters={filters} />
+              <FiltersDisplay filters={filters} setFilters={setFilters} />
 
               <CategoriesCarousel
                 selectedCategory={selectedCategory}

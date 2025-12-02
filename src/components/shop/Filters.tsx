@@ -6,7 +6,7 @@ import { currencyFormatter } from '@/utils/format'
 import { useState } from 'react'
 import type { ProductFilter } from '@/types/product.types'
 
-interface AdvancedFiltersProps {
+interface FiltersProps {
   searchQuery?: string
   setFilters: ({
     priceRange,
@@ -18,12 +18,12 @@ interface AdvancedFiltersProps {
   setCurrentPage: (value: number) => void
   setIsOpen?: (value: boolean) => void
 }
-const AdvancedFilters = ({
+const Filters = ({
   setFilters,
   maxPrice,
   setCurrentPage,
   setIsOpen,
-}: AdvancedFiltersProps) => {
+}: FiltersProps) => {
   const [priceRange, setPriceRange] = useState([0, maxPrice ?? 1000])
   const [inStockOnly, setInStockOnly] = useState(false)
   const [minRating, setMinRating] = useState(1)
@@ -41,7 +41,7 @@ const AdvancedFilters = ({
   const clearFilters = () => {
     setPriceRange([0, maxPrice ?? 1000])
     setInStockOnly(false)
-    setMinRating(0)
+    setMinRating(1)
     setCurrentPage(1)
   }
 
@@ -131,4 +131,4 @@ const AdvancedFilters = ({
   )
 }
 
-export default AdvancedFilters
+export default Filters

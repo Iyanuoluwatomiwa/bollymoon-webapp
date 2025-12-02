@@ -7,10 +7,10 @@ import PageTitle from '@/components/global/PageTitle'
 import { productsMock } from '@/database'
 import { useState } from 'react'
 import type { ProductFilter } from '@/types/product.types'
-import AdvancedFilters from '@/components/shop/AdvancedFilters'
+import Filters from '@/components/shop/Filters'
 import SearchBar from '@/components/global/SearchBar'
 import FiltersDialog from '@/components/shop/FiltersDialog'
-import FiltersMobileDisplay from '@/components/shop/FiltersMobileDisplay'
+import FiltersDisplay from '@/components/shop/FiltersDisplay'
 import Sorting from '@/components/shop/Sorting'
 import { shop, subcategories } from '@/assets/data'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
@@ -76,7 +76,7 @@ function ShopCategory() {
       <Container className="pb-10 pt-4">
         <div className="lg:grid lg:grid-cols-8 gap-4">
           <div className="hidden lg:block col-span-2 border-r border-accent-foreground my-8">
-            <AdvancedFilters
+            <Filters
               setFilters={setFilters}
               maxPrice={50}
               setCurrentPage={setCurrentPage}
@@ -100,7 +100,7 @@ function ShopCategory() {
               </div>
 
               {/* filters */}
-              <FiltersMobileDisplay filters={filters} />
+              <FiltersDisplay filters={filters} setFilters={setFilters} />
 
               <CategoriesCarousel
                 selectedCategory={selectedCategory}

@@ -1,6 +1,6 @@
 import { Button } from '../ui/button'
 import { SlidersHorizontal } from 'lucide-react'
-import AdvancedFilters from './AdvancedFilters'
+import Filters from './Filters'
 import type { ProductFilter } from '@/types/product.types'
 import {
   Dialog,
@@ -45,7 +45,7 @@ export default function FiltersDialog({
           <DialogDescription>product filtering</DialogDescription>
         </DialogHeader>
 
-        <AdvancedFilters
+        <Filters
           setFilters={setFilters}
           maxPrice={maxPrice}
           setCurrentPage={setCurrentPage}
