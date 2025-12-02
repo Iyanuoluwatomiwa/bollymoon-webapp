@@ -19,7 +19,6 @@ interface FiltersDialogProps {
     minRating,
     searchQuery,
   }: ProductFilter) => void
-  filters: ProductFilter
   maxPrice: number | undefined
   setCurrentPage: (value: number) => void
 }
@@ -28,7 +27,6 @@ export default function FiltersDialog({
   setFilters,
   maxPrice,
   setCurrentPage,
-  filters,
 }: FiltersDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -52,7 +50,6 @@ export default function FiltersDialog({
           maxPrice={maxPrice}
           setCurrentPage={setCurrentPage}
           setIsOpen={setIsOpen}
-          filters={filters}
         />
       </DialogContent>
     </Dialog>

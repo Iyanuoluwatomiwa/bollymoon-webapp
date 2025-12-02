@@ -7,7 +7,6 @@ import { useState } from 'react'
 import type { ProductFilter } from '@/types/product.types'
 
 interface AdvancedFiltersProps {
-  onClose?: () => void
   searchQuery?: string
   setFilters: ({
     priceRange,
@@ -15,8 +14,6 @@ interface AdvancedFiltersProps {
     minRating,
     searchQuery,
   }: ProductFilter) => void
-  filters: ProductFilter
-  isLoading?: boolean
   maxPrice: number | undefined
   setCurrentPage: (value: number) => void
   setIsOpen?: (value: boolean) => void
@@ -26,7 +23,6 @@ const AdvancedFilters = ({
   maxPrice,
   setCurrentPage,
   setIsOpen,
-  filters,
 }: AdvancedFiltersProps) => {
   const [priceRange, setPriceRange] = useState([0, maxPrice ?? 1000])
   const [inStockOnly, setInStockOnly] = useState(false)

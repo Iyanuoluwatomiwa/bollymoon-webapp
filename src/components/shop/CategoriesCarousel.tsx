@@ -6,16 +6,17 @@ import {
   CarouselPrevious,
 } from '../ui/carousel'
 import { Badge } from '../ui/badge'
-import { shop } from '@/assets/data'
 
 interface CategoriesCarouselProp {
   selectedCategory: string
   setSelectedCategory: (category: string) => void
+  category: { value: string; label: string }[]
 }
 
 function CategoriesCarousel({
   selectedCategory,
   setSelectedCategory,
+  category,
 }: CategoriesCarouselProp) {
   return (
     <div className="relative">
@@ -26,7 +27,7 @@ function CategoriesCarousel({
         className="w-full px-6 mb-6"
       >
         <CarouselContent>
-          {shop.categories.map(({ value, label }, index) => (
+          {category.map(({ value, label }, index) => (
             <CarouselItem key={index} className="basis-1/3 sm:basis-1/4">
               <Badge
                 className={`cursor-pointer capitalize w-full px-2 py-2  transition ${
@@ -44,11 +45,11 @@ function CategoriesCarousel({
           ))}
         </CarouselContent>
         <CarouselPrevious
-          className={`-left-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary sm:hidden `}
+          className={`-left-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary  `}
         />
         <CarouselNext
           variant="ghost"
-          className={`-right-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary sm:hidden `}
+          className={`-right-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary  `}
         />
       </Carousel>
     </div>

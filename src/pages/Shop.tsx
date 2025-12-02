@@ -12,7 +12,6 @@ import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
 import type { ProductFilter } from '@/types/product.types'
 import AdvancedFilters from '@/components/shop/AdvancedFilters'
-import { advancedFilterSuspense } from '@/components/skeletons/suspense'
 import FiltersDialog from '@/components/shop/FiltersDialog'
 import FiltersMobileDisplay from '@/components/shop/FiltersMobileDisplay'
 
@@ -125,14 +124,11 @@ function Shop() {
         </section>
         <div className="lg:grid lg:grid-cols-8 gap-4">
           <div className="hidden lg:block col-span-2 border-r border-accent-foreground my-8">
-            {advancedFilterSuspense(
-              <AdvancedFilters
-                setFilters={setFilters}
-                maxPrice={50}
-                setCurrentPage={setCurrentPage}
-                filters={filters}
-              />
-            )}
+            <AdvancedFilters
+              setFilters={setFilters}
+              maxPrice={50}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
           <div className="my-8 col-span-6">
             <div className="mb-8 space-y-4">
@@ -148,7 +144,6 @@ function Shop() {
                   setFilters={setFilters}
                   maxPrice={50}
                   setCurrentPage={setCurrentPage}
-                  filters={filters}
                 />
               </div>
 
@@ -158,6 +153,7 @@ function Shop() {
               <CategoriesCarousel
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
+                category={shop.categories}
               />
             </div>
             <section>

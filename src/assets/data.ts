@@ -281,6 +281,32 @@ export const categories = [
   { value: 'clothing', label: 'Clothing' },
   { value: 'accessories', label: 'Accessories' },
 ]
+export const subcategories = {
+  hair: [
+    { value: 'all', label: 'All' },
+    { label: 'Wigs', value: 'wigs' },
+    { label: 'Hair Extensions', value: 'hair-extensions' },
+    { label: 'Lace Frontals', value: 'lace-frontals' },
+    { label: 'Closures', value: 'closures' },
+    { label: 'Bundles', value: 'bundles' },
+  ],
+  clothing: [
+    { value: 'all', label: 'All' },
+    { label: 'Dresses', value: 'dresses' },
+    { label: 'Tops', value: 'tops' },
+    { label: 'Bottoms', value: 'bottoms' },
+    { label: 'Outerwear', value: 'outerwear' },
+    { label: 'Activewear', value: 'activewear' },
+  ],
+  accessories: [
+    { value: 'all', label: 'All' },
+    { label: 'Jewelry', value: 'jewelry' },
+    { label: 'Bags', value: 'bags' },
+    { label: 'Scarves', value: 'scarves' },
+    { label: 'Hats', value: 'hats' },
+    { label: 'Belts', value: 'belts' },
+  ],
+}
 
 export const shop = {
   categories: [
