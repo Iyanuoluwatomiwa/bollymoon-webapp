@@ -21,7 +21,7 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
         {isUser ? (
           <button onClick={toggleAccountMenu}>
             <span className="sr-only">user</span>
-            <UserCheck className="h-5 w-5 md:h-6 fill-white text-white md:w-6 hover:text-primary hover:fill-primary" />
+            <UserCheck className="h-5 w-5 md:h-6 fill-white text-white md:w-6 hover:text-primary hover:fill-primary cursor-pointer" />
           </button>
         ) : (
           <NavLink to="/login">

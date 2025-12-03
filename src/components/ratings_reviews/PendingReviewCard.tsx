@@ -18,7 +18,7 @@ function PendingReviewCard({ orderItem }: { orderItem: OrderItem }) {
               loading="lazy"
             />
           </figure>
-          <div className="flex-1 space-y-4 md:space-y-6 py-2">
+          <div className="flex-1 py-2 flex flex-col gap-4 md:gap-6 justify-between">
             {/* Product name, size, and color */}
             <Link to={`/shop/${category}/${productId}`} className="group block">
               <h2 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors line-clamp-2">
@@ -34,7 +34,7 @@ function PendingReviewCard({ orderItem }: { orderItem: OrderItem }) {
           </div>
         </div>
         <Link to={`/rate-product/${productId}`}>
-          <button className="text-xs md:text-sm  uppercase py-2 md:py-3 text-center border-t font-medium text-primary w-full">
+          <button className="text-xs md:text-sm  uppercase py-2 md:py-3 text-center border-t font-medium text-primary w-full cursor-pointer hover:text-white hover:bg-primary">
             rate this product
           </button>
         </Link>

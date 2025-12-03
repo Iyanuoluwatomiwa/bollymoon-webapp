@@ -14,7 +14,7 @@ function RatingsReviews() {
           <h1 className="text-lg md:text-xl font-semibold text-foreground">
             Ratings & Reviews
           </h1>
-          <div>
+          <div className="max-w-2xl mx-auto w-full">
             {deliveredOrders?.map(({ orderItems, updatedAt, orderId }) => (
               <>
                 {orderItems

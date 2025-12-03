@@ -1,6 +1,7 @@
 import ReviewForm from '@/components/forms/ReviewForm'
 import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
+import BackNavHeader from '@/components/headers/BackNavHeader'
 import { productsMock } from '@/database'
 import { useParams } from 'react-router-dom'
 
@@ -10,7 +11,8 @@ function RateProduct() {
   return (
     <>
       <PageTitle title="Rate this Product" />
-      <Container className="py-10">
+      <BackNavHeader />
+      <Container className="pb-10 lg:pt-2 pt-0">
         <div className="space-y-3 md:space-y-6">
           <h1 className="text-lg md:text-xl font-semibold text-foreground">
             Rate this Product

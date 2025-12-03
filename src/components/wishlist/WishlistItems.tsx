@@ -17,7 +17,7 @@ function WishlistItems() {
           Wishlist ({numItemsInWishlist})
         </h1>
       </div>
-      <div className="grid grid-cols-1 gap-4">
+      <div className="grid grid-cols-1 gap-4 max-w-2xl mx-auto w-full">
         {wishlistItems.map((wishlistItem) => {
           return (
             <WishlistItemCard
