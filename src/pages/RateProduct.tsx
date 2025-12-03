@@ -17,7 +17,9 @@ function RateProduct() {
           <h1 className="text-lg md:text-xl font-semibold text-foreground">
             Rate this Product
           </h1>
-          <ReviewForm product={product} />
+          <div className="max-w-2xl mx-auto w-full">
+            <ReviewForm product={product} />
+          </div>
         </div>
       </Container>
     </>
