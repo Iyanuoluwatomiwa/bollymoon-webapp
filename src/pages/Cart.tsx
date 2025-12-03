@@ -23,7 +23,7 @@ function Cart() {
             {!numItemsInCart ? <EmptyCart /> : <CartItems />}
           </section>
           {!numItemsInCart || (
-            <section className="mt-10 md:mt-15.5">
+            <section className="mt-10 md:mt-13">
               <LazyLoad>{sectionSuspense(<OrderSummary />)}</LazyLoad>
             </section>
           )}

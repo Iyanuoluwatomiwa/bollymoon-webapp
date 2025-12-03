@@ -1,8 +1,8 @@
-import type { OrderItem } from '@/types/orders.types'
+import type { OrderItemByUser } from '@/types/orders.types'
 import { formatCreatedAt } from '@/utils/format'
 import { Link } from 'react-router-dom'
 
-function PendingReviewCard({ orderItem }: { orderItem: OrderItem }) {
+function PendingReviewCard({ orderItem }: { orderItem: OrderItemByUser }) {
   const { productImage, productName, productId, category, updatedAt, orderId } =
     orderItem
   return (

@@ -179,20 +179,20 @@ export const footer = {
       heading: 'quick links',
       links: [
         {
-          label: 'Collections',
-          url: '/collections',
+          label: 'Collection',
+          url: '/collection',
         },
         {
           label: 'Shop',
           url: '/shop',
         },
         {
-          label: 'Hairs',
-          url: '/shop/hairs',
+          label: 'Hair',
+          url: '/shop/hair',
         },
         {
-          label: 'Clothings',
-          url: '/shop/clothings',
+          label: 'Clothing',
+          url: '/shop/clothing',
         },
         {
           label: 'Accessories',

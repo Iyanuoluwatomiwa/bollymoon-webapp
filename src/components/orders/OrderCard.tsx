@@ -7,6 +7,7 @@ function OrderCard({
   id,
   orderId,
   createdAt,
+  updatedAt,
   orderItems,
   orderTotal,
   status,
@@ -34,12 +35,14 @@ function OrderCard({
             {status}
           </span>
           <span className="text-xs font-medium">
-            {status == 'pending' ? 'Ordered on' : 'On'}{' '}
-            {formatCreatedAt(createdAt)}
+            {status == 'pending'
+              ? `Ordered on ${formatCreatedAt(createdAt)}`
+              : `On ${formatCreatedAt(updatedAt)}`}{' '}
+            {}
           </span>
         </div>
         <Link to={`/orders/${id}`}>
-          <button className="text-sm bg-primary text-white px-4 py-1.5 rounded-sm">
+          <button className="text-sm bg-primary text-white px-4 py-1.5 rounded-sm cursor-pointer hover:bg-primary/90">
             Details
           </button>
         </Link>

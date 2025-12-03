@@ -2,10 +2,13 @@ import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
 import EmptyRatingsReviews from '@/components/ratings_reviews/EmptyRatingsReviews'
 import PendingReviewCard from '@/components/ratings_reviews/PendingReviewCard'
-import { orders } from '@/database'
+import { orderItemsByUser } from '@/database'
+import type { OrderItemByUser } from '@/types/orders.types'
 
 function RatingsReviews() {
-  const deliveredOrders = orders?.filter((item) => item.status === 'delivered')
+  const deliveredOrders: OrderItemByUser[] = orderItemsByUser?.filter(
+    (item) => item.status === 'delivered'
+  )
   return (
     <>
       <PageTitle title="Ratings & Reviews" />
@@ -15,20 +18,15 @@ function RatingsReviews() {
             Ratings & Reviews
           </h1>
           <div className="max-w-2xl mx-auto w-full">
-            {deliveredOrders?.map(({ orderItems, updatedAt, orderId }) => (
-              <>
-                {orderItems
-                  ?.filter((item) => item.reviewed == false)
-                  ?.map((item) => {
-                    const orderItem = { ...item, orderId, updatedAt }
-                    return (
-                      <PendingReviewCard key={item.id} orderItem={orderItem} />
-                    )
-                  })}
-                {orderItems?.filter((item) => item.reviewed == false).length ===
-                  0 && <EmptyRatingsReviews />}
-              </>
-            ))}
+            <>
+              {deliveredOrders
+                ?.filter((item) => item.reviewed == false)
+                ?.map((item) => (
+                  <PendingReviewCard key={item.id} orderItem={item} />
+                ))}
+              {deliveredOrders?.filter((item) => item.reviewed == false)
+                .length === 0 && <EmptyRatingsReviews />}
+            </>
           </div>
         </div>
       </Container>

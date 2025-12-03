@@ -1,12 +1,15 @@
 export type OrderItem = {
-  id: string
-  productId: string
-  productName: string
-  reviewed: boolean
-  productImage: string
-  category: string
-  updatedAt?: number
-  orderId?: string
+  productImage?: string
+  productName?: string
+  price?: number
+  color?: string
+  size?: string
+  quantity?: number
+  id?: string
+  category?: string
+  discountPrice?: number
+  originalPrice?: number
+  productId?: string
 }
 
 export type Order = {
@@ -23,4 +26,16 @@ export type Order = {
   status: string
   uid: string
   orderItems: OrderItem[]
+}
+
+export type OrderItemByUser = {
+  id: string
+  productId: string
+  productName: string
+  reviewed: boolean
+  orderId: number
+  productImage: string
+  updatedAt: number
+  category: string
+  status: string
 }

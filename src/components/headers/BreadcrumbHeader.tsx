@@ -15,18 +15,23 @@ interface SubPagesHeaderProp {
 
 function BreadcrumbHeader({ currentPage, previousPage }: SubPagesHeaderProp) {
   return (
-    <header className="py-5 mb-4">
+    <header className="py-5">
       <Breadcrumb>
         <BreadcrumbList>
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to="/">Home</Link>
+              <Link to="/" className="hover:text-secondary">
+                Home
+              </Link>
             </BreadcrumbLink>
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
             <BreadcrumbLink asChild>
-              <Link to={`/${previousPage}`} className="capitalize">
+              <Link
+                to={`/${previousPage}`}
+                className="capitalize hover:text-secondary"
+              >
                 {previousPage}
               </Link>
             </BreadcrumbLink>
