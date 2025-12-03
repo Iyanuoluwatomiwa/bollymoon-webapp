@@ -8,10 +8,10 @@ export default function BackNavHeader() {
     <Container className="py-4">
       <header>
         <button
-          className="flex items-center gap-1 font-medium text-gray-800 hover:text-secondary "
+          className="flex items-center gap-1 font-medium text-gray-800 hover:text-secondary cursor-pointer text-sm sm:text-base "
           onClick={() => navigate(-1)}
         >
-          <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6" />
+          <ChevronLeft className="w-4 h-5 lg:w-6 lg:h-6" />
           Back
         </button>
       </header>
