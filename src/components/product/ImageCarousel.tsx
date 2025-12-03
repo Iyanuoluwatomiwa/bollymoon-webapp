@@ -1,5 +1,5 @@
 import { Swiper, SwiperSlide } from 'swiper/react'
-import { Pagination, Autoplay } from 'swiper/modules'
+import { Autoplay } from 'swiper/modules'
 import 'swiper/css'
 
 function ImageCarousel({
@@ -9,10 +9,10 @@ function ImageCarousel({
 }) {
   return (
     <Swiper
-      modules={[Pagination, Autoplay]}
+      modules={[Autoplay]}
       spaceBetween={10}
       slidesPerView="auto"
-      centeredSlides={false}
+      centeredSlides={carouselItems?.length === 1 ? true : false}
       pagination={{ clickable: true }}
       navigation={true}
       autoplay={{

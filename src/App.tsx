@@ -34,6 +34,9 @@ const OrderDetails = lazy(() => import('./pages/OrderDetails'))
 const RatingsReviews = lazy(() => import('./pages/RatingsReviews'))
 const RateProduct = lazy(() => import('./pages/RateProduct'))
 const Settings = lazy(() => import('./pages/Settings'))
+const ProductRatingsReviews = lazy(
+  () => import('./pages/ProductRatingsReviews')
+)
 
 const router = createBrowserRouter([
   {
@@ -129,6 +132,10 @@ const router = createBrowserRouter([
       {
         path: 'settings',
         element: pageSuspense(<Settings />),
+      },
+      {
+        path: 'shop/:category/:productId/ratings-reviews',
+        element: pageSuspense(<ProductRatingsReviews />),
       },
     ],
   },

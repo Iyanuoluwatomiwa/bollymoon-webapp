@@ -14,7 +14,7 @@ import { currencyFormatter, discount } from '@/utils/format'
 import { ChevronRight, Heart, Minus } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 function ProductDetails() {
   const { productId } = useParams()
@@ -40,15 +40,14 @@ function ProductDetails() {
   }
   return (
     <>
-      <PageTitle title={product?.name ?? 'Product Details'} />
+      <PageTitle title={product?.name} />
       <BackNavHeader />
-      <div className="space-y-2 md:space-y-6 pb-10 lg:pt-2 pt-0 relative">
-        <Container>
+
+      <Container className="pb-10 lg:pt-2 pt-0">
+        <div className="space-y-2 md:space-y-6 relative">
           <h1 className="text-lg md:text-xl font-bold text-foreground">
             Details
           </h1>
-        </Container>
-        <Container>
           <div className="grid lg:grid-cols-8 lg:gap-4">
             <div className="lg:col-span-3 ">
               <div className="pb-4">
@@ -93,7 +92,7 @@ function ProductDetails() {
                       <Ratings rating={product?.rating} />
                       <span>{product?.reviews} ratings</span>
                     </div>
-                    <div className="flex items-center gap-2 md:gap-4">
+                    <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
                       <button
                         className="p-2 hover:scale-110 cursor-pointer bg-primary/20 rounded-full"
                         onClick={handleWishlistToggle}
@@ -105,7 +104,7 @@ function ProductDetails() {
             `}
                         />
                       </button>
-                      <div className="min-w-26 sm:min-w-34">
+                      <div className="min-w-27 sm:min-w-34">
                         <AddToCart product={product} />
                       </div>
                     </div>
@@ -115,14 +114,14 @@ function ProductDetails() {
               <Separator className="border-3 border-white lg:hidden" />
               {/* product details */}
               <>
-                <div className="sm:py-4 py-2  lg:py-2">
+                <div className="py-2  md:py-4">
                   <h2 className="text-sm md:text-base  font-semibold ">
                     Product Details
                   </h2>
                 </div>
                 <Separator className="lg:hidden mb-2" />
                 <div>
-                  <p className="text-xs sm:text-sm mb-4">
+                  <p className="text-xs sm:text-sm my-4 lg:mb-4 lg:mt-0">
                     {' '}
                     {product?.description}{' '}
                   </p>
@@ -131,11 +130,23 @@ function ProductDetails() {
               </>
 
               {/* product ratings & reviews */}
-              <div className="sm:py-4 py-2 lg:py-2">
-                <div className="text-sm md:text-base flex items-center justify-between  font-semibold">
-                  <h2>Product Rating & Reviews</h2>
+              <div className="py-2 md:py-4">
+                <Link
+                  to={`ratings-reviews`}
+                  className="text-sm md:text-base flex items-center justify-between block font-semibold"
+                >
+                  <div className="space-y-0.5">
+                    <h2>Product Rating & Reviews</h2>
+                    <div className="flex items-center gap-2 text-xs sm:text-sm">
+                      <span className="border border-primary font-semibold text-primary px-0.5 rounded-xs">
+                        {product?.rating}/5
+                      </span>
+                      <span>{product?.reviews} ratings</span>
+                    </div>
+                  </div>
+
                   <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
-                </div>
+                </Link>
               </div>
               <Separator className="lg:hidden mb-2" />
               <div>
@@ -151,8 +162,8 @@ function ProductDetails() {
               </div>
             </div>
           </div>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </>
   )
 }

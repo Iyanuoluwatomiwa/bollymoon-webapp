@@ -34,8 +34,9 @@ export default function FiltersDisplay({
             {filters.minRating && (
               <div className="flex items-center gap-2 border border-primary px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
                 <span className="text-xs flex items-center gap-1">
-                  min. {filters.minRating}
-                  <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />
+                  {filters.minRating}
+                  {filters.minRating !== 5 && '+'}
+                  <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />{' '}
                 </span>
                 <button onClick={() => cancelFilter('minRating')}>
                   <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
