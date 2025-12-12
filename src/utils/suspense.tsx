@@ -1,7 +1,7 @@
 import { Loader2Icon, User } from 'lucide-react'
 import { Suspense, type JSX } from 'react'
 import LazyLoad from 'react-lazyload'
-import LoadingIcon from '../global/LoadingIcon'
+import LoadingIcon from '../components/global/LoadingIcon'
 
 export const lazyload = (Component: JSX.Element) => (
   <LazyLoad>{Component}</LazyLoad>

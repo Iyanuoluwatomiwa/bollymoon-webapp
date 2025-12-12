@@ -18,15 +18,13 @@ function RatingsReviews() {
             Ratings & Reviews
           </h1>
           <div className="max-w-2xl mx-auto w-full">
-            <>
-              {deliveredOrders
-                ?.filter((item) => item.reviewed == false)
-                ?.map((item) => (
-                  <PendingReviewCard key={item.id} orderItem={item} />
-                ))}
-              {deliveredOrders?.filter((item) => item.reviewed == false)
-                .length === 0 && <EmptyRatingsReviews />}
-            </>
+            {deliveredOrders
+              ?.filter((item) => item.reviewed == false)
+              ?.map((item) => (
+                <PendingReviewCard key={item.id} orderItem={item} />
+              ))}
+            {deliveredOrders?.filter((item) => item.reviewed == false)
+              .length === 0 && <EmptyRatingsReviews />}
           </div>
         </div>
       </Container>

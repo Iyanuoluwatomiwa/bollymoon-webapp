@@ -1,6 +1,6 @@
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { lazy, useEffect } from 'react'
-import { pageSuspense } from './components/skeletons/suspense'
+import { pageSuspense } from './utils/suspense'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { setUserProfile } from './features/user/userSlice'
@@ -8,6 +8,8 @@ import { user } from './database'
 
 //layouts
 import AppLayout from './components/layouts/AppLayout'
+import AdminLayout from './components/layouts/AdminLayout'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -37,6 +39,14 @@ const Settings = lazy(() => import('./pages/Settings'))
 const ProductRatingsReviews = lazy(
   () => import('./pages/ProductRatingsReviews')
 )
+const AddressBook = lazy(() => import('./pages/AddressBook'))
+const Overview = lazy(() => import('./pages/Overview'))
+const Products = lazy(() => import('./pages/Products'))
+const AddProduct = lazy(() => import('./pages/AddProduct'))
+const EditProduct = lazy(() => import('./pages/EditProduct'))
+const ViewProduct = lazy(() => import('./pages/ViewProduct'))
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
@@ -57,7 +67,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/',
-    element: pageSuspense(<AppLayout />),
+    element: <AppLayout />,
     errorElement: pageSuspense(<Error />),
     children: [
       {
@@ -137,8 +147,44 @@ const router = createBrowserRouter([
         path: 'shop/:category/:productId/ratings-reviews',
         element: pageSuspense(<ProductRatingsReviews />),
       },
+      {
+        path: 'address-book',
+        element: pageSuspense(<AddressBook />),
+      },
     ],
   },
+  {
+    path: 'admin',
+    element: <AdminLayout />,
+    errorElement: pageSuspense(<Error />),
+    children: [
+      {
+        index: true,
+        element: <Navigate to="overview" />,
+      },
+      {
+        path: 'overview',
+        element: pageSuspense(<Overview />),
+      },
+      {
+        path: 'products',
+        element: pageSuspense(<Products />),
+      },
+      {
+        path: 'products/add',
+        element: pageSuspense(<AddProduct />),
+      },
+      {
+        path: 'products/edit/:productId',
+        element: pageSuspense(<EditProduct />),
+      },
+      {
+        path: 'products/view/:productId',
+        element: pageSuspense(<ViewProduct />),
+      },
+    ],
+  },
+
   {
     path: 'restricted_access',
     element: pageSuspense(<RestrictedAccess />),
@@ -166,12 +212,14 @@ function App() {
   }, [isUser, dispatch])
 
   return (
-    <RouterProvider
-      router={router}
-      future={{
-        v7_startTransition: true,
-      }}
-    />
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider
+        router={router}
+        future={{
+          v7_startTransition: true,
+        }}
+      />
+    </QueryClientProvider>
   )
 }
 

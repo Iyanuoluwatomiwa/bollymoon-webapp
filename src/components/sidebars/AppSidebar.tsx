@@ -17,6 +17,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible'
+import { useEffect } from 'react'
+import { useIsDesktop } from '@/hooks/use-desktop'
 
 function AppSidebar() {
   const getClassName = ({ isActive }: { isActive: boolean }) => {
@@ -27,11 +29,16 @@ function AppSidebar() {
       : 'text-foreground hover:text-primary hover:bg-primary/10'
     return `${baseClasses} ${activeClasses}`
   }
-  const { toggleSidebar } = useSidebar()
+  const { toggleSidebar, setOpen } = useSidebar()
 
+  const isDesktop = useIsDesktop()
+
+  useEffect(() => {
+    if (isDesktop) setOpen(false)
+  }, [isDesktop])
   return (
     <Sidebar side="left">
-      <SidebarHeader className="bg-background pb-6">
+      <SidebarHeader className="bg-gradient-to-b from-primary/10 to-accent/50 pb-6">
         <button
           onClick={toggleSidebar}
           className="ml-auto cursor-pointer text-foreground hover:bg-primary hover:text-white rounded-xs"
@@ -39,7 +46,7 @@ function AppSidebar() {
           <X className="w-5 h-5" />
         </button>
       </SidebarHeader>
-      <SidebarContent className="px-3 gap-0 bg-background space-y-1">
+      <SidebarContent className="px-3 gap-0 bg-gradient-to-b from-primary/10 to-accent/50  space-y-1">
         <SidebarMenu>
           <SidebarMenuItem>
             <NavLink

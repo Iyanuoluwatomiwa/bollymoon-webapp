@@ -1,8 +1,10 @@
 import type { RatingsAndReviews } from './ratings_reviews.types'
 
-type Specs = {
+export type ColorQuantity = { color: string; quantity: number }
+
+export type Variant = {
   size: string
-  colors: { color: string; quantity: number }[]
+  colors: ColorQuantity[]
   originalPrice: number
   discountPrice?: number
 }
@@ -18,7 +20,7 @@ export type Product = {
   rating: number
   reviews: number
   ratingsReviews: RatingsAndReviews[] | null
-  specs?: Specs[] | undefined
+  specs?: Variant[] | undefined
   collection: string
   discountPrice?: {
     min: number
@@ -49,4 +51,31 @@ export type ProductFilter = {
   minRating: number | null
   inStockOnly: boolean | null
   searchQuery?: string
+}
+
+export type ProductForm = {
+  categories: {
+    value: string
+    label: string
+  }[]
+  subcategories: {
+    hair: {
+      label: string
+      value: string
+    }[]
+    cosmetics: {
+      label: string
+      value: string
+    }[]
+  }
+}
+
+export type ProductUpload = {
+  specs: Variant[]
+  images: File[]
+  subcategory: string
+  name: string
+  description: string
+  category: string
+  collection: string
 }

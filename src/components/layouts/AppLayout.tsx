@@ -1,10 +1,10 @@
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Outlet } from 'react-router-dom'
 import AppHeader from '../headers/AppHeader'
-import AppSidebar from '../sidebars.tsx/AppSidebar'
+import AppSidebar from '../sidebars/AppSidebar'
 import AppFooter from '../footer/AppFooter'
 import ScrollToTop from '../global/ScrollToTop'
-import AccountSidebarSheet from '../sidebars.tsx/AccountSidebarSheet'
+import AccountSidebarSheet from '../sidebars/AccountSidebarSheet'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 

@@ -305,3 +305,15 @@ export const RatingsAndReviewsByProduct = [
     createdAt: Date.now(),
   },
 ]
+
+export const Addresses = [
+  {
+    firstName: 'Jane',
+    lastName: 'Doe',
+    phone: '01235867908',
+    address: '123 Main St',
+    Region: 'London',
+    City: '',
+    default: true,
+  },
+]

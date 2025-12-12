@@ -131,39 +131,6 @@ export function validateWithZodSchema<T>(schema: ZodSchema<T>, data: unknown) {
   return result.data
 }
 
-export const productSchema = z.object({
-  name: z
-    .string()
-    .min(2, {
-      message: 'name must be at least 2 characters',
-    })
-    .max(50, {
-      message: 'name must be less than 50 characters',
-    }),
-  description: z.string().refine(
-    (description) => {
-      const wordCount = description.split(' ').length
-      return wordCount >= 10 && wordCount <= 100
-    },
-    {
-      message: 'Description must be between 10 and 100 words',
-    }
-  ),
-  price: z.coerce
-    .number({
-      message: 'Price must be only numbers',
-    })
-    .int()
-    .min(1, {
-      message: 'Price must be greater than 0',
-    }),
-  brand: z.string(),
-  category: z.string().min(1, {
-    message: 'Please select a category',
-  }),
-  material: z.string(),
-})
-
 export const reviewSchema = z.object({
   rating: z.number().int().min(1, {
     message: 'Please give a rating',
@@ -271,4 +238,30 @@ export const ProfileFormSchema = z.object({
     .length(11, {
       message: 'Please enter a valid 11-digit phone number',
     }),
+})
+
+export const productSchema = z.object({
+  name: z
+    .string()
+    .min(10, {
+      message: 'name must be at least 10 characters',
+    })
+    .max(50, {
+      message: 'name must be less than 50 characters',
+    }),
+  description: z.string().refine(
+    (description) => {
+      const wordCount = description.split(' ').length
+      return wordCount >= 10 && wordCount <= 100
+    },
+    {
+      message: 'Description must be between 10 and 100 words',
+    }
+  ),
+  category: z.string().min(1, {
+    message: 'Please select a category',
+  }),
+  subcategory: z.string().min(1, {
+    message: 'Please select a subcategory',
+  }),
 })

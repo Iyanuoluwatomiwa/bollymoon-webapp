@@ -91,3 +91,29 @@ export const getStatusColor: Record<string, { bg: string; border: string }> = {
   delivered: { bg: 'bg-green-600', border: 'border-green-600' },
   canceled: { bg: 'bg-red-600', border: 'border-red-600' },
 }
+
+export const getUrgencyLevel = (current: number) => {
+  if (current == 0)
+    return {
+      level: 'out of stock',
+      className: 'bg-destructive text-white',
+      label: 'Out of Stock',
+    }
+  if (current <= 3)
+    return {
+      level: 'critical',
+      className: 'bg-destructive text-white',
+      label: 'Critical',
+    }
+  if (current <= 10)
+    return {
+      level: 'low',
+      className: 'bg-warning text-white ',
+      label: 'Low',
+    }
+  return {
+    level: 'active',
+    className: 'bg-success text-white',
+    label: 'Active',
+  }
+}

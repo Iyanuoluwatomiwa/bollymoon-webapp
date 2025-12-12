@@ -24,7 +24,7 @@ function AccountSidebarSheet({
 }) {
   const getClassName = ({ isActive }: { isActive: boolean }) => {
     const baseClasses =
-      "h-full flex flex-1 items-center relative after:content-[''] text-xs after:absolute py-1.5 px-1 after:left-0 after:bottom-0 font-medium capitalize rounded-xs"
+      'h-full flex flex-1 items-center relative text-xs md:text-sm after:absolute py-1.5 px-1 font-medium capitalize rounded-xs'
     const activeClasses = isActive
       ? 'text-white bg-primary hover:text-white'
       : 'text-foreground hover:text-primary hover:bg-primary/10'

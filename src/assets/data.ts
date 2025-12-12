@@ -1,10 +1,16 @@
 import {
   ArrowLeftRight,
+  BarChart3,
   Building2,
   CreditCard,
   Hash,
+  LayoutDashboard,
   Mail,
+  PackageIcon,
   Phone,
+  Settings,
+  ShoppingCart,
+  Star,
 } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
 import heroHair from '@/assets/images/hero-hair.webp'
@@ -152,8 +158,8 @@ export const footer = {
       icon: Mail,
     },
     {
-      href: 'tel:+441234567890',
-      text: '+44 1234567890',
+      href: 'tel:+447542794858',
+      text: '+44 7542794858',
       icon: Phone,
     },
   ],
@@ -281,6 +287,7 @@ export const categories = [
   { value: 'clothing', label: 'Clothing' },
   { value: 'accessories', label: 'Accessories' },
 ]
+
 export const subcategories = {
   hair: [
     { value: 'all', label: 'All' },
@@ -848,6 +855,10 @@ export const profile = {
       url: '/wishlist',
     },
     {
+      name: 'Address Book',
+      url: '/address-book',
+    },
+    {
       name: 'Settings',
       url: '/settings',
     },
@@ -872,6 +883,7 @@ export const ordersTabHeadList = [
     label: 'canceled',
   },
 ]
+
 export const settingsTabHeadList = [
   {
     status: 'profile',
@@ -882,3 +894,95 @@ export const settingsTabHeadList = [
     label: 'Security',
   },
 ]
+
+export const adminNavigation = [
+  { title: 'Overview', url: 'overview', icon: LayoutDashboard },
+  { title: 'Products', url: 'products', icon: PackageIcon },
+  { title: 'Orders', url: 'orders', icon: ShoppingCart },
+  { title: 'Reviews', url: 'reviews', icon: Star },
+  { title: 'Analytics', url: 'analytics', icon: BarChart3 },
+  { title: 'Settings', url: 'settings', icon: Settings },
+]
+
+export const productFormSelectOptions = {
+  categories: [
+    {
+      value: 'hair',
+      label: 'Hair',
+    },
+    {
+      value: 'cosmetics',
+      label: 'Cosmetics',
+    },
+  ],
+  subcategories: {
+    hair: [
+      { label: 'Wigs', value: 'wigs' },
+      { label: 'Hair Extensions', value: 'hair-extensions' },
+      { label: 'Frontals', value: 'frontals' },
+      { label: 'Closures', value: 'closures' },
+      { label: 'Hair Bundles', value: 'hair-bundles' },
+    ],
+    cosmetics: [
+      {
+        label: 'Makeup',
+        value: 'makeup',
+      },
+    ],
+  },
+  collections: [
+    { label: 'New Arrivals', value: 'new-arrivals' },
+    { label: 'Best Sellers', value: 'best-sellers' },
+    { label: 'Trending Now', value: 'trending' },
+    { label: 'Sale Items', value: 'sales' },
+  ],
+}
+export const productsFilters = {
+  categories: [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    {
+      value: 'hair',
+      label: 'Hair',
+    },
+    {
+      value: 'cosmetics',
+      label: 'Cosmetics',
+    },
+  ],
+  subcategories: {
+    hair: [
+      {
+        value: 'all',
+        label: 'All',
+      },
+      { label: 'Wigs', value: 'wigs' },
+      { label: 'Hair Extensions', value: 'hair-extensions' },
+      { label: 'Frontals', value: 'frontals' },
+      { label: 'Closures', value: 'closures' },
+      { label: 'Hair Bundles', value: 'hair-bundles' },
+    ],
+    cosmetics: [
+      {
+        value: 'all',
+        label: 'All',
+      },
+      {
+        label: 'Makeup',
+        value: 'makeup',
+      },
+    ],
+  },
+  collections: [
+    {
+      value: 'all',
+      label: 'All',
+    },
+    { label: 'New Arrivals', value: 'new-arrivals' },
+    { label: 'Best Sellers', value: 'best-sellers' },
+    { label: 'Trending Now', value: 'trending' },
+    { label: 'Sale Items', value: 'sales' },
+  ],
+}
