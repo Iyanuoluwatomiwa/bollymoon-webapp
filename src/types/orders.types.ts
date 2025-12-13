@@ -15,17 +15,17 @@ export type OrderItem = {
 export type Order = {
   id: string
   orderId: string
-  createdAt: number
-  updatedAt: number
+  createdAt: number | string
+  updatedAt: number | string
   orderTotal: number
   paymentMethod: string
   subtotal: number
   deliveryFee: number
   deliveryOption: string
-  ShippingDetails: string
+  shippingDetails: string
   status: string
-  uid: string
-  orderItems: OrderItem[]
+  userId: string
+  orderItems?: OrderItem[]
 }
 
 export type OrderItemByUser = {

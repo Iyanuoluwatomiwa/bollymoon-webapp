@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import { currencyFormatter } from '@/utils/format'
 
 export default function OrderItemsCard({ item }: { item: OrderItem }) {
+  const role: any = 'admin'
+
   return (
     <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow rounded-sm duration-200 p-0">
       <CardContent className="p-0">
@@ -29,7 +31,7 @@ export default function OrderItemsCard({ item }: { item: OrderItem }) {
                 </h2>
               </Link>
               <div className="flex items-center text-xs gap-2 font-medium capitalize">
-                {item?.size && (
+                {item?.size?.toLowerCase() !== 'n/a' && (
                   <div
                     className=" flex items-center gap-1
                      "
@@ -40,19 +42,19 @@ export default function OrderItemsCard({ item }: { item: OrderItem }) {
                     <span>{item?.size} </span>
                   </div>
                 )}
-
-                <div
-                  className=" flex items-center gap-1
+                {item?.color?.toLowerCase() !== 'n/a' && (
+                  <div
+                    className=" flex items-center gap-1
                      font-medium"
-                >
-                  <span>Color:</span>
-                  <span> {item?.color}</span>
-                </div>
+                  >
+                    <span>Color:</span>
+                    <span> {item?.color}</span>
+                  </div>
+                )}
               </div>
             </div>
-            <div className="uppercase text-sm">
-              <span className="text-muted-foreground">qty:</span>
-              {item?.quantity}
+            <div className="uppercase text-xs font-medium">
+              qty: <span className="text-sm">{item?.quantity} </span>
             </div>
             {/* Discount and original price */}
             <div className="flex gap-x-2 ">
@@ -61,7 +63,7 @@ export default function OrderItemsCard({ item }: { item: OrderItem }) {
                   ? currencyFormatter(item?.discountPrice)
                   : currencyFormatter(item?.originalPrice)}
               </span>
-              {item?.discountPrice && (
+              {!item?.discountPrice || (
                 <div className="flex items-center gap-2">
                   <span className="text-[12px] sm:text-sm text-muted-foreground line-through font-medium italic">
                     {currencyFormatter(item?.originalPrice)}
@@ -71,14 +73,16 @@ export default function OrderItemsCard({ item }: { item: OrderItem }) {
             </div>
           </div>
         </div>
-        <Link
-          to={`/shop/${item?.category}/${item?.productId}`}
-          className="border-t block p-2"
-        >
-          <button className="text-xs md:text-sm  uppercase py-2 md:py-3 text-center font-medium text-white w-full cursor-pointer bg-primary hover:bg-primary/90  rounded-sm ">
-            Buy Again
-          </button>
-        </Link>
+        {role == 'admin' || (
+          <Link
+            to={`/shop/${item?.category}/${item?.productId}`}
+            className="border-t block p-2"
+          >
+            <button className="text-xs md:text-sm  uppercase py-2 md:py-3 text-center font-medium text-white w-full cursor-pointer bg-primary hover:bg-primary/90  rounded-sm ">
+              Buy Again
+            </button>
+          </Link>
+        )}
       </CardContent>
     </Card>
   )

@@ -51,7 +51,7 @@ function DeleteProductDialog({ product }: DeleteProductProp) {
       <Tooltip>
         <TooltipTrigger asChild>
           <AlertDialogTrigger asChild>
-            <Trash2 className="h-4 w-4" />
+            <Trash2 className="h-4 w-4 cursor-pointer" />
           </AlertDialogTrigger>
         </TooltipTrigger>
         <TooltipContent side="top" sideOffset={-4}>

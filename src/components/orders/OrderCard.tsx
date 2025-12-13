@@ -3,15 +3,7 @@ import { currencyFormatter, formatCreatedAt } from '@/utils/format'
 import type { Order } from '@/types/orders.types'
 import { Link } from 'react-router-dom'
 
-function OrderCard({
-  id,
-  orderId,
-  createdAt,
-  updatedAt,
-  orderItems,
-  orderTotal,
-  status,
-}: Order) {
+function OrderCard({ id, orderId, updatedAt, orderTotal, status }: Order) {
   return (
     <div
       className={`p-2 md:p-4 shadow-sm hover:shadow-md transition-shadow border-0 border-l-4 ${getStatusColor[status].border} rounded-sm bg-white space-y-4`}
@@ -22,9 +14,6 @@ function OrderCard({
           <p className="text-base md:text-lg font-semibold text-primary">
             {currencyFormatter(orderTotal)}
           </p>
-          <span className="text-xs">
-            {orderItems.length} item{orderItems.length > 1 && 's'}
-          </span>
         </div>
       </div>
       <div className="flex items-end gap-4 justify-between">
@@ -35,14 +24,11 @@ function OrderCard({
             {status}
           </span>
           <span className="text-xs font-medium">
-            {status == 'pending'
-              ? `Ordered on ${formatCreatedAt(createdAt)}`
-              : `On ${formatCreatedAt(updatedAt)}`}{' '}
-            {}
+            On {formatCreatedAt(updatedAt)}
           </span>
         </div>
-        <Link to={`/orders/${id}`}>
-          <button className="text-sm bg-primary text-white px-4 py-1.5 rounded-sm cursor-pointer hover:bg-primary/90">
+        <Link to={`${id}`}>
+          <button className="text-sm bg-primary text-white px-4 sm:px-6 md:px-10 font-medium h-9 rounded-md cursor-pointer hover:bg-primary/90">
             Details
           </button>
         </Link>

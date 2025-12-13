@@ -1,4 +1,6 @@
 import { categoryToSizeType, productSizesList, sizeGuide } from '@/assets/data'
+import type { Order } from '@/types/orders.types'
+import { format, isToday, isYesterday } from 'date-fns'
 
 export const discount = (originalPrice: number, discountedPrice: number) => {
   return Math.round(((originalPrice - discountedPrice) / originalPrice) * 100)
@@ -85,6 +87,10 @@ export const formatCreatedAt = (timestamp: string | number | undefined) => {
 
 export const getStatusColor: Record<string, { bg: string; border: string }> = {
   pending: {
+    bg: 'bg-gray-600',
+    border: 'border-gray-600',
+  },
+  processing: {
     bg: 'bg-yellow-600',
     border: 'border-yellow-600',
   },
@@ -92,28 +98,23 @@ export const getStatusColor: Record<string, { bg: string; border: string }> = {
   canceled: { bg: 'bg-red-600', border: 'border-red-600' },
 }
 
-export const getUrgencyLevel = (current: number) => {
-  if (current == 0)
-    return {
-      level: 'out of stock',
-      className: 'bg-destructive text-white',
-      label: 'Out of Stock',
+export function groupOrdersByDay(orders: Order[]) {
+  return orders?.reduce((groups: Record<string, Order[]>, order) => {
+    const date = new Date(order.updatedAt)
+
+    let groupKey: string
+    if (isToday(date)) {
+      groupKey = 'Today'
+    } else if (isYesterday(date)) {
+      groupKey = 'Yesterday'
+    } else {
+      groupKey = format(date, 'EEEE, d MMMM yyyy')
     }
-  if (current <= 3)
-    return {
-      level: 'critical',
-      className: 'bg-destructive text-white',
-      label: 'Critical',
+
+    if (!groups[groupKey]) {
+      groups[groupKey] = []
     }
-  if (current <= 10)
-    return {
-      level: 'low',
-      className: 'bg-warning text-white ',
-      label: 'Low',
-    }
-  return {
-    level: 'active',
-    className: 'bg-success text-white',
-    label: 'Active',
-  }
+    groups[groupKey]?.push(order)
+    return groups
+  }, {})
 }

@@ -12,7 +12,7 @@ export const updateProduct = async ({
   productId,
   data,
 }: {
-  productId: string
+  productId: string | undefined
   data: any
 }) => {
   await api.put(`/v1/products/${productId}`, data)

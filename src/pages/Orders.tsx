@@ -1,16 +1,22 @@
 import { ordersTabHeadList } from '@/assets/data'
 import Container from '@/components/global/Container'
+import NoResult from '@/components/global/NoResult'
 import PageTitle from '@/components/global/PageTitle'
 import TabHead from '@/components/global/TabHead'
 import EmptyOrders from '@/components/orders/EmptyOrders'
 import OrderCard from '@/components/orders/OrderCard'
+import OrderCardSkeleton from '@/components/skeletons/OrderCardSkeleton'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
-import { orders } from '@/database'
+import { useMyOrders } from '@/hooks/useQueries'
+import type { Order } from '@/types/orders.types'
+import { ShoppingCart } from 'lucide-react'
 
 function Orders() {
+  const { data, isLoading, isError } = useMyOrders()
+  const myOrders = data?.data
   const groupOrdersByStatus = (status: string) => {
-    return orders?.filter(
-      (order) => order?.status?.toLowerCase() === status.toLowerCase()
+    return myOrders?.filter(
+      (order: Order) => order?.status?.toLowerCase() === status.toLowerCase()
     )
   }
   return (
@@ -31,12 +37,26 @@ function Orders() {
                   className="max-w-xl mx-auto w-full"
                 >
                   <div className="space-y-6 md:space-y-8 md:py-2">
-                    {groupOrdersByStatus(status)?.map((order) => (
-                      <OrderCard key={order.id} {...order} />
-                    ))}
-
-                    {groupOrdersByStatus(status)?.length == 0 && (
-                      <EmptyOrders label={label} />
+                    {isLoading ? (
+                      <OrderCardSkeleton />
+                    ) : (
+                      <>
+                        {groupOrdersByStatus(status)?.map((order: Order) => (
+                          <OrderCard key={order.id} {...order} />
+                        ))}
+                        {isError
+                          ? groupOrdersByStatus(status)?.length == 0 && (
+                              <NoResult
+                                text=""
+                                icon={ShoppingCart}
+                                isError={isError}
+                                errorText="your orders"
+                              />
+                            )
+                          : groupOrdersByStatus(status)?.length == 0 && (
+                              <EmptyOrders label={label} />
+                            )}
+                      </>
                     )}
                   </div>
                 </TabsContent>

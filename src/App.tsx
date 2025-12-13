@@ -45,6 +45,7 @@ const Products = lazy(() => import('./pages/Products'))
 const AddProduct = lazy(() => import('./pages/AddProduct'))
 const EditProduct = lazy(() => import('./pages/EditProduct'))
 const ViewProduct = lazy(() => import('./pages/ViewProduct'))
+const AdminOrders = lazy(() => import('./pages/AdminOrders'))
 
 const queryClient = new QueryClient()
 
@@ -181,6 +182,14 @@ const router = createBrowserRouter([
       {
         path: 'products/view/:productId',
         element: pageSuspense(<ViewProduct />),
+      },
+      {
+        path: 'orders',
+        element: pageSuspense(<AdminOrders />),
+      },
+      {
+        path: 'orders/:id',
+        element: pageSuspense(<OrderDetails />),
       },
     ],
   },

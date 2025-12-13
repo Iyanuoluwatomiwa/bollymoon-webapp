@@ -17,6 +17,7 @@ import heroHair from '@/assets/images/hero-hair.webp'
 import heroClothing from '@/assets/images/hero-clothing.webp'
 import heroAccessories from '@/assets/images/hero-accessories.webp'
 import type { SizeGuideData } from '@/types/sizeGuide.types'
+import type { Filters } from '@/components/admin/FiltersDialog'
 
 export const navLinks = {
   home: {
@@ -875,6 +876,10 @@ export const ordersTabHeadList = [
     label: 'pending',
   },
   {
+    status: 'processing',
+    label: 'processing',
+  },
+  {
     status: 'delivered',
     label: 'delivered',
   },
@@ -986,3 +991,31 @@ export const productsFilters = {
     { label: 'Sale Items', value: 'sales' },
   ],
 }
+
+export const orderFilters: Filters[] = [
+  {
+    label: 'status',
+    options: ['all', 'pending', 'processing', 'delivered', 'canceled'],
+  },
+]
+
+export const adminProductsFilters: Filters[] = [
+  {
+    label: 'category',
+    options: ['all', 'hair', 'cosmetics'],
+  },
+  {
+    label: 'collection',
+    options: ['all', 'new arrivals', 'best sellers', 'trending', 'sales'],
+  },
+]
+
+export const hairSubcategory = [
+  'all',
+  'wigs',
+  'hair-extensions',
+  'frontals',
+  'closures',
+  'hair-bundles',
+]
+export const cosmeticsSubcategory = ['all', 'makeup']

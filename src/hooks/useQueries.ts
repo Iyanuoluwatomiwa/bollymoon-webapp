@@ -7,6 +7,12 @@ import {
   updateProduct,
 } from '@/api/products'
 import type { ProductUpload } from '@/types/product.types'
+import {
+  getAllOrders,
+  getMyOrders,
+  getOrderById,
+  updateOrder,
+} from '@/api/orders'
 
 export const useAllProducts = () => {
   const getAllProducts = async () => {
@@ -64,13 +70,12 @@ export const useDeleteProduct = () => {
   return deleteProductFunction
 }
 
-// Update a Product
 export const useUpdateProduct = () => {
   const updateProductAction = async ({
     productId,
     data,
   }: {
-    productId: string
+    productId: string | undefined
     data: any
   }) => {
     await updateProduct({ productId, data })
@@ -85,4 +90,68 @@ export const useUpdateProduct = () => {
   })
 
   return updateProductFunction
+}
+
+export const useAllOrders = () => {
+  const allOrders = async () => {
+    const allOrders = await getAllOrders()
+    return allOrders
+  }
+  const queryData = useQuery({
+    queryKey: ['orders'],
+    queryFn: allOrders,
+  })
+
+  return queryData
+}
+
+export const useMyOrders = () => {
+  const allMyOrders = async () => {
+    const allMyOrders = await getMyOrders()
+    return allMyOrders
+  }
+  const queryData = useQuery({
+    queryKey: ['user-orders'],
+    queryFn: allMyOrders,
+  })
+
+  return queryData
+}
+
+export const useSingleOrder = (orderId: string | undefined) => {
+  const singleOrder = async () => {
+    const singleOrder = await getOrderById(orderId)
+    return singleOrder
+  }
+  const queryData = useQuery({
+    queryKey: ['order-details'],
+    queryFn: singleOrder,
+  })
+
+  return queryData
+}
+
+export const useUpdateOrder = () => {
+  const updateOrderAction = async ({
+    orderId,
+    status,
+  }: {
+    orderId: string | undefined
+    status: {
+      status: 'processing' | 'delivered' | 'canceled'
+    }
+  }) => {
+    await updateOrder({ orderId, status })
+  }
+  const queryClient = useQueryClient()
+  const updateOrderFunction = useMutation({
+    mutationFn: updateOrderAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['orders'] })
+      queryClient.invalidateQueries({ queryKey: ['user-orders'] })
+      queryClient.invalidateQueries({ queryKey: ['order-details'] })
+    },
+  })
+
+  return updateOrderFunction
 }
