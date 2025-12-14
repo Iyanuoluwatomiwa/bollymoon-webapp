@@ -265,3 +265,15 @@ export const productSchema = z.object({
     message: 'Please select a subcategory',
   }),
 })
+
+export const deliveryFormSchema = z.object({
+  phone: z.string().length(10, {
+    message: 'Please enter a valid 10-digit phone number',
+  }),
+  addressLine: z.string(),
+  city: z.string(),
+  state: z.string(),
+  country: z.string(),
+  postalCode: z.string(),
+  note: z.string(),
+})

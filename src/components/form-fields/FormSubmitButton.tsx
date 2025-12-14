@@ -19,7 +19,7 @@ function FormSubmitButton({
       {submitting ? (
         <button
           disabled
-          className="w-full text-base lg:text-lg rounded-sm flex items-center justify-center bg-primary text-white  gap-2 font-medium h-10"
+          className="w-full text-xs md:text-sm rounded-md flex items-center justify-center bg-primary text-white  gap-2 font-medium h-9"
         >
           {texting}{' '}
           <Loader2Icon className="animate-spin w-5 h-5 md:w-6 md:h-6 " />
@@ -27,7 +27,7 @@ function FormSubmitButton({
       ) : (
         <Button
           type="submit"
-          className="w-full text-base lg:text-lg rounded-sm h-10"
+          className="w-full text-xs md:text-sm text-white rounded-sm h-9 cursor-pointer"
           disabled={disabled}
         >
           {text}

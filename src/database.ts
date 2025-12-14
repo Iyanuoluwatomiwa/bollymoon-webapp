@@ -335,15 +335,28 @@ export const RatingsAndReviewsByProduct = [
   },
 ]
 
-export const Addresses = [
+export const addresses = [
   {
-    firstName: 'Jane',
-    lastName: 'Doe',
-    phone: '01235867908',
-    address: '123 Main St',
-    Region: 'London',
-    City: '',
-    default: true,
+    id: '90b72635-4ee7-45b7-907d-3cce43d56e34',
+    userId: 'e811ba90-b88d-4405-a6a6-ea22c2694cab',
+    phone: '+234 8123456789',
+    addressLine: '42 Marvel Street',
+    city: 'Lagos',
+    state: 'Lagos',
+    country: 'NG',
+    postalCode: '100001',
+    note: '',
+  },
+  {
+    id: '90b72635-4ee7-45b7-907d-3cce43d56e34',
+    userId: 'e811ba90-b88d-4405-a6a6-ea22c2694cab',
+    phone: '+234 8123456789',
+    addressLine: '42 Marvel Street',
+    city: 'Lagos',
+    state: 'Lagos',
+    country: 'NG',
+    postalCode: '100001',
+    note: '',
   },
 ]
 

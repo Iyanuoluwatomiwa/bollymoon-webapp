@@ -44,18 +44,18 @@ function Orders() {
                         {groupOrdersByStatus(status)?.map((order: Order) => (
                           <OrderCard key={order.id} {...order} />
                         ))}
-                        {isError
-                          ? groupOrdersByStatus(status)?.length == 0 && (
-                              <NoResult
-                                text=""
-                                icon={ShoppingCart}
-                                isError={isError}
-                                errorText="your orders"
-                              />
-                            )
-                          : groupOrdersByStatus(status)?.length == 0 && (
-                              <EmptyOrders label={label} />
-                            )}
+                        {isError ? (
+                          <NoResult
+                            text=""
+                            icon={ShoppingCart}
+                            isError={isError}
+                            errorText="your orders"
+                          />
+                        ) : (
+                          groupOrdersByStatus(status)?.length == 0 && (
+                            <EmptyOrders label={label} />
+                          )
+                        )}
                       </>
                     )}
                   </div>

@@ -12,6 +12,18 @@ export type OrderItem = {
   productId?: string
 }
 
+export type DeliveryAddress = {
+  id: string
+  userId?: string
+  phone: string
+  addressLine: string
+  city: string
+  state: string
+  country: string
+  postalCode: string
+  note: string
+}
+
 export type Order = {
   id: string
   orderId: string

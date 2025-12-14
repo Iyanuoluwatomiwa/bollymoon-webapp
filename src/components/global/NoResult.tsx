@@ -15,10 +15,10 @@ function NoResult({ text, icon, isError, errorText }: NoResultProp) {
       {isError ? (
         <div className="text-center py-8 space-y-4">
           <div className="bg-primary/20 rounded-full p-4 mx-auto w-max">
-            <AlertTriangle className="h-10 w-10  md:w-12 md:h-12 mx-auto opacity-50 text-primary" />
+            <AlertTriangle className="h-10 w-10  md:w-16 md:h-16 mx-auto opacity-50 text-primary" />
           </div>
-          <p className="text-sm md:text-base font-medium">
-            Unable to load {errorText}.
+          <p className="text-sm md:text-base font-semibold text-muted-foreground text-center">
+            There was an issue loading {errorText}.
           </p>
           <Button
             className="h-9 text-xs md:text-sm"
@@ -29,10 +29,12 @@ function NoResult({ text, icon, isError, errorText }: NoResultProp) {
         </div>
       ) : (
         <div className="text-center space-y-3 text-muted-foreground my-8 mx-auto py-8">
-          <div className="bg-primary/20 rounded-full p-4 mx-auto w-max">
-            <Icon className="h-10 w-10  md:w-14 md:h-14 mx-auto opacity-50 text-primary" />
+          <div className=" rounded-full p-4 md:p-6 bg-primary/20 mx-auto w-max">
+            <Icon className="h-10 w-10  md:w-16 md:h-16 mx-auto opacity-50 text-primary" />
           </div>
-          <p className="text-sm md:text-base font-medium">{text}</p>
+          <p className="text-sm md:text-base font-semibold text-center">
+            {text}
+          </p>
         </div>
       )}
     </>

@@ -28,6 +28,5 @@ export const updateOrder = async ({
     status: 'processing' | 'delivered' | 'canceled'
   }
 }) => {
-  const response = await api.put(`/v1/orders/${orderId}`, status)
-  return response.data
+  await api.put(`/v1/orders/${orderId}`, status)
 }

@@ -13,6 +13,8 @@ import {
   getOrderById,
   updateOrder,
 } from '@/api/orders'
+import { getAllDeliveryAddresses, saveDeliveryAddress } from '@/api/address'
+import type { DeliveryAddress } from '@/types/orders.types'
 
 export const useAllProducts = () => {
   const getAllProducts = async () => {
@@ -154,4 +156,67 @@ export const useUpdateOrder = () => {
   })
 
   return updateOrderFunction
+}
+
+export const useAllDeliveryAddresses = () => {
+  const allAddresses = async () => {
+    const allAddresses = await getAllDeliveryAddresses()
+    return allAddresses
+  }
+  const queryData = useQuery({
+    queryKey: ['addresses'],
+    queryFn: allAddresses,
+  })
+  return queryData
+}
+
+export const useUpdateDeliveryAddress = () => {
+  const updateDeliveryAddressAction = async ({
+    id,
+    details,
+  }: {
+    id: string | undefined
+    details: DeliveryAddress
+  }) => {
+    await updateDeliveryAddressAction({ id, details })
+  }
+  const queryClient = useQueryClient()
+  const updateDeliveryAddressFunction = useMutation({
+    mutationFn: updateDeliveryAddressAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses'] })
+    },
+  })
+
+  return updateDeliveryAddressFunction
+}
+
+export const useDeleteDeliveryAddress = () => {
+  const deleteDeliveryAddressAction = async (id: string) => {
+    await deleteProduct(id)
+  }
+  const queryClient = useQueryClient()
+  const deleteDeliveryAddressFunction = useMutation({
+    mutationFn: deleteDeliveryAddressAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses'] })
+    },
+  })
+
+  return deleteDeliveryAddressFunction
+}
+
+export const useSaveDeliveryAddress = () => {
+  const saveDeliveryAddressAction = async (data: DeliveryAddress) => {
+    await saveDeliveryAddress(data)
+  }
+  const queryClient = useQueryClient()
+  const saveDeliveryAddressFunction = useMutation({
+    mutationFn: saveDeliveryAddressAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['addresses'] })
+    },
+  })
+
+  return saveDeliveryAddressFunction
 }
