@@ -4,10 +4,11 @@ import { User, UserCheck } from 'lucide-react'
 import { TooltipContent } from '@radix-ui/react-tooltip'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import type { UserProfile } from '@/types/user.types'
 
 function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const [open, setOpen] = useState(false)
-  const { isUser }: { isUser: boolean } = useSelector(
+  const { userProfile }: { userProfile: UserProfile } = useSelector(
     (state: any) => state.userState
   )
 
@@ -18,7 +19,7 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
         onMouseLeave={() => setOpen(false)}
         asChild
       >
-        {isUser ? (
+        {userProfile ? (
           <button onClick={toggleAccountMenu}>
             <span className="sr-only">user</span>
             <UserCheck className="h-5 w-5 md:h-6 fill-white text-white md:w-6 hover:text-primary hover:fill-primary cursor-pointer" />
@@ -38,7 +39,7 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
         onMouseLeave={() => setOpen(false)}
       >
         <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-none border">
-          {isUser ? 'Account' : 'Login/Register'}
+          {userProfile ? 'Account' : 'Login/Register'}
         </span>
       </TooltipContent>
     </Tooltip>

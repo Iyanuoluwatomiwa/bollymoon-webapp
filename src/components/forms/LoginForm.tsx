@@ -11,22 +11,21 @@ import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
 import SignInOptions from '../auth/SignInOptions'
 import { useDispatch } from 'react-redux'
-import { setIsUser } from '@/features/user/userSlice'
+import { handleLogin } from '@/services/authServices'
+import { setToken } from '@/features/user/userSlice'
 
 function LoginForm() {
-  /* const dispatch = useDispatch() */
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   })
   const [submitting, setSubmitting] = useState(false)
-
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
     const validatedData = useValidateSchema(loginFormSchema, formData)
@@ -34,18 +33,12 @@ function LoginForm() {
       setSubmitting(false)
       return
     }
-    /* login logic here */
-    /* const { login } = await import('@/utils/action')
-    const props = { ...data, setSubmitting }
-    const user = await login(props)
-    dispatch(
-      setUser({
-        user,
-      })
-    ) */
-    dispatch(setIsUser({ isUser: true }))
-    toast.success("Welcome, you've logged in successfully!")
-    navigate('/')
+    const token = await handleLogin(validatedData)
+    if (token) {
+      dispatch(setToken({ token }))
+      toast.success("Welcome, you've logged in successfully!")
+      navigate('/')
+    }
     return setSubmitting(false)
   }
   return (
@@ -78,16 +71,17 @@ function LoginForm() {
             submitting={submitting}
             text="Login"
             texting="Logging in"
+            disabled={!formData.email || !formData.password}
           />
         </form>
         <div className="flex justify-between gap-2 border-t-2 py-4 text-xs lg:text-sm font-medium">
           <Link
             to="/forgot-password"
-            className="text-primary/80 hover:text-primary "
+            className="hover:text-primary/80 text-primary "
           >
             Forgot your password?
           </Link>
-          <Link to="/sign-up" className="text-primary/80 hover:text-primary  ">
+          <Link to="/sign-up" className="hover:text-primary/80 text-primary  ">
             Create account
           </Link>
         </div>

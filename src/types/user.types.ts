@@ -1,13 +1,15 @@
 export type UserProfile = {
+  id: string
   firstName: string
   lastName: string
   email: string
-  uid: string
+  role: {
+    name: string
+  }
   phone?: string
-  gender?: string
 }
 
 export type User = {
-  isUser: boolean
   userProfile: UserProfile | null
+  token: string | null
 }

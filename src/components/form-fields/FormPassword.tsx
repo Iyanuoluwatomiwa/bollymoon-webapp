@@ -30,7 +30,7 @@ function FormPassword({
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name} className={`text-sm md:text-base ${labelSize}`}>
+      <Label htmlFor={name} className={`text-xs md:text-sm ${labelSize}`}>
         {label}
       </Label>
       <div className="relative">
@@ -41,7 +41,7 @@ function FormPassword({
           placeholder={placeholder}
           type={`${showPassword ? 'password' : 'text'}`}
           required={required}
-          className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base h-10`}
+          className={`${className} break-all  text-sm md:text-base placeholder:text-sm placeholder:md:text-base h-9`}
         />
         <Button
           asChild={true}

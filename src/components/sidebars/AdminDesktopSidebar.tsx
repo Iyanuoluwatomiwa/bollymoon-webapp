@@ -1,11 +1,11 @@
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { adminNavigation } from '@/assets/data'
-import { Home, LogOutIcon, Loader2Icon } from 'lucide-react'
-import { useState } from 'react'
+import { Home, LogOutIcon } from 'lucide-react'
+import { useDispatch } from 'react-redux'
+import { clearUser } from '@/features/user/userSlice'
+import { toast } from 'sonner'
 
 function AdminDesktopSidebar() {
-  const [submitting, setSubmitting] = useState(false)
-
   const getClassName = ({ isActive }: { isActive: boolean }) => {
     const base =
       'w-full flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xs transition-colors whitespace-nowrap overflow-hidden text-ellipsis'
@@ -13,6 +13,13 @@ function AdminDesktopSidebar() {
       ? 'bg-primary text-white'
       : 'text-foreground hover:bg-primary/10 hover:text-primary'
     return `${base} ${active}`
+  }
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    dispatch(clearUser())
+    toast.success("You've logged out successfully!")
+    navigate('/')
   }
 
   return (
@@ -38,20 +45,13 @@ function AdminDesktopSidebar() {
             <span className="truncate">Go to Home</span>
           </Link>
 
-          {submitting ? (
-            <button
-              disabled
-              className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-destructive opacity-70"
-            >
-              <Loader2Icon className="animate-spin h-5 w-5" />
-              <span className="truncate">Logging out</span>
-            </button>
-          ) : (
-            <button className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-destructive rounded-xs hover:bg-destructive/10 cursor-pointer">
-              <LogOutIcon className="h-5 w-5 rotate-180 shrink-0" />
-              <span className="truncate">Log out</span>
-            </button>
-          )}
+          <button
+            onClick={handleLogout}
+            className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-destructive rounded-xs hover:bg-destructive/10 cursor-pointer"
+          >
+            <LogOutIcon className="h-5 w-5 rotate-180 shrink-0" />
+            <span className="truncate">Log out</span>
+          </button>
         </div>
       </div>
     </aside>

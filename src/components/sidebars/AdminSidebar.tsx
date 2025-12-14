@@ -1,4 +1,4 @@
-import { Link, NavLink } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import {
   Sidebar,
   SidebarContent,
@@ -11,12 +11,14 @@ import {
   useSidebar,
 } from '../ui/sidebar'
 import { adminNavigation } from '@/assets/data'
-import { Home, Loader2Icon, LogOutIcon, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { Home, LogOutIcon, X } from 'lucide-react'
+import { useEffect } from 'react'
 import { useIsDesktop } from '@/hooks/use-desktop'
+import { useDispatch } from 'react-redux'
+import { clearUser } from '@/features/user/userSlice'
+import { toast } from 'sonner'
 
 function AdminSidebar() {
-  const [submitting, setSubmitting] = useState(false)
   const { toggleSidebar, setOpen } = useSidebar()
 
   const getClassName = ({ isActive }: { isActive: boolean }) => {
@@ -28,7 +30,13 @@ function AdminSidebar() {
     return `${baseClasses} ${activeClasses}`
   }
   const isDesktop = useIsDesktop()
-
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    dispatch(clearUser())
+    toast.success("You've logged out successfully!")
+    navigate('/')
+  }
   useEffect(() => {
     if (isDesktop) setOpen(false)
   }, [isDesktop])
@@ -76,20 +84,13 @@ function AdminSidebar() {
             </Link>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            {submitting ? (
-              <button
-                disabled
-                className="flex items-center gap-2 py-1.5 px-1 hover:bg-destructive/10  rounded-xs w-full cursor-pointer font-medium text-xs md:text-sm text-destructive"
-              >
-                <Loader2Icon className="animate-spin md:w-5 md:h-5" />
-                <span>Logging out</span>
-              </button>
-            ) : (
-              <button className="flex items-center gap-2 py-1.5 px-1 hover:bg-destructive/10  rounded-xs w-full cursor-pointer font-medium text-xs md:text-sm text-destructive">
-                <LogOutIcon className="rotate-180 w-4 h-4 md:w-5 md:h-5" />
-                <span>Log out</span>
-              </button>
-            )}
+            <button
+              onClick={handleLogout}
+              className="flex items-center gap-2 py-1.5 px-1 hover:bg-destructive/10  rounded-xs w-full cursor-pointer font-medium text-xs md:text-sm text-destructive"
+            >
+              <LogOutIcon className="rotate-180 w-4 h-4 md:w-5 md:h-5" />
+              <span>Log out</span>
+            </button>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>

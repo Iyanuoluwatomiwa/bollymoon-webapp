@@ -1,4 +1,4 @@
-import { setUserProfile } from '@/features/user/userSlice'
+import { setToken } from '@/features/user/userSlice'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import type { UserProfile } from '@/types/user.types'
 import { ProfileFormSchema } from '@/utils/schema'
@@ -8,17 +8,17 @@ import { useSelector } from 'react-redux'
 import { toast } from 'sonner'
 import FormInput from '../form-fields/FormInput'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
+import { handleUpdateProfile } from '@/services/authServices'
 
 export default function ProfileSettingsForm() {
-  const { userProfile }: { userProfile: UserProfile } = useSelector(
+  const { userProfile }: { userProfile: UserProfile | null } = useSelector(
     (state: any) => state.userState
   )
   const [formData, setFormData] = useState({
-    firstName: userProfile.firstName,
-    lastName: userProfile.lastName,
-    email: userProfile.email,
-    gender: '',
-    phone: '',
+    firstName: userProfile?.firstName,
+    lastName: userProfile?.lastName,
+    email: userProfile?.email,
+    phone: userProfile?.phone,
   })
   const [submitting, setSubmitting] = useState(false)
 
@@ -30,41 +30,57 @@ export default function ProfileSettingsForm() {
       setFormData((prev) => ({ ...prev, [field]: value }))
     }
   }
+  const isFormActive =
+    formData?.firstName === userProfile?.firstName &&
+    formData?.lastName === userProfile?.lastName &&
+    userProfile?.email === formData.email &&
+    userProfile?.phone === formData?.phone
+
   const dispatch = useDispatch()
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
+    if (formData?.phone?.length !== 10) {
+      toast.warning('Please enter a valid 10-digit phone number')
+    }
     const validatedData = useValidateSchema(ProfileFormSchema, formData)
     if (!validatedData) {
       setSubmitting(false)
       return
     }
 
-    dispatch(
-      setUserProfile({
-        userProfile: formData,
-      })
-    )
+    const token = await handleUpdateProfile({
+      ...validatedData,
+      phone: formData?.phone,
+    })
+    if (token) {
+      dispatch(
+        setToken({
+          token,
+        })
+      )
+      toast.success('Updated successfully!')
+    }
+
     setSubmitting(false)
-    toast.success('Updated successfully!')
   }
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormInput
-          name="firstname"
+          name="firstName"
           label="First Name"
-          value={userProfile.firstName}
+          value={formData.firstName}
           handleInputChange={handleInputChange}
           placeholder="First Name"
           type="text"
           required
         />
         <FormInput
-          name="lastname"
+          name="lastName"
           label="Last Name"
-          value={userProfile.lastName}
+          value={formData.lastName}
           handleInputChange={handleInputChange}
           placeholder="Last Name"
           type="text"
@@ -75,27 +91,42 @@ export default function ProfileSettingsForm() {
       <FormInput
         name="email"
         label="Email"
-        value={userProfile.email}
+        value={formData.email}
         handleInputChange={handleInputChange}
-        placeholder="Last Name"
+        placeholder="Email address"
         type="email"
         required
         disabled={true}
       />
-      <FormInput
-        name="phone"
-        label="Phone Number"
-        value={formData.phone}
-        handleInputChange={handleInputChange}
-        placeholder="Phone Number"
-        type="text"
-        maxLength={11}
-        required
-      />
+      <div className="flex items-center gap-1 md:gap-2">
+        <FormInput
+          name="prefix"
+          handleInputChange={handleInputChange}
+          placeholder="Prefix"
+          type="text"
+          value="+44"
+          label="Prefix"
+          className="w-13 rounded-r-none disabled:text-foreground"
+          disabled
+        />
+        <div className="flex-1">
+          <FormInput
+            name="phone"
+            handleInputChange={handleInputChange}
+            placeholder="Phone Number"
+            type="text"
+            value={formData.phone}
+            label="Phone Number"
+            className="rounded-l-none"
+            maxLength={10}
+          />
+        </div>
+      </div>
       <FormSubmitButton
         text="Update Profile"
         texting="Updating"
         submitting={submitting}
+        disabled={isFormActive}
       />
     </form>
   )

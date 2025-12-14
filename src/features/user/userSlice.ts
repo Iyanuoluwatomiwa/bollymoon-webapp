@@ -2,8 +2,8 @@ import type { User } from '@/types/user.types'
 import { createSlice } from '@reduxjs/toolkit'
 
 const defaultState: User = {
-  isUser: false,
   userProfile: null,
+  token: null,
 }
 
 const getUserFromLocalStorage: () => User = () => {
@@ -20,19 +20,19 @@ const userSlice = createSlice({
       state.userProfile = userProfile
       sessionStorage.setItem('user', JSON.stringify(state))
     },
-    setIsUser: (state, action) => {
-      const { isUser } = action.payload
-      state.isUser = isUser
+    setToken: (state, action) => {
+      const { token } = action.payload
+      state.token = token
       sessionStorage.setItem('user', JSON.stringify(state))
     },
     clearUser: (state) => {
       state.userProfile = null
-      state.isUser = false
+      state.token = null
       sessionStorage.setItem('user', JSON.stringify(defaultState))
     },
   },
 })
 
-export const { setUserProfile, setIsUser, clearUser } = userSlice.actions
+export const { setUserProfile, setToken, clearUser } = userSlice.actions
 
 export default userSlice.reducer

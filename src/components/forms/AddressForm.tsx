@@ -107,6 +107,7 @@ function AddressForm({
         type="text"
         value={formData.note}
         label="Additonal Information"
+        maxLength={50}
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2.5 gap-x-4">
         <FormInput

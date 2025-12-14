@@ -159,4 +159,21 @@
   .swiper-button-next:hover {
     color: var(--primary) !important;
   }
+
+  @keyframes linear-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  .animate-linear {
+    background-size: 200% 200%;
+    animation: linear-shift 12s ease-in-out infinite;
+  }
 }

@@ -1,12 +1,12 @@
 import { useState, type FormEvent } from 'react'
 import { Card, CardContent } from '../ui/card'
 import { forgotPasswordSchema } from '@/utils/schema'
-import { toast } from 'sonner'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import FormInput from '../form-fields/FormInput'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
+import { handleForgotPassword } from '@/services/authServices'
 
 function ForgotPasswordForm() {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ function ForgotPasswordForm() {
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
     const validatedData = useValidateSchema(forgotPasswordSchema, formData)
@@ -26,12 +26,7 @@ function ForgotPasswordForm() {
       setSubmitting(false)
       return
     }
-    /* forgot password logic here */
-    /* const request = { ...data, setSubmitting, navigate }
-    const { forgotPassword } = await import('@/utils/action')
-    forgotPassword(request) */
-
-    toast.success('Password reset link has been sent to your email address')
+    await handleForgotPassword(validatedData)
     setSubmitting(false)
   }
 

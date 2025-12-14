@@ -7,10 +7,11 @@ import ScrollToTop from '../global/ScrollToTop'
 import AccountSidebarSheet from '../sidebars/AccountSidebarSheet'
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
+import type { UserProfile } from '@/types/user.types'
 
 function AppLayout() {
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
-  const { isUser }: { isUser: boolean } = useSelector(
+  const { userProfile }: { userProfile: UserProfile } = useSelector(
     (state: any) => state.userState
   )
   return (
@@ -19,7 +20,7 @@ function AppLayout() {
       <SidebarProvider defaultOpen={false}>
         <AppSidebar />
         <SidebarInset>
-          {isUser && (
+          {userProfile && (
             <AccountSidebarSheet
               open={accountMenuOpen}
               onOpenChange={setAccountMenuOpen}

@@ -2,8 +2,10 @@ import { useState, type FormEvent } from 'react'
 import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
-import { PasswordFormSchema } from '@/utils/schema'
-import { toast } from 'sonner'
+import { changePasswordSchema } from '@/utils/schema'
+import { handleChangePassword } from '@/services/authServices'
+import PasswordRequirements from '../auth/PasswordRequirements'
+import { passwordRules } from '@/utils/format'
 
 export default function SecuritySettingsForm() {
   const [formData, setFormData] = useState({
@@ -12,6 +14,12 @@ export default function SecuritySettingsForm() {
     confirmNewPassword: '',
   })
   const [submitting, setSubmitting] = useState(false)
+  const isFormValid =
+    passwordRules.minLength(formData.newPassword) &&
+    passwordRules.uppercase(formData.newPassword) &&
+    passwordRules.number(formData.newPassword) &&
+    passwordRules.specialChar(formData.newPassword) &&
+    formData.newPassword === formData.confirmNewPassword
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -19,21 +27,16 @@ export default function SecuritySettingsForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
-    if (formData.newPassword !== formData.confirmNewPassword) {
-      toast.error('New Passwords do not match')
-      setSubmitting(false)
-      return
-    }
-    const validatedData = useValidateSchema(PasswordFormSchema, {
+    const validatedData = useValidateSchema(changePasswordSchema, {
       password: formData.newPassword,
+      currentPassword: formData.currentPassword,
     })
     if (!validatedData) {
       setSubmitting(false)
       return
     }
-
+    await handleChangePassword(validatedData)
     setSubmitting(false)
-    toast.success('Password Updated successfully!')
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
@@ -45,14 +48,20 @@ export default function SecuritySettingsForm() {
         placeholder="Enter Current Password"
         required
       />
-      <FormPassword
-        name="newPassword"
-        label="New Password"
-        value={formData.newPassword}
-        handleInputChange={handleInputChange}
-        placeholder="Enter New Password"
-        required
-      />
+      <div>
+        <FormPassword
+          name="newPassword"
+          label="New Password"
+          value={formData.newPassword}
+          handleInputChange={handleInputChange}
+          placeholder="Enter New Password"
+          required
+        />
+        {formData.newPassword && (
+          <PasswordRequirements password={formData.newPassword} />
+        )}
+      </div>
+
       <FormPassword
         name="confirmNewPassword"
         label="Confirm New Password"
@@ -65,6 +74,7 @@ export default function SecuritySettingsForm() {
         text="Update Password"
         texting="Updating"
         submitting={submitting}
+        disabled={!isFormValid}
       />
     </form>
   )

@@ -4,12 +4,12 @@ import { pageSuspense } from './utils/suspense'
 import { useDispatch } from 'react-redux'
 import { useSelector } from 'react-redux'
 import { setUserProfile } from './features/user/userSlice'
-import { user } from './database'
 
 //layouts
 import AppLayout from './components/layouts/AppLayout'
 import AdminLayout from './components/layouts/AdminLayout'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { getProfile } from './services/authServices'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -203,13 +203,14 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch()
-  const { isUser }: { isUser: boolean } = useSelector(
+  const { token }: { token: string } = useSelector(
     (state: any) => state.userState
   )
 
   useEffect(() => {
     const getUserDetails = async () => {
-      if (isUser) {
+      if (token) {
+        const user = await getProfile()
         dispatch(
           setUserProfile({
             userProfile: user,
@@ -218,7 +219,7 @@ function App() {
       }
     }
     getUserDetails()
-  }, [isUser, dispatch])
+  }, [token, dispatch])
 
   return (
     <QueryClientProvider client={queryClient}>

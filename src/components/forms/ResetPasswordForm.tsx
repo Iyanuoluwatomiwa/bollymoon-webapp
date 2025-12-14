@@ -8,18 +8,28 @@ import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
+import { handleResetPassword } from '@/services/authServices'
+import PasswordRequirements from '../auth/PasswordRequirements'
+import { passwordRules } from '@/utils/format'
 
 function ResetPasswordForm() {
   const [formData, setFormData] = useState({
-    password: '',
-    confirmPassword: '',
+    newPassword: '',
+    confirmNewPassword: '',
   })
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
   const [submitting, setSubmitting] = useState<boolean>(false)
   const navigate = useNavigate()
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const isFormValid =
+    passwordRules.minLength(formData.newPassword) &&
+    passwordRules.uppercase(formData.newPassword) &&
+    passwordRules.number(formData.newPassword) &&
+    passwordRules.specialChar(formData.newPassword) &&
+    formData.newPassword === formData.confirmNewPassword
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
     const validatedData = useValidateSchema(resetPasswordSchema, formData)
@@ -27,15 +37,19 @@ function ResetPasswordForm() {
       setSubmitting(false)
       return
     }
+    const data = {
+      ...validatedData,
+      token: '',
+    }
 
-    /* reset password logic here */
-    /* const request = { ...data, setSubmitting, navigate }
-    const { resetPassword } = await import('@/utils/action')
-    resetPassword(request) */
-    toast.success(
-      'Password reset successfully. Kindly login with your new password.'
-    )
-    navigate('/login')
+    const success = await handleResetPassword(data)
+    if (success) {
+      toast.success(
+        'Password reset successfully. Kindly login with your new password.'
+      )
+      navigate('/login')
+    }
+
     setSubmitting(false)
   }
 
@@ -50,18 +64,24 @@ function ResetPasswordForm() {
       />
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4 pb-4">
+          <div>
+            <FormPassword
+              name="newPassword"
+              value={formData.newPassword}
+              handleInputChange={handleInputChange}
+              placeholder="Create a new password"
+              required
+              className="mt-4"
+            />
+            {formData.newPassword && (
+              <PasswordRequirements password={formData.newPassword} />
+            )}
+          </div>
+
           <FormPassword
-            name="password"
-            value={formData.password}
-            handleInputChange={handleInputChange}
-            placeholder="Create a new password"
-            required
-            className="mt-4"
-          />
-          <FormPassword
-            name="confirmPassword"
+            name="confirmNewPassword"
             placeholder="Confirm your password"
-            value={formData.password}
+            value={formData.confirmNewPassword}
             handleInputChange={handleInputChange}
             required
           />
@@ -69,6 +89,7 @@ function ResetPasswordForm() {
             submitting={submitting}
             text="Set new password"
             texting="Resetting"
+            disabled={!isFormValid}
           />
         </form>
       </CardContent>
