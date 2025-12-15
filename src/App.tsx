@@ -8,8 +8,10 @@ import { setUserProfile } from './features/user/userSlice'
 //layouts
 import AppLayout from './components/layouts/AppLayout'
 import AdminLayout from './components/layouts/AdminLayout'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getProfile } from './services/authServices'
+import type { ProductFetch } from './types/product.types'
+import { useAddToWishlist } from './hooks/useQueries'
+import { clearWishlist } from './features/wishlist/wishlistSlice'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -46,8 +48,6 @@ const AddProduct = lazy(() => import('./pages/AddProduct'))
 const EditProduct = lazy(() => import('./pages/EditProduct'))
 const ViewProduct = lazy(() => import('./pages/ViewProduct'))
 const AdminOrders = lazy(() => import('./pages/AdminOrders'))
-
-const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
   {
@@ -206,6 +206,10 @@ function App() {
   const { token }: { token: string } = useSelector(
     (state: any) => state.userState
   )
+  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
+    (state: any) => state.userState
+  )
+  const { mutate: addToWishlist } = useAddToWishlist()
 
   useEffect(() => {
     const getUserDetails = async () => {
@@ -216,20 +220,24 @@ function App() {
             userProfile: user,
           })
         )
+        await Promise.all(
+          wishlistItems.map((item) => {
+            addToWishlist(item.id)
+          })
+        )
+        dispatch(clearWishlist())
       }
     }
     getUserDetails()
   }, [token, dispatch])
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <RouterProvider
-        router={router}
-        future={{
-          v7_startTransition: true,
-        }}
-      />
-    </QueryClientProvider>
+    <RouterProvider
+      router={router}
+      future={{
+        v7_startTransition: true,
+      }}
+    />
   )
 }
 

@@ -3,17 +3,21 @@ import PageTitle from '@/components/global/PageTitle'
 import Sorting from '@/components/shop/Sorting'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
 import ProductsGrid from '@/components/shop/ProductsGrid'
-import { productsMock } from '@/database'
 import ProductsList from '@/components/shop/ProductsList'
 import CustomPagination from '@/components/shop/CustomPagination'
 import CategoriesCarousel from '@/components/shop/CategoriesCarousel'
 import { shop } from '@/assets/data'
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
-import type { ProductFilter } from '@/types/product.types'
+import type { ProductFetch, ProductFilter } from '@/types/product.types'
 import Filters from '@/components/shop/Filters'
 import FiltersDialog from '@/components/shop/FiltersDialog'
 import FiltersDisplay from '@/components/shop/FiltersDisplay'
+import { useAllProducts } from '@/hooks/useQueries'
+import ProductCardGridSkeleton from '@/components/skeletons/ProductCardGridSkeleton'
+import ProductCardListSkeleton from '@/components/skeletons/ProductCardListSkeleton'
+import NoResult from '@/components/global/NoResult'
+import { Package } from 'lucide-react'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
@@ -42,6 +46,9 @@ function Shop() {
     localStorage.setItem('product-view-mode', mode)
     setViewMode(mode)
   }
+  //product fetch
+  const { data, isLoading, isError } = useAllProducts()
+  const products: ProductFetch[] | undefined = data?.data
 
   /* const handleSearchQuery: (searchQuery: string) => void = (searchQuery) => {
     setFilters({ ...filters, searchQuery })
@@ -51,14 +58,13 @@ function Shop() {
     console.log(searchQuery)
   }
 
-  /* const itemsPerPage = 1 */
+  const itemsPerPage = 12
   //fetch filtered products
   /* const maxPrice = 100 */
 
-  /* const totalPages = data && Math.ceil(data?.total / itemsPerPage) */
-  const totalPages = 12
+  const totalPages = products && Math.ceil(products?.length / itemsPerPage)
 
-  const filteredProductsByCategory = productsMock?.filter((product) => {
+  const filteredProductsByCategory = products?.filter((product) => {
     const matchesCategory =
       selectedCategory == 'all' || product.category == selectedCategory
 
@@ -87,23 +93,23 @@ function Shop() {
      
     })  */
 
-  /* let productView
+  let productView
   if (isLoading) {
     productView =
       viewMode === 'grid' ? (
-        <ProductGridCardSkeleton />
+        <ProductCardGridSkeleton />
       ) : (
-        <ProductListCardSkeleton />
+        <ProductCardListSkeleton />
       )
   } else {
     productView =
       viewMode === 'grid' ? (
-        <ProductGrid sortedProducts={sortedProducts} isError={isError} />
+        <ProductsGrid products={filteredProductsByCategory} />
       ) : (
-        <ProductList sortedProducts={sortedProducts} isError={isError} />
+        <ProductsList products={filteredProductsByCategory} />
       )
   }
- */
+
   const handlePageChange: (page: number) => void = (page) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -175,21 +181,29 @@ function Shop() {
                   handleViewMode={handleViewMode}
                 />
               </div>
+
+              {/* products */}
               <>
-                {viewMode === 'grid' ? (
-                  <ProductsGrid products={filteredProductsByCategory} />
-                ) : (
-                  <ProductsList products={filteredProductsByCategory} />
+                {' '}
+                {productView}
+                {!isLoading && (
+                  <NoResult
+                    errorText="products"
+                    isError={isError}
+                    text="No product found matching your criteria"
+                    icon={Package}
+                  />
                 )}
               </>
-              {/* {sectionSuspense(productView)} */}
-              {filteredProductsByCategory && (
-                <CustomPagination
-                  totalPages={totalPages}
-                  currentPage={currentPage}
-                  handlePageChange={handlePageChange}
-                />
-              )}
+
+              {filteredProductsByCategory &&
+                filteredProductsByCategory.length !== 0 && (
+                  <CustomPagination
+                    totalPages={totalPages as number}
+                    currentPage={currentPage}
+                    handlePageChange={handlePageChange}
+                  />
+                )}
             </section>
           </div>
         </div>

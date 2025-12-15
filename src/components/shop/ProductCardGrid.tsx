@@ -1,30 +1,89 @@
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { currencyFormatter, discount } from '@/utils/format'
-import { Heart } from 'lucide-react'
+import { Heart, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import AddToCart from './AddToCart'
 import { useDispatch } from 'react-redux'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
 import { useSelector } from 'react-redux'
+import {
+  useAddToWishlist,
+  useRemoveFromWishlist,
+  useWishlists,
+} from '@/hooks/useQueries'
+import { toast } from 'sonner'
 
-const ProductCardGrid = ({ product }: { product: Product }) => {
-  const { id, name, category, stock, images, originalPrice, discountPrice } =
-    product
-  const minPrice = discountPrice?.min
-    ? Math.min(discountPrice.min, originalPrice.min)
-    : originalPrice.min
-  const maxPrice = discountPrice?.max
-    ? Math.max(discountPrice?.max, originalPrice.max)
-    : originalPrice?.max
+const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
+  const {
+    id,
+    name,
+    category,
+    stock,
+    images,
+    originalPriceMin,
+    originalPriceMax,
+    discountPriceMin,
+    discountPriceMax,
+  } = product
+  const minPrice = Math.min(discountPriceMin, originalPriceMin)
+  const maxPrice = Math.max(discountPriceMax, originalPriceMax)
   const discountPercent =
-    discountPrice?.max && discount(originalPrice.max, discountPrice.max)
-  const { wishlistItems }: { wishlistItems: Product[] } = useSelector(
+    originalPriceMax !== discountPriceMax &&
+    discount(originalPriceMax, discountPriceMax)
+  const { token }: { token: string | null } = useSelector(
     (state: any) => state.wishlistState
   )
-  const inWishlist = wishlistItems.some((item) => item.id === id)
+  //for unauth users
+  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
+    (state: any) => state.wishlistState
+  )
+  const inWishlistUnAuth = wishlistItems.some((item) => item.id === id)
+  //for auth users
+  const { data, isLoading } = useWishlists()
+  const wishlists: ProductFetch[] = data?.data?.map(
+    ({ product }: { product: ProductFetch }) => product
+  )
+  const inWishlistAuth = wishlists.some((item) => item.id === id)
+  const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
+  const handleRemoveItem = async () => {
+    removeItem(id, {
+      onSuccess: () => {
+        toast.success(`${name} has been  removed from your wishlist`)
+      },
+      onError: () => {
+        toast.error(
+          'Error removing item from yyour wishlist. Please try again.'
+        )
+        return
+      },
+    })
+  }
+
+  const { mutate: addItem, isPending: adding } = useAddToWishlist()
+  const handleAddItem = async () => {
+    addItem(id, {
+      onSuccess: () => {
+        toast.success(`${name} has been  added to your wishlist`)
+      },
+      onError: () => {
+        toast.error('Error adding item to your wishlist. Please try again.')
+        return
+      },
+    })
+  }
+
+  const inWishlist = token ? inWishlistAuth : inWishlistUnAuth
   const dispatch = useDispatch()
-  const handleWishlistToggle = () => {
-    dispatch(toggleWishlistItem({ product }))
+  const handleWishlistToggle = async () => {
+    if (token) {
+      if (inWishlistAuth) {
+        await handleRemoveItem()
+      } else {
+        await handleAddItem()
+      }
+    } else {
+      dispatch(toggleWishlistItem({ product }))
+    }
   }
 
   return (
@@ -49,15 +108,19 @@ const ProductCardGrid = ({ product }: { product: Product }) => {
 
         {/* Wishlist Button */}
         <button
-          className="absolute bottom-2 right-2 bg-primary/20 rounded-full p-2 hover:scale-110 cursor-pointer"
+          className="bg-primary/20 rounded-full p-2 hover:scale-110 cursor-pointer"
           onClick={handleWishlistToggle}
         >
-          <Heart
-            strokeWidth={3}
-            className={`w-4 h-4
-              ${inWishlist ? 'fill-primary text-primary' : 'text-primary'}
-            `}
-          />
+          {isLoading || adding || removing ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Heart
+              strokeWidth={3}
+              className={`w-4 h-4 ${
+                inWishlist ? 'fill-primary text-primary' : 'text-primary'
+              }`}
+            />
+          )}
         </button>
       </div>
       {/* Content Section */}
@@ -100,7 +163,7 @@ const ProductCardGrid = ({ product }: { product: Product }) => {
           )}
           <div>
             {/* Action Button */}
-            <AddToCart product={product} />
+            <AddToCart productId={id} />
           </div>
         </div>
       </div>

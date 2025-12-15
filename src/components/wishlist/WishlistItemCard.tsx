@@ -1,35 +1,58 @@
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { Card, CardContent } from '../ui/card'
 import { Link } from 'react-router-dom'
 import { currencyFormatter, discount } from '@/utils/format'
 import { useDispatch } from 'react-redux'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
 import AddToCart from '../shop/AddToCart'
+import { useSelector } from 'react-redux'
+import { toast } from 'sonner'
+import { useRemoveFromWishlist } from '@/hooks/useQueries'
 
-function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
+function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
   const {
     images,
     name,
     id,
     category,
-    discountPrice,
-    originalPrice,
+    discountPriceMin,
+    discountPriceMax,
+    originalPriceMin,
+    originalPriceMax,
     stock,
     description,
   } = wishlistItem
-  const minPrice = discountPrice?.min
-    ? Math.min(discountPrice.min, originalPrice.min)
-    : originalPrice.min
-  const maxPrice = discountPrice?.max
-    ? Math.max(discountPrice?.max, originalPrice.max)
-    : originalPrice.max
+  const minPrice = Math.min(discountPriceMin, originalPriceMin)
+  const maxPrice = Math.max(discountPriceMax, originalPriceMax)
   const discountPercent =
-    discountPrice?.max && discount(originalPrice.max, discountPrice.max)
-
+    originalPriceMax !== discountPriceMax &&
+    discount(originalPriceMax, discountPriceMax)
   const dispatch = useDispatch()
-  const removeItemFromWishlist = () => {
-    dispatch(toggleWishlistItem({ product: wishlistItem }))
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.wishlistState
+  )
+  const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
+  const handleRemoveItem = async () => {
+    removeItem(id, {
+      onSuccess: () => {
+        toast.success(`${name} has been  removed from your wishlist`)
+      },
+      onError: () => {
+        toast.error(
+          'Error removing item from yyour wishlist. Please try again.'
+        )
+        return
+      },
+    })
   }
+  const handleRemoveFromWishlist = async () => {
+    if (token) {
+      await handleRemoveItem()
+    } else {
+      dispatch(toggleWishlistItem({ product: wishlistItem }))
+    }
+  }
+
   return (
     <section>
       <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow rounded-sm duration-200 p-2 md:p-4 h-full">
@@ -43,7 +66,7 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
                 className="aspect-square w-full object-cover"
                 loading="lazy"
               />
-              {discountPrice && (
+              {discountPercent && (
                 <span className="text-xs font-bold px-2 py-1 absolute top-1 left-1 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
                   -{discountPercent}%
                 </span>
@@ -102,13 +125,14 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: Product }) {
             {/* Remove button */}
             <button
               className="text-primary font-medium text-sm cursor-pointer h-8 px-2"
-              onClick={removeItemFromWishlist}
+              onClick={handleRemoveFromWishlist}
+              disabled={removing}
             >
               Remove
             </button>
             {/* Add to cart button */}
             <div className="w-32">
-              <AddToCart product={wishlistItem} />
+              <AddToCart productId={id} />
             </div>
           </div>
         </CardContent>

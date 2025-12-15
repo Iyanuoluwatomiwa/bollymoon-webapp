@@ -62,7 +62,7 @@ function CustomPagination({
               <PaginationEllipsis className=" w-4 h-4 " />
             ) : (
               <PaginationLink
-                className="cursor-pointer w-7 h-7 rounded-full"
+                className="cursor-pointer w-7 h-7 rounded-full hover:text-white"
                 isActive={page === currentPage}
                 onClick={() => handlePageChange(page)}
               >

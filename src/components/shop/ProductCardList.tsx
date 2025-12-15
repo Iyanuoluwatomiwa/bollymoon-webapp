@@ -1,38 +1,89 @@
-import type { Product } from '@/types/product.types'
+import type { Product, ProductFetch } from '@/types/product.types'
 import { currencyFormatter, discount } from '@/utils/format'
-import { Heart } from 'lucide-react'
+import { Heart, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import AddToCart from './AddToCart'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
+import {
+  useAddToWishlist,
+  useRemoveFromWishlist,
+  useWishlists,
+} from '@/hooks/useQueries'
+import { toast } from 'sonner'
 
-function ProductCardList({ product }: { product: Product }) {
+function ProductCardList({ product }: { product: ProductFetch }) {
   const {
     id,
     name,
     category,
     stock,
     images,
-    originalPrice,
-    discountPrice,
-    description,
+    originalPriceMin,
+    originalPriceMax,
+    discountPriceMin,
+    discountPriceMax,
   } = product
-  const minPrice = discountPrice?.min
-    ? Math.min(discountPrice.min, originalPrice.min)
-    : originalPrice.min
-  const maxPrice = discountPrice?.max
-    ? Math.max(discountPrice?.max, originalPrice.max)
-    : originalPrice.max
+  const minPrice = Math.min(discountPriceMin, originalPriceMin)
+  const maxPrice = Math.max(discountPriceMax, originalPriceMax)
   const discountPercent =
-    discountPrice?.max && discount(originalPrice.max, discountPrice.max)
+    originalPriceMax !== discountPriceMax &&
+    discount(originalPriceMax, discountPriceMax)
+
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.wishlistState
+  )
+  //for unauth users
   const { wishlistItems }: { wishlistItems: Product[] } = useSelector(
     (state: any) => state.wishlistState
   )
-  const inWishlist = wishlistItems.some((item) => item.id === id)
+  const inWishlistUnAuth = wishlistItems.some((item) => item.id === id)
+  //for auth users
+  const { data, isLoading } = useWishlists()
+  const wishlists: ProductFetch[] = data?.data?.map(
+    ({ product }: { product: ProductFetch }) => product
+  )
+  const inWishlistAuth = wishlists.some((item) => item.id === id)
+  const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
+  const handleRemoveItem = async () => {
+    removeItem(id, {
+      onSuccess: () => {
+        toast.success(`${name} has been  removed from your wishlist`)
+      },
+      onError: () => {
+        toast.error(
+          'Error removing item from yyour wishlist. Please try again.'
+        )
+        return
+      },
+    })
+  }
+  const { mutate: addItem, isPending: adding } = useAddToWishlist()
+  const handleAddItem = async () => {
+    addItem(id, {
+      onSuccess: () => {
+        toast.success(`${name} has been  added to your wishlist`)
+      },
+      onError: () => {
+        toast.error('Error adding item to your wishlist. Please try again.')
+        return
+      },
+    })
+  }
+
+  const inWishlist = token ? inWishlistAuth : inWishlistUnAuth
   const dispatch = useDispatch()
-  const handleWishlistToggle = () => {
-    dispatch(toggleWishlistItem({ product }))
+  const handleWishlistToggle = async () => {
+    if (token) {
+      if (inWishlistAuth) {
+        await handleRemoveItem()
+      } else {
+        await handleAddItem()
+      }
+    } else {
+      dispatch(toggleWishlistItem({ product }))
+    }
   }
   return (
     <div className="group bg-white rounded-md overflow-hidden transition-all duration-300 hover:shadow-xl border">
@@ -75,20 +126,18 @@ function ProductCardList({ product }: { product: Product }) {
                 className="bg-primary/20 rounded-full p-2 hover:scale-110 cursor-pointer"
                 onClick={handleWishlistToggle}
               >
-                <Heart
-                  strokeWidth={3}
-                  className={`w-4 h-4 ${
-                    inWishlist ? 'fill-primary text-primary' : 'text-primary'
-                  }`}
-                />
+                {isLoading || adding || removing ? (
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                ) : (
+                  <Heart
+                    strokeWidth={3}
+                    className={`w-4 h-4 ${
+                      inWishlist ? 'fill-primary text-primary' : 'text-primary'
+                    }`}
+                  />
+                )}
               </button>
             </div>
-
-            {/* Description */}
-            <p className="text-gray-600 text-xs line-clamp-2 sm:line-clamp-3 leading-relaxed">
-              {description}
-            </p>
-
             {/* Stock Status */}
             <>
               {stock < 10 && (
@@ -116,7 +165,7 @@ function ProductCardList({ product }: { product: Product }) {
                 {currencyFormatter(minPrice)}
               </div>
             )}
-            <AddToCart product={product} />
+            <AddToCart productId={id} />
           </div>
         </div>
       </div>

@@ -15,6 +15,7 @@ import {
 } from '@/api/orders'
 import { getAllDeliveryAddresses, saveDeliveryAddress } from '@/api/address'
 import type { DeliveryAddress } from '@/types/orders.types'
+import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
 
 export const useAllProducts = () => {
   const getAllProducts = async () => {
@@ -219,4 +220,46 @@ export const useSaveDeliveryAddress = () => {
   })
 
   return saveDeliveryAddressFunction
+}
+
+export const useWishlists = () => {
+  const wishlists = async () => {
+    const wishlists = await getWishlists()
+    return wishlists
+  }
+  const queryData = useQuery({
+    queryKey: ['wishlists'],
+    queryFn: wishlists,
+  })
+  return queryData
+}
+
+export const useAddToWishlist = () => {
+  const addToWishlistAction = async (id: string | undefined) => {
+    await addToWishlist(id)
+  }
+  const queryClient = useQueryClient()
+  const addToWishlistFunction = useMutation({
+    mutationFn: addToWishlistAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['wishlists'] })
+    },
+  })
+
+  return addToWishlistFunction
+}
+
+export const useRemoveFromWishlist = () => {
+  const removeFromWishlistAction = async (id: string | undefined) => {
+    await removeFromWishlist(id)
+  }
+  const queryClient = useQueryClient()
+  const removeFromWishlistFunction = useMutation({
+    mutationFn: removeFromWishlistAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['wishlists'] })
+    },
+  })
+
+  return removeFromWishlistFunction
 }

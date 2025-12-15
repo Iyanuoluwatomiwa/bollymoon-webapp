@@ -1,9 +1,9 @@
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { createSlice } from '@reduxjs/toolkit'
 import { toast } from 'sonner'
 
 export interface Wishlist {
-  wishlistItems: Product[]
+  wishlistItems: ProductFetch[]
   numItemsInWishlist: number
 }
 
@@ -23,10 +23,12 @@ const wishlistSlice = createSlice({
   reducers: {
     toggleWishlistItem: (state, action) => {
       const { product } = action.payload
-      const item = state.wishlistItems.find((i: Product) => i.id === product.id)
+      const item = state.wishlistItems.find(
+        (i: ProductFetch) => i.id === product.id
+      )
       if (item) {
         state.wishlistItems = state.wishlistItems.filter(
-          (i: Product) => !(i.id == item.id)
+          (i: ProductFetch) => !(i.id == item.id)
         )
         state.numItemsInWishlist -= 1
         toast.success(`${product.name} has been  removed from your wishlist`)
@@ -35,10 +37,17 @@ const wishlistSlice = createSlice({
         state.numItemsInWishlist += 1
         toast.success(`${product.name} has been  added to your wishlist`)
       }
+
+      localStorage.setItem('wishlist', JSON.stringify(state))
+    },
+    clearWishlist: (state) => {
+      state.wishlist = []
+      state.numItemsInWishlist = 0
+      localStorage.setItem('wishlist', JSON.stringify(defaultState))
     },
   },
 })
 
-export const { toggleWishlistItem } = wishlistSlice.actions
+export const { toggleWishlistItem, clearWishlist } = wishlistSlice.actions
 
 export default wishlistSlice.reducer

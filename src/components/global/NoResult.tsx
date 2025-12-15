@@ -2,8 +2,8 @@ import { AlertTriangle } from 'lucide-react'
 import { Button } from '../ui/button'
 
 interface NoResultProp {
-  text: string
-  icon: any
+  text?: string
+  icon?: any
   isError: boolean
   errorText: string
 }

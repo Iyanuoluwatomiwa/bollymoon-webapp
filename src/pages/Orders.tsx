@@ -9,7 +9,6 @@ import OrderCardSkeleton from '@/components/skeletons/OrderCardSkeleton'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
 import { useMyOrders } from '@/hooks/useQueries'
 import type { Order } from '@/types/orders.types'
-import { ShoppingCart } from 'lucide-react'
 
 function Orders() {
   const { data, isLoading, isError } = useMyOrders()
@@ -45,12 +44,7 @@ function Orders() {
                           <OrderCard key={order.id} {...order} />
                         ))}
                         {isError ? (
-                          <NoResult
-                            text=""
-                            icon={ShoppingCart}
-                            isError={isError}
-                            errorText="your orders"
-                          />
+                          <NoResult isError={isError} errorText="your orders" />
                         ) : (
                           groupOrdersByStatus(status)?.length == 0 && (
                             <EmptyOrders label={label} />

@@ -7,7 +7,15 @@ export const lazyload = (Component: JSX.Element) => (
   <LazyLoad>{Component}</LazyLoad>
 )
 export const pageSuspense = (Component: JSX.Element) => (
-  <Suspense fallback={<LoadingIcon />}>{Component}</Suspense>
+  <Suspense
+    fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <LoadingIcon />
+      </div>
+    }
+  >
+    {Component}
+  </Suspense>
 )
 
 export const sectionSuspense = (Component: JSX.Element) => (

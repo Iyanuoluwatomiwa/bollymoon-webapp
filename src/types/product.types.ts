@@ -79,3 +79,21 @@ export type ProductUpload = {
   category: string
   collection: string
 }
+
+export type ProductFetch = {
+  id: string
+  category: string
+  subcategory: string
+  name: string
+  description: string
+  images: string[]
+  stock: number
+  collection: string
+  discountPriceMin: number
+  discountPriceMax: number
+  originalPriceMin: number
+  originalPriceMax: number
+  updatedAt: string
+  createdAt: string
+  specs?: Variant[]
+}
