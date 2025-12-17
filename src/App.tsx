@@ -8,10 +8,12 @@ import { setUserProfile } from './features/user/userSlice'
 //layouts
 import AppLayout from './components/layouts/AppLayout'
 import AdminLayout from './components/layouts/AdminLayout'
-import { getProfile } from './services/authServices'
 import type { ProductFetch } from './types/product.types'
 import { useAddToWishlist } from './hooks/useQueries'
 import { clearWishlist } from './features/wishlist/wishlistSlice'
+import { profile } from './api/auth'
+import { toast } from 'sonner'
+import type { UserProfile } from './types/user.types'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -203,33 +205,35 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch()
-  const { token }: { token: string } = useSelector(
+  const { userProfile, token }: { userProfile: UserProfile; token: string } =
+    useSelector((state: any) => state.userState)
+
+  console.log(token)
+
+  /*  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.userState
-  )
-  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
-    (state: any) => state.userState
-  )
-  const { mutate: addToWishlist } = useAddToWishlist()
+  ) */
+  /*  const { mutate: addToWishlist } = useAddToWishlist() */
 
   useEffect(() => {
+    if (!token) return
     const getUserDetails = async () => {
-      if (token) {
-        const user = await getProfile()
+      try {
+        const response = await profile()
+
         dispatch(
           setUserProfile({
-            userProfile: user,
+            userProfile: response?.data,
           })
         )
-        await Promise.all(
-          wishlistItems.map((item) => {
-            addToWishlist(item.id)
-          })
-        )
-        dispatch(clearWishlist())
+      } catch (error: any) {
+        toast.error(error?.message)
       }
+
+      /*  dispatch(clearWishlist()) */
     }
     getUserDetails()
-  }, [token, dispatch])
+  }, [token, userProfile, dispatch])
 
   return (
     <RouterProvider

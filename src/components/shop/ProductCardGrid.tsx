@@ -43,7 +43,7 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
   const wishlists: ProductFetch[] = data?.data?.map(
     ({ product }: { product: ProductFetch }) => product
   )
-  const inWishlistAuth = wishlists.some((item) => item.id === id)
+  const inWishlistAuth = wishlists?.some((item) => item.id === id)
   const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
   const handleRemoveItem = async () => {
     removeItem(id, {
@@ -90,25 +90,25 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
     <div className="group rounded-sm overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md flex flex-col">
       {/* Image Container */}
       <div className="relative overflow-hidden rounded-t-sm ">
-        <figure className="group-hover:scale-110 transition-transform duration-300">
+        <figure className="group-hover:scale-110 transition-transform duration-300 ">
           <img
-            src={images[0]}
+            src={images[0].url}
             alt={name}
-            className="aspect-square object-center "
+            className="aspect-square object-cover "
             loading="lazy"
           />
         </figure>
 
         {/* Badges */}
         {discountPercent && (
-          <div className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-primary/20 absolute top-1 right-1 flex justify-between items-center">
+          <div className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-white shadow-xs absolute top-1 right-1 flex justify-between items-center">
             -{discountPercent}%
           </div>
         )}
 
         {/* Wishlist Button */}
         <button
-          className="bg-primary/20 rounded-full p-2 hover:scale-110 cursor-pointer"
+          className="bg-white rounded-full p-2 hover:scale-110 cursor-pointer absolute shadow-xs bottom-1 right-1"
           onClick={handleWishlistToggle}
         >
           {isLoading || adding || removing ? (
@@ -163,7 +163,7 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
           )}
           <div>
             {/* Action Button */}
-            <AddToCart productId={id} />
+            <AddToCart productId={product?.id} />
           </div>
         </div>
       </div>

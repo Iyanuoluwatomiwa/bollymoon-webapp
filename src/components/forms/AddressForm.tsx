@@ -7,17 +7,11 @@ import { deliveryFormSchema } from '@/utils/schema'
 
 interface AddressFormProps {
   details?: DeliveryAddress | null
-  onSubmit: (data: any) => Promise<void>
-  isSuccess: boolean
+  onSubmit: any
   submitting: boolean
 }
 
-function AddressForm({
-  details,
-  onSubmit,
-  isSuccess,
-  submitting,
-}: AddressFormProps) {
+function AddressForm({ details, onSubmit, submitting }: AddressFormProps) {
   const [formData, setFormData] = useState({
     phone: details?.phone ?? '',
     addressLine: details?.addressLine ?? '',
@@ -52,8 +46,10 @@ function AddressForm({
     if (!validatedData) {
       return
     }
-    await onSubmit(validatedData)
-    isSuccess && resetForm()
+    try {
+      await onSubmit({ ...validatedData, note: formData.note })
+      resetForm()
+    } catch (error) {}
   }
   const disableUpdate =
     formData.phone === details?.phone ||
@@ -106,17 +102,26 @@ function AddressForm({
         placeholder="Additional Information"
         type="text"
         value={formData.note}
-        label="Additonal Information"
+        label="Additional Information"
         maxLength={50}
+      />
+      <FormInput
+        name="state"
+        handleInputChange={handleInputChange}
+        placeholder="Region"
+        type="text"
+        value={formData.state}
+        label="Region"
+        required
       />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2.5 gap-x-4">
         <FormInput
-          name="state"
+          name="postalCode"
           handleInputChange={handleInputChange}
-          placeholder="Region"
+          placeholder="Postcode"
           type="text"
-          value={formData.state}
-          label="Region"
+          value={formData.postalCode}
+          label="Postcode"
           required
         />
         <FormInput

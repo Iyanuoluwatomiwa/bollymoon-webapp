@@ -6,7 +6,8 @@ import FormInput from '../form-fields/FormInput'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
-import { handleForgotPassword } from '@/services/authServices'
+import { forgotPassword } from '@/api/auth'
+import { toast } from 'sonner'
 
 function ForgotPasswordForm() {
   const [formData, setFormData] = useState({
@@ -26,8 +27,14 @@ function ForgotPasswordForm() {
       setSubmitting(false)
       return
     }
-    await handleForgotPassword(validatedData)
-    setSubmitting(false)
+    try {
+      const response = await forgotPassword(validatedData)
+      toast.success(response?.data?.message)
+      setSubmitting(false)
+    } catch (error: any) {
+      toast.error(error?.message)
+      setSubmitting(false)
+    }
   }
 
   return (

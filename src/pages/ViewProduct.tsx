@@ -65,7 +65,7 @@ function ViewProduct() {
                 <div className="space-y-1.5">
                   <h2 className="text-xs md:text-sm font-medium">Collection</h2>
                   <p className="text-xs md:text-sm text-muted-foreground capitalize">
-                    {product?.collection}
+                    {product?.collection.replace(/-/g, ' ')}
                   </p>
                 </div>
               )}
@@ -119,19 +119,21 @@ function ViewProduct() {
             <div className="space-y-1.5">
               <h2 className="text-xs md:text-sm font-medium">Product Images</h2>
               <div className="flex items-center justify-center md:justify-start gap-2 md:gap-4 mt-2.5">
-                {product?.images?.map((image: string, index: number) => (
-                  <figure
-                    key={index}
-                    className=" w-48 shadow rounded-sm overflow-hidden "
-                  >
-                    <img
-                      src={image}
-                      alt={`product_image_${index + 1}`}
-                      className="w-full object-cover aspect-square"
-                      loading="lazy"
-                    />
-                  </figure>
-                ))}
+                {product?.images?.map(
+                  (image: { url: string }, index: number) => (
+                    <figure
+                      key={index}
+                      className=" w-48 shadow rounded-sm overflow-hidden "
+                    >
+                      <img
+                        src={image.url}
+                        alt={`product_image_${index + 1}`}
+                        className="w-full object-cover aspect-square"
+                        loading="lazy"
+                      />
+                    </figure>
+                  )
+                )}
               </div>
             </div>
             <div className="flex gap-2 justify-between pt-4">

@@ -9,7 +9,7 @@ function AddProduct() {
   const {
     mutate: createProduct,
     isPending: creating,
-    isSuccess,
+    isError,
   } = useCreateProduct()
   const handleCreateProduct = async (product: ProductUpload) => {
     createProduct(product, {
@@ -18,7 +18,6 @@ function AddProduct() {
       },
       onError: () => {
         toast.error('Error adding product. Try again.')
-        return null
       },
     })
   }
@@ -32,7 +31,7 @@ function AddProduct() {
         <ProductForm
           onSubmitting={creating}
           onSubmit={handleCreateProduct}
-          isSuccess={isSuccess}
+          isError={isError}
         />
       </div>
     </Container>

@@ -13,14 +13,19 @@ import {
   getOrderById,
   updateOrder,
 } from '@/api/orders'
-import { getAllDeliveryAddresses, saveDeliveryAddress } from '@/api/address'
+import {
+  deleteDeliveryAddress,
+  getAllDeliveryAddresses,
+  saveDeliveryAddress,
+} from '@/api/address'
 import type { DeliveryAddress } from '@/types/orders.types'
 import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
+import { toast } from 'sonner'
 
 export const useAllProducts = () => {
   const getAllProducts = async () => {
-    const allProducts = await getProducts()
-    return allProducts
+    const products = await getProducts()
+    return products
   }
   const queryData = useQuery({
     queryKey: ['products'],
@@ -32,10 +37,11 @@ export const useAllProducts = () => {
 export const useSingleProduct = (productId: string | undefined) => {
   const getSingleProduct = async () => {
     const singleProduct = await getProduct(productId)
+
     return singleProduct
   }
   const queryData = useQuery({
-    queryKey: ['single-product'],
+    queryKey: ['single-product', productId],
     queryFn: getSingleProduct,
   })
 
@@ -67,6 +73,7 @@ export const useDeleteProduct = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] })
       queryClient.invalidateQueries({ queryKey: ['single-product'] })
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
     },
   })
 
@@ -89,6 +96,7 @@ export const useUpdateProduct = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['products'] })
       queryClient.invalidateQueries({ queryKey: ['single-product'] })
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
     },
   })
 
@@ -193,8 +201,8 @@ export const useUpdateDeliveryAddress = () => {
 }
 
 export const useDeleteDeliveryAddress = () => {
-  const deleteDeliveryAddressAction = async (id: string) => {
-    await deleteProduct(id)
+  const deleteDeliveryAddressAction = async (id: string | undefined) => {
+    await deleteDeliveryAddress(id)
   }
   const queryClient = useQueryClient()
   const deleteDeliveryAddressFunction = useMutation({
@@ -209,7 +217,13 @@ export const useDeleteDeliveryAddress = () => {
 
 export const useSaveDeliveryAddress = () => {
   const saveDeliveryAddressAction = async (data: DeliveryAddress) => {
-    await saveDeliveryAddress(data)
+    try {
+      const response = await saveDeliveryAddress(data)
+      toast.success(response?.message)
+    } catch (error: any) {
+      toast.error(error?.message)
+      return
+    }
   }
   const queryClient = useQueryClient()
   const saveDeliveryAddressFunction = useMutation({

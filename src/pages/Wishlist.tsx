@@ -20,27 +20,31 @@ function Wishlist() {
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.wishlistState
   )
-  const wishlists = token ? fetchedWishlists : wishlistItems
 
   return (
     <>
       <PageTitle title="Wishlist" />
       <Container className="py-10">
         <section>
-          {isLoading ? (
-            <WishlistCardSkeleton />
-          ) : (
-            <>
-              {wishlists?.length !== 0 && wishlists?.length !== undefined && (
-                <WishlistItems wishlistItems={wishlists} />
-              )}
+          {token ? (
+            isLoading ? (
+              <WishlistCardSkeleton />
+            ) : (
+              <>
+                {fetchedWishlists?.length !== 0 &&
+                  fetchedWishlists?.length !== undefined && (
+                    <WishlistItems wishlistItems={fetchedWishlists} />
+                  )}
 
-              {isError ? (
-                <NoResult isError={isError} errorText="your orders" />
-              ) : (
-                wishlists?.length == 0 && <EmptyWishlist />
-              )}
-            </>
+                {isError ? (
+                  <NoResult isError={isError} errorText="your wishlist" />
+                ) : (
+                  fetchedWishlists?.length == 0 && <EmptyWishlist />
+                )}
+              </>
+            )
+          ) : (
+            <WishlistItems wishlistItems={wishlistItems} />
           )}
         </section>
       </Container>

@@ -2,7 +2,6 @@ import { useSelector } from 'react-redux'
 import PageTitle from '@/components/global/PageTitle'
 import ShippingInformation from '@/components/checkout/ShippingInformation'
 import OrderReview from '@/components/checkout/OrderReview'
-import PaymentInformation from '@/components/checkout/PaymentInformation'
 import Container from '@/components/global/Container'
 import ProgressIndicator from '@/components/checkout/ProgressIndicator'
 import BreadcrumbHeader from '@/components/headers/BreadcrumbHeader'
@@ -14,7 +13,6 @@ const Checkout = () => {
   const checkoutComponents: Record<number, React.ComponentType> = {
     1: ShippingInformation,
     2: OrderReview,
-    3: PaymentInformation,
   }
 
   const Component = checkoutComponents[step]
@@ -27,7 +25,7 @@ const Checkout = () => {
           <BreadcrumbHeader currentPage="Checkout" previousPage="cart" />
 
           <ProgressIndicator />
-          <section className="max-w-lg mt-16 mx-auto">
+          <section className="max-w-xl mt-16 mx-auto">
             <Component />
           </section>
         </div>

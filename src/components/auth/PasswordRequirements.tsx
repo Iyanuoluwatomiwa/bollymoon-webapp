@@ -8,7 +8,7 @@ interface PasswordRequirementsProps {
 function PasswordRequirements({ password }: PasswordRequirementsProps) {
   const rules = [
     {
-      label: 'At least 6 characters',
+      label: 'At least 8 characters',
       valid: passwordRules.minLength(password),
     },
     {

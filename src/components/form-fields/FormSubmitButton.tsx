@@ -22,7 +22,7 @@ function FormSubmitButton({
           className="w-full text-xs md:text-sm rounded-md flex items-center justify-center bg-primary text-white  gap-2 font-medium h-9"
         >
           {texting}{' '}
-          <Loader2Icon className="animate-spin w-5 h-5 md:w-6 md:h-6 " />
+          <Loader2Icon className="animate-spin w-4 h-4 md:w-5 md:h-5 " />
         </button>
       ) : (
         <Button

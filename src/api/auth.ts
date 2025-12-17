@@ -7,48 +7,65 @@ import type {
 } from '@/types/auth.types'
 import { api } from '@/utils/axiosConfig'
 import { type ForgotPassword } from '../types/auth.types'
+import { handleApiError } from '@/lib/apiError'
 
 export const register = async (data: Register) => {
-  const response = await api.post(`/v1/users/register`, data)
-
-  return response
+  try {
+    const response = await api.post(`/v1/users/register`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 
 export const login = async (data: Login) => {
-  const response = await api.post(`/v1/users/login`, data)
-  return response
+  try {
+    const response = await api.post(`/v1/users/login`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 export const profile = async () => {
-  const response = await api.get(`/v1/users/profile`)
-  return response
+  try {
+    const response = await api.get(`/v1/users/profile`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
+//
 export const forgotPassword = async (data: ForgotPassword) => {
-  const response: {
-    message: string
-    success: boolean
-    timestamp: string
-  } = await api.post(`/v1/users/forgot-password`, data)
-  return response
+  try {
+    const response = await api.post(`/v1/users/forgot-password`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 
 export const resetPassword = async (data: ResetPassword) => {
-  const response: {
-    message: string
-    success: boolean
-    timestamp: string
-  } = await api.post(`/v1/users/reset-password`, data)
-  return response
+  try {
+    const response = await api.post(`/v1/users/reset-password`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 
 export const changePassword = async (data: ChangePassword) => {
-  const response: {
-    message: string
-    success: boolean
-    timestamp: string
-  } = await api.put(`/v1/users/change-password`, data)
-  return response
+  try {
+    const response = await api.put(`/v1/users/change-password`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 export const updateProfile = async (data: ProfileForm) => {
-  const response = await api.put(`/v1/users/update-profile`, data)
-  return response
+  try {
+    const response = await api.put(`/v1/users/update-profile`, data)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }

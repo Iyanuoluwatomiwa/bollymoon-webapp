@@ -5,7 +5,7 @@ import 'swiper/css'
 function ImageCarousel({
   carouselItems,
 }: {
-  carouselItems: string[] | undefined
+  carouselItems: { url: string; publicId: string }[] | undefined
 }) {
   return (
     <Swiper
@@ -31,7 +31,7 @@ function ImageCarousel({
           <div>
             <figure className="h-[200px] sm:h-[300px] md:h-[350px] w-full">
               <img
-                src={slide}
+                src={slide.url}
                 alt="product-images"
                 className="w-full h-full object-cover object-center"
               />

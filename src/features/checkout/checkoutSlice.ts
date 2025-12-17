@@ -3,64 +3,64 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const defaultState: Checkout = {
   shippingForm: {
-    email: '',
-    firstname: '',
-    lastname: '',
-    address: '',
+    phone: '',
+    addressLine: '',
     city: '',
     state: '',
-    postcode: '',
-    phone: '',
-    country: 'United Kingdom',
+    country: 'UK',
+    postalCode: '',
+    note: '',
+    id: '',
   },
   step: 1,
-  paymentMethod: {
-    id: '',
-    name: '',
-  },
+  deliveryOption: 'standard',
 }
+
+const getCheckoutFromSessionStorage = () => {
+  const checkout = sessionStorage.getItem('checkout')
+  return checkout ? JSON.parse(checkout) : defaultState
+}
+
 const checkoutSlice = createSlice({
   name: 'checkout',
-  initialState: defaultState,
+  initialState: getCheckoutFromSessionStorage,
   reducers: {
-    handleShippingFormInput: (state, action) => {
-      const { key, value } = action.payload
-      state.shippingForm = { ...state.shippingForm, [key]: value }
+    handleShippingInformation: (state, action) => {
+      const { shippingForm } = action.payload
+      state.shippingForm = shippingForm
+      sessionStorage.setItem('checkout', JSON.stringify(state))
     },
     handleStepChange: (state, action) => {
       const { step } = action.payload
       state.step = step
+      sessionStorage.setItem('checkout', JSON.stringify(state))
     },
-    handlePaymentMethod: (state, action) => {
-      const { id, name } = action.payload
-      state.paymentMethod.id = id
-      state.paymentMethod.name = name
+    handleDeliveryOption: (state, action) => {
+      const { option } = action.payload
+      state.deliveryOption = option
+      sessionStorage.setItem('checkout', JSON.stringify(state))
     },
     resetCheckout: (state) => {
-      state.paymentMethod = {
-        id: '',
-        name: '',
-      }
       state.step = 1
       state.shippingForm = {
-        email: '',
-        firstname: '',
-        lastname: '',
-        address: '',
+        addressLine: '',
         city: '',
         state: '',
-        postcode: '',
+        postalCode: '',
         phone: '',
-        country: 'United Kingdom',
+        country: 'UK',
+        note: '',
       }
+      state.type = 'saved'
+      sessionStorage.setItem('checkout', JSON.stringify(state))
     },
   },
 })
 
 export const {
-  handleShippingFormInput,
+  handleShippingInformation,
   handleStepChange,
-  handlePaymentMethod,
+  handleDeliveryOption,
   resetCheckout,
 } = checkoutSlice.actions
 

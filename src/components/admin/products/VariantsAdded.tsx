@@ -55,11 +55,11 @@ function VariantsAdded({ variants, setVariants }: VariantAddedProp) {
                   </span>
                   <div className="flex items-center flex-wrap gap-x-2 ">
                     <span className="text-xs sm:text-[14px] font-semibold text-foreground">
-                      {discountPrice
+                      {discountPrice !== originalPrice
                         ? currencyFormatter(discountPrice)
                         : currencyFormatter(originalPrice)}
                     </span>
-                    {!discountPrice || (
+                    {discountPrice !== originalPrice && (
                       <span className="text-[10px] sm:text-[12px] text-muted-foreground line-through font-medium italic">
                         {currencyFormatter(originalPrice)}
                       </span>

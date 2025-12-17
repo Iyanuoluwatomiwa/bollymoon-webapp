@@ -42,7 +42,7 @@ function ProductTableBody({ filteredProducts }: ProductTableBodyProp) {
               {product.subcategory}
             </TableCell>
             <TableCell className=" hidden lg:table-cell capitalize">
-              {product.collection}
+              {product.collection.replace(/-/g, ' ')}
             </TableCell>
             <TableCell className="text-right w-20">
               <div className="flex flex-wrap justify-end gap-2 ">

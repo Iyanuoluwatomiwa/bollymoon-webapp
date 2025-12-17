@@ -38,9 +38,7 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
         toast.success(`${name} has been  removed from your wishlist`)
       },
       onError: () => {
-        toast.error(
-          'Error removing item from yyour wishlist. Please try again.'
-        )
+        toast.error('Error removing item from your wishlist. Please try again.')
         return
       },
     })
@@ -61,13 +59,13 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
           <div className="flex gap-2 md:gap-4 ">
             <figure className="w-26 sm:w-30 md:w-36  flex-shrink-0 relative">
               <img
-                src={images[0]}
+                src={images[0].url}
                 alt={name}
                 className="aspect-square w-full object-cover"
                 loading="lazy"
               />
               {discountPercent && (
-                <span className="text-xs font-bold px-2 py-1 absolute top-1 left-1 rounded-sm text-primary bg-primary/20 flex justify-between items-center">
+                <span className="text-xs font-bold px-2 py-1 absolute top-1 left-1 rounded-sm text-primary bg-white shadow-xs flex justify-between items-center">
                   -{discountPercent}%
                 </span>
               )}

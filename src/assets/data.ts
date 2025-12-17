@@ -1,6 +1,5 @@
 import {
   ArrowLeftRight,
-  BarChart3,
   Building2,
   CreditCard,
   Hash,
@@ -10,7 +9,6 @@ import {
   Phone,
   Settings,
   ShoppingCart,
-  Star,
 } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
 import heroHair from '@/assets/images/hero-hair.webp'
@@ -603,10 +601,6 @@ export const checkoutProgress = [
     number: 2,
     name: 'review',
   },
-  {
-    number: 3,
-    name: 'payment',
-  },
 ]
 
 export const productSizesList = {
@@ -904,8 +898,6 @@ export const adminNavigation = [
   { title: 'Overview', url: 'overview', icon: LayoutDashboard },
   { title: 'Products', url: 'products', icon: PackageIcon },
   { title: 'Orders', url: 'orders', icon: ShoppingCart },
-  { title: 'Reviews', url: 'reviews', icon: Star },
-  { title: 'Analytics', url: 'analytics', icon: BarChart3 },
   { title: 'Settings', url: 'settings', icon: Settings },
 ]
 
@@ -1019,3 +1011,17 @@ export const hairSubcategory = [
   'hair-bundles',
 ]
 export const cosmeticsSubcategory = ['all', 'makeup']
+
+export const deliveryOptions: {
+  name: string
+  value: 'standard' | 'express'
+}[] = [
+  {
+    name: 'Standard Delivery',
+    value: 'standard',
+  },
+  {
+    name: 'Express Delivery',
+    value: 'express',
+  },
+]

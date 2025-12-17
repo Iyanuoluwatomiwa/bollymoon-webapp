@@ -1,3 +1,4 @@
+import { store } from '@/store'
 import axios from 'axios'
 
 export const api = axios.create({
@@ -8,8 +9,8 @@ export const api = axios.create({
 })
 
 api.interceptors.request.use((config) => {
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI4MWU1ZDUyMi01MDA1LTQ4ODktOWYyYy0wNjg0NzJlYTZhNDIiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3NjUzOTMxNzUsImV4cCI6MTc2Nzk4NTE3NX0.fyPYgkzuLFP_Jfp5R6JQPAHdjsv7QbH5yrsG-zV0i70'
+  const state = store.getState()
+  const token = state.userState.token
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }

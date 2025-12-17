@@ -38,9 +38,11 @@ export const resetPasswordSchema = z.object({
 export const changePasswordSchema = z.object({
   newPassword: z
     .string()
+    .min(8)
     .max(50, { message: 'Password must not exceed 50 characters.' }),
   currentPassword: z
     .string()
+    .min(8)
     .max(50, { message: 'Password must not exceed 50 characters.' }),
 })
 
@@ -109,6 +111,7 @@ export const productSchema = z.object({
   subcategory: z.string().min(1, {
     message: 'Please select a subcategory',
   }),
+  collection: z.string(),
 })
 
 export const deliveryFormSchema = z.object({
@@ -120,5 +123,4 @@ export const deliveryFormSchema = z.object({
   state: z.string(),
   country: z.string(),
   postalCode: z.string(),
-  note: z.string(),
 })

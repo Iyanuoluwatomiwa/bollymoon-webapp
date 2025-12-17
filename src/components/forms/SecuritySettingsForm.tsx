@@ -3,9 +3,11 @@ import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { changePasswordSchema } from '@/utils/schema'
-import { handleChangePassword } from '@/services/authServices'
 import PasswordRequirements from '../auth/PasswordRequirements'
 import { passwordRules } from '@/utils/format'
+import { changePassword } from '@/api/auth'
+import { toast } from 'sonner'
+import { useSelector } from 'react-redux'
 
 export default function SecuritySettingsForm() {
   const [formData, setFormData] = useState({
@@ -13,6 +15,11 @@ export default function SecuritySettingsForm() {
     newPassword: '',
     confirmNewPassword: '',
   })
+
+  const { token }: { token: string } = useSelector(
+    (state: any) => state.userState
+  )
+  console.log(token)
   const [submitting, setSubmitting] = useState(false)
   const isFormValid =
     passwordRules.minLength(formData.newPassword) &&
@@ -24,19 +31,37 @@ export default function SecuritySettingsForm() {
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
+  const clearForm = () => {
+    setFormData({
+      currentPassword: '',
+      newPassword: '',
+      confirmNewPassword: '',
+    })
+  }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
+    if (formData.newPassword !== formData.confirmNewPassword) {
+      toast.warning('Passwords do not match')
+      setSubmitting(false)
+    }
     const validatedData = useValidateSchema(changePasswordSchema, {
-      password: formData.newPassword,
+      newPassword: formData.newPassword,
       currentPassword: formData.currentPassword,
     })
     if (!validatedData) {
       setSubmitting(false)
       return
     }
-    await handleChangePassword(validatedData)
-    setSubmitting(false)
+    try {
+      const response = await changePassword(validatedData)
+      toast.success(response?.message)
+      setSubmitting(false)
+      clearForm()
+    } catch (error: any) {
+      toast.error(error?.message)
+      setSubmitting(false)
+    }
   }
   return (
     <form onSubmit={handleSubmit} className="space-y-4">

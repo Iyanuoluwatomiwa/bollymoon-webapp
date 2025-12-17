@@ -120,7 +120,7 @@ export function groupOrdersByDay(orders: Order[]) {
 }
 
 export const passwordRules = {
-  minLength: (password: string) => password.length >= 6,
+  minLength: (password: string) => password.length >= 8,
   uppercase: (password: string) => /[A-Z]/.test(password),
   number: (password: string) => /\d/.test(password),
   specialChar: (password: string) => /[!@#$%^&*(),.?":{}|<>]/.test(password),

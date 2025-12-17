@@ -20,6 +20,7 @@ import NoResult from '../global/NoResult'
 function AddToCart({ productId }: { productId: string }) {
   const { data, isLoading, isError } = useSingleProduct(productId)
   const product: ProductFetch | undefined = data?.data
+
   const { isAddToCartOpen, setIsAddToCartOpen } = useProductDialog()
   const addToCartRef = useRef(getBoundingClientRectState)
   const closeAddToCartDialog = (e: React.MouseEvent) => {
@@ -39,7 +40,9 @@ function AddToCart({ productId }: { productId: string }) {
     (state: any) => state.cartState
   )
   const inCart = cartItems.find((item) => item.id === product?.id)
-  const hasSize = product?.specs?.some(({ size }) => size !== '')
+  const hasSize = product?.specs?.some(
+    ({ size }) => size.toLowerCase() !== 'n/a'
+  )
   const getQuantityFromCart = (color: string, size: string) => {
     const cartItem = cartItems.find(
       (item) =>
@@ -64,7 +67,7 @@ function AddToCart({ productId }: { productId: string }) {
     )
   }
   const cartItem = {
-    image: product?.images[0],
+    image: '',
     name: product?.name,
     price: 0,
     color: '',
@@ -126,20 +129,25 @@ function AddToCart({ productId }: { productId: string }) {
           ref={addToCartRef}
         >
           {isLoading ? (
-            <LoadingIcon />
+            <div className="w-full min-h-[20vh] flex items-center justify-center">
+              <LoadingIcon />
+            </div>
           ) : (
             <>
               <>
                 <div className="flex flex-col gap-2">
-                  <h2 className="text-lg text-center sm:text-left  font-semibold">
-                    Select Options
-                  </h2>
+                  {hasSize && (
+                    <h2 className="text-lg text-center sm:text-left  font-semibold">
+                      Select Options
+                    </h2>
+                  )}
+
                   <section className="pt-4">
                     <div className="space-y-6">
-                      <div className="space-y-2">
+                      <div className="">
                         <>
                           {hasSize && (
-                            <h3 className="text-xs uppercase font-medium">
+                            <h3 className="text-xs uppercase font-medium mb-2">
                               {product?.category === 'hair'
                                 ? 'Available Length(s)'
                                 : 'Available Size(s)'}
@@ -149,7 +157,7 @@ function AddToCart({ productId }: { productId: string }) {
                         <div className="flex flex-wrap gap-2">
                           {product?.specs?.map(
                             ({ size }) =>
-                              size && (
+                              hasSize && (
                                 <span
                                   key={size}
                                   className={`rounded-sm text-sm px-3 py-1 border font-medium cursor-pointer`}
@@ -174,21 +182,26 @@ function AddToCart({ productId }: { productId: string }) {
                                   className="grid grid-cols-2 gap-4 place-items-start border-b last:border-b-0 pb-4 "
                                 >
                                   <div>
-                                    <h3 className="capitalize text-base/5">
-                                      {size}
-                                    </h3>
-                                    <span
-                                      className={` relative capitalize text-sm font-medium`}
-                                    >
-                                      {color.color}
-                                    </span>
+                                    {hasSize && (
+                                      <h3 className="capitalize text-base/5">
+                                        {size}
+                                      </h3>
+                                    )}
+                                    {color.color.toLowerCase() !== 'n/a' && (
+                                      <span
+                                        className={` relative capitalize text-sm font-medium`}
+                                      >
+                                        {color.color}
+                                      </span>
+                                    )}
+
                                     <div className="flex items-center flex-wrap gap-x-2 ">
                                       <span className="text-xs sm:text-[14px] font-semibold text-foreground">
-                                        {discountPrice
+                                        {discountPrice !== originalPrice
                                           ? currencyFormatter(discountPrice)
                                           : currencyFormatter(originalPrice)}
                                       </span>
-                                      {discountPrice && (
+                                      {discountPrice !== originalPrice && (
                                         <span className="text-[10px] sm:text-[12px] text-muted-foreground line-through font-medium italic">
                                           {currencyFormatter(originalPrice)}
                                         </span>

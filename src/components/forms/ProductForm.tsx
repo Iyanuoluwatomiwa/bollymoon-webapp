@@ -18,13 +18,13 @@ interface ProductFormProps {
   product?: any
   onSubmit: (data: any) => Promise<void>
   onSubmitting: boolean
-  isSuccess: boolean
+  isError: boolean
 }
 const ProductForm = ({
   product,
   onSubmit,
   onSubmitting,
-  isSuccess,
+  isError,
 }: ProductFormProps) => {
   const [formData, setFormData] = useState({
     name: product?.name || '',
@@ -82,10 +82,9 @@ const ProductForm = ({
       specs: variants,
       images: imageUrls,
     }
-    console.log(product)
     await onSubmit(product)
     setIsSubmitting(onSubmitting)
-    isSuccess && resetForm()
+    isError ? navigate('/admin/products') : resetForm()
   }
 
   return (

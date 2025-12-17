@@ -38,7 +38,7 @@ function AppSidebar() {
   }, [isDesktop])
   return (
     <Sidebar side="left">
-      <SidebarHeader className="bg-gradient-to-b from-primary/10 to-accent/50 pb-6">
+      <SidebarHeader className="bg-primary/10 pb-6">
         <button
           onClick={toggleSidebar}
           className="ml-auto cursor-pointer text-foreground hover:bg-primary hover:text-white rounded-xs"

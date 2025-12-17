@@ -27,7 +27,7 @@ function BreadcrumbHeader({
             <BreadcrumbLink asChild>
               <Link
                 to={`${previousLink ? `${previousLink}` : `/${previousPage}`}`}
-                className="capitalize hover:text-secondary"
+                className="capitalize hover:text-secondary md:text-base"
               >
                 {previousPage}
               </Link>
@@ -35,7 +35,7 @@ function BreadcrumbHeader({
           </BreadcrumbItem>
           <BreadcrumbSeparator />
           <BreadcrumbItem>
-            <BreadcrumbPage className="text-primary font-medium">
+            <BreadcrumbPage className="text-primary font-medium md:text-base">
               {currentPage}
             </BreadcrumbPage>
           </BreadcrumbItem>

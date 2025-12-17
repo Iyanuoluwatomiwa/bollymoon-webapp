@@ -3,6 +3,7 @@ import AddressForm from '@/components/forms/AddressForm'
 import Container from '@/components/global/Container'
 import NoResult from '@/components/global/NoResult'
 import PageTitle from '@/components/global/PageTitle'
+import BackNavHeader from '@/components/headers/BackNavHeader'
 import AddressCardSkeleton from '@/components/skeletons/AddressCardSkeleton'
 
 import {
@@ -12,32 +13,18 @@ import {
 import type { DeliveryAddress } from '@/types/orders.types'
 import { Minus, Plus, Truck } from 'lucide-react'
 import { useState } from 'react'
-import { toast } from 'sonner'
 
 export default function AddressBook() {
   const [showAddressForm, setShowAddressForm] = useState(false)
   const { data, isLoading, isError } = useAllDeliveryAddresses()
   const addresses = data?.data
-  const {
-    mutate: saveAddress,
-    isPending: saving,
-    isSuccess,
-  } = useSaveDeliveryAddress()
-  const handleSaveDeliveryAddress = async (details: DeliveryAddress) => {
-    saveAddress(details, {
-      onSuccess: () => {
-        toast.success('Address saved successfully!')
-      },
-      onError: () => {
-        toast.error('Error saving address. Try again.')
-        return
-      },
-    })
-  }
+  const { mutate: saveAddress, isPending: saving } = useSaveDeliveryAddress()
+
   return (
     <>
       <PageTitle title="Address Book" />
-      <Container className="py-10">
+      <BackNavHeader />
+      <Container className="pt-2 pb-10">
         <div className="space-y-6">
           <h1 className="text-lg md:text-xl font-semibold text-foreground">
             Address Book
@@ -65,18 +52,14 @@ export default function AddressBook() {
               </div>
             </button>
             {showAddressForm && (
-              <AddressForm
-                onSubmit={handleSaveDeliveryAddress}
-                isSuccess={isSuccess}
-                submitting={saving}
-              />
+              <AddressForm onSubmit={saveAddress} submitting={saving} />
             )}
             {isLoading ? (
               <AddressCardSkeleton />
             ) : (
               <>
-                {addresses?.map((address: DeliveryAddress) => (
-                  <AddressBookCard key={address?.id} {...address} />
+                {addresses?.map((address: DeliveryAddress, index: number) => (
+                  <AddressBookCard key={index} {...address} />
                 ))}
                 {(addresses?.length == 0 || addresses?.length == undefined) && (
                   <NoResult

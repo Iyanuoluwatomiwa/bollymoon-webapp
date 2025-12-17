@@ -8,11 +8,11 @@ import FormPassword from '../form-fields/FormPassword'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
-import { handleResetPassword } from '@/services/authServices'
 import PasswordRequirements from '../auth/PasswordRequirements'
 import { passwordRules } from '@/utils/format'
+import { resetPassword } from '@/api/auth'
 
-function ResetPasswordForm() {
+function ResetPasswordForm({ token }: { token: string | null }) {
   const [formData, setFormData] = useState({
     newPassword: '',
     confirmNewPassword: '',
@@ -39,18 +39,18 @@ function ResetPasswordForm() {
     }
     const data = {
       ...validatedData,
-      token: '',
+      token,
     }
-
-    const success = await handleResetPassword(data)
-    if (success) {
+    try {
+      await resetPassword(data)
       toast.success(
         'Password reset successfully. Kindly login with your new password.'
       )
       navigate('/login')
+    } catch (error: any) {
+      toast.error(error?.message)
+      setSubmitting(false)
     }
-
-    setSubmitting(false)
   }
 
   return (

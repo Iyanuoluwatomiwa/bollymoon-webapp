@@ -44,7 +44,7 @@ function ProductCardList({ product }: { product: ProductFetch }) {
   const wishlists: ProductFetch[] = data?.data?.map(
     ({ product }: { product: ProductFetch }) => product
   )
-  const inWishlistAuth = wishlists.some((item) => item.id === id)
+  const inWishlistAuth = wishlists?.some((item) => item.id === id)
   const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
   const handleRemoveItem = async () => {
     removeItem(id, {
@@ -92,7 +92,7 @@ function ProductCardList({ product }: { product: ProductFetch }) {
         <div className="relative  w-26 sm:w-30 md:w-36  flex-shrink-0 overflow-hidden rounded-l-sm flex-stretch bg-background">
           <figure className="group-hover:scale-110 transition-transform duration-300 w-full h-full">
             <img
-              src={images[0]}
+              src={images[0].url}
               alt={name}
               className="aspect-4/5 object-cover w-full h-full object-center "
               loading="lazy"
@@ -101,7 +101,7 @@ function ProductCardList({ product }: { product: ProductFetch }) {
 
           {/* Badges */}
           {discountPercent && (
-            <div className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-primary/20 absolute top-1 left-1 flex justify-between items-center">
+            <div className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-white shadow-xs absolute top-1 left-1 flex justify-between items-center">
               -{discountPercent}%
             </div>
           )}

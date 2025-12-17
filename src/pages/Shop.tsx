@@ -186,14 +186,16 @@ function Shop() {
               <>
                 {' '}
                 {productView}
-                {!isLoading && (
-                  <NoResult
-                    errorText="products"
-                    isError={isError}
-                    text="No product found matching your criteria"
-                    icon={Package}
-                  />
-                )}
+                {!isLoading &&
+                  (filteredProductsByCategory?.length == 0 ||
+                    filteredProductsByCategory?.length == undefined) && (
+                    <NoResult
+                      errorText="products"
+                      isError={isError}
+                      text="No product found matching your criteria"
+                      icon={Package}
+                    />
+                  )}
               </>
 
               {filteredProductsByCategory &&

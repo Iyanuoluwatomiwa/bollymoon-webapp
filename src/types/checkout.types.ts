@@ -1,22 +1,7 @@
-export type ShippingForm = {
-  email: string
-  firstname: string
-  lastname: string
-  address: string
-  city: string
-  state: string
-  postcode: string
-  country: string
-  phone: string
-}
-
-export type PaymentMethod = {
-  id: string
-  name: string
-}
+import type { DeliveryAddress } from './orders.types'
 
 export type Checkout = {
-  shippingForm: ShippingForm
+  shippingForm: DeliveryAddress
   step: number
-  paymentMethod: PaymentMethod
+  deliveryOption: 'standard' | 'express'
 }

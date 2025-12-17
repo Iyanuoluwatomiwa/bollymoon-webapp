@@ -1,4 +1,4 @@
-import { setToken } from '@/features/user/userSlice'
+import { setUserProfile } from '@/features/user/userSlice'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import type { UserProfile } from '@/types/user.types'
 import { ProfileFormSchema } from '@/utils/schema'
@@ -8,12 +8,13 @@ import { useSelector } from 'react-redux'
 import { toast } from 'sonner'
 import FormInput from '../form-fields/FormInput'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
-import { handleUpdateProfile } from '@/services/authServices'
+import { updateProfile } from '@/api/auth'
 
 export default function ProfileSettingsForm() {
   const { userProfile }: { userProfile: UserProfile | null } = useSelector(
     (state: any) => state.userState
   )
+
   const [formData, setFormData] = useState({
     firstName: userProfile?.firstName,
     lastName: userProfile?.lastName,
@@ -40,29 +41,32 @@ export default function ProfileSettingsForm() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
-    if (formData?.phone?.length !== 10) {
+    if (formData.phone && formData?.phone?.length !== 10) {
       toast.warning('Please enter a valid 10-digit phone number')
+      setSubmitting(false)
+      return
     }
     const validatedData = useValidateSchema(ProfileFormSchema, formData)
     if (!validatedData) {
       setSubmitting(false)
       return
     }
-
-    const token = await handleUpdateProfile({
-      ...validatedData,
-      phone: formData?.phone,
-    })
-    if (token) {
+    try {
+      const response = await updateProfile({
+        ...validatedData,
+        phone: formData?.phone,
+      })
       dispatch(
-        setToken({
-          token,
+        setUserProfile({
+          userProfile: response?.data,
         })
       )
       toast.success('Updated successfully!')
+      setSubmitting(false)
+    } catch (error: any) {
+      toast.error(error?.message)
+      setSubmitting(false)
     }
-
-    setSubmitting(false)
   }
 
   return (

@@ -6,14 +6,14 @@ const defaultState: User = {
   token: null,
 }
 
-const getUserFromLocalStorage: () => User = () => {
+const getUserFromSessionStorage: () => User = () => {
   const user = sessionStorage.getItem('user')
   return user ? JSON.parse(user) : defaultState
 }
 
 const userSlice = createSlice({
   name: 'user',
-  initialState: getUserFromLocalStorage(),
+  initialState: getUserFromSessionStorage(),
   reducers: {
     setUserProfile: (state, action) => {
       const { userProfile } = action.payload

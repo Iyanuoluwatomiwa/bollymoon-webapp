@@ -8,17 +8,6 @@ import {
 import type { DeliveryAddress } from '@/types/orders.types'
 import { toast } from 'sonner'
 
-interface AddressBookCardProps {
-  id: string
-  phone: string
-  addressLine: string
-  city: string
-  state: string
-  country: string
-  postalCode: string
-  note: string
-}
-
 export default function AddressBookCard({
   addressLine,
   city,
@@ -28,7 +17,7 @@ export default function AddressBookCard({
   phone,
   note,
   id,
-}: AddressBookCardProps) {
+}: DeliveryAddress) {
   const [showEditForm, setShowEditForm] = useState(false)
   const details = {
     addressLine,
@@ -40,11 +29,8 @@ export default function AddressBookCard({
     note,
     id,
   }
-  const {
-    mutate: updateAddress,
-    isPending: updating,
-    isSuccess,
-  } = useUpdateDeliveryAddress()
+  const { mutate: updateAddress, isPending: updating } =
+    useUpdateDeliveryAddress()
   const { mutate: deleteAddress, isPending: deleting } =
     useDeleteDeliveryAddress()
   const handleUpdateDeliveryAddress = async (details: DeliveryAddress) => {
@@ -115,7 +101,6 @@ export default function AddressBookCard({
         <AddressForm
           details={details}
           onSubmit={handleUpdateDeliveryAddress}
-          isSuccess={isSuccess}
           submitting={updating}
         />
       )}

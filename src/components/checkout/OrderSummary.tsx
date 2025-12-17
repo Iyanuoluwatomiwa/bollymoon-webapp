@@ -19,7 +19,7 @@ function OrderSummary() {
   } = useSelector((state: any) => state.cartState)
 
   return (
-    <Card className="bg-muted border-0 rounded-sm">
+    <Card className="bg-gray-50 border-0 rounded-sm">
       <CardHeader>
         <CardTitle>Order Summary</CardTitle>
       </CardHeader>
@@ -31,12 +31,16 @@ function OrderSummary() {
               <div className="flex-1 space-y-1">
                 <p className="font-medium text-sm">{item.name}</p>
                 <div className="flex items-center gap-4">
-                  <p className="text-xs text-muted-foreground">
-                    Size: {item.size}
-                  </p>
-                  <p className="text-xs text-muted-foreground capitalize">
-                    Color: {item.color}
-                  </p>
+                  {item.size?.toLowerCase() !== 'n/a' && (
+                    <p className="text-xs text-muted-foreground">
+                      Size: {item.size}
+                    </p>
+                  )}
+                  {item.color?.toLowerCase() !== 'n/a' && (
+                    <p className="text-xs text-muted-foreground capitalize">
+                      Color: {item.color}
+                    </p>
+                  )}
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Qty: {item.quantity}
@@ -51,16 +55,16 @@ function OrderSummary() {
 
         {/* Price Breakdown */}
         <div className="space-y-2 pt-4 border-t">
-          <div className="flex justify-between">
+          <div className="flex justify-between font-medium">
             <span>Subtotal</span>
             <span>{currencyFormatter(cartTotal)}</span>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-between font-medium">
             <span>Shipping</span>
             <span>{currencyFormatter(shipping)}</span>
           </div>
 
-          <div className="flex justify-between">
+          <div className="flex justify-between font-medium">
             <span>Tax</span>
             <span>{currencyFormatter(tax)}</span>
           </div>

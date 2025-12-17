@@ -80,13 +80,21 @@ export type ProductUpload = {
   collection: string
 }
 
+export type ProductReviews = {
+  id: string
+  rating: number
+  productId: string
+  name: string
+  comment: string
+  createdAt: string
+}
 export type ProductFetch = {
   id: string
   category: string
   subcategory: string
   name: string
   description: string
-  images: string[]
+  images: { url: string; publicId: string }[]
   stock: number
   collection: string
   discountPriceMin: number
@@ -96,4 +104,7 @@ export type ProductFetch = {
   updatedAt: string
   createdAt: string
   specs?: Variant[]
+  averageRating?: number
+  totalReviews?: number
+  reviews?: ProductReviews[]
 }

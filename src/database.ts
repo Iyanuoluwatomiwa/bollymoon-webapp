@@ -340,7 +340,7 @@ export const addresses = [
     id: '90b72635-4ee7-45b7-907d-3cce43d56e34',
     userId: 'e811ba90-b88d-4405-a6a6-ea22c2694cab',
     phone: '+234 8123456789',
-    addressLine: '42 Marvel Street',
+    addressLine: '138, Behind Eyin Igboti Agura Sabo',
     city: 'Lagos',
     state: 'Lagos',
     country: 'NG',
@@ -348,7 +348,7 @@ export const addresses = [
     note: '',
   },
   {
-    id: '90b72635-4ee7-45b7-907d-3cce43d56e34',
+    id: '90b72635-4ee7-45b7-907d-3cce43d56e32',
     userId: 'e811ba90-b88d-4405-a6a6-ea22c2694cab',
     phone: '+234 8123456789',
     addressLine: '42 Marvel Street',

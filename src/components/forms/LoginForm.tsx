@@ -11,8 +11,8 @@ import Logo from '../global/Logo'
 import AuthFormsHeading from '../headings/AuthFormsHeading'
 import SignInOptions from '../auth/SignInOptions'
 import { useDispatch } from 'react-redux'
-import { handleLogin } from '@/services/authServices'
 import { setToken } from '@/features/user/userSlice'
+import { login } from '@/api/auth'
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -33,13 +33,16 @@ function LoginForm() {
       setSubmitting(false)
       return
     }
-    const token = await handleLogin(validatedData)
-    if (token) {
-      dispatch(setToken({ token }))
+    try {
+      const response = await login(validatedData)
+
+      dispatch(setToken({ token: response?.data?.token }))
       toast.success("Welcome, you've logged in successfully!")
       navigate('/')
+    } catch (error: any) {
+      toast.error(error?.message)
+      setSubmitting(false)
     }
-    return setSubmitting(false)
   }
   return (
     <Card className="bg-white py-0 gap-4 w-full">

@@ -5,15 +5,46 @@ import { Button } from '../ui/button'
 import ShippingAddress from './ShippingAddress'
 import { useDispatch } from 'react-redux'
 import { handleStepChange } from '@/features/checkout/checkoutSlice'
+import { useSelector } from 'react-redux'
+import type { DeliveryAddress } from '@/types/orders.types'
+import { paymentCheckout } from '@/api/payment'
+import { toast } from 'sonner'
 
 function OrderReview() {
   const dispatch = useDispatch()
   const handleStep = (step: number) => {
     dispatch(handleStepChange({ step }))
   }
+  const {
+    deliveryOption,
+    shippingForm,
+  }: { deliveryOption: string; shippingForm: DeliveryAddress } = useSelector(
+    (state: any) => state.checkoutState
+  )
+  const {
+    shipping,
+    orderTotal,
+  }: {
+    shipping: number
+    orderTotal: number
+  } = useSelector((state: any) => state.cartState)
+
+  const paymentData = {
+    totalAmount: orderTotal,
+    deliveryFee: shipping,
+    deliveryOption,
+    shippingDetailsId: shippingForm.id,
+  }
+  const handlePaymentSession = async () => {
+    try {
+      await paymentCheckout(paymentData)
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+  }
 
   return (
-    <Card className="rounded-sm">
+    <Card className="bg-white rounded-sm">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <MapPin className="w-5 h-5" />
@@ -33,17 +64,17 @@ function OrderReview() {
               variant="outline"
               size="lg"
               onClick={() => handleStep(1)}
-              className="flex-1"
+              className="flex-1 bg-transparent shadow-xs hover:shadow-sm border-0 hover:bg-transparent hover:text-foreground h-9"
             >
               Back to Shipping
             </Button>
             <Button
               type="submit"
               size="lg"
-              className="flex-1"
-              onClick={() => handleStep(3)}
+              className="flex-1 h-9"
+              onClick={handlePaymentSession}
             >
-              Continue to Payment
+              Proceed to Payment
             </Button>
           </div>
         </div>

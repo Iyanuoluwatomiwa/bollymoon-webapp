@@ -12,7 +12,7 @@ import AuthFormsHeading from '../headings/AuthFormsHeading'
 import SignInOptions from '../auth/SignInOptions'
 import PasswordRequirements from '../auth/PasswordRequirements'
 import { passwordRules } from '@/utils/format'
-import { handleCreateAccount } from '@/services/authServices'
+import { register } from '@/api/auth'
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -44,12 +44,14 @@ function SignUpForm() {
       setSubmitting(false)
       return
     }
-    const token = await handleCreateAccount(validatedData)
-    if (token) {
-      toast.success('Account created successfully! Please login to continue.')
+    try {
+      await register(validatedData)
+       toast.success('Account created successfully! Please login to continue.')
       navigate('/login')
+    } catch (error:any) {
+      toast.error(error?.message)
+      setSubmitting(false)
     }
-    return setSubmitting(false)
   }
   return (
     <Card className="bg-white py-0 gap-4 ">
