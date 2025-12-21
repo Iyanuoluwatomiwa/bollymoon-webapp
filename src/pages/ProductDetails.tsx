@@ -198,7 +198,7 @@ function ProductDetails() {
                     </div>
                     <Separator className="lg:hidden mb-2" />
                     <div>
-                      <p className="text-xs sm:text-sm my-4 lg:mb-4 lg:mt-0">
+                      <p className="text-xs sm:text-sm my-4 lg:mb-4 lg:mt-0 whitespace-pre-line">
                         {' '}
                         {product?.description}{' '}
                       </p>

@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { productFormSelectOptions } from '@/assets/data'
@@ -13,7 +13,8 @@ import { useNavigate } from 'react-router-dom'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { productSchema } from '@/utils/schema'
 import { handleImagesUpload } from '@/services/uploadService'
-
+/* import { urlsToFiles } from '@/utils/format'
+ */
 interface ProductFormProps {
   product?: any
   onSubmit: (data: any) => Promise<void>
@@ -46,7 +47,6 @@ const ProductForm = ({
     hair: productFormSelectOptions.subcategories.hair,
     cosmetics: productFormSelectOptions.subcategories.cosmetics,
   }
-
   const resetForm = () => {
     setFormData({
       name: '',
@@ -58,7 +58,11 @@ const ProductForm = ({
     setVariants([])
     setImageFiles([])
   }
-
+  useEffect(() => {
+    if (product) {
+      /* urlsToFiles(product?.images).then(setImageFiles) */
+    }
+  }, [product?.images])
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const validatedData = useValidateSchema(productSchema, formData)
@@ -77,14 +81,15 @@ const ProductForm = ({
       setIsSubmitting(false)
       return
     }
-    const product = {
+    const productData = {
       ...validatedData,
       specs: variants,
       images: imageUrls,
     }
-    await onSubmit(product)
+    await onSubmit(productData)
     setIsSubmitting(onSubmitting)
-    isError ? navigate('/admin/products') : resetForm()
+
+    /*  isError ? navigate('/admin/products') : resetForm() */
   }
 
   return (

@@ -34,7 +34,7 @@ export type Order = {
   subtotal: number
   deliveryFee: number
   deliveryOption: string
-  shippingDetails: string
+  shippingDetails: DeliveryAddress
   status: string
   userId: string
   orderItems?: OrderItem[]

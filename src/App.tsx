@@ -8,11 +8,11 @@ import { setUserProfile } from './features/user/userSlice'
 //layouts
 import AppLayout from './components/layouts/AppLayout'
 import AdminLayout from './components/layouts/AdminLayout'
-import type { ProductFetch } from './types/product.types'
+/* import type { ProductFetch } from './types/product.types'
 import { useAddToWishlist } from './hooks/useQueries'
-import { clearWishlist } from './features/wishlist/wishlistSlice'
+import { clearWishlist } from './features/wishlist/wishlistSlice' */
 import { profile } from './api/auth'
-import { toast } from 'sonner'
+/* import { toast } from 'sonner' */
 import type { UserProfile } from './types/user.types'
 
 //pages
@@ -30,8 +30,8 @@ const Error = lazy(() => import('./pages/Error'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
-const RefundsReturns = lazy(() => import('./pages/RefundsReturns'))
-const ShippingDelivery = lazy(() => import('./pages/ShippingDelivery'))
+const RefundReturnsPolicy = lazy(() => import('./pages/RefundReturnsPolicy'))
+const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy'))
 const ShopCategory = lazy(() => import('./pages/ShopCategory'))
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Collections = lazy(() => import('./pages/Collections'))
@@ -50,6 +50,8 @@ const AddProduct = lazy(() => import('./pages/AddProduct'))
 const EditProduct = lazy(() => import('./pages/EditProduct'))
 const ViewProduct = lazy(() => import('./pages/ViewProduct'))
 const AdminOrders = lazy(() => import('./pages/AdminOrders'))
+const AdminSettings = lazy(() => import('./pages/AdminSettings'))
+const TermsConditions = lazy(() => import('./pages/TermsConditions'))
 
 const router = createBrowserRouter([
   {
@@ -119,12 +121,16 @@ const router = createBrowserRouter([
         element: pageSuspense(<PrivacyPolicy />),
       },
       {
-        path: 'shipping-delivery',
-        element: pageSuspense(<ShippingDelivery />),
+        path: 'shipping-policy',
+        element: pageSuspense(<ShippingPolicy />),
       },
       {
-        path: 'refunds-returns',
-        element: pageSuspense(<RefundsReturns />),
+        path: 'refund-returns-policy',
+        element: pageSuspense(<RefundReturnsPolicy />),
+      },
+      {
+        path: 'terms-conditions',
+        element: pageSuspense(<TermsConditions />),
       },
       {
         path: 'orders',
@@ -193,6 +199,10 @@ const router = createBrowserRouter([
         path: 'orders/:id',
         element: pageSuspense(<OrderDetails />),
       },
+      {
+        path: 'settings',
+        element: pageSuspense(<AdminSettings />),
+      },
     ],
   },
 
@@ -220,15 +230,12 @@ function App() {
     const getUserDetails = async () => {
       try {
         const response = await profile()
-
         dispatch(
           setUserProfile({
             userProfile: response?.data,
           })
         )
-      } catch (error: any) {
-        toast.error(error?.message)
-      }
+      } catch (error: any) {}
 
       /*  dispatch(clearWishlist()) */
     }

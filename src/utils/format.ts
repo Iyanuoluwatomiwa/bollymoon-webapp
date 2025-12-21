@@ -125,3 +125,17 @@ export const passwordRules = {
   number: (password: string) => /\d/.test(password),
   specialChar: (password: string) => /[!@#$%^&*(),.?":{}|<>]/.test(password),
 }
+
+/* export const urlsToFiles = async (
+  urls: { url: string; publicId: string }[]
+): Promise<File[]> => {
+  return Promise.all(
+    urls.map(async ({ url }, index) => {
+      const res = await fetch(url)
+      const blob = await res.blob()
+      return new File([blob], `image-${index}.${blob.type.split('/')[1]}`, {
+        type: blob.type,
+      })
+    })
+  )
+} */

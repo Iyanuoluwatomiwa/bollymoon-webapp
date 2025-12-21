@@ -37,9 +37,6 @@ function CancelOrderDialog({ id, orderID }: UpdateOrderDialogProp) {
             `Order Updated - Order ${orderID} status has been changed to ${newStatus}`
           )
         },
-        onError: () => {
-          toast.error('Error updating order status. Try again.')
-        },
       }
     )
   }

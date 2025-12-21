@@ -17,6 +17,7 @@ import {
   deleteDeliveryAddress,
   getAllDeliveryAddresses,
   saveDeliveryAddress,
+  updateDeliveryAddress,
 } from '@/api/address'
 import type { DeliveryAddress } from '@/types/orders.types'
 import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
@@ -50,7 +51,12 @@ export const useSingleProduct = (productId: string | undefined) => {
 
 export const useCreateProduct = () => {
   const createProductAction = async (data: ProductUpload) => {
-    await createProduct(data)
+    try {
+      const response: any = await createProduct(data)
+      toast.success(response?.message)
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
   }
   const queryClient = useQueryClient()
   const createProductFunction = useMutation({
@@ -65,7 +71,12 @@ export const useCreateProduct = () => {
 
 export const useDeleteProduct = () => {
   const deleteProductAction = async (productId: string) => {
-    await deleteProduct(productId)
+    try {
+      const response: any = await deleteProduct(productId)
+      toast.success(response?.message)
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
   }
   const queryClient = useQueryClient()
   const deleteProductFunction = useMutation({
@@ -88,7 +99,12 @@ export const useUpdateProduct = () => {
     productId: string | undefined
     data: any
   }) => {
-    await updateProduct({ productId, data })
+    try {
+      const response: any = await updateProduct({ productId, data })
+      toast.success(response?.message)
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
   }
   const queryClient = useQueryClient()
   const updateProductFunction = useMutation({
@@ -152,7 +168,11 @@ export const useUpdateOrder = () => {
       status: 'processing' | 'delivered' | 'canceled'
     }
   }) => {
-    await updateOrder({ orderId, status })
+    try {
+      await updateOrder({ orderId, status })
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
   }
   const queryClient = useQueryClient()
   const updateOrderFunction = useMutation({
@@ -187,7 +207,12 @@ export const useUpdateDeliveryAddress = () => {
     id: string | undefined
     details: DeliveryAddress
   }) => {
-    await updateDeliveryAddressAction({ id, details })
+    try {
+      const response = await updateDeliveryAddress({ id, details })
+      toast.success(response?.message)
+    } catch (error: any) {
+      toast.error(error.message)
+    }
   }
   const queryClient = useQueryClient()
   const updateDeliveryAddressFunction = useMutation({
@@ -202,7 +227,12 @@ export const useUpdateDeliveryAddress = () => {
 
 export const useDeleteDeliveryAddress = () => {
   const deleteDeliveryAddressAction = async (id: string | undefined) => {
-    await deleteDeliveryAddress(id)
+    try {
+      const response = await deleteDeliveryAddress(id)
+      toast.success(response?.message)
+    } catch (error: any) {
+      toast.error(error.message)
+    }
   }
   const queryClient = useQueryClient()
   const deleteDeliveryAddressFunction = useMutation({

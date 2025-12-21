@@ -1,31 +1,22 @@
 import ProductForm from '@/components/forms/ProductForm'
 import Container from '@/components/global/Container'
+import LoadingIcon from '@/components/global/LoadingIcon'
+import NoResult from '@/components/global/NoResult'
 import AdminPagesHeading from '@/components/headings/AdminPagesHeading'
 import { useSingleProduct, useUpdateProduct } from '@/hooks/useQueries'
 import { useParams } from 'react-router-dom'
-import { toast } from 'sonner'
 
 function EditProduct() {
   const { productId } = useParams()
-  const { data: product } = useSingleProduct(productId)
+  const { data: product, isLoading, isError } = useSingleProduct(productId)
 
   const {
     mutate: updateProduct,
     isPending: updating,
-    isError,
+    isError: updatingError,
   } = useUpdateProduct()
   const handleUpdateProduct = async (product: any) => {
-    updateProduct(
-      { productId, data: product },
-      {
-        onSuccess: () => {
-          toast.success('Product added successfully!')
-        },
-        onError: () => {
-          toast.error('Error adding product. Try again.')
-        },
-      }
-    )
+    updateProduct({ productId, data: product })
   }
   return (
     <Container className="py-4 lg:py-6">
@@ -34,12 +25,20 @@ function EditProduct() {
           pageTitle="Edit Product"
           pageDesc="Update Product details and save changes."
         />
-        <ProductForm
-          onSubmitting={updating}
-          onSubmit={handleUpdateProduct}
-          product={product.data}
-          isError={isError}
-        />
+        {isLoading ? (
+          <div className="h-[75vh] flex items-center justify-center">
+            <LoadingIcon />
+          </div>
+        ) : isError ? (
+          <NoResult isError={isError} errorText="product details" />
+        ) : (
+          <ProductForm
+            onSubmitting={updating}
+            onSubmit={handleUpdateProduct}
+            product={product?.data}
+            isError={updatingError}
+          />
+        )}
       </div>
     </Container>
   )

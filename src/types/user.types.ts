@@ -3,9 +3,7 @@ export type UserProfile = {
   firstName: string
   lastName: string
   email: string
-  role: {
-    name: string
-  }
+  role: string
   phone?: string
 }
 

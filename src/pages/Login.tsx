@@ -18,13 +18,20 @@ function Login() {
         <div className="flex items-center justify-center  py-10 min-h-screen w-full ">
           <div className="space-y-6 flex-1 max-w-xs sm:max-w-md">
             <LoginForm />
-            <p className=" text-center text-white text-xs lg:text-sm font-medium">
+            <p className=" text-center text-white text-xs/6 sm:text-sm/6 lg:text-base/7 font-medium tracking-wider leading-wider">
               By logging in, you acknowledge our{' '}
               <Link
                 to="/privacy-policy"
-                className="text-secondary hover:text-secondary/90 font-bold"
+                className="hover:underline text-accent-foreground font-bold"
               >
                 Privacy Policy
+              </Link>{' '}
+              and{' '}
+              <Link
+                to="/terms-conditions"
+                className="hover:underline text-accent-foreground font-bold"
+              >
+                Terms & Conditions
               </Link>
               .
             </p>

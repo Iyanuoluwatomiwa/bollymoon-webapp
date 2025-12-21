@@ -9,9 +9,15 @@ interface AddressFormProps {
   details?: DeliveryAddress | null
   onSubmit: any
   submitting: boolean
+  isError: boolean
 }
 
-function AddressForm({ details, onSubmit, submitting }: AddressFormProps) {
+function AddressForm({
+  details,
+  onSubmit,
+  submitting,
+  isError,
+}: AddressFormProps) {
   const [formData, setFormData] = useState({
     phone: details?.phone ?? '',
     addressLine: details?.addressLine ?? '',
@@ -40,16 +46,16 @@ function AddressForm({ details, onSubmit, submitting }: AddressFormProps) {
       note: '',
     })
   }
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const validatedData = useValidateSchema(deliveryFormSchema, formData)
     if (!validatedData) {
       return
     }
-    try {
-      await onSubmit({ ...validatedData, note: formData.note })
+    onSubmit({ ...validatedData, note: formData.note })
+    if (!submitting && !isError) {
       resetForm()
-    } catch (error) {}
+    }
   }
   const disableUpdate =
     formData.phone === details?.phone ||

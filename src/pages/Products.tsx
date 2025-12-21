@@ -24,9 +24,9 @@ import FiltersDialog, {
 function Products() {
   const [formData, setFormData] = useState<SelectedFilters>({
     searchQuery: '',
-    category: '',
-    subcategory: '',
-    collection: '',
+    category: 'all',
+    subcategory: 'all',
+    collection: 'all',
   })
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -51,9 +51,9 @@ function Products() {
   const resetFilter = () => {
     setFormData({
       searchQuery: '',
-      category: '',
-      subcategory: '',
-      collection: '',
+      category: 'all',
+      subcategory: 'all',
+      collection: 'all',
     })
   }
 

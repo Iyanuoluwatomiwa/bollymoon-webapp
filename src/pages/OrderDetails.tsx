@@ -5,19 +5,24 @@ import BreadcrumbHeader from '@/components/headers/BreadcrumbHeader'
 import CancelOrderDialog from '@/components/orders/CancelOrderDialog'
 import OrderItemsCard from '@/components/orders/OrderItemsCard'
 import { useSingleOrder } from '@/hooks/useQueries'
-import type { OrderItem } from '@/types/orders.types'
+import type { Order, OrderItem } from '@/types/orders.types'
+import type { UserProfile } from '@/types/user.types'
 import {
   currencyFormatter,
   formatCreatedAt,
   getStatusColor,
 } from '@/utils/format'
+import { useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 
 function OrderDetails() {
   const { id } = useParams()
   const { data } = useSingleOrder(id)
-  const order = data?.data
-  const role: any = 'admin'
+  const order: Order | undefined = data?.data
+  const { userProfile }: { userProfile: UserProfile } = useSelector(
+    (state: any) => state.userState
+  )
+  const role = userProfile.role
   const previousLink = role == 'admin' ? '/admin/orders' : '/orders'
   return (
     <>
@@ -45,7 +50,7 @@ function OrderDetails() {
                 <p className="flex items-center gap-1">
                   <span
                     className={`${
-                      getStatusColor[order?.status as string].bg
+                      order?.status && getStatusColor[order?.status].bg
                     } capitalize text-[10px] text-white py-0.5 px-1 rounded-xs uppercase w-max`}
                   >
                     {order?.status}
@@ -105,7 +110,18 @@ function OrderDetails() {
               <h2 className="font-medium capitalize text-xs md:text-sm  ">
                 delivery address
               </h2>
-              <p className="text-xs md:text-sm ">{order?.shippingDetails}</p>
+              <div className="space-y-0.5 text-xs md:text-sm">
+                <p>{order?.shippingDetails?.addressLine}</p>
+                <p>
+                  {order?.shippingDetails?.city},{' '}
+                  <span className="uppercase">
+                    {order?.shippingDetails?.state}
+                  </span>
+                </p>
+                <p>{order?.shippingDetails?.postalCode}</p>
+                <p>{order?.shippingDetails?.country}</p>
+                <p>+44 {order?.shippingDetails?.phone}</p>
+              </div>
             </div>
             {(order?.status == 'pending' || order?.status == 'processing') &&
               role == 'admin' && (

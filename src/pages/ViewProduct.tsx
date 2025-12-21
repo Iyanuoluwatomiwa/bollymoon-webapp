@@ -6,7 +6,6 @@ import { Button } from '@/components/ui/button'
 import { useSingleProduct } from '@/hooks/useQueries'
 import type { Variant } from '@/types/product.types'
 import { currencyFormatter } from '@/utils/format'
-import { Package } from 'lucide-react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 function ViewProduct() {
@@ -26,12 +25,7 @@ function ViewProduct() {
             <LoadingIcon />
           </div>
         ) : isError ? (
-          <NoResult
-            text="Product not found"
-            isError={isError}
-            errorText="product details"
-            icon={Package}
-          />
+          <NoResult isError={isError} errorText="product details" />
         ) : (
           <div className="space-y-2.5 md:space-y-4">
             <div className="space-y-1.5">
@@ -41,8 +35,8 @@ function ViewProduct() {
               </p>
             </div>
             <div className="space-y-1.5">
-              <h2 className="text-xs md:text-sm font-medium">Description</h2>
-              <p className="text-xs md:text-sm text-muted-foreground">
+              <h2 className="text-xs md:text-sm font-medium ">Description</h2>
+              <p className="text-xs md:text-sm text-muted-foreground whitespace-pre-line">
                 {product?.description}
               </p>
             </div>

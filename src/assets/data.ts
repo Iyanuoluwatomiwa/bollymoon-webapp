@@ -1,14 +1,19 @@
 import {
   ArrowLeftRight,
+  BadgePoundSterling,
   Building2,
   CreditCard,
   Hash,
+  HeadphonesIcon,
+  HeartHandshake,
   LayoutDashboard,
   Mail,
   PackageIcon,
   Phone,
   Settings,
   ShoppingCart,
+  Sparkles,
+  Truck,
 } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
 import heroHair from '@/assets/images/hero-hair.webp'
@@ -16,6 +21,9 @@ import heroClothing from '@/assets/images/hero-clothing.webp'
 import heroAccessories from '@/assets/images/hero-accessories.webp'
 import type { SizeGuideData } from '@/types/sizeGuide.types'
 import type { Filters } from '@/components/admin/FiltersDialog'
+import gallery1 from './images/gallery1.jpg'
+import gallery2 from './images/gallery2.jpg'
+import gallery3 from './images/gallery3.jpg'
 
 export const navLinks = {
   home: {
@@ -216,22 +224,30 @@ export const footer = {
           label: 'Privacy Policy',
           url: '/privacy-policy',
         },
+        {
+          label: 'Refund & Returns Policy',
+          url: '/refund-returns-policy',
+        },
+        {
+          label: 'Terms & Conditions',
+          url: '/terms-conditions',
+        },
+        {
+          label: 'Shipping Policy',
+          url: '/shipping-policy',
+        },
       ],
     },
     {
       heading: 'support',
       links: [
         {
-          label: 'Shipping & Delivery',
-          url: '/shipping-delivery',
-        },
-        {
-          label: 'Refunds & Returns',
-          url: '/refunds-returns',
-        },
-        {
           label: 'Contact Us',
           url: '/contact',
+        },
+        {
+          label: 'FAQs',
+          url: '/faqs',
         },
       ],
     },
@@ -893,6 +909,12 @@ export const settingsTabHeadList = [
     label: 'Security',
   },
 ]
+export const adminSettingsTabHeadList = [
+  {
+    status: 'security',
+    label: 'Security',
+  },
+]
 
 export const adminNavigation = [
   { title: 'Overview', url: 'overview', icon: LayoutDashboard },
@@ -1025,3 +1047,251 @@ export const deliveryOptions: {
     value: 'express',
   },
 ]
+
+export const aboutUs = {
+  features: [
+    {
+      icon: HeartHandshake,
+      title: 'Handcrafted Luxury',
+      desc: 'Each wig is made with care, attention to detail and strict quality control.',
+    },
+    {
+      icon: Sparkles,
+      title: 'Natural, Effortless Beauty',
+      desc: 'Designed to mimic natural hairlines, textures and movement for a flawless finish.',
+    },
+    {
+      icon: BadgePoundSterling,
+      title: 'Fair & Transparent Pricing',
+      desc: 'Premium quality doesn’t have to come with a premium price tag.',
+    },
+    {
+      icon: Truck,
+      title: ' Fast, Reliable UK Delivery',
+      desc: 'Your order reaches you quickly, securely and with love. ',
+    },
+    {
+      icon: HeadphonesIcon,
+      title: 'Customer-First Experience',
+      desc: 'We listen, we care, and we’re here to guide you every step of the way.',
+    },
+  ],
+  gallery: [gallery1, gallery2, gallery3],
+}
+
+export const privacyPolicy = {
+  personalInformation: [
+    'Full Name',
+    'Email Address',
+    'Phone Number',
+    'Billing & Delivery Address',
+  ],
+  orderInformation: [
+    'Products purchased',
+    'Transaction details',
+    'Delivery information',
+  ],
+  paymentInformation: [
+    'Processed securely through trusted third-party payment providers',
+    'We do not store or access your full card details',
+  ],
+  websiteUsageData: [
+    'Cookies and browsing activity',
+    'IP address',
+    'Device information',
+    'Pages visited on our website',
+  ],
+  useInformation: [
+    'Process and deliver your orders',
+    'Contact you about your order, delivery or customer support queries',
+    'Improve and personalise your shopping experience',
+    'Analyse website performance and visitor behaviour',
+    'Send marketing communications (only if you opt-in)',
+    'Prevent fraud and ensure secure transactions',
+  ],
+  shareInformation: [
+    'Delivery and courier companies',
+    'Payment processors (e.g., Stripe, PayPal)',
+    'Website hosting and analytics services',
+    'Legal authorities if required by law',
+  ],
+  dataProtection: [
+    'Unauthorised access',
+    'Loss or theft',
+    'Misuse',
+    'Alteration or damage',
+  ],
+  cookies: [
+    'Remember items in your cart',
+    'Understand website traffic',
+    'Improve functionality and performance',
+  ],
+  rights: [
+    'Access the personal data we hold about you',
+    'Correct inaccurate or outdated information',
+    'Request deletion of your data',
+    'Object to or restrict processing in certain situations',
+    'Opt-out of marketing communications at any time',
+    'Request a copy of your data in a portable format',
+  ],
+}
+
+export const refundReturnsPolicy = {
+  eligibilityRequest: [
+    'The item is unused, unworn and in its original packaging ',
+    'The lace has not been cut or altered',
+    'The wig or hair has not been installed, brushed, dyed, glued or styled',
+    'The item is in the same condition as received',
+    'A return request is submitted within 14 days of delivery',
+  ],
+  eligibilityAccept: [
+    'Wigs or bundles that have been worn, installed or altered',
+    'Custom-made or customised products',
+    'Hair that has been brushed, combed, coloured, bleached or heat-styled',
+    'Clearance or sale items (unless faulty)',
+    'Items returned without prior authorisation',
+  ],
+  faultyItems: [
+    'You must notify us within 48 hours of receiving the item',
+    'Provide clear photos or videos showing the issue',
+    'We will inspect the evidence and offer:',
+  ],
+  faultyItemsAccept: [
+    'A replacement',
+    'An exchange',
+    'A full refund (if applicable)',
+  ],
+  requestReturn: [
+    'Your full name',
+    'Order number',
+    'Product name',
+    'Reason for return',
+    'Photos/videos (if faulty)',
+  ],
+  returnShipping: [
+    'Customers are responsible for the cost of return shipping unless the item is faulty or incorrect ',
+    'We recommend using a tracked delivery service to ensure the item arrives safely.',
+    'Bollymoon is not responsible for lost or damaged return parcels.',
+  ],
+  refundProcessing: [
+    'Inspect the product to ensure it meets our return conditions',
+    'Notify you of approval or rejection within 3–5 working days',
+  ],
+  refundApproved: [
+    'Refunds will be issued to your original payment method',
+    'Processing time is 3–7 working days depending on your bank',
+  ],
+  refundRejected: [
+    'The item will be returned to you',
+    'No refund will be issued',
+  ],
+  exchanges: [
+    'The product is unused and in original condition',
+    'The exchange is requested within 14 days',
+    'The desired item is in stock',
+  ],
+  nonReturnableItems: [
+    'Wigs tried on or worn',
+    'Bundles removed from original packaging',
+    'Closures with lace cut or bleached',
+    'Products exposed to perfumes, oils, smoke or hair products',
+    'Accessories including wig caps, glue, brushes etc.',
+  ],
+}
+
+export const termsConditions = {
+  useOfWebsite: [
+    'You will not misuse the website',
+    'You will not attempt to disrupt or hack the website',
+    'You will use the website only for lawful purposes',
+    'You will provide accurate and complete information when placing an order',
+  ],
+  productInformation: [
+    'Colours may vary slightly due to screen differences',
+    'Handmade wigs may have minor variations',
+    'Products may sell out or be updated without notice',
+  ],
+  pricingPayment: [
+    'All prices are listed in GBP (£)',
+    'Prices may change without prior notice',
+    'Payments are processed securely through third-party providers (e.g., PayPal, Stripe)',
+    'We do not store your full card information',
+  ],
+  placingOrder: [
+    'You are authorised to use the payment method',
+    'All information you provide is accurate',
+  ],
+  orderAccepted: ['Payment is confirmed', 'The item is dispatched'],
+  orderCanceled: [
+    'The item is out of stock',
+    'Payment cannot be processed',
+    'Fraud is suspected',
+    'Incorrect pricing or information was displayed',
+  ],
+  delivery: [
+    'Courier delays',
+    'Seasonal demand',
+    'Custom-made product processing',
+  ],
+  returnsRefunds: [
+    'Items must be unused, unworn and in original packaging',
+    'Lace and hair must not be cut, styled or installed',
+    'Return requests must be made within 14 days',
+    'Refunds will be processed after inspection',
+  ],
+  intellectualProperty: [
+    'Photos',
+    'Product descriptions',
+    'Graphics',
+    'Logos',
+    'Website design',
+  ],
+  limitations: [
+    'Damage caused by misuse or improper installation of products',
+    'Loss caused by incorrect use of hair products or chemicals',
+    'Allergic reactions to adhesive, colour, or hair products',
+    'Delays outside our control',
+  ],
+  userAccounts: [
+    'Keep your login details secure',
+    'Notify us immediately if you suspect unauthorised access',
+  ],
+  marketing: ['Promotions', 'Product updates', 'Special offers'],
+}
+
+export const shippingPolicy = {
+  readyMade: ['Processing time: 1–2 working days'],
+  custom: [
+    'Processing time: 3–7 working days (depending on the style and order volume)',
+  ],
+  couriers: ['Royal Mail', 'DPD', 'Evri', 'UPS'],
+  standard: ['Delivery time: 2–4 working days', 'Fully tracked'],
+  express: [
+    'Delivery time: 1–2 working days',
+    'Fully tracked and faster priority handling',
+  ],
+  shippingCost: [
+    'Delivery address',
+    'Weight of your order',
+    'Chosen delivery speed',
+  ],
+  trackingOrder: ['Tracking number', 'Courier link', 'Delivery updates'],
+  deliveryAddress: [
+    'Missing deliveries due to incorrect address input',
+    'Parcels returned because the courier could not obtain access',
+    'Failed delivery attempts caused by the recipient not being available',
+  ],
+  parcels: [
+    'Please contact the courier with your tracking number first',
+    'If unresolved, contact us and we will help investigate',
+  ],
+  preOrders: [
+    'Estimated dispatch times will be stated on the product page',
+    'Your entire order may be shipped together unless you request separate shipping (fees may apply)',
+  ],
+  damagedParcels: [
+    'Take photos of the outer packaging and contents',
+    'Contact us within 48 hours of delivery',
+    'We will investigate and resolve the issue quickly',
+  ],
+}

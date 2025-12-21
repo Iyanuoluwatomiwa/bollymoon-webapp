@@ -6,7 +6,6 @@ import {
   useUpdateDeliveryAddress,
 } from '@/hooks/useQueries'
 import type { DeliveryAddress } from '@/types/orders.types'
-import { toast } from 'sonner'
 
 export default function AddressBookCard({
   addressLine,
@@ -29,35 +28,17 @@ export default function AddressBookCard({
     note,
     id,
   }
-  const { mutate: updateAddress, isPending: updating } =
-    useUpdateDeliveryAddress()
+  const {
+    mutate: updateAddress,
+    isPending: updating,
+    isError,
+  } = useUpdateDeliveryAddress()
   const { mutate: deleteAddress, isPending: deleting } =
     useDeleteDeliveryAddress()
   const handleUpdateDeliveryAddress = async (details: DeliveryAddress) => {
-    updateAddress(
-      { id, details },
-      {
-        onSuccess: () => {
-          toast.success('Address updated successfully!')
-        },
-        onError: () => {
-          toast.error('Error updating address. Try again.')
-          return
-        },
-      }
-    )
+    updateAddress({ id, details })
   }
-  const handleDeleteDeliveryAddress = async () => {
-    deleteAddress(id, {
-      onSuccess: () => {
-        toast.success('Address deleted successfully!')
-      },
-      onError: () => {
-        toast.error('Error deleting address. Try again.')
-        return
-      },
-    })
-  }
+
   return (
     <div className="space-y-2 md:space-y-4">
       <div className="p-2 md:p-4 rounded-sm shadow-sm bg-white text-xs md:text-sm flex gap-4 justify-between">
@@ -73,7 +54,7 @@ export default function AddressBookCard({
         <div className="flex flex-col justify-between  ">
           <button
             className="p-2 text-destructive hover:bg-destructive/10 rounded-full cursor-pointer"
-            onClick={handleDeleteDeliveryAddress}
+            onClick={() => deleteAddress(id)}
             disabled={deleting}
           >
             {deleting ? (
@@ -102,6 +83,7 @@ export default function AddressBookCard({
           details={details}
           onSubmit={handleUpdateDeliveryAddress}
           submitting={updating}
+          isError={isError}
         />
       )}
     </div>

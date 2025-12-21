@@ -1,8 +1,13 @@
+import { handleApiError } from '@/lib/apiError'
 import { api } from '@/utils/axiosConfig'
 
 export const getAllOrders = async () => {
-  const response = await api.get(`/v1/orders`)
-  return response.data
+  try {
+    const response = await api.get(`/v1/orders`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 export const getUserOrder = async (userId: string | undefined) => {
   const response = await api.get(`/v1/orders/user/${userId}`)
@@ -10,13 +15,21 @@ export const getUserOrder = async (userId: string | undefined) => {
 }
 
 export const getOrderById = async (orderId: string | undefined) => {
-  const response = await api.get(`/v1/orders/get/${orderId}`)
-  return response.data
+  try {
+    const response = await api.get(`/v1/orders/get/${orderId}`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 
 export const getMyOrders = async () => {
-  const response = await api.get(`/v1/orders/my-orders`)
-  return response.data
+  try {
+    const response = await api.get(`/v1/orders/my-orders`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
 }
 
 export const updateOrder = async ({
@@ -28,5 +41,6 @@ export const updateOrder = async ({
     status: 'processing' | 'delivered' | 'canceled'
   }
 }) => {
-  await api.put(`/v1/orders/${orderId}`, status)
+  const response = await api.put(`/v1/orders/${orderId}`, status)
+  return response.data
 }

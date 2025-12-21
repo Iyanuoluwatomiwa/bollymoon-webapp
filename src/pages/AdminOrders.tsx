@@ -19,7 +19,7 @@ function AdminOrders() {
   const allOrders = data?.data
   const [formData, setFormData] = useState<SelectedFilters>({
     searchQuery: '',
-    status: '',
+    status: 'all',
   })
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
@@ -29,7 +29,7 @@ function AdminOrders() {
   ).length
 
   const resetFilter = () => {
-    setFormData({ ...formData, status: '' })
+    setFormData({ ...formData, status: 'all' })
   }
 
   const filteredOrders = allOrders?.filter((order: Order) => {
@@ -93,7 +93,8 @@ function AdminOrders() {
                 )
               })}
               <div className="bg-white rounded-sm">
-                {groupedFilteredOrders?.length == 0 && (
+                {(groupedFilteredOrders?.length == 0 ||
+                  groupedFilteredOrders?.length == undefined) && (
                   <NoResult
                     text={`${
                       activeFiltersCount

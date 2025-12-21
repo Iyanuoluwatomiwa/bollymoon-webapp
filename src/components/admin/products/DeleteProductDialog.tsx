@@ -18,7 +18,6 @@ import { useDeleteProduct } from '@/hooks/useQueries'
 import type { Product } from '@/types/product.types'
 import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
-import { toast } from 'sonner'
 
 interface DeleteProductProp {
   product: Product
@@ -31,15 +30,7 @@ function DeleteProductDialog({ product }: DeleteProductProp) {
   const handleDeleteProduct = (productId: string) => {
     deleteProduct(productId, {
       onSuccess: () => {
-        /* for (let i = 0; i < images?.length; i++) {
-          const file = images[i]
-          await deleteImage(file)
-        } */
         setIsDeleteProductDialogOpen(false)
-        toast.success('Product deleted successfully!')
-      },
-      onError: () => {
-        toast.error('Error deleting product. Try again.')
       },
     })
   }

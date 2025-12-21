@@ -203,7 +203,17 @@ export const orders = [
     subtotal: 20,
     deliveryFee: 3,
     deliveryOption: 'Standard delivery',
-    shippingDetails: '45, Odi-Olowo Street, Sagamu, Ogun State.',
+    shippingDetails: {
+      id: '90b72635-4ee7-45b7-907d-3cce43d56e34',
+      userId: 'e811ba90-b88d-4405-a6a6-ea22c2694cab',
+      phone: '+234 8123456789',
+      addressLine: '138, Behind Eyin Igboti Agura Sabo',
+      city: 'Lagos',
+      state: 'Lagos',
+      country: 'NG',
+      postalCode: '100001',
+      note: '',
+    },
     status: 'pending',
     userId: '',
     orderItems: [
@@ -222,7 +232,7 @@ export const orders = [
       },
     ],
   },
-  {
+  /*  {
     id: '2',
     orderId: '#123455',
     createdAt: Date.now(),
@@ -308,7 +318,7 @@ export const orders = [
         originalPrice: 23,
       },
     ],
-  },
+  }, */
 ]
 
 export const orderItemsByUser = [
