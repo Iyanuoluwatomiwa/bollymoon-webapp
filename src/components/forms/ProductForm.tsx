@@ -19,14 +19,8 @@ interface ProductFormProps {
   product?: any
   onSubmit: (data: any) => Promise<void>
   onSubmitting: boolean
-  isError: boolean
 }
-const ProductForm = ({
-  product,
-  onSubmit,
-  onSubmitting,
-  isError,
-}: ProductFormProps) => {
+const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
   const [formData, setFormData] = useState({
     name: product?.name || '',
     description: product?.description || '',
@@ -47,7 +41,7 @@ const ProductForm = ({
     hair: productFormSelectOptions.subcategories.hair,
     cosmetics: productFormSelectOptions.subcategories.cosmetics,
   }
-  const resetForm = () => {
+  /*  const resetForm = () => {
     setFormData({
       name: '',
       description: '',
@@ -57,7 +51,7 @@ const ProductForm = ({
     })
     setVariants([])
     setImageFiles([])
-  }
+  } */
   useEffect(() => {
     if (product) {
       /* urlsToFiles(product?.images).then(setImageFiles) */

@@ -10,11 +10,7 @@ function EditProduct() {
   const { productId } = useParams()
   const { data: product, isLoading, isError } = useSingleProduct(productId)
 
-  const {
-    mutate: updateProduct,
-    isPending: updating,
-    isError: updatingError,
-  } = useUpdateProduct()
+  const { mutate: updateProduct, isPending: updating } = useUpdateProduct()
   const handleUpdateProduct = async (product: any) => {
     updateProduct({ productId, data: product })
   }
@@ -36,7 +32,6 @@ function EditProduct() {
             onSubmitting={updating}
             onSubmit={handleUpdateProduct}
             product={product?.data}
-            isError={updatingError}
           />
         )}
       </div>

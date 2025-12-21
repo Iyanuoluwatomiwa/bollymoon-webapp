@@ -14,8 +14,8 @@ import FiltersDisplay from '@/components/shop/FiltersDisplay'
 import Sorting from '@/components/shop/Sorting'
 import { shop, subcategories } from '@/assets/data'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
-import ProductsGrid from '@/components/shop/ProductsGrid'
-import ProductsList from '@/components/shop/ProductsList'
+/* import ProductsGrid from '@/components/shop/ProductsGrid'
+import ProductsList from '@/components/shop/ProductsList' */
 import CustomPagination from '@/components/shop/CustomPagination'
 import Container from '@/components/global/Container'
 import CategoriesCarousel from '@/components/shop/CategoriesCarousel'
@@ -128,11 +128,11 @@ function ShopCategory() {
                 />
               </div>
               <>
-                {viewMode === 'grid' ? (
+                {/* {viewMode === 'grid' ? (
                   <ProductsGrid products={finalProducts} />
                 ) : (
                   <ProductsList products={finalProducts} />
-                )}
+                )} */}
               </>
               {/* {sectionSuspense(productView)} */}
               {finalProducts && (

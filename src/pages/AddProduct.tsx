@@ -6,11 +6,7 @@ import type { ProductUpload } from '@/types/product.types'
 import { toast } from 'sonner'
 
 function AddProduct() {
-  const {
-    mutate: createProduct,
-    isPending: creating,
-    isError,
-  } = useCreateProduct()
+  const { mutate: createProduct, isPending: creating } = useCreateProduct()
   const handleCreateProduct = async (product: ProductUpload) => {
     createProduct(product, {
       onSuccess: () => {
@@ -28,11 +24,7 @@ function AddProduct() {
           pageTitle="Add New Product"
           pageDesc="Fill in product information to create a new listing."
         />
-        <ProductForm
-          onSubmitting={creating}
-          onSubmit={handleCreateProduct}
-          isError={isError}
-        />
+        <ProductForm onSubmitting={creating} onSubmit={handleCreateProduct} />
       </div>
     </Container>
   )
