@@ -8,7 +8,7 @@ interface AuthFormsHeadingProp {
 function AuthFormsHeading({ title, desc }: AuthFormsHeadingProp) {
   return (
     <CardHeader>
-      <CardTitle className="text-base md:text-xl text-center font-semibold uppercase tracking-wide text-secondary">
+      <CardTitle className="text-base md:text-xl text-center font-semibold uppercase tracking-wider text-secondary">
         {title}
       </CardTitle>
       <CardDescription className="text-center">{desc}</CardDescription>

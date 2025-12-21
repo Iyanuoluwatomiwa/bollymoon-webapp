@@ -52,6 +52,7 @@ const ViewProduct = lazy(() => import('./pages/ViewProduct'))
 const AdminOrders = lazy(() => import('./pages/AdminOrders'))
 const AdminSettings = lazy(() => import('./pages/AdminSettings'))
 const TermsConditions = lazy(() => import('./pages/TermsConditions'))
+const Faqs = lazy(() => import('./pages/FAQs'))
 
 const router = createBrowserRouter([
   {
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
       {
         path: 'terms-conditions',
         element: pageSuspense(<TermsConditions />),
+      },
+      {
+        path: 'faqs',
+        element: pageSuspense(<Faqs />),
       },
       {
         path: 'orders',

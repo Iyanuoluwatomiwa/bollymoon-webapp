@@ -14,6 +14,7 @@ import type { UserProfile } from '@/types/user.types'
 import { useDispatch } from 'react-redux'
 import { clearUser } from '@/features/user/userSlice'
 import { toast } from 'sonner'
+import React from 'react'
 
 function AccountSidebarSheet({
   open,
@@ -100,4 +101,4 @@ function AccountSidebarSheet({
   )
 }
 
-export default AccountSidebarSheet
+export default React.memo(AccountSidebarSheet)

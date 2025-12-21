@@ -1295,3 +1295,147 @@ export const shippingPolicy = {
     'We will investigate and resolve the issue quickly',
   ],
 }
+
+export const faqs = [
+  {
+    number: 1,
+    trigger: 'What products do you sell?',
+    desc1: 'We specialise in:',
+    desc2: '',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'Premium handmade wigs',
+          'High-quality hair bundles',
+          'Natural-looking closures and frontals',
+          'Custom wig services',
+        ],
+      },
+    ],
+    end1: 'All our products are designed to give a natural, long-lasting and beautiful finish.',
+    end2: '',
+  },
+  {
+    number: 2,
+    trigger: 'Are your wigs handmade?',
+    desc1: 'Yes! Every Bollymoon wig is carefully handmade to ensure:',
+    desc2: '',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'natural appearance',
+          'durability',
+          'comfortable fit',
+          'high-quality craftsmanship',
+        ],
+      },
+    ],
+    end1: '',
+    end2: '',
+  },
+  {
+    number: 3,
+    trigger: 'Do you offer custom wig services?',
+    desc1:
+      'Yes, we create custom wigs based on your preferred length, density, lace type, and style.',
+    desc2: 'Contact our team to place a custom order.',
+  },
+  {
+    number: 4,
+    trigger: 'How long does shipping take?',
+    lists: [
+      {
+        heading: 'UK Shipping:',
+        list: [
+          'Standard Delivery: 2–4 working days',
+          'Express Delivery: 1–2 working days',
+        ],
+      },
+    ],
+    end1: 'Processing time for handmade wigs may vary (usually 1–3 days).',
+  },
+  {
+    number: 5,
+    trigger: 'Do you ship internationally?',
+    desc1:
+      'Yes, we ship worldwide. Shipping time depends on your location. Shipping costs are calculated at checkout.',
+  },
+  {
+    number: 6,
+    trigger: 'Can I return or exchange a wig?',
+    desc1:
+      'For hygiene and safety reasons, we do not accept returns on wigs, bundles, closures or frontals unless the product is faulty on arrival.',
+    end1: 'If your item is damaged or incorrect, please contact us within 48 hours of delivery.',
+  },
+  {
+    number: 7,
+    trigger: 'What if my item arrives damaged?',
+    desc1: 'Please email us with:',
+    desc2: '',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'your order number',
+          'photos/video of the issue',
+          'original packaging',
+        ],
+      },
+    ],
+    end1: 'We will resolve the issue as quickly as possible.',
+  },
+  {
+    number: 8,
+    trigger: ' Do you offer refunds?',
+    desc1: 'Refunds are only available for:',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'damaged items',
+          'incorrect items',
+          'cancelled orders before dispatch',
+        ],
+      },
+    ],
+    end1: 'Custom and worn items cannot be refunded.',
+  },
+  {
+    number: 9,
+    trigger: 'How do I know which wig size I need?',
+    desc1:
+      'Most customers fit a medium cap size, but we recommend measuring your head for the perfect fit. Contact us if you need help choosing the right size.',
+  },
+  {
+    number: 10,
+    trigger: 'How long do your wigs last?',
+    desc1:
+      'With proper care, Bollymoon wigs can last 12–24 months or longer. Virgin hair bundles can last even longer with gentle maintenance.',
+  },
+  {
+    number: 11,
+    trigger: 'How do I maintain my wig or bundles?',
+    desc1: 'We recommend:',
+    lists: [
+      {
+        heading: '',
+        list: [
+          'sulfate-free shampoo',
+          'regular deep conditioning',
+          'avoiding excessive heat',
+          'storing your wig on a mannequin head',
+        ],
+      },
+    ],
+    end1: 'We provide a full After-Care Guide upon purchase.',
+  },
+  {
+    number: 12,
+    trigger: 'How do I contact customer service?',
+    desc1: 'Email: customercare@bollymoon.com',
+    desc2: 'Phone/WhatsApp: +44 7542794858',
+    desc3: 'Response time: 24–48 hours',
+  },
+]
