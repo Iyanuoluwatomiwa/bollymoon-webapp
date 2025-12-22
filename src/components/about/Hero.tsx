@@ -16,7 +16,7 @@ function Hero() {
 
       <p
         className="relative z-10 text-white text-sm md:text-base 
-                text-center leading-relaxed tracking-wide w-[85%] sm:w-full max-w-md"
+                text-center leading-relaxed tracking-wide w-[85%] sm:w-full max-w-md font-medium"
       >
         We believe every woman deserves to feel effortlessly beautiful. Based in
         the UK, our brand specialises in luxury handmade wigs, premium hair

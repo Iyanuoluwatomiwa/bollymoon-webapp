@@ -14,8 +14,8 @@ function AppFooter() {
           <div className="space-y-4 border-b border-accent lg:border-b-0 pb-8 lg:col-span-2">
             <div className="space-y-2">
               <Logo />
-              <p className=" text-sm text-accent-foreground font-medium">
-                Connecting fashion enthusiasts with diverse vendors.
+              <p className="text- text-base text-accent-foreground font-medium">
+                Where beauty meets confidence
               </p>
             </div>
             <div className="space-y-6">
