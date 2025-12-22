@@ -9,13 +9,8 @@ interface SocialLinkProp {
 function SocialLink({ text, href, icon }: SocialLinkProp) {
   const IconComponent = icon
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="p-3 border group hover:bg-primary border-accent-foreground hover:border-primary rounded-full"
-    >
-      <IconComponent className="w-4 h-4 text-primary group-hover:text-white" />
+    <a href={href} target="_blank" rel="noopener noreferrer" className="group">
+      <IconComponent className="w-5 h-5 text-primary group-hover:text-accent-foreground" />
       <span className="sr-only">{text}</span>
     </a>
   )

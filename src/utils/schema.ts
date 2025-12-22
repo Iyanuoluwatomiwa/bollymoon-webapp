@@ -19,7 +19,7 @@ export const signupFormSchema = z.object({
 })
 
 export const loginFormSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email({ message: 'Please enter a valid email address' }),
   password: z.string(),
 })
 
@@ -123,4 +123,18 @@ export const deliveryFormSchema = z.object({
   state: z.string(),
   country: z.string(),
   postalCode: z.string(),
+})
+
+export const contactSchema = z.object({
+  name: z.string(),
+  message: z.string().refine(
+    (description) => {
+      const wordCount = description.split(' ').length
+      return wordCount >= 5 && wordCount <= 100
+    },
+    {
+      message: 'Description must be between 5 and 100 words',
+    }
+  ),
+  email: z.string().email({ message: 'Please enter a valid email address' }),
 })

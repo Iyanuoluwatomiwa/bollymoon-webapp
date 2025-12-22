@@ -38,7 +38,7 @@ export default function FormTextArea({
         placeholder={placeholder}
         rows={rows}
         required={required}
-        className={`${className} break-all text-xs md:text-sm`}
+        className={`${className} break-all text-xs md:text-sm resize-none`}
       />
     </div>
   )

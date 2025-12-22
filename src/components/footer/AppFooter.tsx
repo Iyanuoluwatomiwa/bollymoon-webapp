@@ -12,9 +12,9 @@ function AppFooter() {
       <footer>
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="space-y-4 border-b border-accent lg:border-b-0 pb-8 lg:col-span-2">
-            <div className="space-y-2">
-              <Logo />
-              <p className="text- text-base text-accent-foreground font-medium">
+            <div className="space-y-1">
+              <Logo size="h-[50px]" />
+              <p className="text-xs text-accent-foreground font-medium">
                 Where beauty meets confidence
               </p>
             </div>
@@ -24,7 +24,7 @@ function AppFooter() {
                   <Contact key={contact.text} {...contact} />
                 ))}
               </div>
-              <div className="flex items-center gap-3 ">
+              <div className="flex items-center gap-6 ">
                 {footer.socials.map((social) => (
                   <SocialLink key={social.text} {...social} />
                 ))}
