@@ -41,10 +41,10 @@ export const navLinks = {
     name: 'collections',
     url: '/collections',
     categories: [
-      { name: 'New Arrivals', href: '/collections/new-arrivals' },
-      { name: 'Best Sellers', href: '/collections/best-sellers' },
-      { name: 'Trending Now', href: '/collections/trending' },
-      { name: 'Sale Items', href: '/collections/sale' },
+      { name: 'New Arrivals', href: '/collection/new-arrivals' },
+      { name: 'Best Sellers', href: '/collection/best-sellers' },
+      { name: 'Trending Now', href: '/collection/trending' },
+      { name: 'Sale Items', href: '/collection/sale' },
     ],
   },
   shop: {
