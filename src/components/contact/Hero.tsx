@@ -1,12 +1,12 @@
 import { footer } from '@/assets/data'
-import heroBg from '../../assets/images/contact_bg.jpg'
+import heroBg from '../../assets/images/contact.webp'
 import Container from '../global/Container'
 function Hero() {
   return (
     <div>
-      <div className="relative min-h-[38vh] md:min-h-[50vh] overflow-hidden">
+      <div className="relative min-h-[38vh] md:min-h-[50vh] max-h-[500px] overflow-hidden">
         <div
-          className="absolute inset-0 bg-right md:bg-left bg-cover bg-no-repeat "
+          className="absolute inset-0 bg-center md:bg-left bg-cover bg-no-repeat "
           style={{ backgroundImage: `url(${heroBg})` }}
         />
         <Container className="hidden lg:block">

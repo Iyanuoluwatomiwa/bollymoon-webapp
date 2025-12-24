@@ -49,7 +49,6 @@ function Navbar() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-
         <NavigationMenuItem>
           <NavLink to={navLinks.shop.url} className={getClassName} end>
             <NavigationMenuTrigger className="capitalize text-lg px-3 bg-transparent focus:bg-transparent data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent data-[state=open]:bg-transparent/50 h-20 py-0 cursor-pointer">

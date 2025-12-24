@@ -53,6 +53,7 @@ const AdminOrders = lazy(() => import('./pages/AdminOrders'))
 const AdminSettings = lazy(() => import('./pages/AdminSettings'))
 const TermsConditions = lazy(() => import('./pages/TermsConditions'))
 const Faqs = lazy(() => import('./pages/FAQs'))
+const CollectionDetails = lazy(() => import('./pages/CollectionDetails'))
 
 const router = createBrowserRouter([
   {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
       {
         path: 'collections',
         element: pageSuspense(<Collections />),
+      },
+      {
+        path: 'collections/:collectionId',
+        element: pageSuspense(<CollectionDetails />),
       },
       {
         path: 'shop',

@@ -1,5 +1,6 @@
 import {
   ArrowLeftRight,
+  Award,
   BadgePoundSterling,
   Building2,
   CreditCard,
@@ -13,6 +14,8 @@ import {
   Settings,
   ShoppingCart,
   Sparkles,
+  Tag,
+  TrendingUp,
   Truck,
 } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
@@ -24,6 +27,10 @@ import type { Filters } from '@/components/admin/FiltersDialog'
 import gallery1 from './images/gallery1.jpg'
 import gallery2 from './images/gallery2.jpg'
 import gallery3 from './images/gallery3.jpg'
+import gallery1_1 from './images/gallery1_1.png'
+import gallery2_1 from './images/gallery2_1.png'
+import gallery3_1 from './images/gallery3_1.png'
+import gallery4_1 from './images/gallery4_1.png'
 
 export const navLinks = {
   home: {
@@ -34,10 +41,10 @@ export const navLinks = {
     name: 'collections',
     url: '/collections',
     categories: [
-      { name: 'New Arrivals', href: '/collection#new-arrivals' },
-      { name: 'Best Sellers', href: '/collection#best-sellers' },
-      { name: 'Trending Now', href: '/collection#trending' },
-      { name: 'Sale Items', href: '/collection#sale' },
+      { name: 'New Arrivals', href: '/collections/new-arrivals' },
+      { name: 'Best Sellers', href: '/collections/best-sellers' },
+      { name: 'Trending Now', href: '/collections/trending' },
+      { name: 'Sale Items', href: '/collections/sale' },
     ],
   },
   shop: {
@@ -1439,3 +1446,104 @@ export const faqs = [
     desc3: 'Response time: 24–48 hours',
   },
 ]
+
+export const collections = [
+  {
+    id: 'new-arrivals',
+    title: 'New Arrivals',
+    subtitle: 'Fresh Styles Just In',
+    description:
+      'Explore our latest collections of wigs, bundles and closures freshly added and handmade with premium materials. Perfect for customers looking for new trends and updated styles.',
+    image: gallery1_1,
+    icon: Sparkles,
+    badge: 'Just Dropped',
+    itemCount: 24,
+  },
+  {
+    id: 'best-sellers',
+    title: 'Best Sellers',
+    subtitle: 'Customer Favourites',
+    description:
+      'Our most loved products chosen by customers across the UK. These items consistently deliver great results, lasting quality and value trusted and highly recommended.',
+    image: gallery2_1,
+    icon: Award,
+    badge: 'Top Rated',
+    itemCount: 18,
+  },
+  {
+    id: 'trending',
+    title: 'Trending Now',
+    subtitle: "What's Hot",
+    description:
+      'Stay ahead of the style curve with our most popular current looks. These pieces are currently trending across social media and among our customers.',
+    image: gallery3_1,
+    icon: TrendingUp,
+    badge: 'Popular',
+    itemCount: 15,
+  },
+  {
+    id: 'sale',
+    title: 'Sale Items',
+    subtitle: 'Luxury For Less',
+    description:
+      'Shop premium quality wigs and hair extensions at reduced prices. Great value without sacrificing quality limited stock available.',
+    image: gallery4_1,
+    icon: Tag,
+    badge: 'Up to 20% Off',
+    itemCount: 12,
+  },
+]
+
+export const collectionsData: Record<
+  string,
+  {
+    title: string
+    subtitle: string
+    description: string
+    image: string
+    icon: typeof Sparkles
+    badge: string
+    accentColor: string
+  }
+> = {
+  'new-arrivals': {
+    title: 'New Arrivals',
+    subtitle: 'Fresh Styles Just In',
+    description:
+      'Explore our latest collections of wigs, bundles and closures freshly added and handmade with premium materials. Perfect for customers looking for new trends and updated styles.',
+    image: gallery1_1,
+    icon: Sparkles,
+    badge: 'Just Dropped',
+    accentColor: 'from-primary via-secondary to-accent-foreground',
+  },
+  'best-sellers': {
+    title: 'Best Sellers',
+    subtitle: 'Customer Favourites',
+    description:
+      'Our most loved products chosen by customers across the UK. These items consistently deliver great results, lasting quality and value trusted and highly recommended.',
+    image: gallery2_1,
+    icon: Award,
+    badge: 'Top Rated',
+    accentColor: 'from-accent via-primary to-secondary',
+  },
+  trending: {
+    title: 'Trending Now',
+    subtitle: "What's Hot",
+    description:
+      'Stay ahead of the style curve with our most popular current looks. These pieces are currently trending across social media and among our customers.',
+    image: gallery3_1,
+    icon: TrendingUp,
+    badge: 'Popular',
+    accentColor: 'from-secondary via-accent to-primary',
+  },
+  sale: {
+    title: 'Sale Items',
+    subtitle: 'Luxury For Less',
+    description:
+      'Shop premium quality wigs and hair extensions at reduced prices. Great value without sacrificing quality limited stock available.',
+    image: gallery4_1,
+    icon: Tag,
+    badge: 'Up to 20% Off',
+    accentColor: 'from-primary via-secondary to-primary',
+  },
+}
