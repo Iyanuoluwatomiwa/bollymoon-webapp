@@ -75,25 +75,25 @@ function HeroCarousel() {
               >
                 <motion.h2
                   variants={fromSide}
-                  className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6 leading-tight capitalize"
+                  className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 leading-tight"
                 >
                   {slide.title}
                 </motion.h2>
                 <motion.p
                   variants={fromSide}
-                  className="text-base md:text-lg lg:text-xl mb-6 md:mb-8 text-soft-gray max-w-xl"
+                  className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 text-soft-gray max-w-xl"
                 >
                   {slide.description}
                 </motion.p>
-                <motion.div variants={fromBottom}>
+                <motion.a href={slide.link} variants={fromBottom}>
                   <Button
                     size="lg"
                     className=" text-charcoal font-semibold group transition-all duration-300 hover:scale-105"
                   >
-                    {slide.cta}
+                    <a href={slide.link}>{slide.cta}</a>
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                </motion.div>
+                </motion.a>
               </motion.div>
             </Container>
           </div>

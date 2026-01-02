@@ -223,31 +223,30 @@ export const heroCarouselSlides = [
   {
     id: 1,
     image: heroHair,
-    title: 'welcome to bollymoon',
+    title: 'Welcome to Bollymoon',
     description:
-      'Transform your look with our premium quality hair bundles, wigs, and closures',
-    cta: 'Shop now',
-    link: '/shop',
+      'Home of carefully handmade wigs, nourishing hair care, and stylish fashion pieces designed to help you show up confidently every day',
+    cta: 'Explore Bollymoon',
+    link: '/#categories',
   },
   {
     id: 2,
     image: heroHair,
-    category: 'Hair Collection',
-    title: 'Luxurious Hair Extensions',
+
+    title: 'Luxurious Handmade Hair You Can Trust',
     description:
-      'Transform your look with our premium quality hair bundles, wigs, and closures',
-    cta: 'Shop Hair',
-    link: '/shop/hair',
+      'Each wig is carefully crafted for a natural look, comfort, and lasting quality, supported by hair care that keeps it beautiful.',
+    cta: 'Find Your Perfect Wig',
+    link: '/shop',
   },
   {
     id: 3,
     image: heroClothing,
-    category: 'Clothing',
-    title: 'Elevate Your Style',
+    title: 'More than Hair',
     description:
-      'Discover our curated collection of contemporary fashion pieces',
-    cta: 'Shop Clothing',
-    link: '/shop/clothing',
+      'Clothing and accessories chosen to help you pull every look together with ease.',
+    cta: 'Discover Our Styles',
+    link: '/shop',
   },
 ]
 

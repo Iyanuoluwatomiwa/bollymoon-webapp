@@ -32,7 +32,6 @@ const Contact = lazy(() => import('./pages/Contact'))
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'))
 const RefundReturnsPolicy = lazy(() => import('./pages/RefundReturnsPolicy'))
 const ShippingPolicy = lazy(() => import('./pages/ShippingPolicy'))
-const ShopCategory = lazy(() => import('./pages/ShopCategory'))
 const Wishlist = lazy(() => import('./pages/Wishlist'))
 const Collections = lazy(() => import('./pages/Collections'))
 const Orders = lazy(() => import('./pages/Orders'))
@@ -81,7 +80,6 @@ const router = createBrowserRouter([
         index: true,
         element: pageSuspense(<Home />),
       },
-
       {
         path: 'collections',
         element: pageSuspense(<Collections />),
@@ -93,10 +91,6 @@ const router = createBrowserRouter([
       {
         path: 'shop',
         element: pageSuspense(<Shop />),
-      },
-      {
-        path: 'shop/:category',
-        element: pageSuspense(<ShopCategory />),
       },
       {
         path: 'shop/:category/:productId',
