@@ -17,39 +17,40 @@ export default function FiltersDisplay({
       {' '}
       {(filters.priceRange || filters.minRating || filters.inStockOnly) && (
         <div className="flex items-start gap-2 font-medium text-sm sm:text-base sm:items-center">
-          Filters:
+          <span className="py-1">Filters:</span>
+
           <div className="flex items-center gap-2 flex-wrap">
             {filters.priceRange && (
-              <div className="flex items-center gap-2 border border-primary  px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
+              <div className="flex items-center gap-2 bg-primary/20  px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
                 <span className="text-xs flex items-center gap-1">
                   {currencyFormatter(filters.priceRange[0])}{' '}
                   <Minus className="w-4 h-4" />{' '}
                   {currencyFormatter(filters.priceRange[1])}
                 </span>
                 <button onClick={() => cancelFilter('priceRange')}>
-                  <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
+                  <X className="w-4 h-4 text-secondary hover:cursor-pointer " />
                 </button>
               </div>
             )}
             {filters.minRating && (
-              <div className="flex items-center gap-2 border border-primary px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
+              <div className="flex items-center gap-2 bg-primary/20 px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
                 <span className="text-xs flex items-center gap-1">
                   {filters.minRating}
                   {filters.minRating !== 5 && '+'}
                   <Star className="w-4 h-4 fill-yellow-500 text-yellow-500" />{' '}
                 </span>
                 <button onClick={() => cancelFilter('minRating')}>
-                  <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
+                  <X className="w-4 h-4 text-secondary hover:cursor-pointer " />
                 </button>
               </div>
             )}
             {filters.inStockOnly && (
-              <div className="flex items-center gap-2 border border-primary px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
+              <div className="flex items-center gap-2 bg-primary/20 px-2 md:pl-4 md:pr-2 py-2 rounded-full w-max text-primary font-medium">
                 <span className="text-xs flex items-center gap-1">
                   In stock
                 </span>
                 <button onClick={() => cancelFilter('inStockOnly')}>
-                  <X className="w-4 h-4 text-muted-foreground hover:cursor-pointer hover:text-primary" />
+                  <X className="w-4 h-4 text-secondary hover:cursor-pointer" />
                 </button>
               </div>
             )}

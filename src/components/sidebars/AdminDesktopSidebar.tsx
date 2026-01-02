@@ -1,9 +1,7 @@
-import { NavLink, Link, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { adminNavigation } from '@/assets/data'
-import { Home, LogOutIcon } from 'lucide-react'
-import { useDispatch } from 'react-redux'
-import { clearUser } from '@/features/user/userSlice'
-import { toast } from 'sonner'
+import Logo from '../global/Logo'
+import AdminUserDropdown from '../global/AdminUserDropdown'
 
 function AdminDesktopSidebar() {
   const getClassName = ({ isActive }: { isActive: boolean }) => {
@@ -14,18 +12,11 @@ function AdminDesktopSidebar() {
       : 'text-foreground hover:bg-primary/10 hover:text-primary'
     return `${base} ${active}`
   }
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const handleLogout = () => {
-    dispatch(clearUser())
-    toast.success("You've logged out successfully!")
-    navigate('/')
-  }
 
   return (
     <aside className="fixed left-0 top-0 h-screen w-[14rem] flex flex-col border-r bg-gradient-to-b from-primary/10 to-accent/50">
-      <div className="h-16 flex items-center px-4 font-semibold text-primary shrink-0">
-        Bollymoon
+      <div className="py-4 flex items-center justify-center ">
+        <Logo size="h-9" />
       </div>
       <nav className="flex-1 overflow-y-auto px-2 space-y-1">
         {adminNavigation.map((item) => (
@@ -35,24 +26,11 @@ function AdminDesktopSidebar() {
           </NavLink>
         ))}
       </nav>
-      <div className="shrink-0 px-2 py-3 ">
-        <div className="space-y-1">
-          <Link
-            to="/"
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium rounded-xs hover:bg-primary/10 hover:text-primary"
-          >
-            <Home className="h-5 w-5 shrink-0" />
-            <span className="truncate">Go to Home</span>
-          </Link>
-
-          <button
-            onClick={handleLogout}
-            className="w-full flex items-center gap-2 px-3 py-2 text-sm font-medium text-destructive rounded-xs hover:bg-destructive/10 cursor-pointer"
-          >
-            <LogOutIcon className="h-5 w-5 rotate-180 shrink-0" />
-            <span className="truncate">Log out</span>
-          </button>
-        </div>
+      <div className="shrink-0 px-2 py-6 flex justify-center">
+        <AdminUserDropdown
+          buttonClassName=" h-10 w-10 bg-secondary"
+          iconClassName="w-8 h-8 text-white"
+        />
       </div>
     </aside>
   )

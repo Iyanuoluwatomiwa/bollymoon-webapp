@@ -32,7 +32,7 @@ function CategoriesCarousel({
               <Badge
                 className={`cursor-pointer capitalize w-full px-2 py-2  transition ${
                   selectedCategory === value
-                    ? 'bg-primary text-white'
+                    ? 'bg-primary/20 text-primary'
                     : 'border border-primary/20 bg-transparent text-foreground hover:bg-primary/10 hover:text-primary'
                 }`}
                 onClick={() => setSelectedCategory(value)}

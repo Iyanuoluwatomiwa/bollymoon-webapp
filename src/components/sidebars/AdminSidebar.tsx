@@ -1,8 +1,7 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -11,12 +10,9 @@ import {
   useSidebar,
 } from '../ui/sidebar'
 import { adminNavigation } from '@/assets/data'
-import { Home, LogOutIcon, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useEffect } from 'react'
 import { useIsDesktop } from '@/hooks/use-desktop'
-import { useDispatch } from 'react-redux'
-import { clearUser } from '@/features/user/userSlice'
-import { toast } from 'sonner'
 
 function AdminSidebar() {
   const { toggleSidebar, setOpen } = useSidebar()
@@ -30,13 +26,6 @@ function AdminSidebar() {
     return `${baseClasses} ${activeClasses}`
   }
   const isDesktop = useIsDesktop()
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
-  const handleLogout = () => {
-    dispatch(clearUser())
-    toast.success("You've logged out successfully!")
-    navigate('/')
-  }
   useEffect(() => {
     if (isDesktop) setOpen(false)
   }, [isDesktop])
@@ -71,29 +60,6 @@ function AdminSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-
-      <SidebarFooter className="py-4 bg-accent/50 ">
-        <SidebarMenu className="space-y-0">
-          <SidebarMenuItem>
-            <Link
-              to="/"
-              className="flex items-center text-xs md:text-sm gap-2 font-medium py-1.5 px-1 hover:bg-primary/10 hover:text-primary rounded-xs"
-            >
-              <Home className="w-4 h-4 md:w-5 md:h-5" />
-              <span>Go to Home</span>
-            </Link>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <button
-              onClick={handleLogout}
-              className="flex items-center gap-2 py-1.5 px-1 hover:bg-destructive/10  rounded-xs w-full cursor-pointer font-medium text-xs md:text-sm text-destructive"
-            >
-              <LogOutIcon className="rotate-180 w-4 h-4 md:w-5 md:h-5" />
-              <span>Log out</span>
-            </button>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
     </Sidebar>
   )
 }
