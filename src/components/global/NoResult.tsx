@@ -1,4 +1,4 @@
-import { AlertTriangle } from 'lucide-react'
+import { CloudAlert } from 'lucide-react'
 import { Button } from '../ui/button'
 
 interface NoResultProp {
@@ -15,7 +15,7 @@ function NoResult({ text, icon, isError, errorText }: NoResultProp) {
       {isError ? (
         <div className="text-center py-8 space-y-4">
           <div className="bg-primary/20 rounded-full p-4 mx-auto w-max">
-            <AlertTriangle className="h-10 w-10  md:w-16 md:h-16 mx-auto opacity-50 text-primary" />
+            <CloudAlert className="h-10 w-10  md:w-16 md:h-16 mx-auto opacity-50 text-primary" />
           </div>
           <p className="text-sm md:text-base font-semibold text-muted-foreground text-center">
             There was an issue loading {errorText}.
