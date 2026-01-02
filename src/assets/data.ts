@@ -21,7 +21,6 @@ import {
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
 import heroHair from '@/assets/images/hero-hair.webp'
 import heroClothing from '@/assets/images/hero-clothing.webp'
-import heroAccessories from '@/assets/images/hero-accessories.webp'
 import type { SizeGuideData } from '@/types/sizeGuide.types'
 import type { Filters } from '@/components/admin/FiltersDialog'
 import gallery1 from './images/gallery1.jpg'
@@ -31,6 +30,10 @@ import gallery1_1 from './images/gallery1_1.png'
 import gallery2_1 from './images/gallery2_1.png'
 import gallery3_1 from './images/gallery3_1.png'
 import gallery4_1 from './images/gallery4_1.png'
+import hair from './images/hair.jpeg'
+import clothing from './images/clothing.jpeg'
+import hairCare from './images/hairCare.jpeg'
+import accessories from './images/accessories.jpeg'
 
 export const navLinks = {
   home: {
@@ -41,10 +44,9 @@ export const navLinks = {
     name: 'collections',
     url: '/collections',
     categories: [
-      { name: 'New Arrivals', href: '/collection/new-arrivals' },
-      { name: 'Best Sellers', href: '/collection/best-sellers' },
-      { name: 'Trending Now', href: '/collection/trending' },
-      { name: 'Sale Items', href: '/collection/sale' },
+      { name: 'New Arrivals', href: '/collections/new-arrivals' },
+      { name: 'Best Sellers', href: '/collections/best-sellers' },
+      { name: 'Sale Items', href: '/collections/sale' },
     ],
   },
   shop: {
@@ -105,10 +107,9 @@ export const sidebarLinks = {
     name: 'collections',
     url: '/collections',
     categories: [
-      { name: 'New Arrivals', href: '/collection#new-arrivals' },
-      { name: 'Best Sellers', href: '/collection#best-sellers' },
-      { name: 'Trending Now', href: '/collection#trending' },
-      { name: 'Sale Items', href: '/collection#sale' },
+      { name: 'New Arrivals', href: '/collections/new-arrivals' },
+      { name: 'Best Sellers', href: '/collections/best-sellers' },
+      { name: 'Sale Items', href: '/collections/sale' },
     ],
   },
   shop: {
@@ -199,24 +200,16 @@ export const footer = {
       heading: 'quick links',
       links: [
         {
-          label: 'Collection',
-          url: '/collection',
+          label: 'Home',
+          url: '/',
+        },
+        {
+          label: 'Collections',
+          url: '/collections',
         },
         {
           label: 'Shop',
           url: '/shop',
-        },
-        {
-          label: 'Hair',
-          url: '/shop/hair',
-        },
-        {
-          label: 'Clothing',
-          url: '/shop/clothing',
-        },
-        {
-          label: 'Accessories',
-          url: '/shop/accessories',
         },
       ],
     },
@@ -265,8 +258,7 @@ export const heroCarouselSlides = [
   {
     id: 1,
     image: heroHair,
-    category: 'Welcome to',
-    title: 'BOLLYMOON',
+    title: 'welcome to bollymoon',
     description:
       'Transform your look with our premium quality hair bundles, wigs, and closures',
     cta: 'Shop now',
@@ -291,15 +283,6 @@ export const heroCarouselSlides = [
       'Discover our curated collection of contemporary fashion pieces',
     cta: 'Shop Clothing',
     link: '/shop/clothing',
-  },
-  {
-    id: 4,
-    image: heroAccessories,
-    category: 'Accessories',
-    title: 'Complete Your Look',
-    description: 'Luxury accessories to complement your unique style',
-    cta: 'Shop Accessories',
-    link: '/shop/accessories',
   },
 ]
 
@@ -1457,7 +1440,6 @@ export const collections = [
     image: gallery1_1,
     icon: Sparkles,
     badge: 'Just Dropped',
-    itemCount: 24,
   },
   {
     id: 'best-sellers',
@@ -1468,18 +1450,6 @@ export const collections = [
     image: gallery2_1,
     icon: Award,
     badge: 'Top Rated',
-    itemCount: 18,
-  },
-  {
-    id: 'trending',
-    title: 'Trending Now',
-    subtitle: "What's Hot",
-    description:
-      'Stay ahead of the style curve with our most popular current looks. These pieces are currently trending across social media and among our customers.',
-    image: gallery3_1,
-    icon: TrendingUp,
-    badge: 'Popular',
-    itemCount: 15,
   },
   {
     id: 'sale',
@@ -1490,7 +1460,6 @@ export const collections = [
     image: gallery4_1,
     icon: Tag,
     badge: 'Up to 20% Off',
-    itemCount: 12,
   },
 ]
 
@@ -1547,3 +1516,33 @@ export const collectionsData: Record<
     accentColor: 'from-primary via-secondary to-primary',
   },
 }
+
+export const features = [
+  {
+    icon: HeartHandshake,
+    title: 'Handcrafted Luxury',
+    desc: 'Each wig is made with care, attention to detail and strict quality control.',
+  },
+  {
+    icon: BadgePoundSterling,
+    title: 'Fair & Transparent Pricing',
+    desc: 'Premium quality doesn’t have to come with a premium price tag.',
+  },
+  {
+    icon: Truck,
+    title: ' Fast, Reliable UK Delivery',
+    desc: 'Your order reaches you quickly, securely and with love. ',
+  },
+  {
+    icon: HeadphonesIcon,
+    title: 'Customer-First Experience',
+    desc: 'We listen, we care, and we’re here to guide you every step of the way.',
+  },
+]
+
+export const shopByCategories = [
+  { title: 'Hair', url: '/', image: hair },
+  { title: 'Hair Care', url: '/', image: hairCare },
+  { title: 'Clothing', url: '/', image: clothing },
+  { title: 'Accessories', url: '/', image: accessories },
+]

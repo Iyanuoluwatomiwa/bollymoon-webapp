@@ -15,7 +15,7 @@ function Contact({ href, text, icon }: ContactProp) {
       <IconComponent className="w-4 h-4 text-accent-foreground" />
       <a
         href={href}
-        className="text-primary/70 hover:text-primary text-sm cursor-pointer font-medium"
+        className="text-primary hover:text-accent-foreground text-sm cursor-pointer font-medium"
       >
         {text}
       </a>

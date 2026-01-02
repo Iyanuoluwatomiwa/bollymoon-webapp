@@ -1,7 +1,7 @@
 import { collectionsData } from '@/assets/data'
 import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
-import { ArrowLeft } from 'lucide-react'
+import { ChevronLeft } from 'lucide-react'
 import { Link, useParams } from 'react-router-dom'
 
 function CollectionDetails() {
@@ -39,9 +39,9 @@ function CollectionDetails() {
             <nav className="mb-2">
               <Link
                 to="/collections"
-                className="inline-flex items-center gap-2 text-white hover:text-foreground transition-colors font-medium group"
+                className="inline-flex items-center gap-1 text-white hover:text-foreground transition-colors font-medium group"
               >
-                <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+                <ChevronLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
                 <span className="text-sm tracking-wider uppercase">
                   All Collections
                 </span>

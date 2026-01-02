@@ -8,7 +8,7 @@ import Container from '../global/Container'
 
 function AppFooter() {
   return (
-    <Container className="bg-footer pt-12 pb-6">
+    <Container className="bg-footer py-6">
       <footer>
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="space-y-4 border-b border-accent lg:border-b-0 pb-8 lg:col-span-2">

@@ -48,13 +48,13 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
       className={`sticky w-full top-0 z-40    ${
         showHeader
           ? 'translate-y-0'
-          : `${showSearchBar ? '-translate-y-[152px]' : '-translate-y-full'}`
+          : `${showSearchBar ? '-translate-y-[152px] ' : '-translate-y-full'}`
       }`}
     >
       <Container
-        className={`fixed bg-primary  top-0 inset-0  transition duration-300 -z-10 h-[72px] `}
+        className={`fixed bg-primary  top-0 inset-0  transition duration-300 -z-10 h-[56px] lg:h-[72px] `}
       >
-        <div className="flex items-center h-[72px] relative">
+        <div className="flex items-center h-[56px] lg:h-[72px] relative">
           <SearchBar
             onSearch={onSearch}
             placeholder="Search Our Store"
@@ -70,20 +70,21 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
       </Container>
       <Container
         className={`bg-header transition duration-300 ${
-          showSearchBar && 'translate-y-[72px] relative z-50'
+          showSearchBar &&
+          'translate-y-[56px] lg:translate-y-[72px] relative z-50'
         }`}
       >
-        <div className={`flex items-center justify-between h-20`}>
-          <div className="flex items-center gap-2">
+        <div className={`flex items-center justify-between h-14 lg:h-20`}>
+          <div className="flex items-center gap-1">
             <div className="lg:hidden">
               <button
                 onClick={toggleSidebar}
                 className="p-1 cursor-pointer hover:bg-primary text-white rounded-xs"
               >
-                <Menu className="w-5 h-5" />
+                <Menu strokeWidth={1} className="w-6 h-6" />
               </button>
             </div>
-            <Logo />
+            <Logo size="h-[34px] lg:h-[44px]" />
           </div>
           <div className="hidden lg:flex">
             <Navbar />

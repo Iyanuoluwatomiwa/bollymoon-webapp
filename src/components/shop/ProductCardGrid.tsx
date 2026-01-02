@@ -90,25 +90,25 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
     <div className="group rounded-sm overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md flex flex-col">
       {/* Image Container */}
       <div className="relative overflow-hidden rounded-t-sm ">
-        <figure className="group-hover:scale-110 transition-transform duration-300 ">
+        <figure className="group-hover:scale-110 transition-transform duration-300 w-full h-44">
           <img
             src={images[0].url}
             alt={name}
-            className="aspect-square object-cover "
+            className=" object-cover w-full h-full "
             loading="lazy"
           />
         </figure>
 
         {/* Badges */}
         {discountPercent && (
-          <div className="text-xs font-bold px-2 py-1 rounded-sm text-primary bg-white shadow-xs absolute top-1 right-1 flex justify-between items-center">
+          <div className="text-xs font-bold px-1 py-0.5 rounded-sm text-primary bg-white shadow-xs absolute top-1 right-1 flex justify-between items-center">
             -{discountPercent}%
           </div>
         )}
 
         {/* Wishlist Button */}
         <button
-          className="bg-white rounded-full p-2 hover:scale-110 cursor-pointer absolute shadow-xs bottom-1 right-1"
+          className="bg-white rounded-full p-1 hover:scale-110 cursor-pointer absolute shadow-xs bottom-1 right-1"
           onClick={handleWishlistToggle}
         >
           {isLoading || adding || removing ? (
@@ -124,7 +124,7 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
         </button>
       </div>
       {/* Content Section */}
-      <div className="p-2 pt-1 flex-1 flex flex-col gap-4 justify-between bg-accent/20">
+      <div className="p-2 pt-1 flex-1 flex flex-col gap-4 justify-between bg-white">
         <div className="space-y-2">
           {/* Category*/}
           <div>
