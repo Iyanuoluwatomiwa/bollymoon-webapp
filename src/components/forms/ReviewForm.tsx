@@ -3,12 +3,12 @@ import { useState, type FormEvent } from 'react'
 import { useSelector } from 'react-redux'
 import type { UserProfile } from '@/types/user.types'
 import FormTextArea from '../form-fields/FormTextArea'
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { Link } from 'react-router-dom'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import FormInput from '../form-fields/FormInput'
 
-function ReviewForm({ product }: { product: Product | undefined }) {
+function ReviewForm({ product }: { product: ProductFetch | undefined }) {
   const { userProfile }: { userProfile: UserProfile } = useSelector(
     (state: any) => state.userState
   )
@@ -37,7 +37,7 @@ function ReviewForm({ product }: { product: Product | undefined }) {
         <div className="flex items-center gap-2 md:gap-4 items-start shadow-sm hover:shadow-md rounded-sm overflow-hidden bg-white">
           <figure className="w-20 md:w-32 relative">
             <img
-              src={product?.images[0]}
+              src={product?.images[0].url}
               alt={product?.name}
               className="aspect-square w-full h-full object-cover"
               loading="lazy"
