@@ -49,36 +49,10 @@ function Navbar() {
             </ul>
           </NavigationMenuContent>
         </NavigationMenuItem>
-        <NavigationMenuItem>
-          <NavLink to={navLinks.shop.url} className={getClassName} end>
-            <NavigationMenuTrigger className="capitalize text-lg px-3 bg-transparent focus:bg-transparent data-[state=open]:hover:bg-transparent data-[state=open]:focus:bg-transparent data-[state=open]:bg-transparent/50 h-20 py-0 cursor-pointer">
-              {navLinks.shop.name}
-            </NavigationMenuTrigger>
+        <NavigationMenuItem className="flex items-center h-20">
+          <NavLink to={navLinks.shop.url} className={getClassName}>
+            <span className="px-3"> {navLinks.shop.name}</span>
           </NavLink>
-          <NavigationMenuContent>
-            <ul className="grid  px-4 py-2  grid-cols-3 w-[480px] ">
-              {Object.values(navLinks.shop.categories).map((category) => (
-                <li key={category.name} className="row-span-3">
-                  <Link
-                    to={category.url}
-                    className="mb-2.5 text-lg text-foreground font-medium hover:text-primary"
-                  >
-                    {category.name}
-                  </Link>
-                  <ul>
-                    {category.subcategories.map((sub) => (
-                      <ListItem
-                        key={sub.name}
-                        title={sub.name}
-                        href={sub.href}
-                        className="text-sm"
-                      />
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ul>
-          </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem className="flex items-center h-20">
           <NavLink to={navLinks.about.url} className={getClassName}>

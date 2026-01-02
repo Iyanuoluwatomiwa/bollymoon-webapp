@@ -11,7 +11,7 @@ import ProductCardGrid from '../shop/ProductCardGrid'
 import { Link } from 'react-router-dom'
 
 function BestSellers() {
-  const gridCols = productsMock?.length >= 4 ? 4 : 3
+  const gridCols = productsMock?.length > 3 ? 4 : 3
   return (
     <Container className="py-8 sm:py-10">
       <div className="space-y-6 md:space-y-8">
@@ -30,7 +30,7 @@ function BestSellers() {
               {productsMock.map((product, index) => (
                 <CarouselItem
                   key={index}
-                  className={`  basis-1/1 max-w-xs sm:basis-1/2 lg:basis-1/${gridCols}`}
+                  className={`  basis-1/1 sm:basis-1/2 lg:basis-1/${gridCols}`}
                 >
                   <ProductCardGrid product={product} />
                 </CarouselItem>

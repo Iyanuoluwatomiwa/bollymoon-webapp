@@ -46,17 +46,17 @@ function SignUpForm() {
     }
     try {
       await register(validatedData)
-       toast.success('Account created successfully! Please login to continue.')
+      toast.success('Account created successfully! Please login to continue.')
       navigate('/login')
-    } catch (error:any) {
+    } catch (error: any) {
       toast.error(error?.message)
       setSubmitting(false)
     }
   }
   return (
     <Card className="bg-white py-0 gap-4 ">
-      <div className="flex  justify-center py-4 border-b">
-        <Logo />
+      <div className="flex  justify-center py-4 lg:py-6 border-b">
+        <Logo size="lg:h-20 h-16" />
       </div>
       <AuthFormsHeading title="Create Account" />
       <SignInOptions text="Sign up with Google" />

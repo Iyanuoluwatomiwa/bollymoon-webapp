@@ -115,41 +115,6 @@ export const sidebarLinks = {
   shop: {
     name: 'shop',
     url: '/shop',
-    categories: {
-      hairs: {
-        name: 'Hair',
-        url: '/shop/hair',
-        subcategories: [
-          { name: 'Wigs', href: '/shop/hair?query=wigs' },
-          { name: 'Hair Extensions', href: '/shop/hair?query=extensions' },
-          { name: 'Lace Frontals', href: '/shop/hair?query=lace-frontals' },
-          { name: 'Closures', href: '/shop/hair?query=closures' },
-          { name: 'Bundles', href: '/shop/hair?query=bundles' },
-        ],
-      },
-      clothing: {
-        name: 'Clothing',
-        url: '/shop/clothing',
-        subcategories: [
-          { name: 'Dresses', href: '/shop/clothing?query=dresses' },
-          { name: 'Tops', href: '/shop/clothing?query=tops' },
-          { name: 'Bottoms', href: '/shop/clothing?query=bottoms' },
-          { name: 'Outerwear', href: '/shop/clothing?query=outerwear' },
-          { name: 'Activewear', href: '/shop/clothing?query=activewear' },
-        ],
-      },
-      accessories: {
-        name: 'Accessories',
-        url: '/shop/accessories',
-        subcategories: [
-          { name: 'Jewelry', href: '/shop/accessories?query=jewelry' },
-          { name: 'Bags', href: '/shop/accessories?query=bags' },
-          { name: 'Scarves', href: '/shop/accessories?query=scarves' },
-          { name: 'Hats', href: '/shop/accessories?query=hats' },
-          { name: 'Belts', href: '/shop/accessories?query=belts' },
-        ],
-      },
-    },
   },
   wishlist: {
     name: 'wishlist',
@@ -289,6 +254,7 @@ export const heroCarouselSlides = [
 export const categories = [
   { value: 'all', label: 'All' },
   { value: 'hair', label: 'Hair' },
+  { value: 'hairCare', label: 'Hair Care' },
   { value: 'clothing', label: 'Clothing' },
   { value: 'accessories', label: 'Accessories' },
 ]
@@ -324,6 +290,7 @@ export const shop = {
   categories: [
     { value: 'all', label: 'All' },
     { value: 'hair', label: 'Hair' },
+    { value: 'hairCare', label: 'Hair Care' },
     { value: 'clothing', label: 'Clothing' },
     { value: 'accessories', label: 'Accessories' },
   ],
