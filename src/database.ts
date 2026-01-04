@@ -21,7 +21,7 @@ export const productsMock = [
     updatedAt: Date.now().toString(),
     createdAt: Date.now().toString(),
     stock: 15,
-    averageRating: 4.8,
+    rating: 4.8,
     specs: [
       {
         originalPrice: 45,
@@ -76,7 +76,7 @@ export const productsMock = [
     updatedAt: Date.now().toString(),
     createdAt: Date.now().toString(),
     stock: 15,
-    averageRating: 4.8,
+    rating: 4.8,
     specs: [
       {
         originalPrice: 45,
@@ -131,7 +131,7 @@ export const productsMock = [
     updatedAt: Date.now().toString(),
     createdAt: Date.now().toString(),
     stock: 15,
-    averageRating: 4.8,
+    rating: 4.8,
     specs: [
       {
         originalPrice: 45,

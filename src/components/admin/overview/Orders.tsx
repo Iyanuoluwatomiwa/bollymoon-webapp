@@ -27,6 +27,7 @@ function Orders({ data }: Orders) {
       tracking_number: '',
     }
   }) */
+  console.log(data)
 
   return (
     <div className="space-y-4">

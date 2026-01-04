@@ -19,7 +19,7 @@ interface FiltersDialogProps {
     minRating,
     searchQuery,
   }: ProductFilter) => void
-  maxPrice: number | undefined
+  maxPrice: number
   setCurrentPage: (value: number) => void
 }
 

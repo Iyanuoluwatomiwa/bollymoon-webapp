@@ -158,7 +158,7 @@ function Shop() {
 
                 <FiltersDialog
                   setFilters={setFilters}
-                  maxPrice={50}
+                  maxPrice={maxPrice}
                   setCurrentPage={setCurrentPage}
                 />
               </div>

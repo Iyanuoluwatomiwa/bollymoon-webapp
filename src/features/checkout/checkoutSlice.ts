@@ -9,7 +9,7 @@ const defaultState: Checkout = {
     state: '',
     country: 'UK',
     postalCode: '',
-    note: '',
+    notes: '',
     id: '',
   },
   step: 1,
