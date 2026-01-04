@@ -17,6 +17,13 @@ function ContactUsForm() {
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
+  const resetForm = () => {
+    setFormData({
+      name: '',
+      email: '',
+      message: '',
+    })
+  }
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
@@ -30,6 +37,7 @@ function ContactUsForm() {
       toast.success(
         "Message sent successfully! We'll get back to you within 24 hours."
       )
+      resetForm()
     } catch (error: any) {
       toast.error(error?.message)
       setSubmitting(false)

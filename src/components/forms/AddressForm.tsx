@@ -4,20 +4,15 @@ import type { DeliveryAddress } from '@/types/orders.types'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { deliveryFormSchema } from '@/utils/schema'
+import type { UseMutateFunction } from '@tanstack/react-query'
 
 interface AddressFormProps {
   details?: DeliveryAddress | null
-  onSubmit: any
+  onSubmit: UseMutateFunction<void, Error, DeliveryAddress, unknown>
   submitting: boolean
-  isError: boolean
 }
 
-function AddressForm({
-  details,
-  onSubmit,
-  submitting,
-  isError,
-}: AddressFormProps) {
+function AddressForm({ details, onSubmit, submitting }: AddressFormProps) {
   const [formData, setFormData] = useState({
     phone: details?.phone ?? '',
     addressLine: details?.addressLine ?? '',
@@ -25,7 +20,7 @@ function AddressForm({
     state: details?.state ?? '',
     country: 'UK',
     postalCode: details?.postalCode ?? '',
-    note: details?.note ?? '',
+    notes: details?.notes ?? '',
   })
   const handleInputChange = (field: string, value: string) => {
     if (field === 'phone') {
@@ -35,6 +30,7 @@ function AddressForm({
       setFormData((prev) => ({ ...prev, [field]: value }))
     }
   }
+
   const resetForm = () => {
     setFormData({
       phone: '',
@@ -43,7 +39,7 @@ function AddressForm({
       state: '',
       country: 'UK',
       postalCode: '',
-      note: '',
+      notes: '',
     })
   }
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -52,21 +48,28 @@ function AddressForm({
     if (!validatedData) {
       return
     }
-    onSubmit({ ...validatedData, note: formData.note })
-    if (!submitting && !isError) {
-      resetForm()
-    }
+    onSubmit(
+      { ...validatedData, notes: formData.notes },
+      {
+        onSuccess: () => {
+          if (!details) {
+            resetForm()
+          }
+        },
+      }
+    )
   }
   const disableUpdate =
-    formData.phone === details?.phone ||
-    formData.addressLine === details?.addressLine ||
-    formData.note === details?.note ||
-    formData.state === details?.state ||
-    formData.city === details?.city
+    formData.phone === details?.phone &&
+    formData.addressLine === details?.addressLine &&
+    formData.state === details?.state &&
+    formData.city === details?.city &&
+    formData.postalCode === details?.postalCode &&
+    (formData.notes === '' || formData.notes === details?.notes)
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-2.5 bg-white p-2 md:p-4 rounded-sm shadow-sm"
+      className="space-y-2.5 bg-white px-2 py-4 md:px-4 md:py-6 rounded-sm shadow-sm"
     >
       <div className="flex items-center gap-1 md:gap-2">
         <FormInput
@@ -103,11 +106,11 @@ function AddressForm({
         required
       />
       <FormInput
-        name="note"
+        name="notes"
         handleInputChange={handleInputChange}
         placeholder="Additional Information"
         type="text"
-        value={formData.note}
+        value={formData.notes}
         label="Additional Information"
         maxLength={50}
       />

@@ -20,6 +20,9 @@ function ProductTableBody({ filteredProducts }: ProductTableBodyProp) {
         return (
           <TableRow key={index}>
             <TableCell>
+              <div className="line-clamp-1 max-w-full py-1">{index + 1}</div>
+            </TableCell>
+            <TableCell>
               <div className="line-clamp-1 max-w-full py-1">{product.name}</div>
             </TableCell>
             <TableCell
@@ -36,13 +39,21 @@ function ProductTableBody({ filteredProducts }: ProductTableBodyProp) {
               {product.stock}
             </TableCell>
             <TableCell className=" hidden sm:table-cell capitalize">
-              {product.category}
+              <div className="line-clamp-1 max-w-full py-1">
+                {product.category == 'hairCare'
+                  ? 'Hair Care'
+                  : product.category}
+              </div>
             </TableCell>
             <TableCell className=" hidden lg:table-cell capitalize">
-              {product.subcategory}
+              <div className="line-clamp-1 max-w-full py-1">
+                {product.subcategory}
+              </div>
             </TableCell>
             <TableCell className=" hidden lg:table-cell capitalize">
-              {product.collection.replace(/-/g, ' ')}
+              <div className="line-clamp-1 max-w-full py-1">
+                {product.collection.replace(/-/g, ' ')}
+              </div>
             </TableCell>
             <TableCell className="text-right w-20">
               <div className="flex flex-wrap justify-end gap-2 ">

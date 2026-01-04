@@ -2,7 +2,7 @@ import heroBg from '../../assets/images/collections.webp'
 
 function Hero() {
   return (
-    <div className="relative sm:min-h-[30vh] py-14 flex items-center justify-center flex-col gap-5 overflow-hidden">
+    <div className="relative sm:min-h-[25vh] py-14 flex items-center justify-center flex-col gap-5 overflow-hidden">
       <div
         className="absolute inset-0 bg-center bg-cover  blur-[2px]"
         style={{ backgroundImage: `url(${heroBg})` }}

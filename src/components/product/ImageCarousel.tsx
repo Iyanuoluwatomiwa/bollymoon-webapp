@@ -22,18 +22,13 @@ function ImageCarousel({
       className="w-full"
     >
       {carouselItems?.map((slide, index) => (
-        <SwiperSlide
-          key={index}
-          style={{
-            width: '86%',
-          }}
-        >
+        <SwiperSlide key={index} className="carousel-wrapper">
           <div>
-            <figure className="h-[200px] sm:h-[300px] md:h-[350px] w-full">
+            <figure className="h-min-[200px] sm:min-h-[300px] md:min-h-[350px] w-full">
               <img
                 src={slide.url}
                 alt="product-images"
-                className="w-full h-full object-cover object-center"
+                className="w-full h-auto object-cover object-top"
               />
             </figure>
           </div>

@@ -126,6 +126,37 @@ export const passwordRules = {
   specialChar: (password: string) => /[!@#$%^&*(),.?":{}|<>]/.test(password),
 }
 
+export const padNumber = (n: number | undefined) => {
+  if (n) {
+    return String(n).padStart(2, '0')
+  }
+}
+
+export const getUrgencyLevel = (current: number) => {
+  if (current == 0)
+    return {
+      level: 'out of stock',
+      className: 'bg-destructive text-white',
+      label: 'Out of Stock',
+    }
+  if (current <= 3)
+    return {
+      level: 'critical',
+      className: 'bg-destructive text-white',
+      label: 'Critical',
+    }
+  if (current <= 10)
+    return {
+      level: 'low',
+      className: 'bg-warning text-white ',
+      label: 'Low',
+    }
+  return {
+    level: 'active',
+    className: 'bg-success text-white',
+    label: 'Active',
+  }
+}
 /* export const urlsToFiles = async (
   urls: { url: string; publicId: string }[]
 ): Promise<File[]> => {

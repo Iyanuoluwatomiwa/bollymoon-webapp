@@ -12,6 +12,7 @@ import {
   useWishlists,
 } from '@/hooks/useQueries'
 import { toast } from 'sonner'
+import Ratings from '../global/Ratings'
 
 function ProductCardList({ product }: { product: ProductFetch }) {
   const {
@@ -94,7 +95,7 @@ function ProductCardList({ product }: { product: ProductFetch }) {
             <img
               src={images[0].url}
               alt={name}
-              className="aspect-4/5 object-cover w-full h-full object-center "
+              className="aspect-4/5 object-cover w-full h-full object-top "
               loading="lazy"
             />
           </figure>
@@ -149,6 +150,11 @@ function ProductCardList({ product }: { product: ProductFetch }) {
                 <p className="text-xs text-destructive font-medium">
                   Out of stock
                 </p>
+              )}
+              {product?.rating && (
+                <div className="mt-1">
+                  <Ratings rating={product?.rating} />
+                </div>
               )}
             </>
           </div>

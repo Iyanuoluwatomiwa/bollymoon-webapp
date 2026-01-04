@@ -61,7 +61,7 @@ function ImagesAdded({ imageFiles, setImageFiles }: ImagesAddedProps) {
         <img
           src={previewUrls[displayedProductImage]}
           alt="preview"
-          className="w-full object-cover aspect-square"
+          className="w-full object-cover aspect-square object-top"
           loading="lazy"
         />
       </figure>

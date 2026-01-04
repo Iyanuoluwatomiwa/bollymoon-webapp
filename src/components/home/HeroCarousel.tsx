@@ -16,21 +16,29 @@ function HeroCarousel() {
     hidden: {},
     show: {
       transition: {
-        staggerChildren: 0.5,
+        staggerChildren: 0.6,
       },
     },
   }
-  const fromSide: Variants = {
+  const fromSide1: Variants = {
     hidden: { opacity: 0, x: -60 },
     show: {
       opacity: 1,
       x: 0,
-      transition: { duration: 0.8, ease: 'easeOut' },
+      transition: { duration: 1, ease: 'easeOut', delay: 0.4 },
+    },
+  }
+  const fromSide2: Variants = {
+    hidden: { opacity: 0, x: -60 },
+    show: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 1.2, ease: 'easeOut', delay: 0.8 },
     },
   }
 
   const fromBottom: Variants = {
-    hidden: { opacity: 0, y: 15 },
+    hidden: { opacity: 0, y: 20 },
     show: {
       opacity: 1,
       y: 0,
@@ -74,18 +82,18 @@ function HeroCarousel() {
                 className="max-w-2xl text-white animate-fade-in"
               >
                 <motion.h2
-                  variants={fromSide}
+                  variants={fromSide1}
                   className="text-xl md:text-2xl lg:text-3xl font-bold mb-4 md:mb-6 leading-tight"
                 >
                   {slide.title}
                 </motion.h2>
                 <motion.p
-                  variants={fromSide}
+                  variants={fromSide2}
                   className="text-sm md:text-base lg:text-lg mb-6 md:mb-8 text-soft-gray max-w-xl"
                 >
                   {slide.description}
                 </motion.p>
-                <motion.a href={slide.link} variants={fromBottom}>
+                <motion.div variants={fromBottom}>
                   <Button
                     size="lg"
                     className=" text-charcoal font-semibold group transition-all duration-300 hover:scale-105"
@@ -93,7 +101,7 @@ function HeroCarousel() {
                     <a href={slide.link}>{slide.cta}</a>
                     <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
                   </Button>
-                </motion.a>
+                </motion.div>
               </motion.div>
             </Container>
           </div>

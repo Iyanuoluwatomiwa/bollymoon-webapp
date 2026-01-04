@@ -4,7 +4,7 @@ import Features from '@/components/home/Features'
 import HeroCarousel from '@/components/home/HeroCarousel'
 import BestSellers from '@/components/home/BestSellers'
 import OtherCollections from '@/components/home/OtherCollections'
-import Promotion from '@/components/home/Promotion'
+import Promotion from '@/components/global/Promotion'
 
 function Home() {
   return (

@@ -10,8 +10,9 @@ import { useSelector } from 'react-redux'
 
 function Wishlist() {
   const { token }: { token: string | null } = useSelector(
-    (state: any) => state.wishlistState
+    (state: any) => state.userState
   )
+
   const { data, isLoading, isError } = useWishlists()
   const fetchedWishlists = data?.data?.map(
     ({ product }: { product: ProductFetch }) => product
@@ -43,6 +44,8 @@ function Wishlist() {
                 )}
               </>
             )
+          ) : wishlistItems.length === 0 ? (
+            <EmptyWishlist />
           ) : (
             <WishlistItems wishlistItems={wishlistItems} />
           )}

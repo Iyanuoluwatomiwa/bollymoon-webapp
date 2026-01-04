@@ -1,16 +1,19 @@
 import CartItems from '@/components/cart/CartItems'
 import EmptyCart from '@/components/cart/EmptyCart'
+import OrderSummary from '@/components/cart/OrderSummary'
 import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
-import { sectionSuspense } from '@/utils/suspense'
-import { lazy } from 'react'
-import LazyLoad from 'react-lazyload'
 import { useSelector } from 'react-redux'
-
-const OrderSummary = lazy(() => import('@/components/cart/OrderSummary'))
 
 function Cart() {
   const { numItemsInCart } = useSelector((state: any) => state.cartState)
+  /*  const { token }: { token: string | null } = useSelector(
+      (state: any) => state.userState
+    )
+  const { data, isLoading, isError } = useCartItems()
+    const fetchedCartItems = data?.data?.map(
+      ({ numItemsInCart, cartItems }: { product: ProductFetch }) => product
+    ) */
 
   return (
     <>
@@ -24,7 +27,7 @@ function Cart() {
           </section>
           {!numItemsInCart || (
             <section className="mt-10 md:mt-13">
-              <LazyLoad>{sectionSuspense(<OrderSummary />)}</LazyLoad>
+              <OrderSummary />
             </section>
           )}
         </div>

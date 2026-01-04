@@ -12,6 +12,7 @@ import {
   useWishlists,
 } from '@/hooks/useQueries'
 import { toast } from 'sonner'
+import Ratings from '../global/Ratings'
 
 const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
   const {
@@ -31,7 +32,7 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
     originalPriceMax !== discountPriceMax &&
     discount(originalPriceMax, discountPriceMax)
   const { token }: { token: string | null } = useSelector(
-    (state: any) => state.wishlistState
+    (state: any) => state.userState
   )
   //for unauth users
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
@@ -90,11 +91,11 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
     <div className="group rounded-sm overflow-hidden transition-all duration-300 shadow-sm hover:shadow-md flex flex-col">
       {/* Image Container */}
       <div className="relative overflow-hidden rounded-t-sm ">
-        <figure className="group-hover:scale-110 transition-transform duration-300 w-full h-44">
+        <figure className="group-hover:scale-110 transition-transform duration-300 w-full h-44 sm:h-50 xl:h-60 ">
           <img
             src={images[0].url}
             alt={name}
-            className=" object-cover w-full h-full "
+            className=" object-cover w-full h-full object-top"
             loading="lazy"
           />
         </figure>
@@ -149,7 +150,13 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
               </p>
             )}
           </>
+          {product?.rating && (
+            <div className="mt-1">
+              <Ratings rating={product?.rating} />
+            </div>
+          )}
         </div>
+
         <div className="flex flex-col  gap-2 justify-between">
           {/* Price Section */}
           {minPrice !== maxPrice ? (

@@ -18,12 +18,7 @@ export default function AddressBook() {
   const [showAddressForm, setShowAddressForm] = useState(false)
   const { data, isLoading, isError } = useAllDeliveryAddresses()
   const addresses = data?.data
-  const {
-    mutate: saveAddress,
-    isPending: saving,
-    isError: savingError,
-  } = useSaveDeliveryAddress()
-
+  const { mutate: saveAddress, isPending: saving } = useSaveDeliveryAddress()
   return (
     <>
       <PageTitle title="Address Book" />
@@ -56,11 +51,7 @@ export default function AddressBook() {
               </div>
             </button>
             {showAddressForm && (
-              <AddressForm
-                onSubmit={saveAddress}
-                submitting={saving}
-                isError={savingError}
-              />
+              <AddressForm onSubmit={saveAddress} submitting={saving} />
             )}
             {isLoading ? (
               <AddressCardSkeleton />

@@ -51,9 +51,7 @@ const cartSlice = createSlice({
       toast.success(
         `${product.quantity > 1 ? `${product.quantity}X` : ''} ${
           product.name
-        } (${product.size && product.size.toUpperCase()}${
-          product.size && ','
-        } ${product.color.toUpperCase()}) has been  added to your cart`
+        } has been  added to your cart`
       )
     },
     removeItem: (state, action) => {
@@ -67,11 +65,7 @@ const cartSlice = createSlice({
       state.numItemsInCart -= product.quantity
       state.cartTotal -= product.price * product.quantity
       cartSlice.caseReducers.calculateTotals(state)
-      toast.success(
-        `${name} (${size && size.toUpperCase()}${
-          size && ','
-        } ${color.toUpperCase()}) has been  removed from your cart`
-      )
+      toast.success(`${name} has been  removed from your cart`)
     },
     editItem: (state, action) => {
       const { id, size, color, quantity } = action.payload

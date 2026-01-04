@@ -12,7 +12,7 @@ function AdminLayout() {
       <SidebarProvider defaultOpen={false}>
         <AdminSidebar />
         <div className="flex min-h-screen w-full">
-          <div className="w-[14rem] relative hidden lg:block">
+          <div className="w-[12rem] relative hidden lg:block">
             <AdminDesktopSidebar />
           </div>
           <div className="flex-1">

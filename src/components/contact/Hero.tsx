@@ -21,7 +21,7 @@ function Hero() {
                   {footer.socials.map(({ href, icon, text }) => {
                     const IconComponent = icon
                     return (
-                      <a href={href} className="bg-primary p-1">
+                      <a key={text} href={href} className="bg-primary p-1">
                         <IconComponent className="w-3 h-3 text-white" />
                         <span className="sr-only">{text}</span>
                       </a>
@@ -43,7 +43,7 @@ function Hero() {
             {footer.socials.map(({ href, icon, text }) => {
               const IconComponent = icon
               return (
-                <a href={href} className="bg-primary p-1">
+                <a key={text} href={href} className="bg-primary p-1">
                   <IconComponent className="w-3 h-3 text-white" />
                   <span className="sr-only">{text}</span>
                 </a>

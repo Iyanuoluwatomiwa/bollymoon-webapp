@@ -11,7 +11,7 @@ function EditProduct() {
   const { data: product, isLoading, isError } = useSingleProduct(productId)
 
   const { mutate: updateProduct, isPending: updating } = useUpdateProduct()
-  const handleUpdateProduct = async (product: any) => {
+  const handleUpdateProduct = (product: any) => {
     updateProduct({ productId, data: product })
   }
   return (

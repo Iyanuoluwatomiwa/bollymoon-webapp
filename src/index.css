@@ -176,4 +176,19 @@
     background-size: 200% 200%;
     animation: linear-shift 12s ease-in-out infinite;
   }
+  .carousel-wrapper {
+    max-width: 86%;
+    width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .carousel-wrapper {
+      max-width: 46%;
+    }
+  }
+  @media (min-width: 1024px) {
+    .carousel-wrapper {
+      max-width: 86%;
+    }
+  }
 }

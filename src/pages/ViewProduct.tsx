@@ -78,19 +78,24 @@ function ViewProduct() {
                           className="grid grid-cols-2 gap-4 place-items-start border-b last:border-b-0 pb-4 text-muted-foreground "
                         >
                           <div>
-                            <h3 className="capitalize text-base/5">{size}</h3>
-                            <span
-                              className={` relative capitalize text-sm font-medium`}
-                            >
-                              {color.color}
-                            </span>
+                            {size.toLowerCase() === 'n/a' || (
+                              <h3 className="capitalize text-base/5">{size}</h3>
+                            )}
+                            {color.color.toLowerCase() === 'n/a' || (
+                              <span
+                                className={` relative capitalize text-sm font-medium`}
+                              >
+                                {color.color}
+                              </span>
+                            )}
+
                             <div className="flex items-center flex-wrap gap-x-2 ">
                               <span className="text-xs sm:text-[14px] font-semibold text-muted-foreground">
-                                {discountPrice
+                                {discountPrice !== originalPrice
                                   ? currencyFormatter(discountPrice)
                                   : currencyFormatter(originalPrice)}
                               </span>
-                              {discountPrice && (
+                              {discountPrice !== originalPrice && (
                                 <span className="text-[10px] sm:text-[12px] text-muted-foreground line-through font-medium italic">
                                   {currencyFormatter(originalPrice)}
                                 </span>
@@ -117,12 +122,12 @@ function ViewProduct() {
                   (image: { url: string }, index: number) => (
                     <figure
                       key={index}
-                      className=" w-48 shadow rounded-sm overflow-hidden "
+                      className=" w-48 h-48 shadow rounded-sm overflow-hidden "
                     >
                       <img
                         src={image.url}
                         alt={`product_image_${index + 1}`}
-                        className="w-full object-cover aspect-square"
+                        className="w-full object-cover aspect-square object-top"
                         loading="lazy"
                       />
                     </figure>

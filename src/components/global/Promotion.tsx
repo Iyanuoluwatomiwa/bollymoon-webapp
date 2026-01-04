@@ -1,4 +1,4 @@
-import Container from '../global/Container'
+import Container from './Container'
 import image from '../../assets/images/gallery2_1.png'
 import { Link } from 'react-router-dom'
 
@@ -6,7 +6,7 @@ function Promotion() {
   return (
     <Container className="py-8 bg-white">
       <div className="grid sm:grid-cols-2 place-items-center gap-y-4 max-w-2xl mx-auto">
-        <figure className="w-50 h-60 md:w-54 md:h-64 mx-auto ">
+        <figure className="w-50 h-60 md:w-54 md:h-64 -ml-8 ">
           <img
             src={image}
             alt="promotion_image"

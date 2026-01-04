@@ -14,7 +14,7 @@ interface FiltersProps {
     minRating,
     searchQuery,
   }: ProductFilter) => void
-  maxPrice: number | undefined
+  maxPrice: number
   setCurrentPage: (value: number) => void
   setIsOpen?: (value: boolean) => void
 }
@@ -24,7 +24,7 @@ const Filters = ({
   setCurrentPage,
   setIsOpen,
 }: FiltersProps) => {
-  const [priceRange, setPriceRange] = useState([0, maxPrice ?? 1000])
+  const [priceRange, setPriceRange] = useState([0, maxPrice])
   const [inStockOnly, setInStockOnly] = useState(false)
   const [minRating, setMinRating] = useState(1)
 
@@ -39,7 +39,7 @@ const Filters = ({
   }
 
   const clearFilters = () => {
-    setPriceRange([0, maxPrice ?? 1000])
+    setPriceRange([0, maxPrice])
     setInStockOnly(false)
     setMinRating(1)
     setCurrentPage(1)

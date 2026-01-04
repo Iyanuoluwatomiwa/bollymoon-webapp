@@ -56,7 +56,7 @@ function ResetPasswordForm({ token }: { token: string | null }) {
   return (
     <Card className="bg-white py-0 gap-4 ">
       <div className="flex  justify-center py-4 lg:py-6 border-b">
-        <Logo size="lg:h-20 h-16" />
+        <Logo size="h-11 lg:h-16" />
       </div>
       <AuthFormsHeading
         title="Reset Password"

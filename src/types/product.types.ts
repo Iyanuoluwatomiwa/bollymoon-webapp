@@ -104,7 +104,7 @@ export type ProductFetch = {
   updatedAt: string
   createdAt: string
   specs?: Variant[]
-  averageRating?: number
-  totalReviews?: number
+  rating: number
+  reviewsCount?: number
   reviews?: ProductReviews[]
 }

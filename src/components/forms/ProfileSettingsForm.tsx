@@ -19,43 +19,28 @@ export default function ProfileSettingsForm() {
     firstName: userProfile?.firstName,
     lastName: userProfile?.lastName,
     email: userProfile?.email,
-    phone: userProfile?.phone,
   })
   const [submitting, setSubmitting] = useState(false)
 
   const handleInputChange = (field: string, value: string) => {
-    if (field === 'phone') {
-      const newValue = value.replace(/[^0-9]/g, '')
-      setFormData((prev) => ({ ...prev, [field]: newValue }))
-    } else {
-      setFormData((prev) => ({ ...prev, [field]: value }))
-    }
+    setFormData((prev) => ({ ...prev, [field]: value }))
   }
   const isFormActive =
     formData?.firstName === userProfile?.firstName &&
     formData?.lastName === userProfile?.lastName &&
-    userProfile?.email === formData.email &&
-    userProfile?.phone === formData?.phone
+    userProfile?.email === formData.email
 
   const dispatch = useDispatch()
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setSubmitting(true)
-    if (formData.phone && formData?.phone?.length !== 10) {
-      toast.warning('Please enter a valid 10-digit phone number')
-      setSubmitting(false)
-      return
-    }
     const validatedData = useValidateSchema(ProfileFormSchema, formData)
     if (!validatedData) {
       setSubmitting(false)
       return
     }
     try {
-      const response = await updateProfile({
-        ...validatedData,
-        phone: formData?.phone,
-      })
+      const response = await updateProfile(validatedData)
       dispatch(
         setUserProfile({
           userProfile: response?.data,
@@ -102,30 +87,6 @@ export default function ProfileSettingsForm() {
         required
         disabled={true}
       />
-      <div className="flex items-center gap-1 md:gap-2">
-        <FormInput
-          name="prefix"
-          handleInputChange={handleInputChange}
-          placeholder="Prefix"
-          type="text"
-          value="+44"
-          label="Prefix"
-          className="w-13 rounded-r-none disabled:text-foreground"
-          disabled
-        />
-        <div className="flex-1">
-          <FormInput
-            name="phone"
-            handleInputChange={handleInputChange}
-            placeholder="Phone Number"
-            type="text"
-            value={formData.phone}
-            label="Phone Number"
-            className="rounded-l-none"
-            maxLength={10}
-          />
-        </div>
-      </div>
       <FormSubmitButton
         text="Update Profile"
         texting="Updating"

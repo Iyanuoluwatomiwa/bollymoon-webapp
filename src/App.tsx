@@ -13,7 +13,9 @@ import { useAddToWishlist } from './hooks/useQueries'
 import { clearWishlist } from './features/wishlist/wishlistSlice' */
 import { profile } from './api/auth'
 /* import { toast } from 'sonner' */
-import type { UserProfile } from './types/user.types'
+import type { ProductFetch } from './types/product.types'
+import { addBulkWishlist } from './api/wishlist'
+import { clearWishlist } from './features/wishlist/wishlistSlice'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -219,15 +221,16 @@ const router = createBrowserRouter([
 
 function App() {
   const dispatch = useDispatch()
-  const { userProfile, token }: { userProfile: UserProfile; token: string } =
-    useSelector((state: any) => state.userState)
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.userState
+  )
 
   console.log(token)
-
-  /*  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
-    (state: any) => state.userState
-  ) */
-  /*  const { mutate: addToWishlist } = useAddToWishlist() */
+  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
+    (state: any) => state.wishlistState
+  )
+  const productIds = wishlistItems.map(({ id }) => id)
+  console.log(productIds)
 
   useEffect(() => {
     if (!token) return
@@ -239,12 +242,15 @@ function App() {
             userProfile: response?.data,
           })
         )
+        if (productIds.length) {
+          await addBulkWishlist(productIds)
+        }
       } catch (error: any) {}
 
-      /*  dispatch(clearWishlist()) */
+      dispatch(clearWishlist())
     }
     getUserDetails()
-  }, [token, userProfile, dispatch])
+  }, [token, dispatch])
 
   return (
     <RouterProvider

@@ -18,6 +18,14 @@ export const addToWishlist = async (id: string | undefined) => {
     handleApiError(error)
   }
 }
+export const addBulkWishlist = async (ids: string[] | undefined) => {
+  try {
+    const response = await api.post(`/v1/wishlist/bulk`, { productIds: ids })
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
 export const removeFromWishlist = async (id: string | undefined) => {
   try {
     const response = await api.delete(`/v1/wishlist/${id}`)

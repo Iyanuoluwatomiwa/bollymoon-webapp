@@ -22,6 +22,7 @@ import {
 import type { DeliveryAddress } from '@/types/orders.types'
 import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
 import { toast } from 'sonner'
+import { getCartItems } from '@/api/cart'
 
 export const useAllProducts = () => {
   const getAllProducts = async () => {
@@ -52,8 +53,8 @@ export const useSingleProduct = (productId: string | undefined) => {
 export const useCreateProduct = () => {
   const createProductAction = async (data: ProductUpload) => {
     try {
-      const response: any = await createProduct(data)
-      toast.success(response?.message)
+      await createProduct(data)
+      toast.success('Product added successfully!')
     } catch (error: any) {
       toast.error(error?.message)
     }
@@ -306,4 +307,16 @@ export const useRemoveFromWishlist = () => {
   })
 
   return removeFromWishlistFunction
+}
+
+export const useCartItems = () => {
+  const cartItems = async () => {
+    const cartItems = await getCartItems()
+    return cartItems
+  }
+  const queryData = useQuery({
+    queryKey: ['cart-items'],
+    queryFn: cartItems,
+  })
+  return queryData
 }

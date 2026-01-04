@@ -35,7 +35,6 @@ function LoginForm() {
     }
     try {
       const response = await login(validatedData)
-
       dispatch(setToken({ token: response?.data?.token }))
       toast.success("Welcome, you've logged in successfully!")
       navigate('/')
@@ -47,7 +46,7 @@ function LoginForm() {
   return (
     <Card className="bg-white py-0 gap-4 w-full">
       <div className="flex  justify-center  py-4 lg:py-6 border-b">
-        <Logo size="lg:h-20 h-16" />
+        <Logo size="h-11 lg:h-16" />
       </div>
       <AuthFormsHeading title="Login" />
       <SignInOptions text="Continue with Google" />

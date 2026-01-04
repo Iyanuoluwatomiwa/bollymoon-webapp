@@ -7,7 +7,6 @@ import PasswordRequirements from '../auth/PasswordRequirements'
 import { passwordRules } from '@/utils/format'
 import { changePassword } from '@/api/auth'
 import { toast } from 'sonner'
-import { useSelector } from 'react-redux'
 
 export default function SecuritySettingsForm() {
   const [formData, setFormData] = useState({
@@ -16,10 +15,6 @@ export default function SecuritySettingsForm() {
     confirmNewPassword: '',
   })
 
-  const { token }: { token: string } = useSelector(
-    (state: any) => state.userState
-  )
-  console.log(token)
   const [submitting, setSubmitting] = useState(false)
   const isFormValid =
     passwordRules.minLength(formData.newPassword) &&

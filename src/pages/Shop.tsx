@@ -17,7 +17,7 @@ import { useAllProducts } from '@/hooks/useQueries'
 import ProductCardGridSkeleton from '@/components/skeletons/ProductCardGridSkeleton'
 import ProductCardListSkeleton from '@/components/skeletons/ProductCardListSkeleton'
 import NoResult from '@/components/global/NoResult'
-import { Package } from 'lucide-react'
+import { Loader2, Package } from 'lucide-react'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
@@ -25,7 +25,7 @@ const getViewMode =
 
 function Shop() {
   //filters
-  /*  const [searchQuery, setSearchQuery] = useState('') */
+  /* const [searchQuery, setSearchQuery] = useState('')  */
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [filters, setFilters] = useState<ProductFilter>({
     priceRange: null,
@@ -60,38 +60,42 @@ function Shop() {
 
   const itemsPerPage = 12
   //fetch filtered products
-  /* const maxPrice = 100 */
+  const maxPrice =
+    products?.length === 0 || products?.length == undefined
+      ? 0
+      : products?.reduce(
+          (max, product) =>
+            product.originalPriceMax > max ? product.originalPriceMax : max,
+          products[0].originalPriceMax
+        )
 
   const totalPages = products && Math.ceil(products?.length / itemsPerPage)
 
   const filteredProductsByCategory = products?.filter((product) => {
     const matchesCategory =
       selectedCategory == 'all' || product.category == selectedCategory
-
     return matchesCategory
   })
 
   // Sort products
-  /*  const sortedProducts =
+  const sortedProducts =
     filteredProductsByCategory &&
     filteredProductsByCategory.flat().sort((a, b) => {
-    const aMaxPrice = a.discountPrice?.max
-    ? Math.max(a.discountPrice?.max, a.originalPrice.max)
-    const bMaxPrice = b.discountPrice?.max
-    ? Math.max(b.discountPrice?.max, b.originalPrice.max)
-    switch (sortBy) {
+      const aMaxPrice =
+        a.discountPriceMax && Math.max(a.discountPriceMax, a.originalPriceMax)
+      const bMaxPrice =
+        b.discountPriceMax && Math.max(b.discountPriceMax, b.originalPriceMax)
+      switch (sortBy) {
         case 'price-low':
-          return  - b.discountPrice.max
+          return aMaxPrice - bMaxPrice
         case 'price-high':
-          return b.discountPrice?.max - a.discountPrice.min
+          return bMaxPrice - aMaxPrice
         case 'rating':
           return b.rating - a.rating
         default:
           return 0
       }
-      
-     
-    })  */
+    })
 
   let productView
   if (isLoading) {
@@ -104,9 +108,9 @@ function Shop() {
   } else {
     productView =
       viewMode === 'grid' ? (
-        <ProductsGrid products={filteredProductsByCategory} />
+        <ProductsGrid products={sortedProducts} />
       ) : (
-        <ProductsList products={filteredProductsByCategory} />
+        <ProductsList products={sortedProducts} />
       )
   }
 
@@ -130,11 +134,17 @@ function Shop() {
         </section>
         <div className="lg:grid lg:grid-cols-8 gap-4">
           <div className="hidden lg:block col-span-2 border-r border-accent-foreground my-8">
-            <Filters
-              setFilters={setFilters}
-              maxPrice={50}
-              setCurrentPage={setCurrentPage}
-            />
+            {isLoading ? (
+              <div className="min-h-[50vh] w-full flex items-center justify-center">
+                <Loader2 className="animate-spin" />
+              </div>
+            ) : (
+              <Filters
+                setFilters={setFilters}
+                maxPrice={maxPrice}
+                setCurrentPage={setCurrentPage}
+              />
+            )}
           </div>
           <div className="my-8 col-span-6">
             <div className="mb-8 space-y-4">

@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { productFormSelectOptions } from '@/assets/data'
@@ -6,18 +6,19 @@ import FormInput from '../form-fields/FormInput'
 import FormTextArea from '../form-fields/FormTextArea'
 import FormSelect from '../form-fields/FormSelect'
 import { Loader2Icon } from 'lucide-react'
-import type { Variant } from '@/types/product.types'
+import type { ProductUpload, Variant } from '@/types/product.types'
 import ProductVariants from '../admin/products/ProductVariants'
 import ProductImages from '../admin/products/ProductImages'
 import { useNavigate } from 'react-router-dom'
 import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { productSchema } from '@/utils/schema'
 import { handleImagesUpload } from '@/services/uploadService'
+import type { UseMutateFunction } from '@tanstack/react-query'
 /* import { urlsToFiles } from '@/utils/format'
  */
 interface ProductFormProps {
   product?: any
-  onSubmit: (data: any) => Promise<void>
+  onSubmit: UseMutateFunction<void, Error, ProductUpload, unknown>
   onSubmitting: boolean
 }
 const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
@@ -40,8 +41,11 @@ const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
   const subcategories: Record<string, { value: string; label: string }[]> = {
     hair: productFormSelectOptions.subcategories.hair,
     cosmetics: productFormSelectOptions.subcategories.cosmetics,
+    clothing: productFormSelectOptions.subcategories.clothing,
+    hairCare: productFormSelectOptions.subcategories.hairCare,
+    accessories: productFormSelectOptions.subcategories.accessories,
   }
-  /*  const resetForm = () => {
+  const resetForm = () => {
     setFormData({
       name: '',
       description: '',
@@ -51,12 +55,12 @@ const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
     })
     setVariants([])
     setImageFiles([])
-  } */
-  useEffect(() => {
+  }
+  /* useEffect(() => {
     if (product) {
-      /* urlsToFiles(product?.images).then(setImageFiles) */
+       urlsToFiles(product?.images).then(setImageFiles) 
     }
-  }, [product?.images])
+  }, [product?.images]) */
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const validatedData = useValidateSchema(productSchema, formData)
@@ -80,10 +84,13 @@ const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
       specs: variants,
       images: imageUrls,
     }
-    await onSubmit(productData)
+    onSubmit(productData, {
+      onSuccess: () => {
+        resetForm()
+        navigate('/admin/products')
+      },
+    })
     setIsSubmitting(onSubmitting)
-
-    /*  isError ? navigate('/admin/products') : resetForm() */
   }
 
   return (

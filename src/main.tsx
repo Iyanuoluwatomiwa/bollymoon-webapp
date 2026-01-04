@@ -11,6 +11,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+      retry: 1,
     },
   },
 })
@@ -18,8 +20,8 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')!).render(
   <HelmetProvider>
     <Provider store={store}>
-      <Toaster position="top-center" />
       <QueryClientProvider client={queryClient}>
+        <Toaster position="top-center" />
         <App />
       </QueryClientProvider>
     </Provider>

@@ -67,7 +67,7 @@ function AddToCart({ productId }: { productId: string }) {
     )
   }
   const cartItem = {
-    image: '',
+    image: product?.images[0].url,
     name: product?.name,
     price: 0,
     color: '',

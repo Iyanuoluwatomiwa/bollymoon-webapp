@@ -45,11 +45,11 @@ function CategoriesCarousel({
           ))}
         </CarouselContent>
         <CarouselPrevious
-          className={`-left-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary  `}
+          className={`-left-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary border-0 shadow-none  `}
         />
         <CarouselNext
           variant="ghost"
-          className={`-right-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary  `}
+          className={`-right-2 cursor-pointer bg-transparent hover:bg-transparent hover:text-primary border-0  shadow-none`}
         />
       </Carousel>
     </div>

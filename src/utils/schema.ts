@@ -88,23 +88,8 @@ export const ProfileFormSchema = z.object({
 })
 
 export const productSchema = z.object({
-  name: z
-    .string()
-    .min(10, {
-      message: 'name must be at least 10 characters',
-    })
-    .max(50, {
-      message: 'name must be less than 50 characters',
-    }),
-  description: z.string().refine(
-    (description) => {
-      const wordCount = description.split(' ').length
-      return wordCount >= 10 && wordCount <= 100
-    },
-    {
-      message: 'Description must be between 10 and 100 words',
-    }
-  ),
+  name: z.string(),
+  description: z.string(),
   category: z.string().min(1, {
     message: 'Please select a category',
   }),

@@ -2,6 +2,7 @@ import CollectionGrid from '@/components/collections/CollectionGrid'
 import Hero from '@/components/collections/Hero'
 import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
+import Promotion from '@/components/global/Promotion'
 
 function Collections() {
   return (
@@ -9,10 +10,9 @@ function Collections() {
       <PageTitle title="Collections" />
       <Hero />
       <Container className="py-10">
-        <div className="space-y-10">
-          <CollectionGrid />
-        </div>
+        <CollectionGrid />
       </Container>
+      <Promotion />
     </>
   )
 }

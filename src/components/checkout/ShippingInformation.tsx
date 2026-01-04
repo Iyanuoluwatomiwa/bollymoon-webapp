@@ -83,13 +83,17 @@ function ShippingInformation() {
                     <ShippingAddressCard key={index} {...address} />
                   ))}
                 </div>
-                <NoResult
-                  text="No saved address. Please, add an address."
-                  icon={Truck}
-                  isError={isError}
-                  errorText="your saved addresses"
-                />
-                {savedAddressess?.length === 0 && (
+                {(savedAddressess?.length == 0 ||
+                  savedAddressess?.length == undefined) && (
+                  <NoResult
+                    text="No saved address. Please, add an address."
+                    icon={Truck}
+                    isError={isError}
+                    errorText="your saved addresses"
+                  />
+                )}
+
+                {!isError && (
                   <div className="w-max mx-auto">
                     <Link to="/address-book">
                       <button className="text-white bg-primary hover:bg-primary/90 font-medium w-full rounded-sm text-xs text-sm h-9 cursor-pointer flex items-center gap-2 mx-auto px-4">

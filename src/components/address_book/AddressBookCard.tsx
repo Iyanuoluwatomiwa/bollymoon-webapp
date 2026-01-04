@@ -14,7 +14,7 @@ export default function AddressBookCard({
   country,
   postalCode,
   phone,
-  note,
+  notes,
   id,
 }: DeliveryAddress) {
   const [showEditForm, setShowEditForm] = useState(false)
@@ -25,17 +25,14 @@ export default function AddressBookCard({
     country,
     postalCode,
     phone,
-    note,
-    id,
+    notes,
   }
-  const {
-    mutate: updateAddress,
-    isPending: updating,
-    isError,
-  } = useUpdateDeliveryAddress()
+  const { mutate: updateAddress, isPending: updating } =
+    useUpdateDeliveryAddress()
+
   const { mutate: deleteAddress, isPending: deleting } =
     useDeleteDeliveryAddress()
-  const handleUpdateDeliveryAddress = async (details: DeliveryAddress) => {
+  const handleUpdateDeliveryAddress = (details: DeliveryAddress) => {
     updateAddress({ id, details })
   }
 
@@ -83,7 +80,6 @@ export default function AddressBookCard({
           details={details}
           onSubmit={handleUpdateDeliveryAddress}
           submitting={updating}
-          isError={isError}
         />
       )}
     </div>

@@ -13,7 +13,7 @@ export type OrderItem = {
 }
 
 export type DeliveryAddress = {
-  id: string
+  id?: string
   userId?: string
   phone: string
   addressLine: string
@@ -21,7 +21,7 @@ export type DeliveryAddress = {
   state: string
   country: string
   postalCode: string
-  note: string
+  notes: string
 }
 
 export type Order = {

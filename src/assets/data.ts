@@ -244,7 +244,7 @@ export const heroCarouselSlides = [
     image: heroClothing,
     title: 'More than Hair',
     description:
-      'Clothing and accessories chosen to help you pull every look together with ease.',
+      'Clothing, cosmetics, and accessories chosen to help you pull every look together with ease.',
     cta: 'Discover Our Styles',
     link: '/shop',
   },
@@ -886,8 +886,20 @@ export const productFormSelectOptions = {
       label: 'Hair',
     },
     {
+      value: 'hairCare',
+      label: 'Hair Care',
+    },
+    {
+      value: 'clothing',
+      label: 'Clothing',
+    },
+    {
       value: 'cosmetics',
       label: 'Cosmetics',
+    },
+    {
+      value: 'accessories',
+      label: 'Accessories',
     },
   ],
   subcategories: {
@@ -898,17 +910,94 @@ export const productFormSelectOptions = {
       { label: 'Closures', value: 'closures' },
       { label: 'Hair Bundles', value: 'hair-bundles' },
     ],
+    hairCare: [
+      {
+        label: 'Shampoos',
+        value: 'shampoo',
+      },
+      {
+        label: 'Conditioners',
+        value: 'conditioners',
+      },
+      {
+        label: 'Treatments',
+        value: 'treatments',
+      },
+      {
+        label: 'Oils & Serums',
+        value: 'oils-serums',
+      },
+      {
+        label: 'Styling Products',
+        value: 'styling-products',
+      },
+      {
+        label: 'Scalp Care',
+        value: 'scalp-care',
+      },
+    ],
+    clothing: [
+      {
+        label: 'Dresses',
+        value: 'dresses',
+      },
+      {
+        label: 'Tops',
+        value: 'tops',
+      },
+      {
+        label: 'Bottoms',
+        value: 'bottoms',
+      },
+      {
+        label: 'Skirts',
+        value: 'skirts',
+      },
+      {
+        label: 'Outwear',
+        value: 'outwear',
+      },
+      {
+        label: 'Activewear',
+        value: 'activewear',
+      },
+    ],
     cosmetics: [
       {
-        label: 'Makeup',
-        value: 'makeup',
+        label: 'Face Makeup',
+        value: 'face-makeup',
+      },
+      {
+        label: 'Eye Makeup',
+        value: 'eye-makeup',
+      },
+      {
+        label: 'Lip Products',
+        value: 'lip products',
+      },
+      {
+        label: 'Skincare',
+        value: 'skincare',
+      },
+      {
+        label: 'Beauty Tools',
+        value: 'beauty-tools',
+      },
+      {
+        label: 'Makeup Sets',
+        value: 'makeup-sets',
+      },
+    ],
+    accessories: [
+      {
+        label: 'Accessories',
+        value: 'accessories',
       },
     ],
   },
   collections: [
     { label: 'New Arrivals', value: 'new-arrivals' },
     { label: 'Best Sellers', value: 'best-sellers' },
-    { label: 'Trending Now', value: 'trending' },
     { label: 'Sale Items', value: 'sales' },
   ],
 }
@@ -976,7 +1065,7 @@ export const adminProductsFilters: Filters[] = [
   },
   {
     label: 'collection',
-    options: ['all', 'new arrivals', 'best sellers', 'trending', 'sales'],
+    options: ['all', 'new arrivals', 'best sellers', 'sales'],
   },
 ]
 
@@ -1510,5 +1599,6 @@ export const shopByCategories = [
   { title: 'Hair', url: '/', image: hair },
   { title: 'Hair Care', url: '/', image: hairCare },
   { title: 'Clothing', url: '/', image: clothing },
+  { title: 'Cosmetics', url: '/', image: clothing },
   { title: 'Accessories', url: '/', image: accessories },
 ]

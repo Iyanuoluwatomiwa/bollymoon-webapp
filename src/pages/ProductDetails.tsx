@@ -5,8 +5,6 @@ import PageTitle from '@/components/global/PageTitle'
 import Ratings from '@/components/global/Ratings'
 import BackNavHeader from '@/components/headers/BackNavHeader'
 import ImageCarousel from '@/components/product/ImageCarousel'
-import EmptyProductReview from '@/components/ratings_reviews/EmptyProductReview'
-import ReviewCard from '@/components/ratings_reviews/ReviewCard'
 import AddToCart from '@/components/shop/AddToCart'
 import { Separator } from '@/components/ui/separator'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
@@ -65,7 +63,7 @@ function ProductDetails() {
   const handleRemoveItem = async () => {
     removeItem(product?.id, {
       onSuccess: () => {
-        toast.success(`${name} has been  removed from your wishlist`)
+        toast.success(`${product?.name} has been  removed from your wishlist`)
       },
       onError: () => {
         toast.error(
@@ -137,7 +135,7 @@ function ProductDetails() {
                           <span className="text-[10px] font-seibold text-white rounded-xs uppercase tracking-wider px-1.5 py-0.5 bg-primary block w-max">
                             {product?.category}
                           </span>
-                          <h2 className="text-sm md:text-base">
+                          <h2 className="text-sm sm:text-base md:text-lg">
                             {product?.name}
                           </h2>
                         </div>
@@ -164,8 +162,11 @@ function ProductDetails() {
                         {/* ratings, wishlist, and add to cart */}
                         <div className="flex items-center gap-4 justify-between">
                           <div className="flex items-center gap-2 text-[10px] sm:text-sm text-secondary">
-                            <Ratings rating={product?.averageRating} />
-                            <span>{product?.totalReviews} ratings</span>
+                            <Ratings rating={product?.rating} />
+                            <span>
+                              {product?.reviewsCount} rating
+                              {product?.reviewsCount !== 0 && 's'}
+                            </span>
                           </div>
                           <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
                             <button
@@ -220,9 +221,12 @@ function ProductDetails() {
                           <h2>Product Rating & Reviews</h2>
                           <div className="flex items-center gap-2 text-xs sm:text-sm">
                             <span className="border border-primary font-semibold text-primary px-0.5 rounded-xs">
-                              {product?.averageRating}/5
+                              {product?.rating}/5
                             </span>
-                            <span>{product?.totalReviews} ratings</span>
+                            <span>
+                              {product?.reviewsCount} rating
+                              {product?.reviewsCount !== 0 && 's'}
+                            </span>
                           </div>
                         </div>
 
@@ -230,7 +234,7 @@ function ProductDetails() {
                       </Link>
                     </div>
                     <Separator className="lg:hidden mb-2" />
-                    <div>
+                    {/* <div>
                       {product?.reviews ? (
                         <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2">
                           {product?.reviews?.slice(0, 6).map((review) => (
@@ -240,7 +244,7 @@ function ProductDetails() {
                       ) : (
                         <EmptyProductReview />
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               )}
