@@ -145,17 +145,17 @@ export const footer = {
   ],
   socials: [
     {
-      href: 'https://www.x.com',
+      href: 'https://www.x.com/sodunkeolayink1',
       icon: FaXTwitter,
       text: 'twitter',
     },
     {
-      href: 'https://www.tiktok.com',
+      href: 'https://www.tiktok.com/@bollymoon_hair6?_r=1&_t=ZN-92coylzfphu',
       icon: FaTiktok,
       text: 'tiktok',
     },
     {
-      href: 'https://www.instagram.com',
+      href: 'https://www.instagram.com/bollymoon_hair?igsh=MWYzYW5vMzZnMTg3OQ==',
       icon: FaInstagram,
       text: 'instagram',
     },
@@ -255,6 +255,7 @@ export const categories = [
   { value: 'hair', label: 'Hair' },
   { value: 'hairCare', label: 'Hair Care' },
   { value: 'clothing', label: 'Clothing' },
+  { value: 'cosmetics', label: 'Cosmetics' },
   { value: 'accessories', label: 'Accessories' },
 ]
 
