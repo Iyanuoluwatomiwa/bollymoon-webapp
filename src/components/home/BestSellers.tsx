@@ -25,7 +25,7 @@ function BestSellers() {
         </h2>
         {isLoading ? (
           <div className="w-full h-[25vh] flex items-center justify-center">
-            <Loader2 className="w-5 h-5" />
+            <Loader2 className="w-5 h-5 animate-spin" />
           </div>
         ) : (
           <>

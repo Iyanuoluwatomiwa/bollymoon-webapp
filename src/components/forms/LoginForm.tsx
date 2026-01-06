@@ -49,7 +49,7 @@ function LoginForm() {
         <Logo size="h-11 lg:h-16" />
       </div>
       <AuthFormsHeading title="Login" />
-      <SignInOptions text="Continue with Google" />
+      <SignInOptions />
       <CardContent className="space-y-6 px-4">
         <form onSubmit={handleSubmit} className="space-y-4">
           <FormInput
