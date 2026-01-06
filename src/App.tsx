@@ -15,7 +15,7 @@ import { clearWishlist } from './features/wishlist/wishlistSlice'
 import { addBulkCartItems } from './api/cart'
 import { clearCart } from './features/cart/cartSlice'
 import ProtectedRoute from './components/global/ProtectedRoute'
-import AdminProtectedRoute from './components/global/AdminProctectedRoute'
+import AdminProtectedRoute from './components/global/AdminProtectedRoute'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
