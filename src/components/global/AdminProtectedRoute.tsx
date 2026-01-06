@@ -13,7 +13,7 @@ const AdminProtectedRoute = ({ children }: { children: any }) => {
   if (!token) {
     return <Navigate to="/restricted_access" />
   }
-  if (userProfile && userProfile.role !== 'admin') {
+  if (userProfile && userProfile?.role?.name !== 'admin') {
     return <Navigate to="/restricted_access" />
   }
 

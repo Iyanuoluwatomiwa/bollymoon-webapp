@@ -122,7 +122,7 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
                 </span>
               </TooltipContent>
             </Tooltip>
-            {(userProfile && userProfile.role.name == 'admin') || (
+            {(userProfile && userProfile?.role?.name == 'admin') || (
               <>
                 <Wishlist />
                 <Cart />

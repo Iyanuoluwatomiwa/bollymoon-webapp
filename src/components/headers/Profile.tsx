@@ -11,6 +11,9 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const { userProfile }: { userProfile: UserProfile | null } = useSelector(
     (state: any) => state.userState
   )
+
+  console.log(userProfile)
+
   const navigate = useNavigate()
 
   return (
@@ -23,9 +26,9 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
         {userProfile ? (
           <button
             onClick={() => {
-              userProfile.role.name == 'admin'
+              userProfile?.role?.name == 'admin'
                 ? navigate('/admin')
-                : toggleAccountMenu
+                : toggleAccountMenu()
             }}
           >
             <span className="sr-only">user</span>

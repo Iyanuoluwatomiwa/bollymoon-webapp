@@ -22,7 +22,7 @@ function OrderDetails() {
   const { userProfile }: { userProfile: UserProfile } = useSelector(
     (state: any) => state.userState
   )
-  const role = userProfile.role
+  const role = userProfile?.role?.name
   const previousLink = role == 'admin' ? '/admin/orders' : '/orders'
   return (
     <>

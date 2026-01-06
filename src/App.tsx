@@ -263,18 +263,18 @@ function App() {
         items,
       }
       try {
-        if (productIds.length) {
-          await addBulkWishlist(productIds)
-        }
-        if (cartItems.length) {
-          await addBulkCartItems(uploadCartItems)
-        }
         const response = await profile()
         dispatch(
           setUserProfile({
             userProfile: response?.data,
           })
         )
+        if (productIds.length) {
+          await addBulkWishlist(productIds)
+        }
+        if (cartItems.length) {
+          await addBulkCartItems(uploadCartItems)
+        }
       } catch (error: any) {
         return
       }
