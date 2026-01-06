@@ -1,5 +1,3 @@
-import type { RatingsAndReviews } from './ratings_reviews.types'
-
 export type ColorQuantity = {
   color: string
   quantity: number
@@ -12,29 +10,6 @@ export type Variant = {
   colors: ColorQuantity[]
   originalPrice: number
   discountPrice?: number
-}
-
-export type Product = {
-  id: string
-  category: string
-  subcategory?: string
-  name: string
-  description: string
-  images: string[]
-  stock: number
-  rating: number
-  reviews: number
-  ratingsReviews: RatingsAndReviews[] | null
-  specs?: Variant[] | undefined
-  collection: string
-  discountPrice?: {
-    min: number
-    max: number
-  }
-  originalPrice: {
-    min: number
-    max: number
-  }
 }
 
 export type CartItem = {

@@ -8,11 +8,7 @@ import { setUserProfile } from './features/user/userSlice'
 //layouts
 import AppLayout from './components/layouts/AppLayout'
 import AdminLayout from './components/layouts/AdminLayout'
-/* import type { ProductFetch } from './types/product.types'
-import { useAddToWishlist } from './hooks/useQueries'
-import { clearWishlist } from './features/wishlist/wishlistSlice' */
 import { profile } from './api/auth'
-/* import { toast } from 'sonner' */
 import type { CartItem, ProductFetch } from './types/product.types'
 import { addBulkWishlist } from './api/wishlist'
 import { clearWishlist } from './features/wishlist/wishlistSlice'
