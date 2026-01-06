@@ -1,9 +1,17 @@
 import { collectionsData, shop } from '@/assets/data'
 import Container from '@/components/global/Container'
+import NoResult from '@/components/global/NoResult'
 import PageTitle from '@/components/global/PageTitle'
+import CustomPagination from '@/components/shop/CustomPagination'
+import ProductsGrid from '@/components/shop/ProductsGrid'
+import ProductsList from '@/components/shop/ProductsList'
 import Sorting from '@/components/shop/Sorting'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
-import { ChevronLeft } from 'lucide-react'
+import ProductCardGridSkeleton from '@/components/skeletons/ProductCardGridSkeleton'
+import ProductCardListSkeleton from '@/components/skeletons/ProductCardListSkeleton'
+import { useCollectionProducts } from '@/hooks/useQueries'
+import type { ProductFetch } from '@/types/product.types'
+import { ChevronLeft, Package } from 'lucide-react'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
@@ -13,13 +21,55 @@ const getViewMode =
 
 function CollectionDetails() {
   const { collectionId } = useParams()
+  const { data, isLoading, isError } = useCollectionProducts(collectionId)
   const collection = collectionsData[collectionId as string]
   const Icon = collection.icon
   const [sortBy, setSortBy] = useState('relevance')
+  const [currentPage, setCurrentPage] = useState(1)
   const [viewMode, setViewMode] = useState<ViewMode>(getViewMode)
   const handleViewMode = (mode: ViewMode) => {
     localStorage.setItem('product-view-mode', mode)
     setViewMode(mode)
+  }
+  const handlePageChange: (page: number) => void = (page) => {
+    setCurrentPage(page)
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+  const products: ProductFetch[] | undefined = data?.data
+  const itemsPerPage = 12
+  const totalPages = products && Math.ceil(products?.length / itemsPerPage)
+  const sortedProducts =
+    products &&
+    products.flat().sort((a, b) => {
+      const aMaxPrice =
+        a.discountPriceMax && Math.max(a.discountPriceMax, a.originalPriceMax)
+      const bMaxPrice =
+        b.discountPriceMax && Math.max(b.discountPriceMax, b.originalPriceMax)
+      switch (sortBy) {
+        case 'price-low':
+          return aMaxPrice - bMaxPrice
+        case 'price-high':
+          return bMaxPrice - aMaxPrice
+        default:
+          return 0
+      }
+    })
+
+  let productView
+  if (isLoading) {
+    productView =
+      viewMode === 'grid' ? (
+        <ProductCardGridSkeleton />
+      ) : (
+        <ProductCardListSkeleton />
+      )
+  } else {
+    productView =
+      viewMode === 'grid' ? (
+        <ProductsGrid collection products={sortedProducts} />
+      ) : (
+        <ProductsList products={sortedProducts} />
+      )
   }
   return (
     <>
@@ -89,7 +139,7 @@ function CollectionDetails() {
             </div>
           </Container>
         </header>
-        <Container>
+        <Container className="pb-10">
           <div className="flex items-center justify-between gap-2 mb-8">
             <Sorting
               sortBy={sortBy}
@@ -102,6 +152,29 @@ function CollectionDetails() {
               handleViewMode={handleViewMode}
             />
           </div>
+          <section>
+            <>
+              {productView}
+              {!isLoading &&
+                (sortedProducts?.length == 0 ||
+                  sortedProducts?.length == undefined) && (
+                  <NoResult
+                    errorText="products"
+                    isError={isError}
+                    text={`No product in this collection. Kindly, check back later. `}
+                    icon={Package}
+                  />
+                )}
+            </>
+
+            {sortedProducts && sortedProducts.length !== 0 && (
+              <CustomPagination
+                totalPages={totalPages as number}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+              />
+            )}
+          </section>
         </Container>
       </div>
     </>

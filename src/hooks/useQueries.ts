@@ -2,11 +2,17 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import {
   createProduct,
   deleteProduct,
+  getCollectionProducts,
   getProduct,
   getProducts,
+  getProductsMaxPrice,
   updateProduct,
 } from '@/api/products'
-import type { ProductUpload } from '@/types/product.types'
+import type {
+  CartItemUpload,
+  ProductFetch,
+  ProductUpload,
+} from '@/types/product.types'
 import {
   getAllOrders,
   getMyOrders,
@@ -22,16 +28,77 @@ import {
 import type { DeliveryAddress } from '@/types/orders.types'
 import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
 import { toast } from 'sonner'
-import { getCartItems } from '@/api/cart'
+import { addToCart, getCartItems, removeFromCart, updateCart } from '@/api/cart'
 
-export const useAllProducts = () => {
+export const useAllProducts = ({
+  search,
+  category,
+  minPrice,
+  maxPrice,
+  currentPage,
+  stock,
+}: {
+  search?: string
+  category?: string | null
+  minPrice?: number | null
+  maxPrice?: number | null
+  currentPage?: number
+  stock?: boolean | null
+}) => {
   const getAllProducts = async () => {
-    const products = await getProducts()
+    const products = await getProducts({
+      search,
+      category,
+      minPrice,
+      maxPrice,
+      currentPage,
+      stock,
+    })
     return products
   }
   const queryData = useQuery({
-    queryKey: ['products'],
+    queryKey: [
+      'products',
+      search,
+      category,
+      minPrice,
+      maxPrice,
+      currentPage,
+      stock,
+    ],
     queryFn: getAllProducts,
+  })
+
+  return queryData
+}
+
+export const useProductsMaxPrice = () => {
+  const getAllProductsMaxPrice = async () => {
+    const data = await getProductsMaxPrice()
+    const products: ProductFetch[] = data?.data
+    const maxPrice = products?.reduce(
+      (max, product) =>
+        product.originalPriceMax > max ? product.originalPriceMax : max,
+      products[0].originalPriceMax
+    )
+    return maxPrice
+  }
+  const queryData = useQuery({
+    queryKey: ['products'],
+    queryFn: getAllProductsMaxPrice,
+  })
+
+  return queryData
+}
+
+export const useCollectionProducts = (collection: string | undefined) => {
+  const getProducts = async () => {
+    const products = await getCollectionProducts(collection)
+    return products
+  }
+  const queryData = useQuery({
+    queryKey: ['products', collection],
+    queryFn: getProducts,
   })
 
   return queryData
@@ -315,8 +382,65 @@ export const useCartItems = () => {
     return cartItems
   }
   const queryData = useQuery({
-    queryKey: ['cart-items'],
+    queryKey: ['cart'],
     queryFn: cartItems,
   })
   return queryData
+}
+
+export const useAddToCart = () => {
+  const addToCartAction = async (data: CartItemUpload) => {
+    try {
+      await addToCart(data)
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const addToCartFunction = useMutation({
+    mutationFn: addToCartAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  return addToCartFunction
+}
+
+export const useUpdateCart = () => {
+  const updateCartAction = async (data: CartItemUpload) => {
+    try {
+      await updateCart(data)
+      toast.success('Cart updated')
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const updateCartFunction = useMutation({
+    mutationFn: updateCartAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  return updateCartFunction
+}
+export const useRemoveFromCart = () => {
+  const removeFromCartAction = async (data: CartItemUpload) => {
+    try {
+      await removeFromCart(data)
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const removeFromCartFunction = useMutation({
+    mutationFn: removeFromCartAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  return removeFromCartFunction
 }

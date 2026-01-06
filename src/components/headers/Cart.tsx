@@ -4,9 +4,16 @@ import { useSelector } from 'react-redux'
 import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
 import { useState } from 'react'
+import { useCartItems } from '@/hooks/useQueries'
 
 function Cart() {
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.userState
+  )
+  const { data, isLoading, isError } = useCartItems()
   const { numItemsInCart } = useSelector((state: any) => state.cartState)
+  const fetchedNumItemsInCart: number = data?.data?.numItemsInCart
+  const itemsInCart = token ? fetchedNumItemsInCart : numItemsInCart
   const pathname = useLocation().pathname
   const [open, setOpen] = useState(false)
   return (
@@ -27,7 +34,7 @@ function Cart() {
             />
           </NavLink>
           <span className="absolute -top-1.5 lg:-top-2 -right-2.5 lg:-right-3 text-[10px] lg:text-xs font-bold bg-primary text-primary-foreground w-5 h-5 lg:w-6 lg:h-6 rounded-full flex items-center justify-center">
-            {numItemsInCart}
+            {!isLoading && !isError && itemsInCart}
           </span>
         </div>
       </TooltipTrigger>

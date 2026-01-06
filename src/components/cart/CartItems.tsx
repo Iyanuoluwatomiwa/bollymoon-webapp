@@ -1,15 +1,13 @@
-import { useSelector } from 'react-redux'
 import CartItemCard from './CartItemCard'
 import type { CartItem } from '@/types/product.types'
 
-function CartItems() {
-  const {
-    numItemsInCart,
-    cartItems,
-  }: { numItemsInCart: number; cartItems: CartItem[] } = useSelector(
-    (state: any) => state.cartState
-  )
-
+function CartItems({
+  numItemsInCart,
+  items,
+}: {
+  numItemsInCart: number
+  items: CartItem[]
+}) {
   return (
     <>
       <div className="flex items-center justify-between mb-6">
@@ -18,8 +16,8 @@ function CartItems() {
         </h1>
       </div>
       <div className="space-y-4">
-        {cartItems.map((cartItem) => {
-          return <CartItemCard key={cartItem.id} {...cartItem} />
+        {items.map((item) => {
+          return <CartItemCard key={item.id} {...item} />
         })}
       </div>
     </>

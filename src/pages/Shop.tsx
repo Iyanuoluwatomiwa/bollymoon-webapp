@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import PageTitle from '@/components/global/PageTitle'
 import Sorting from '@/components/shop/Sorting'
 import ViewModeToggle from '@/components/shop/ViewModeToggle'
@@ -13,25 +13,39 @@ import type { ProductFetch, ProductFilter } from '@/types/product.types'
 import Filters from '@/components/shop/Filters'
 import FiltersDialog from '@/components/shop/FiltersDialog'
 import FiltersDisplay from '@/components/shop/FiltersDisplay'
-import { useAllProducts } from '@/hooks/useQueries'
+import { useAllProducts, useProductsMaxPrice } from '@/hooks/useQueries'
 import ProductCardGridSkeleton from '@/components/skeletons/ProductCardGridSkeleton'
 import ProductCardListSkeleton from '@/components/skeletons/ProductCardListSkeleton'
 import NoResult from '@/components/global/NoResult'
 import { Loader2, Package } from 'lucide-react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
   (localStorage.getItem('product-view-mode') as ViewMode) || 'grid'
 
 function Shop() {
+  const location = useLocation()
+  const queryParams = new URLSearchParams(location.search)
+  const category = queryParams.get('category')
+  const search = queryParams.get('search')
+  const navigate = useNavigate()
   //filters
-  /* const [searchQuery, setSearchQuery] = useState('')  */
-  const [selectedCategory, setSelectedCategory] = useState('all')
+  const [searchQuery, setSearchQuery] = useState(search || '')
   const [filters, setFilters] = useState<ProductFilter>({
     priceRange: null,
     inStockOnly: null,
-    minRating: null,
+    searchQuery,
+    category: category || '',
   })
+
+  useEffect(() => {
+    if (category || search) {
+      setSearchQuery(search || '')
+      setFilters({ ...filters, category })
+      navigate(location.pathname, { replace: true })
+    }
+  }, [category, search, navigate, location.pathname])
 
   //sorting
   const [sortBy, setSortBy] = useState('relevance')
@@ -42,45 +56,51 @@ function Shop() {
   //product view mode
   const [viewMode, setViewMode] = useState<ViewMode>(getViewMode)
 
+  const modifiedFilters = {
+    minPrice: filters.priceRange && filters.priceRange[0],
+    maxPrice: filters.priceRange && filters.priceRange[1],
+    stock: filters.inStockOnly && filters.inStockOnly,
+    search: filters.searchQuery,
+    currentPage,
+    category: filters.category,
+  }
   const handleViewMode = (mode: ViewMode) => {
     localStorage.setItem('product-view-mode', mode)
     setViewMode(mode)
   }
   //product fetch
-  const { data, isLoading, isError } = useAllProducts()
+  const { data: maxProductPrice, isLoading: allProductsLoading } =
+    useProductsMaxPrice()
+  const maxPrice = maxProductPrice ?? 0
+
+  const { data, isLoading, isError } = useAllProducts(modifiedFilters)
   const products: ProductFetch[] | undefined = data?.data
 
-  /* const handleSearchQuery: (searchQuery: string) => void = (searchQuery) => {
+  const handleSearchQuery = () => {
     setFilters({ ...filters, searchQuery })
     setCurrentPage(1)
-  } */
-  const onSearch = (searchQuery: string) => {
-    console.log(searchQuery)
+  }
+  const handleSelectedCategory = (value: string) => {
+    setFilters({ ...filters, category: value })
+    setCurrentPage(1)
+  }
+  const handleFilters = (
+    priceRange: number[] | null,
+    inStockOnly: boolean | null
+  ) => {
+    setFilters({ ...filters, priceRange, inStockOnly })
+    setCurrentPage(1)
   }
 
   const itemsPerPage = 12
   //fetch filtered products
-  const maxPrice =
-    products?.length === 0 || products?.length == undefined
-      ? 0
-      : products?.reduce(
-          (max, product) =>
-            product.originalPriceMax > max ? product.originalPriceMax : max,
-          products[0].originalPriceMax
-        )
 
   const totalPages = products && Math.ceil(products?.length / itemsPerPage)
 
-  const filteredProductsByCategory = products?.filter((product) => {
-    const matchesCategory =
-      selectedCategory == 'all' || product.category == selectedCategory
-    return matchesCategory
-  })
-
   // Sort products
   const sortedProducts =
-    filteredProductsByCategory &&
-    filteredProductsByCategory.flat().sort((a, b) => {
+    products &&
+    products.flat().sort((a, b) => {
       const aMaxPrice =
         a.discountPriceMax && Math.max(a.discountPriceMax, a.originalPriceMax)
       const bMaxPrice =
@@ -90,8 +110,6 @@ function Shop() {
           return aMaxPrice - bMaxPrice
         case 'price-high':
           return bMaxPrice - aMaxPrice
-        case 'rating':
-          return b.rating - a.rating
         default:
           return 0
       }
@@ -134,15 +152,15 @@ function Shop() {
         </section>
         <div className="lg:grid lg:grid-cols-8 gap-4">
           <div className="hidden lg:block col-span-2 border-r border-accent-foreground my-8">
-            {isLoading ? (
+            {allProductsLoading ? (
               <div className="min-h-[50vh] w-full flex items-center justify-center">
                 <Loader2 className="animate-spin" />
               </div>
             ) : (
               <Filters
-                setFilters={setFilters}
+                setFilters={handleFilters}
                 maxPrice={maxPrice}
-                setCurrentPage={setCurrentPage}
+                disabled={isLoading}
               />
             )}
           </div>
@@ -151,15 +169,17 @@ function Shop() {
               {/* search bar */}
               <div className="flex flex-row gap-2 items-center">
                 <SearchBar
-                  onSearch={onSearch}
+                  onSearch={handleSearchQuery}
                   placeholder="Search products by name..."
                   width="w-full"
+                  searchQuery={searchQuery}
+                  setSearchQuery={setSearchQuery}
                 />
 
                 <FiltersDialog
-                  setFilters={setFilters}
+                  setFilters={handleFilters}
                   maxPrice={maxPrice}
-                  setCurrentPage={setCurrentPage}
+                  disabled={isLoading}
                 />
               </div>
 
@@ -167,8 +187,8 @@ function Shop() {
               <FiltersDisplay filters={filters} setFilters={setFilters} />
 
               <CategoriesCarousel
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
+                selectedCategory={filters.category}
+                setSelectedCategory={handleSelectedCategory}
                 category={shop.categories}
               />
             </div>
@@ -197,8 +217,8 @@ function Shop() {
                 {' '}
                 {productView}
                 {!isLoading &&
-                  (filteredProductsByCategory?.length == 0 ||
-                    filteredProductsByCategory?.length == undefined) && (
+                  (sortedProducts?.length == 0 ||
+                    sortedProducts?.length == undefined) && (
                     <NoResult
                       errorText="products"
                       isError={isError}
@@ -208,14 +228,13 @@ function Shop() {
                   )}
               </>
 
-              {filteredProductsByCategory &&
-                filteredProductsByCategory.length !== 0 && (
-                  <CustomPagination
-                    totalPages={totalPages as number}
-                    currentPage={currentPage}
-                    handlePageChange={handlePageChange}
-                  />
-                )}
+              {sortedProducts && sortedProducts.length !== 0 && (
+                <CustomPagination
+                  totalPages={totalPages as number}
+                  currentPage={currentPage}
+                  handlePageChange={handlePageChange}
+                />
+              )}
             </section>
           </div>
         </div>

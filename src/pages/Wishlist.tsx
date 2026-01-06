@@ -17,6 +17,7 @@ function Wishlist() {
   const fetchedWishlists = data?.data?.map(
     ({ product }: { product: ProductFetch }) => product
   )
+
   //for unauth users
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.wishlistState

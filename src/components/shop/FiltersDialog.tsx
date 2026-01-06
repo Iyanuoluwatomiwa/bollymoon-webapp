@@ -1,7 +1,6 @@
 import { Button } from '../ui/button'
 import { SlidersHorizontal } from 'lucide-react'
 import Filters from './Filters'
-import type { ProductFilter } from '@/types/product.types'
 import {
   Dialog,
   DialogContent,
@@ -13,20 +12,15 @@ import {
 import { useState } from 'react'
 
 interface FiltersDialogProps {
-  setFilters: ({
-    priceRange,
-    inStockOnly,
-    minRating,
-    searchQuery,
-  }: ProductFilter) => void
+  setFilters: (priceRange: number[] | null, inStockOnly: boolean | null) => void
   maxPrice: number
-  setCurrentPage: (value: number) => void
+  disabled: boolean
 }
 
 export default function FiltersDialog({
   setFilters,
   maxPrice,
-  setCurrentPage,
+  disabled,
 }: FiltersDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -48,8 +42,8 @@ export default function FiltersDialog({
         <Filters
           setFilters={setFilters}
           maxPrice={maxPrice}
-          setCurrentPage={setCurrentPage}
           setIsOpen={setIsOpen}
+          disabled={disabled}
         />
       </DialogContent>
     </Dialog>

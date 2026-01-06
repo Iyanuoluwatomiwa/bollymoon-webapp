@@ -8,7 +8,7 @@ import {
 import { Badge } from '../ui/badge'
 
 interface CategoriesCarouselProp {
-  selectedCategory: string
+  selectedCategory: string | null | undefined
   setSelectedCategory: (category: string) => void
   category: { value: string; label: string }[]
 }

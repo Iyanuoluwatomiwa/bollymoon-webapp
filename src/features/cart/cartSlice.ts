@@ -78,6 +78,14 @@ const cartSlice = createSlice({
       cartSlice.caseReducers.calculateTotals(state)
       toast.success('Cart updated')
     },
+    clearCart: (state) => {
+      state.cartItems = []
+      state.numItemsInCart = 0
+      state.cartTotal = 0
+      state.shipping = 0
+      state.orderTotal = 0
+      localStorage.setItem('cart', JSON.stringify(defaultState))
+    },
     calculateTotals: (state) => {
       state.tax = 0.1 * state.cartTotal
       state.shipping = defaultState.shipping
@@ -87,6 +95,6 @@ const cartSlice = createSlice({
   },
 })
 
-export const { addItem, removeItem, editItem } = cartSlice.actions
+export const { addItem, removeItem, editItem, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer

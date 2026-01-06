@@ -2,35 +2,69 @@ import CartItems from '@/components/cart/CartItems'
 import EmptyCart from '@/components/cart/EmptyCart'
 import OrderSummary from '@/components/cart/OrderSummary'
 import Container from '@/components/global/Container'
+import NoResult from '@/components/global/NoResult'
 import PageTitle from '@/components/global/PageTitle'
+import { useCartItems } from '@/hooks/useQueries'
+import type { CartItem, FetchedCartItem } from '@/types/product.types'
+import { Loader2 } from 'lucide-react'
 import { useSelector } from 'react-redux'
 
 function Cart() {
-  const { numItemsInCart } = useSelector((state: any) => state.cartState)
-  /*  const { token }: { token: string | null } = useSelector(
-      (state: any) => state.userState
-    )
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.userState
+  )
+  const {
+    numItemsInCart,
+    cartItems,
+    cartTotal,
+  }: { numItemsInCart: number; cartItems: CartItem[]; cartTotal: number } =
+    useSelector((state: any) => state.cartState)
   const { data, isLoading, isError } = useCartItems()
-    const fetchedCartItems = data?.data?.map(
-      ({ numItemsInCart, cartItems }: { product: ProductFetch }) => product
-    ) */
+  const fetchedCartItems: CartItem[] = data?.data?.cartItems.map(
+    (item: FetchedCartItem) => {
+      return {
+        ...item,
+        image: item.image.url,
+        id: item.image.productId,
+        price: item.discountPrice ? item.discountPrice : item.originalPrice,
+      }
+    }
+  )
+  const fetchedNumItemsInCart: number = data?.data?.numItemsInCart
+  const fetchedCartTotal: number = data?.data?.cartTotal
+  const itemsInCart = token ? fetchedNumItemsInCart : numItemsInCart
+  const items = token ? fetchedCartItems : cartItems
+  const totalAmount = token ? fetchedCartTotal : cartTotal
 
   return (
     <>
       <PageTitle title="Cart" />
       <Container className="py-10 relative">
-        <div
-          className={` ${numItemsInCart && 'md:grid-cols-3'}  md:grid gap-x-6`}
-        >
-          <section className="col-span-2">
-            {!numItemsInCart ? <EmptyCart /> : <CartItems />}
-          </section>
-          {!numItemsInCart || (
-            <section className="mt-10 md:mt-13">
-              <OrderSummary />
-            </section>
-          )}
-        </div>
+        {isLoading ? (
+          <div className="w-full h-[80vh] flex items-center justify-center">
+            <Loader2 className="w-5 h-5 animate-spin" />
+          </div>
+        ) : (
+          <>
+            <div
+              className={` ${itemsInCart && 'md:grid-cols-3'}  md:grid gap-x-6`}
+            >
+              <section className="col-span-2">
+                {!itemsInCart ? (
+                  <EmptyCart />
+                ) : (
+                  <CartItems numItemsInCart={itemsInCart} items={items} />
+                )}
+              </section>
+              {!itemsInCart || (
+                <section className="mt-10 md:mt-13">
+                  <OrderSummary cartTotal={totalAmount} />
+                </section>
+              )}
+            </div>
+            {isError && <NoResult isError={isError} errorText="cart" />}
+          </>
+        )}
       </Container>
     </>
   )

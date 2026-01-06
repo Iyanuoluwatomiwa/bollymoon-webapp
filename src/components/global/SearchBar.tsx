@@ -1,17 +1,20 @@
 import { Search } from 'lucide-react'
 import { Input } from '../ui/input'
-import { useState } from 'react'
 
 interface SearchBarProp {
   placeholder: string
-  onSearch: (searchQuery: string) => void
+  onSearch: () => void
   width?: string
+  searchQuery: string | undefined
+  setSearchQuery: (value: string) => void
 }
-function SearchBar({ onSearch, placeholder, width }: SearchBarProp) {
-  const [searchQuery, setSearchQuery] = useState('')
-  const handleSearch = (searchQuery: string) => {
-    onSearch(searchQuery)
-  }
+function SearchBar({
+  onSearch,
+  placeholder,
+  width,
+  searchQuery,
+  setSearchQuery,
+}: SearchBarProp) {
   return (
     <div className={`relative ${width} `}>
       <Input
@@ -26,7 +29,7 @@ function SearchBar({ onSearch, placeholder, width }: SearchBarProp) {
       />
       <button
         className="absolute right-1.5 top-1/2 -translate-y-1/2 lg:p-1.5 p-1 bg-primary/80 hover:bg-primary rounded-full cursor-pointer"
-        onClick={() => handleSearch(searchQuery)}
+        onClick={onSearch}
       >
         <Search className="text-white w-4 h-4 " />
       </button>

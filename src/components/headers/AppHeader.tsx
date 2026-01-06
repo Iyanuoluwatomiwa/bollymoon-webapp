@@ -10,6 +10,7 @@ import { TooltipContent } from '@radix-ui/react-tooltip'
 import SearchBar from '../global/SearchBar'
 import Logo from '../global/Logo'
 import { useSidebar } from '../ui/sidebar'
+import { useNavigate } from 'react-router-dom'
 
 function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const [showHeader, setShowHeader] = useState(true)
@@ -17,8 +18,10 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [open, setOpen] = useState(false)
   const { toggleSidebar } = useSidebar()
-  const onSearch = (searchQuery: string) => {
-    console.log(searchQuery)
+  const [searchQuery, setSearchQuery] = useState('')
+  const navigate = useNavigate()
+  const handleSearch = () => {
+    navigate(`/shop?search=${searchQuery}`)
   }
   useEffect(() => {
     let ticking = false
@@ -56,7 +59,9 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
       >
         <div className="flex items-center h-[56px] lg:h-[72px] relative">
           <SearchBar
-            onSearch={onSearch}
+            onSearch={handleSearch}
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
             placeholder="Search Our Store"
             width={`w-[85%] md:w-[70%] max-w-xl mx-auto`}
           />

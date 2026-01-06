@@ -288,7 +288,7 @@ export const subcategories = {
 
 export const shop = {
   categories: [
-    { value: 'all', label: 'All' },
+    { value: '', label: 'All' },
     { value: 'hair', label: 'Hair' },
     { value: 'hairCare', label: 'Hair Care' },
     { value: 'clothing', label: 'Clothing' },
@@ -306,10 +306,6 @@ export const shop = {
     {
       value: 'price-high',
       label: 'Price: High to Low',
-    },
-    {
-      value: 'rating',
-      label: 'Average Rating',
     },
   ],
 }
@@ -1597,9 +1593,9 @@ export const features = [
 ]
 
 export const shopByCategories = [
-  { title: 'Hair', url: '/', image: hair },
-  { title: 'Hair Care', url: '/', image: hairCare },
-  { title: 'Clothing', url: '/', image: clothing },
-  { title: 'Cosmetics', url: '/', image: clothing },
-  { title: 'Accessories', url: '/', image: accessories },
+  { title: 'Hair', url: 'hair', image: hair },
+  { title: 'Hair Care', url: 'hairCare', image: hairCare },
+  { title: 'Clothing', url: 'clothing', image: clothing },
+  { title: 'Cosmetics', url: 'cosmetics', image: clothing },
+  { title: 'Accessories', url: 'accessories', image: accessories },
 ]

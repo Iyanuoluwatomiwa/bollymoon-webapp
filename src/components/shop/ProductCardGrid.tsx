@@ -130,7 +130,7 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
           {/* Category*/}
           <div>
             <span className="text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">
-              {category}
+              {category == 'hairCare' ? 'hair care' : category}
             </span>
             {/* Product Name */}
             <Link to={`/shop/${category}/${id}`}>

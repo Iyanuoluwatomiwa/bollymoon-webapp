@@ -31,6 +31,7 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.wishlistState
   )
+
   const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
   const handleRemoveItem = async () => {
     removeItem(id, {
@@ -59,9 +60,9 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
           <div className="flex gap-2 md:gap-4 ">
             <figure className="w-26 sm:w-30 md:w-36  flex-shrink-0 relative">
               <img
-                src={images[0].url}
+                src={images && images[0]?.url}
                 alt={name}
-                className="aspect-square w-full object-cover"
+                className="aspect-square w-full object-cover object-top"
                 loading="lazy"
               />
               {discountPercent && (

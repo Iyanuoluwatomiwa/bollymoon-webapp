@@ -1,8 +1,13 @@
 import type { RatingsAndReviews } from './ratings_reviews.types'
 
-export type ColorQuantity = { color: string; quantity: number }
+export type ColorQuantity = {
+  color: string
+  quantity: number
+  colorId?: string
+}
 
 export type Variant = {
+  specId?: string
   size: string
   colors: ColorQuantity[]
   originalPrice: number
@@ -44,13 +49,41 @@ export type CartItem = {
   discountPrice?: number
   originalPrice: number
   stock: number
+  specId?: string | undefined
+  colorId?: string | undefined
+}
+
+export type FetchedCartItem = {
+  id: string
+  name: string
+  image: {
+    id: string
+    productId: string
+    publicId: string
+    url: string
+    createdAt: string
+  }
+  category: string
+  size: string
+  quantity: number
+  originalPrice: number
+  discountPrice: number
+  color: string
+  stock: number
+}
+
+export type CartItemUpload = {
+  specId: string | undefined
+  colorId: string | undefined
+  productId: string | undefined
+  quantity: number
 }
 
 export type ProductFilter = {
   priceRange: number[] | null
-  minRating: number | null
   inStockOnly: boolean | null
   searchQuery?: string
+  category?: string | null
 }
 
 export type ProductForm = {

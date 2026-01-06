@@ -1,13 +1,10 @@
-import { useSelector } from 'react-redux'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { currencyFormatter } from '@/utils/format'
 import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 
-function OrderSummary() {
-  const { cartTotal, shipping, tax, orderTotal } = useSelector(
-    (state: any) => state.cartState
-  )
+function OrderSummary({ cartTotal }: { cartTotal: number }) {
+  const orderTotal = cartTotal + 0.05 * cartTotal
 
   return (
     <Card className="sticky top-20 rounded-sm py-4 px-0">
@@ -22,14 +19,14 @@ function OrderSummary() {
             <span>{currencyFormatter(cartTotal)}</span>
           </div>
 
-          <div className="flex justify-between">
+          {/* <div className="flex justify-between">
             <span>Shipping</span>
             <span>{currencyFormatter(shipping)}</span>
-          </div>
+          </div> */}
 
           <div className="flex justify-between">
             <span>Tax</span>
-            <span>{currencyFormatter(tax)}</span>
+            <span>{currencyFormatter(0.5 * cartTotal)}</span>
           </div>
 
           <div className="flex justify-between font-semibold text-lg pt-2 border-t">

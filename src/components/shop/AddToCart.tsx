@@ -13,9 +13,10 @@ import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
 import { Link } from 'react-router-dom'
 import { currencyFormatter } from '@/utils/format'
-import { useSingleProduct } from '@/hooks/useQueries'
+import { useAddToCart, useSingleProduct } from '@/hooks/useQueries'
 import LoadingIcon from '../global/LoadingIcon'
 import NoResult from '../global/NoResult'
+import { toast } from 'sonner'
 
 function AddToCart({ productId }: { productId: string }) {
   const { data, isLoading, isError } = useSingleProduct(productId)
@@ -39,6 +40,10 @@ function AddToCart({ productId }: { productId: string }) {
   const { cartItems }: { cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.userState
+  )
+  const { mutate: addToCart, isPending } = useAddToCart()
   const inCart = cartItems.find((item) => item.id === product?.id)
   const hasSize = product?.specs?.some(
     ({ size }) => size.toLowerCase() !== 'n/a'
@@ -53,7 +58,23 @@ function AddToCart({ productId }: { productId: string }) {
   const dispatch = useDispatch()
 
   const addItemToCart = (item: CartItem) => {
-    dispatch(addItem({ product: item }))
+    const itemUpload = {
+      specId: item.specId,
+      colorId: item.colorId,
+      productId: item.id,
+      quantity: item.quantity,
+    }
+    token
+      ? addToCart(itemUpload, {
+          onSuccess: () => {
+            toast.success(
+              `${item.quantity > 1 ? `${item.quantity}X` : ''} ${
+                item.name
+              } has been  added to your cart`
+            )
+          },
+        })
+      : dispatch(addItem({ product: item }))
   }
 
   const removeFromCart = (color: string, size: string) => {
@@ -171,7 +192,13 @@ function AddToCart({ productId }: { productId: string }) {
 
                       <ul className="flex flex-col gap-4">
                         {product?.specs?.map(
-                          ({ size, colors, originalPrice, discountPrice }) => {
+                          ({
+                            size,
+                            colors,
+                            originalPrice,
+                            discountPrice,
+                            specId,
+                          }) => {
                             return colors.map((color) => {
                               const quantityFromCart =
                                 getQuantityFromCart(color.color, size) ?? 0
@@ -251,10 +278,14 @@ function AddToCart({ productId }: { productId: string }) {
                                                 : originalPrice,
                                               discountPrice,
                                               originalPrice,
+                                              specId,
+                                              colorId: color.colorId,
                                             })
                                           : removeFromCart(color.color, size)
                                       }}
-                                      disabled={quantityFromCart < 1}
+                                      disabled={
+                                        quantityFromCart < 1 || isPending
+                                      }
                                       className="h-8 w-8 p-0 rounded-sm rounded-r-none cursor-pointer disabled:bg-gray-500 bg-primary hover:bg-primary/80 hover:text-white text-white"
                                     >
                                       <Minus className="w-3 h-3" />
@@ -277,10 +308,13 @@ function AddToCart({ productId }: { productId: string }) {
                                             : originalPrice,
                                           discountPrice,
                                           originalPrice,
+                                          specId,
+                                          colorId: color.colorId,
                                         })
                                       }}
                                       disabled={
-                                        quantityFromCart == color.quantity
+                                        quantityFromCart == color.quantity ||
+                                        isPending
                                       }
                                       className="h-8 w-8 p-0 rounded-sm rounded-l-none cursor-pointer disabled:bg-muted-foreground bg-primary text-white"
                                     >

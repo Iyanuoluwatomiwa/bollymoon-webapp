@@ -5,11 +5,11 @@ import { Minus, Plus } from 'lucide-react'
 import { Button } from '../ui/button'
 import { useDispatch } from 'react-redux'
 import { editItem, removeItem } from '@/features/cart/cartSlice'
-import type { CartItem, Product } from '@/types/product.types'
+import type { CartItem } from '@/types/product.types'
 import RemoveItemDialog from './RemoveItemDialog'
 import { useSelector } from 'react-redux'
-import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
-import { productsMock } from '@/database'
+import { useRemoveFromCart, useUpdateCart } from '@/hooks/useQueries'
+import { toast } from 'sonner'
 
 function CartItemCard({
   image,
@@ -22,37 +22,58 @@ function CartItemCard({
   discountPrice,
   originalPrice,
   stock,
+  specId,
+  colorId,
 }: CartItem) {
-  const product = productsMock.find((product) => product.id === id)
+  const { token }: { token: string | null } = useSelector(
+    (state: any) => state.userState
+  )
+  const { mutate: updateCart, isPending } = useUpdateCart()
+  const { mutate: removeFromCart, isPending: removing } = useRemoveFromCart()
   const discountPercent =
     discountPrice && discount(originalPrice, discountPrice)
   const dispatch = useDispatch()
-  const removeFromCart = () => {
-    dispatch(
-      removeItem({
-        id,
-        size,
-        color,
-        name,
-      })
-    )
+  const removeItemFromCart = () => {
+    token
+      ? removeFromCart(
+          {
+            specId,
+            colorId,
+            productId: id,
+            quantity,
+          },
+          {
+            onSuccess: () => {
+              toast.success(`${name} has been  removed from your cart`)
+            },
+          }
+        )
+      : dispatch(
+          removeItem({
+            id,
+            size,
+            color,
+            name,
+          })
+        )
   }
-  const { wishlistItems }: { wishlistItems: Product[] } = useSelector(
-    (state: any) => state.wishlistState
-  )
-  const inWishlist = wishlistItems.some((item) => item.id === id)
-  const handleWishlistToggle = () => {
-    dispatch(toggleWishlistItem({ product }))
-  }
+
   const updateCartItem = (quantity: number) => {
-    dispatch(
-      editItem({
-        id,
-        size,
-        color,
-        quantity,
-      })
-    )
+    token
+      ? updateCart({
+          specId,
+          colorId,
+          productId: id,
+          quantity,
+        })
+      : dispatch(
+          editItem({
+            id,
+            size,
+            color,
+            quantity,
+          })
+        )
   }
 
   return (
@@ -65,7 +86,7 @@ function CartItemCard({
               <img
                 src={image}
                 alt={name}
-                className="aspect-square w-full object-cover"
+                className="aspect-square w-full object-cover  object-top"
                 loading="lazy"
               />
             </figure>
@@ -100,11 +121,11 @@ function CartItemCard({
               {/* Discount and original price */}
               <div className="flex flex-col gap-x-2 ">
                 <span className="text-[15px]/5 sm:text-lg font-semibold text-foreground">
-                  {discountPrice
+                  {discountPrice !== originalPrice
                     ? currencyFormatter(discountPrice)
                     : currencyFormatter(originalPrice)}
                 </span>
-                {discountPrice && (
+                {discountPrice !== originalPrice && (
                   <div className="flex items-center gap-2">
                     <span className="text-[12px] sm:text-sm text-muted-foreground line-through font-medium italic">
                       {currencyFormatter(originalPrice)}
@@ -141,9 +162,9 @@ function CartItemCard({
           <div className="flex items-center gap-4 justify-between">
             {/* Remove button */}
             <RemoveItemDialog
-              removeFromCart={removeFromCart}
-              inWishlist={inWishlist}
-              handleWishlistToggle={handleWishlistToggle}
+              removeFromCart={removeItemFromCart}
+              productId={id}
+              isRemoving={removing}
             />
             {/* Update Buttons */}
             <div className="flex items-center w-max">
@@ -151,7 +172,7 @@ function CartItemCard({
                 variant="ghost"
                 size="sm"
                 onClick={() => updateCartItem(quantity - 1)}
-                disabled={quantity == 1}
+                disabled={quantity == 1 || isPending}
                 className="h-8 w-8 p-0 rounded-sm rounded-r-none cursor-pointer disabled:bg-gray-500 bg-primary hover:bg-primary/90 text-white"
               >
                 <Minus className="w-3 h-3" />
@@ -162,6 +183,7 @@ function CartItemCard({
               <Button
                 variant="default"
                 size="sm"
+                disabled={quantity == stock || isPending}
                 onClick={() => updateCartItem(quantity + 1)}
                 className="h-8 w-8 p-0 rounded-sm rounded-l-none cursor-pointer disabled:bg-muted-foreground bg-primary text-white"
               >

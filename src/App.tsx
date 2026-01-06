@@ -13,9 +13,11 @@ import { useAddToWishlist } from './hooks/useQueries'
 import { clearWishlist } from './features/wishlist/wishlistSlice' */
 import { profile } from './api/auth'
 /* import { toast } from 'sonner' */
-import type { ProductFetch } from './types/product.types'
+import type { CartItem, ProductFetch } from './types/product.types'
 import { addBulkWishlist } from './api/wishlist'
 import { clearWishlist } from './features/wishlist/wishlistSlice'
+import { addBulkCartItems } from './api/cart'
+import { clearCart } from './features/cart/cartSlice'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -224,30 +226,47 @@ function App() {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
-
-  console.log(token)
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.wishlistState
   )
-  const productIds = wishlistItems.map(({ id }) => id)
-  console.log(productIds)
+  const { cartItems }: { cartItems: CartItem[] } = useSelector(
+    (state: any) => state.cartState
+  )
 
   useEffect(() => {
     if (!token) return
     const getUserDetails = async () => {
+      const productIds = wishlistItems.map(({ id }) => id)
+      const items = cartItems.map(({ specId, colorId, id, quantity }) => {
+        const item = {
+          specId,
+          colorId,
+          quantity,
+          productId: id,
+        }
+        return item
+      })
+      const uploadCartItems = {
+        items,
+      }
       try {
+        if (productIds.length) {
+          await addBulkWishlist(productIds)
+        }
+        if (cartItems.length) {
+          await addBulkCartItems(uploadCartItems)
+        }
         const response = await profile()
         dispatch(
           setUserProfile({
             userProfile: response?.data,
           })
         )
-        if (productIds.length) {
-          await addBulkWishlist(productIds)
-        }
-      } catch (error: any) {}
-
+      } catch (error: any) {
+        return
+      }
       dispatch(clearWishlist())
+      dispatch(clearCart())
     }
     getUserDetails()
   }, [token, dispatch])

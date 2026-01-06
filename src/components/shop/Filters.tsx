@@ -4,54 +4,32 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Slider } from '@/components/ui/slider'
 import { currencyFormatter } from '@/utils/format'
 import { useState } from 'react'
-import type { ProductFilter } from '@/types/product.types'
 
 interface FiltersProps {
   searchQuery?: string
-  setFilters: ({
-    priceRange,
-    inStockOnly,
-    minRating,
-    searchQuery,
-  }: ProductFilter) => void
+  setFilters: (priceRange: number[] | null, inStockOnly: boolean | null) => void
   maxPrice: number
-  setCurrentPage: (value: number) => void
   setIsOpen?: (value: boolean) => void
+  disabled?: boolean
 }
 const Filters = ({
   setFilters,
   maxPrice,
-  setCurrentPage,
   setIsOpen,
+  disabled,
 }: FiltersProps) => {
   const [priceRange, setPriceRange] = useState([0, maxPrice])
   const [inStockOnly, setInStockOnly] = useState(false)
-  const [minRating, setMinRating] = useState(1)
-
   const priceRangeChange = (value: number[]) => {
     setPriceRange(value)
   }
   const inStockChange = (value: boolean) => {
     setInStockOnly(value)
   }
-  const minRatingChange = (value: number) => {
-    setMinRating(value)
-  }
 
   const clearFilters = () => {
     setPriceRange([0, maxPrice])
     setInStockOnly(false)
-    setMinRating(1)
-    setCurrentPage(1)
-  }
-
-  const applyFilter = () => {
-    setFilters({
-      priceRange,
-      inStockOnly,
-      minRating,
-    })
-    setCurrentPage(1)
   }
 
   return (
@@ -74,21 +52,6 @@ const Filters = ({
             <div className="flex justify-between text-sm text-gray-600">
               <span>{currencyFormatter(priceRange[0])}</span>
               <span>{currencyFormatter(priceRange[1])}</span>
-            </div>
-          </div>
-          {/* Rating */}
-          <div className="space-y-3">
-            <Label className="text-sm font-medium">Minimum Rating</Label>
-            <Slider
-              value={[minRating]}
-              onValueChange={(value) => minRatingChange(value[0])}
-              max={5}
-              min={1}
-              step={0.5}
-              className="w-full"
-            />
-            <div className="text-sm text-gray-600">
-              {minRating} star{minRating > 1 && 's'} {minRating < 5 && '& up'}{' '}
             </div>
           </div>
           {/* stock status */}
@@ -118,10 +81,12 @@ const Filters = ({
           <Button
             /* disabled={isLoading} */
             onClick={() => {
-              applyFilter()
+              setFilters(priceRange, inStockOnly)
+              clearFilters()
               setIsOpen && setIsOpen(false)
             }}
             className="h-9 block w-full"
+            disabled={disabled}
           >
             Apply
           </Button>

@@ -5,9 +5,49 @@ import { api } from '@/utils/axiosConfig'
 export const createProduct = async (product: ProductUpload) => {
   await api.post(`/v1/products`, product)
 }
-export const getProducts = async () => {
+
+export const getProductsMaxPrice = async () => {
   try {
     const response = await api.get(`/v1/products`)
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+
+export const getProducts = async ({
+  search,
+  category,
+  minPrice,
+  maxPrice,
+  currentPage,
+  stock,
+}: {
+  search?: string
+  category?: string | null
+  minPrice?: number | null
+  maxPrice?: number | null
+  currentPage?: number
+  stock?: boolean | null
+}) => {
+  try {
+    const response = await api.get(
+      `/v1/products?search=${search && search}&category=${
+        category && category
+      }&minPrice=${minPrice && minPrice}&maxPrice=${
+        maxPrice && maxPrice
+      }&stock=${stock && stock}&page=${currentPage}`
+    )
+    return response?.data
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+/*  */
+
+export const getCollectionProducts = async (collection: string | undefined) => {
+  try {
+    const response = await api.get(`/v1/products?collection=${collection}`)
     return response?.data
   } catch (error) {
     handleApiError(error)
