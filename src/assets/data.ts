@@ -32,6 +32,7 @@ import gallery3_1 from './images/gallery3_1.png'
 import gallery4_1 from './images/gallery4_1.png'
 import hair from './images/hair.jpeg'
 import clothing from './images/clothing.jpeg'
+import cosmetics from './images/cosmetics.jpg'
 import hairCare from './images/hairCare.jpeg'
 import accessories from './images/accessories.jpeg'
 
@@ -1596,6 +1597,6 @@ export const shopByCategories = [
   { title: 'Hair', url: 'hair', image: hair },
   { title: 'Hair Care', url: 'hairCare', image: hairCare },
   { title: 'Clothing', url: 'clothing', image: clothing },
-  { title: 'Cosmetics', url: 'cosmetics', image: clothing },
+  { title: 'Cosmetics', url: 'cosmetics', image: cosmetics },
   { title: 'Accessories', url: 'accessories', image: accessories },
 ]
