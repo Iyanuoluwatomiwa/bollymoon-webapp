@@ -469,6 +469,5 @@ export const useProductReviews = (productId: string | undefined) => {
     queryKey: ['reviews', productId],
     queryFn: getAllProductReviews,
   })
-
   return queryData
 }

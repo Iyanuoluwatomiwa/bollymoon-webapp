@@ -16,7 +16,7 @@ function Promotion() {
         </figure>
         <div className="text-center space-y-6  h-full flex flex-col items-center justify-center">
           <p className="uppercase text-2xl/10 md:text-3xl/11 font-normal text-center">
-            <span className="text-primary"> Enjoy 10% discount</span> on <br />{' '}
+            Enjoy <span className="text-primary">10% discount</span> on <br />{' '}
             your first order
           </p>
           <Link
