@@ -97,7 +97,7 @@ function OrderSummary() {
           </CardContent>
 
           {isError && (
-            <p className="w-full h-[25vh] flex items-center text-xs sm:text-sm px-4 font-medium">
+            <p className="w-full h-[25vh] flex items-center text-xs sm:text-sm px-4 font-medium text-center">
               An error occured. Kindly check your network connection and reload
               page
             </p>

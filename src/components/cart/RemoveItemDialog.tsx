@@ -125,7 +125,7 @@ function RemoveItemDialog({
                 </button>
               </AlertDialogFooter>
               {(isError || productError) && (
-                <p className="w-full h-full min-h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4">
+                <p className="w-full h-full min-h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4 text-center">
                   An error occured.
                 </p>
               )}

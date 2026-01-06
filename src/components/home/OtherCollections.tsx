@@ -46,12 +46,12 @@ function OtherCollections() {
                 })}
               </div>
               {newArrivalsError && (
-                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4">
+                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4 text-center">
                   An error occured. Please check your internet connection.
                 </div>
               )}
               {newArrivalsProducts?.length == 0 && (
-                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium">
+                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium text-center ">
                   No newly arrived product. Check back soon.
                 </div>
               )}
@@ -83,12 +83,12 @@ function OtherCollections() {
                 })}
               </div>
               {saleError && (
-                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4">
+                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4 text-center ">
                   An error occured. Please check your internet connection.
                 </div>
               )}
               {saleProducts?.length == 0 && (
-                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium">
+                <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium text-center">
                   No product on sale. Check back soon.
                 </div>
               )}
