@@ -1,5 +1,5 @@
 import { TableCell, TableRow } from '@/components/ui/table'
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { Edit, Eye } from 'lucide-react'
 import DeleteProductDialog from './DeleteProductDialog'
 import { Link } from 'react-router-dom'
@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/tooltip'
 
 interface ProductTableBodyProp {
-  filteredProducts: Product[] | undefined
+  filteredProducts: ProductFetch[] | undefined
 }
 
 function ProductTableBody({ filteredProducts }: ProductTableBodyProp) {

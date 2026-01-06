@@ -1,11 +1,11 @@
 import NoResult from '@/components/global/NoResult'
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { Package, Plus } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 interface NoProductFoundProp {
   searchQuery: string
-  products: Product[] | undefined
+  products: ProductFetch[] | undefined
   isError: boolean
 }
 

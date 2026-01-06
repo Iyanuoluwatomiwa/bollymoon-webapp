@@ -1,4 +1,4 @@
-import type { Product, ProductFetch } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { currencyFormatter, discount } from '@/utils/format'
 import { Heart, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
@@ -36,7 +36,7 @@ function ProductCardList({ product }: { product: ProductFetch }) {
     (state: any) => state.wishlistState
   )
   //for unauth users
-  const { wishlistItems }: { wishlistItems: Product[] } = useSelector(
+  const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.wishlistState
   )
   const inWishlistUnAuth = wishlistItems.some((item) => item.id === id)

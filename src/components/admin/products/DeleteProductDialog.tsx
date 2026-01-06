@@ -15,12 +15,12 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { useDeleteProduct } from '@/hooks/useQueries'
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { Trash2 } from 'lucide-react'
 import { useState } from 'react'
 
 interface DeleteProductProp {
-  product: Product
+  product: ProductFetch
 }
 
 function DeleteProductDialog({ product }: DeleteProductProp) {

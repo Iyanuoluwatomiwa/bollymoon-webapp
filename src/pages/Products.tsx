@@ -4,7 +4,7 @@ import SearchBar from '@/components/admin/SearchBar'
 import Container from '@/components/global/Container'
 import AdminPagesHeading from '@/components/headings/AdminPagesHeading'
 import { Table, TableBody } from '@/components/ui/table'
-import type { Product } from '@/types/product.types'
+import type { ProductFetch } from '@/types/product.types'
 import { Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -57,7 +57,7 @@ function Products() {
     })
   }
 
-  const filteredProducts = products?.filter((product: Product) => {
+  const filteredProducts = products?.filter((product: ProductFetch) => {
     const matchesSearch =
       !formData.searchQuery ||
       product.name.toLowerCase().includes(formData.searchQuery.toLowerCase())
