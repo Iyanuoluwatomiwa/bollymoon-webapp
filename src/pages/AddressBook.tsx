@@ -22,12 +22,8 @@ export default function AddressBook() {
   return (
     <>
       <PageTitle title="Address Book" />
-      <BackNavHeader />
+      <BackNavHeader title='Address Book' />
       <Container className="pt-2 pb-10">
-        <div className="space-y-6">
-          <h1 className="text-lg md:text-xl font-semibold text-foreground">
-            Address Book
-          </h1>
           <div className="max-w-2xl mx-auto w-full space-y-2 md:space-y-4">
             <button
               onClick={() => setShowAddressForm(!showAddressForm)}
@@ -71,7 +67,6 @@ export default function AddressBook() {
               </>
             )}
           </div>
-        </div>
       </Container>
     </>
   )

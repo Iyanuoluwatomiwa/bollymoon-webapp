@@ -11,15 +11,10 @@ function RateProduct() {
   return (
     <>
       <PageTitle title="Rate this Product" />
-      <BackNavHeader />
+      <BackNavHeader title="Rate this Product" />
       <Container className="pb-10 lg:pt-2 pt-0">
-        <div className="space-y-3 md:space-y-6">
-          <h1 className="text-lg md:text-xl font-semibold text-foreground">
-            Rate this Product
-          </h1>
-          <div className="max-w-2xl mx-auto w-full">
-            <ReviewForm product={product} />
-          </div>
+        <div className="max-w-2xl mx-auto w-full">
+          <ReviewForm product={product} />
         </div>
       </Container>
     </>
