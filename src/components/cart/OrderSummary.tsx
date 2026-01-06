@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import { Button } from '../ui/button'
 
 function OrderSummary({ cartTotal }: { cartTotal: number }) {
-  const orderTotal = cartTotal + 0.05 * cartTotal
+  const tax = (0.05 * cartTotal)
+  const orderTotal = cartTotal + tax
 
   return (
     <Card className="sticky top-20 rounded-sm py-4 px-0">
@@ -26,7 +27,7 @@ function OrderSummary({ cartTotal }: { cartTotal: number }) {
 
           <div className="flex justify-between">
             <span>Tax</span>
-            <span>{currencyFormatter(0.5 * cartTotal)}</span>
+            <span>{currencyFormatter(tax)}</span>
           </div>
 
           <div className="flex justify-between font-semibold text-lg pt-2 border-t">

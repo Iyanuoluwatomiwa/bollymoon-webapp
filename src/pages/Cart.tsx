@@ -32,38 +32,61 @@ function Cart() {
   )
   const fetchedNumItemsInCart: number = data?.data?.numItemsInCart
   const fetchedCartTotal: number = data?.data?.cartTotal
-  const itemsInCart = token ? fetchedNumItemsInCart : numItemsInCart
-  const items = token ? fetchedCartItems : cartItems
-  const totalAmount = token ? fetchedCartTotal : cartTotal
+  const itemsInCart = fetchedNumItemsInCart
+  const items = fetchedCartItems
+  const totalAmount = fetchedCartTotal
 
   return (
     <>
       <PageTitle title="Cart" />
       <Container className="py-10 relative">
-        {isLoading ? (
-          <div className="w-full h-[80vh] flex items-center justify-center">
-            <Loader2 className="w-5 h-5 animate-spin" />
-          </div>
-        ) : (
-          <>
-            <div
-              className={` ${itemsInCart && 'md:grid-cols-3'}  md:grid gap-x-6`}
-            >
-              <section className="col-span-2">
-                {!itemsInCart ? (
-                  <EmptyCart />
-                ) : (
-                  <CartItems numItemsInCart={itemsInCart} items={items} />
-                )}
-              </section>
-              {!itemsInCart || (
-                <section className="mt-10 md:mt-13">
-                  <OrderSummary cartTotal={totalAmount} />
-                </section>
-              )}
+        {token ? (
+          isLoading ? (
+            <div className="w-full h-[80vh] flex items-center justify-center">
+              <Loader2 className="w-5 h-5 animate-spin" />
             </div>
-            {isError && <NoResult isError={isError} errorText="cart" />}
-          </>
+          ) : (
+            <>
+              <div
+                className={` ${
+                  itemsInCart && 'md:grid-cols-3'
+                }  md:grid gap-x-6`}
+              >
+                <section className="col-span-2">
+                  {!itemsInCart ? (
+                    <EmptyCart />
+                  ) : (
+                    <CartItems numItemsInCart={itemsInCart} items={items} />
+                  )}
+                </section>
+                {!itemsInCart || (
+                  <section className="mt-10 md:mt-13">
+                    <OrderSummary cartTotal={totalAmount} />
+                  </section>
+                )}
+              </div>
+              {isError && <NoResult isError={isError} errorText="cart" />}
+            </>
+          )
+        ) : (
+          <div
+            className={` ${
+              numItemsInCart && 'md:grid-cols-3'
+            }  md:grid gap-x-6`}
+          >
+            <section className="col-span-2">
+              {!numItemsInCart ? (
+                <EmptyCart />
+              ) : (
+                <CartItems numItemsInCart={numItemsInCart} items={cartItems} />
+              )}
+            </section>
+            {!numItemsInCart || (
+              <section className="mt-10 md:mt-13">
+                <OrderSummary cartTotal={cartTotal} />
+              </section>
+            )}
+          </div>
         )}
       </Container>
     </>

@@ -1,5 +1,4 @@
-import { useEffect } from 'react'
-import { redirect } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import type { UserProfile } from '@/types/user.types'
 
@@ -11,14 +10,12 @@ const AdminProtectedRoute = ({ children }: { children: any }) => {
     (state: any) => state.userState
   )
 
-  useEffect(() => {
-    if (!token) {
-      redirect('/restricted_access')
-    }
-    if (userProfile && userProfile.role !== 'admin') {
-      redirect('/restricted_access')
-    }
-  }, [])
+  if (!token) {
+    return <Navigate to="/restricted_access" />
+  }
+  if (userProfile && userProfile.role !== 'admin') {
+    return <Navigate to="/restricted_access" />
+  }
 
   return children
 }

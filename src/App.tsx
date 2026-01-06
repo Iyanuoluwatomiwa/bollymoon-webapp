@@ -105,12 +105,7 @@ const router = createBrowserRouter([
       {
         path: 'checkout',
 
-        element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <Checkout />)
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute>{pageSuspense(<Checkout />)}</ProtectedRoute>,
       },
       {
         path: 'about',
@@ -146,49 +141,30 @@ const router = createBrowserRouter([
       },
       {
         path: 'orders',
-        element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <Orders />)
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute>{pageSuspense(<Orders />)}</ProtectedRoute>,
       },
       {
         path: 'orders/:id',
         element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <OrderDetails />)
-          </ProtectedRoute>
+          <ProtectedRoute>{pageSuspense(<OrderDetails />)}</ProtectedRoute>
         ),
       },
       {
         path: 'ratings-reviews',
         element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <RatingsReviews />)
-          </ProtectedRoute>
+          <ProtectedRoute>{pageSuspense(<RatingsReviews />)}</ProtectedRoute>
         ),
       },
       {
         path: 'rate-product/:id',
         element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <RateProduct />)
-          </ProtectedRoute>
+          <ProtectedRoute>{pageSuspense(<RateProduct />)}</ProtectedRoute>
         ),
       },
       {
         path: 'settings',
 
-        element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <Settings />)
-          </ProtectedRoute>
-        ),
+        element: <ProtectedRoute>{pageSuspense(<Settings />)}</ProtectedRoute>,
       },
       {
         path: 'shop/:category/:productId/ratings-reviews',
@@ -197,10 +173,7 @@ const router = createBrowserRouter([
       {
         path: 'address-book',
         element: (
-          <ProtectedRoute>
-            pageSuspense(
-            <AddressBook />)
-          </ProtectedRoute>
+          <ProtectedRoute>{pageSuspense(<AddressBook />)}</ProtectedRoute>
         ),
       },
     ],
