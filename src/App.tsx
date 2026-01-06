@@ -18,6 +18,8 @@ import { addBulkWishlist } from './api/wishlist'
 import { clearWishlist } from './features/wishlist/wishlistSlice'
 import { addBulkCartItems } from './api/cart'
 import { clearCart } from './features/cart/cartSlice'
+import ProtectedRoute from './components/global/ProtectedRoute'
+import AdminProtectedRoute from './components/global/AdminProctectedRoute'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -106,7 +108,13 @@ const router = createBrowserRouter([
       },
       {
         path: 'checkout',
-        element: pageSuspense(<Checkout />),
+
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <Checkout />)
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'about',
@@ -142,23 +150,49 @@ const router = createBrowserRouter([
       },
       {
         path: 'orders',
-        element: pageSuspense(<Orders />),
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <Orders />)
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'orders/:id',
-        element: pageSuspense(<OrderDetails />),
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <OrderDetails />)
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'ratings-reviews',
-        element: pageSuspense(<RatingsReviews />),
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <RatingsReviews />)
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'rate-product/:id',
-        element: pageSuspense(<RateProduct />),
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <RateProduct />)
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'settings',
-        element: pageSuspense(<Settings />),
+
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <Settings />)
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'shop/:category/:productId/ratings-reviews',
@@ -166,13 +200,23 @@ const router = createBrowserRouter([
       },
       {
         path: 'address-book',
-        element: pageSuspense(<AddressBook />),
+        element: (
+          <ProtectedRoute>
+            pageSuspense(
+            <AddressBook />)
+          </ProtectedRoute>
+        ),
       },
     ],
   },
   {
     path: 'admin',
-    element: <AdminLayout />,
+
+    element: (
+      <AdminProtectedRoute>
+        <AdminLayout />
+      </AdminProtectedRoute>
+    ),
     errorElement: pageSuspense(<Error />),
     children: [
       {

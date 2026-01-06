@@ -9,7 +9,7 @@ import { Plus } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import NoProductFound from '@/components/admin/products/NoProductFound'
-import { useAllProducts } from '@/hooks/useQueries'
+import { useAllProductsByAdmin } from '@/hooks/useQueries'
 import ProductsTableSkeleton from '@/components/skeletons/ProductsTableSkeleton'
 import {
   adminProductsFilters,
@@ -35,7 +35,7 @@ function Products() {
     hair: hairSubcategory,
     cosmetics: cosmeticsSubcategory,
   }
-  const { data, isError, isLoading } = useAllProducts()
+  const { data, isError, isLoading } = useAllProductsByAdmin()
   const products = data?.data
 
   const subcategoriesOptions = subcategories[formData?.category as string] ?? []

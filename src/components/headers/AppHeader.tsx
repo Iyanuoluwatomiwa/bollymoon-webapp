@@ -11,6 +11,8 @@ import SearchBar from '../global/SearchBar'
 import Logo from '../global/Logo'
 import { useSidebar } from '../ui/sidebar'
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import type { UserProfile } from '@/types/user.types'
 
 function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const [showHeader, setShowHeader] = useState(true)
@@ -23,6 +25,9 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const handleSearch = () => {
     navigate(`/shop?search=${searchQuery}`)
   }
+  const { userProfile }: { userProfile: UserProfile | null } = useSelector(
+    (state: any) => state.userState
+  )
   useEffect(() => {
     let ticking = false
     const handleScroll = () => {
@@ -117,8 +122,12 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
                 </span>
               </TooltipContent>
             </Tooltip>
-            <Wishlist />
-            <Cart />
+            {(userProfile && userProfile.role.name == 'admin') || (
+              <>
+                <Wishlist />
+                <Cart />
+              </>
+            )}
             <Profile toggleAccountMenu={toggleAccountMenu} />
           </div>
         </div>

@@ -6,7 +6,7 @@ export const createProduct = async (product: ProductUpload) => {
   await api.post(`/v1/products`, product)
 }
 
-export const getProductsMaxPrice = async () => {
+export const getAllProducts = async () => {
   try {
     const response = await api.get(`/v1/products`)
     return response?.data

@@ -2,10 +2,10 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import {
   createProduct,
   deleteProduct,
+  getAllProducts,
   getCollectionProducts,
   getProduct,
   getProducts,
-  getProductsMaxPrice,
   updateProduct,
 } from '@/api/products'
 import type {
@@ -72,9 +72,22 @@ export const useAllProducts = ({
   return queryData
 }
 
+export const useAllProductsByAdmin = () => {
+  const getAllProductsByAdmin = async () => {
+    const allProducts = await getAllProducts()
+    return allProducts
+  }
+  const queryData = useQuery({
+    queryKey: ['products'],
+    queryFn: getAllProductsByAdmin,
+  })
+
+  return queryData
+}
+
 export const useProductsMaxPrice = () => {
   const getAllProductsMaxPrice = async () => {
-    const data = await getProductsMaxPrice()
+    const data = await getAllProducts()
     const products: ProductFetch[] = data?.data
     const maxPrice = products?.reduce(
       (max, product) =>

@@ -2,11 +2,18 @@ import ResetPasswordForm from '@/components/forms/ResetPasswordForm'
 import Container from '@/components/global/Container'
 import PageTitle from '@/components/global/PageTitle'
 import BackNavHeader from '@/components/headers/BackNavHeader'
-import { useSearchParams } from 'react-router-dom'
+import { useEffect } from 'react'
+import { redirect, useSearchParams } from 'react-router-dom'
 
 function ResetPassword() {
   const [searchParams] = useSearchParams()
   const token = searchParams.get('token')
+
+  useEffect(() => {
+    if (token) {
+      redirect('/restricted_access')
+    }
+  }, [])
   return (
     <div
       className="bg-gradient-to-br
