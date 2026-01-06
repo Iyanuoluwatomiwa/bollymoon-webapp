@@ -5,41 +5,37 @@ import BackNavHeader from '@/components/headers/BackNavHeader'
 import EmptyProductReview from '@/components/ratings_reviews/EmptyProductReview'
 import ReviewCard from '@/components/ratings_reviews/ReviewCard'
 import ReviewCardSkeleton from '@/components/skeletons/ReviewCardSkeleton'
-import { useSingleProduct } from '@/hooks/useQueries'
-import type { ProductFetch } from '@/types/product.types'
+import { useProductReviews } from '@/hooks/useQueries'
+import type { ProductReviews } from '@/types/product.types'
 import { useParams } from 'react-router-dom'
 
 export default function ProductRatingsReviews() {
   const { productId } = useParams()
-  const { data, isLoading, isError } = useSingleProduct(productId)
-  const product: ProductFetch = data?.data
+  const { data, isLoading, isError } = useProductReviews(productId)
+  const productReviews: ProductReviews[] = data?.data
   return (
     <>
       <PageTitle title="Customer feedback" />
-      <BackNavHeader />
+      <BackNavHeader title="Customer Feedback" />
       <Container className="pb-10 lg:pt-2 pt-0">
         <div className="space-y-2 md:space-y-6 relative">
           <h1 className="text-lg md:text-xl font-bold text-foreground">
             Customer Feedback
-            {product?.reviews && `(${product?.reviews.length})`}
+            {productReviews && `(${productReviews.length})`}
           </h1>
           {isLoading ? (
             <ReviewCardSkeleton />
           ) : (
             <>
-              <div>
-                {product?.reviews ? (
-                  <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2">
-                    {product?.reviews.map((review) => (
-                      <ReviewCard key={review.id} {...review} />
-                    ))}
-                  </div>
-                ) : (
-                  <EmptyProductReview />
-                )}
+              <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2">
+                {productReviews?.map((review) => (
+                  <ReviewCard key={review.id} {...review} />
+                ))}
               </div>
-              {isError && (
-                <NoResult errorText="customer feedback" isError={isError} />
+              {isError ? (
+                <NoResult isError={isError} errorText="product reviews" />
+              ) : (
+                productReviews?.length == 0 && <EmptyProductReview />
               )}
             </>
           )}

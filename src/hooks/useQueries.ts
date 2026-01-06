@@ -29,6 +29,7 @@ import type { DeliveryAddress } from '@/types/orders.types'
 import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
 import { toast } from 'sonner'
 import { addToCart, getCartItems, removeFromCart, updateCart } from '@/api/cart'
+import { getProductReviews } from '@/api/reviews'
 
 export const useAllProducts = ({
   search,
@@ -439,6 +440,7 @@ export const useUpdateCart = () => {
 
   return updateCartFunction
 }
+
 export const useRemoveFromCart = () => {
   const removeFromCartAction = async (data: CartItemUpload) => {
     try {
@@ -456,4 +458,17 @@ export const useRemoveFromCart = () => {
   })
 
   return removeFromCartFunction
+}
+
+export const useProductReviews = (productId: string | undefined) => {
+  const getAllProductReviews = async () => {
+    const productReviews = await getProductReviews(productId)
+    return productReviews
+  }
+  const queryData = useQuery({
+    queryKey: ['reviews', productId],
+    queryFn: getAllProductReviews,
+  })
+
+  return queryData
 }

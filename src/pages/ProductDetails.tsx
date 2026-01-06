@@ -5,16 +5,20 @@ import PageTitle from '@/components/global/PageTitle'
 import Ratings from '@/components/global/Ratings'
 import BackNavHeader from '@/components/headers/BackNavHeader'
 import ImageCarousel from '@/components/product/ImageCarousel'
+import EmptyProductReview from '@/components/ratings_reviews/EmptyProductReview'
+import ReviewCard from '@/components/ratings_reviews/ReviewCard'
 import AddToCart from '@/components/shop/AddToCart'
+import ReviewCardSkeleton from '@/components/skeletons/ReviewCardSkeleton'
 import { Separator } from '@/components/ui/separator'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
 import {
   useAddToWishlist,
+  useProductReviews,
   useRemoveFromWishlist,
   useSingleProduct,
   useWishlists,
 } from '@/hooks/useQueries'
-import type { ProductFetch } from '@/types/product.types'
+import type { ProductFetch, ProductReviews } from '@/types/product.types'
 import { currencyFormatter, discount } from '@/utils/format'
 import { ChevronRight, Heart, Loader2, Minus } from 'lucide-react'
 import { useSelector } from 'react-redux'
@@ -29,6 +33,13 @@ function ProductDetails() {
     isLoading: productLoading,
     isError,
   } = useSingleProduct(productId)
+  const {
+    data: reviews,
+    isLoading: reviewsLoading,
+    isError: reviewsError,
+  } = useProductReviews(productId)
+  const productReviews: ProductReviews[] = reviews?.data
+
   const product: ProductFetch = data?.data
 
   const minPrice = Math.min(
@@ -102,20 +113,16 @@ function ProductDetails() {
   return (
     <>
       <PageTitle title={product?.name} />
-      <BackNavHeader />
+      <BackNavHeader title="Details" />
 
       <Container className="pb-10 lg:pt-2 pt-0">
-        <div className="space-y-2 md:space-y-6 relative">
-          <h1 className="text-lg md:text-xl font-bold text-foreground">
-            Details
-          </h1>
+        <div className="relative">
           {productLoading ? (
             <div className="h-[72vh] flex items-center justify-center">
               <LoadingIcon />
             </div>
           ) : (
             <>
-              {' '}
               {isError ? (
                 <NoResult isError={isError} errorText="product details" />
               ) : (
@@ -229,22 +236,33 @@ function ProductDetails() {
                             </span>
                           </div>
                         </div>
-
                         <ChevronRight className="w-4 h-4 md:w-5 md:h-5" />
                       </Link>
                     </div>
                     <Separator className="lg:hidden mb-2" />
-                    {/* <div>
-                      {product?.reviews ? (
-                        <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2">
-                          {product?.reviews?.slice(0, 6).map((review) => (
-                            <ReviewCard key={review.id} {...review} />
-                          ))}
-                        </div>
+                    <div>
+                      {reviewsLoading ? (
+                        <ReviewCardSkeleton />
                       ) : (
-                        <EmptyProductReview />
+                        <>
+                          <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2">
+                            {productReviews?.slice(0, 6).map((review) => (
+                              <ReviewCard key={review.id} {...review} />
+                            ))}
+                          </div>
+                          {reviewsError ? (
+                            <NoResult
+                              isError={reviewsError}
+                              errorText="product reviews"
+                            />
+                          ) : (
+                            productReviews?.length == 0 && (
+                              <EmptyProductReview />
+                            )
+                          )}
+                        </>
                       )}
-                    </div> */}
+                    </div>
                   </div>
                 </div>
               )}
