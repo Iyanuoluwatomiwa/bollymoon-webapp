@@ -30,7 +30,6 @@ function Cart() {
       }
     }
   )
-  console.log(data)
 
   const fetchedNumItemsInCart: number = data?.data?.numItemsInCart
   const fetchedCartTotal: number = data?.data?.cartTotal

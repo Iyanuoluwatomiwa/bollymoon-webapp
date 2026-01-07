@@ -245,21 +245,21 @@ function App() {
   const { cartItems }: { cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
-  console.log(token)
+  const productIds = wishlistItems.map(({ id }) => id)
+  const items = cartItems.map(({ specId, colorId, id, quantity }) => {
+    const item = {
+      specId,
+      colorId,
+      quantity,
+      productId: id,
+    }
+    return item
+  })
+  console.log(cartItems)
 
   useEffect(() => {
     if (!token) return
     const getUserDetails = async () => {
-      const productIds = wishlistItems.map(({ id }) => id)
-      const items = cartItems.map(({ specId, colorId, id, quantity }) => {
-        const item = {
-          specId,
-          colorId,
-          quantity,
-          productId: id,
-        }
-        return item
-      })
       const uploadCartItems = {
         items,
       }

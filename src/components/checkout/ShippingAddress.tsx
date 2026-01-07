@@ -15,10 +15,10 @@ function ShippingAddress() {
   const { addressLine, city, state, postalCode, country, phone } = shippingForm
   return (
     <Card className="bg-gray-50 border-0 rounded-sm gap-2">
-      <CardHeader>
+      <CardHeader className="px-2 md:px-6">
         <CardTitle>Shipping Information</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 px-2 md:px-6">
         <div className="space-y-1 text-xs md:text-sm  ">
           <p className="capitalize font-medium bg-primary px-2 pyy-0.5 md:py-1  text-white w-max mb-2">
             {deliveryOption} Delivery
