@@ -1,10 +1,14 @@
 import { useRef } from 'react'
 import { Button } from '../ui/button'
 import { useDispatch } from 'react-redux'
-import { addItem, removeItem } from '@/features/cart/cartSlice'
+import { addItem, editItem, removeItem } from '@/features/cart/cartSlice'
 import { AlertCircle, Minus, Plus, XIcon } from 'lucide-react'
 import { useProductDialog } from '@/hooks/useProductDialog'
-import type { CartItem, ProductFetch } from '@/types/product.types'
+import type {
+  CartItem,
+  FetchedCartItem,
+  ProductFetch,
+} from '@/types/product.types'
 import { useSelector } from 'react-redux'
 import { getBoundingClientRectState } from '@/assets/data'
 import { MdAddShoppingCart } from 'react-icons/md'
@@ -13,14 +17,23 @@ import { Tooltip, TooltipTrigger } from '../ui/tooltip'
 import { TooltipContent } from '@radix-ui/react-tooltip'
 import { Link } from 'react-router-dom'
 import { currencyFormatter } from '@/utils/format'
-import { useAddToCart, useSingleProduct } from '@/hooks/useQueries'
+import {
+  useAddToCart,
+  useCartItems,
+  useRemoveFromCart,
+  useSingleProduct,
+  useUpdateCart,
+} from '@/hooks/useQueries'
 import LoadingIcon from '../global/LoadingIcon'
 import NoResult from '../global/NoResult'
-import { toast } from 'sonner'
 
 function AddToCart({ productId }: { productId: string }) {
-  const { data, isLoading, isError } = useSingleProduct(productId)
-  const product: ProductFetch | undefined = data?.data
+  const {
+    data: singleProduct,
+    isLoading,
+    isError,
+  } = useSingleProduct(productId)
+  const product: ProductFetch | undefined = singleProduct?.data
 
   const { isAddToCartOpen, setIsAddToCartOpen } = useProductDialog()
   const addToCartRef = useRef(getBoundingClientRectState)
@@ -37,56 +50,120 @@ function AddToCart({ productId }: { productId: string }) {
       setIsAddToCartOpen(false)
     }
   }
-  const { cartItems }: { cartItems: CartItem[] } = useSelector(
-    (state: any) => state.cartState
-  )
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
-  const { mutate: addToCart, isPending } = useAddToCart()
-  const inCart = cartItems.find((item) => item.id === product?.id)
+
+  const getCartItems = () => {
+    if (token) {
+      const {
+        data,
+        isLoading: cartLoading,
+        isError: cartError,
+      } = useCartItems()
+      const cartItems: CartItem[] | undefined = data?.data?.cartItems.map(
+        (item: FetchedCartItem) => {
+          return {
+            ...item,
+            image: item.image.url,
+            id: item.image.productId,
+            price: item.discountPrice ? item.discountPrice : item.originalPrice,
+          }
+        }
+      )
+      return { cartItems, cartLoading, cartError }
+    } else {
+      const { cartItems }: { cartItems: CartItem[] } = useSelector(
+        (state: any) => state.cartState
+      )
+      return { cartItems, cartLoading: false, cartError: false }
+    }
+  }
+
+  const {
+    cartItems,
+    cartLoading,
+    cartError,
+  }: {
+    cartItems: CartItem[] | undefined
+    cartLoading: boolean
+    cartError: boolean
+  } = getCartItems()
+
+  const inCart = cartItems?.find((item) => item.id === product?.id)
+
   const hasSize = product?.specs?.some(
     ({ size }) => size.toLowerCase() !== 'n/a'
   )
   const getQuantityFromCart = (color: string, size: string) => {
-    const cartItem = cartItems.find(
+    const cartItem = cartItems?.find(
       (item) =>
         item.id === product?.id && item.color === color && item.size === size
     )
     return cartItem?.quantity
   }
+
+  const { mutate: addToCart, isPending } = useAddToCart()
+  const { mutate: removeFromCart, isPending: removing } = useRemoveFromCart()
+  const { mutate: updateCart, isPending: updating } = useUpdateCart()
   const dispatch = useDispatch()
 
   const addItemToCart = (item: CartItem) => {
-    const itemUpload = {
+    const data = {
       specId: item.specId,
       colorId: item.colorId,
       productId: item.id,
       quantity: item.quantity,
     }
-    token
-      ? addToCart(itemUpload, {
-          onSuccess: () => {
-            toast.success(
-              `${item.quantity > 1 ? `${item.quantity}X` : ''} ${
-                item.name
-              } has been  added to your cart`
-            )
-          },
-        })
-      : dispatch(addItem({ product: item }))
+    if (token) {
+      addToCart({ data, name: item.name })
+    } else {
+      dispatch(addItem({ product: item }))
+    }
   }
 
-  const removeFromCart = (color: string, size: string) => {
-    dispatch(
-      removeItem({
-        id: inCart?.id,
-        size: size,
-        color,
-        name: inCart?.name,
-      })
-    )
+  const removeItemFromCart = (item: CartItem) => {
+    const data = {
+      specId: item.specId,
+      colorId: item.colorId,
+      productId: item.id,
+      quantity: item.quantity,
+    }
+    if (token) {
+      removeFromCart({ data, name: item.name })
+    } else {
+      dispatch(
+        removeItem({
+          id: item.id,
+          size: item.size,
+          color: item.color,
+          name: item.name,
+        })
+      )
+    }
   }
+
+  const updateCartItem = (item: CartItem) => {
+    const data = {
+      specId: item.specId,
+      colorId: item.colorId,
+      productId: item.id,
+      quantity: item.quantity,
+    }
+    if (token) {
+      updateCart(data)
+    } else {
+      dispatch(
+        editItem({
+          id: item.id,
+          size: item.size,
+          color: item.color,
+          quantity: item.quantity,
+        })
+      )
+    }
+  }
+
   const cartItem = {
     image: product?.images[0].url,
     name: product?.name,
@@ -149,7 +226,7 @@ function AddToCart({ productId }: { productId: string }) {
           className="max-w-[600px] w-[95%] max-h-[70vh] overflow-y-auto space-y-6 p-3 md:p-4 pt-8 border rounded-sm relative z-50 bg-white"
           ref={addToCartRef}
         >
-          {isLoading ? (
+          {isLoading || cartLoading ? (
             <div className="w-full min-h-[20vh] flex items-center justify-center">
               <LoadingIcon />
             </div>
@@ -197,12 +274,25 @@ function AddToCart({ productId }: { productId: string }) {
                             colors,
                             originalPrice,
                             discountPrice,
-                            specId,
+                            id,
                           }) => {
                             return colors.map((color) => {
                               const quantityFromCart =
                                 getQuantityFromCart(color.color, size) ?? 0
                               const stock = color.quantity
+                              const cartDetails = {
+                                ...cartItem,
+                                color: color.color,
+                                size,
+                                stock,
+                                price: discountPrice
+                                  ? discountPrice
+                                  : originalPrice,
+                                discountPrice,
+                                originalPrice,
+                                specId: id,
+                                colorId: color.id,
+                              }
                               return (
                                 <li
                                   key={color.color}
@@ -267,24 +357,20 @@ function AddToCart({ productId }: { productId: string }) {
                                       size="sm"
                                       onClick={() => {
                                         quantityFromCart > 1
-                                          ? addItemToCart({
-                                              ...cartItem,
-                                              color: color.color,
-                                              size,
+                                          ? updateCartItem({
+                                              ...cartDetails,
                                               quantity: quantityFromCart - 1,
-                                              stock,
-                                              price: discountPrice
-                                                ? discountPrice
-                                                : originalPrice,
-                                              discountPrice,
-                                              originalPrice,
-                                              specId,
-                                              colorId: color.colorId,
                                             })
-                                          : removeFromCart(color.color, size)
+                                          : removeItemFromCart({
+                                              ...cartDetails,
+                                              quantity: 1,
+                                            })
                                       }}
                                       disabled={
-                                        quantityFromCart < 1 || isPending
+                                        quantityFromCart < 1 ||
+                                        isPending ||
+                                        removing ||
+                                        updating
                                       }
                                       className="h-8 w-8 p-0 rounded-sm rounded-r-none cursor-pointer disabled:bg-gray-500 bg-primary hover:bg-primary/80 hover:text-white text-white"
                                     >
@@ -297,24 +383,21 @@ function AddToCart({ productId }: { productId: string }) {
                                       variant="default"
                                       size="sm"
                                       onClick={() => {
-                                        addItemToCart({
-                                          ...cartItem,
-                                          color: color.color,
-                                          size,
-                                          quantity: quantityFromCart + 1,
-                                          stock,
-                                          price: discountPrice
-                                            ? discountPrice
-                                            : originalPrice,
-                                          discountPrice,
-                                          originalPrice,
-                                          specId,
-                                          colorId: color.colorId,
-                                        })
+                                        quantityFromCart == 0
+                                          ? addItemToCart({
+                                              ...cartDetails,
+                                              quantity: 1,
+                                            })
+                                          : updateCartItem({
+                                              ...cartDetails,
+                                              quantity: quantityFromCart + 1,
+                                            })
                                       }}
                                       disabled={
                                         quantityFromCart == color.quantity ||
-                                        isPending
+                                        isPending ||
+                                        removing ||
+                                        updating
                                       }
                                       className="h-8 w-8 p-0 rounded-sm rounded-l-none cursor-pointer disabled:bg-muted-foreground bg-primary text-white"
                                     >
@@ -360,8 +443,11 @@ function AddToCart({ productId }: { productId: string }) {
                   <XIcon className="w-5 h-5" />
                 </button>
               </>
-              {isError && (
-                <NoResult isError={isError} errorText="product details" />
+              {(isError || cartError) && (
+                <NoResult
+                  isError={isError || cartError}
+                  errorText={`${isError ? 'product details' : 'cart details'}`}
+                />
               )}
             </>
           )}

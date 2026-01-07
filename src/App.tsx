@@ -245,6 +245,7 @@ function App() {
   const { cartItems }: { cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
+  console.log(token)
 
   useEffect(() => {
     if (!token) return

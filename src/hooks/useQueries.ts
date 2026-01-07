@@ -403,11 +403,19 @@ export const useCartItems = () => {
 }
 
 export const useAddToCart = () => {
-  const addToCartAction = async (data: CartItemUpload) => {
+  const addToCartAction = async ({
+    data,
+    name,
+  }: {
+    data: CartItemUpload
+    name?: string | undefined
+  }) => {
     try {
       await addToCart(data)
+      toast.success(`${name} has been added to your cart`)
     } catch (error: any) {
       toast.error(error?.message)
+      return
     }
   }
   const queryClient = useQueryClient()
@@ -442,9 +450,16 @@ export const useUpdateCart = () => {
 }
 
 export const useRemoveFromCart = () => {
-  const removeFromCartAction = async (data: CartItemUpload) => {
+  const removeFromCartAction = async ({
+    data,
+    name,
+  }: {
+    data: CartItemUpload
+    name: string | undefined
+  }) => {
     try {
       await removeFromCart(data)
+      toast.success(`${name} has been  removed from your cart`)
     } catch (error: any) {
       toast.error(error?.message)
     }

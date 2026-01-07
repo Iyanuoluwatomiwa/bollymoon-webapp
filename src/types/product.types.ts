@@ -1,11 +1,11 @@
 export type ColorQuantity = {
   color: string
   quantity: number
-  colorId?: string
+  id?: string
 }
 
 export type Variant = {
-  specId?: string
+  id?: string
   size: string
   colors: ColorQuantity[]
   originalPrice: number

@@ -12,8 +12,6 @@ function Profile({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
     (state: any) => state.userState
   )
 
-  console.log(userProfile)
-
   const navigate = useNavigate()
 
   return (

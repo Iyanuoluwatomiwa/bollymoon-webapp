@@ -9,7 +9,6 @@ import type { CartItem } from '@/types/product.types'
 import RemoveItemDialog from './RemoveItemDialog'
 import { useSelector } from 'react-redux'
 import { useRemoveFromCart, useUpdateCart } from '@/hooks/useQueries'
-import { toast } from 'sonner'
 
 function CartItemCard({
   image,
@@ -35,19 +34,10 @@ function CartItemCard({
   const dispatch = useDispatch()
   const removeItemFromCart = () => {
     token
-      ? removeFromCart(
-          {
-            specId,
-            colorId,
-            productId: id,
-            quantity,
-          },
-          {
-            onSuccess: () => {
-              toast.success(`${name} has been  removed from your cart`)
-            },
-          }
-        )
+      ? removeFromCart({
+          data: { specId, colorId, productId: id, quantity },
+          name,
+        })
       : dispatch(
           removeItem({
             id,
