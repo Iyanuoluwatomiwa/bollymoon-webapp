@@ -48,25 +48,29 @@ function Cart() {
             </div>
           ) : (
             <>
-              <div
-                className={` ${
-                  itemsInCart && 'md:grid-cols-3'
-                }  md:grid gap-x-6`}
-              >
-                <section className="col-span-2">
-                  {!itemsInCart ? (
-                    <EmptyCart />
-                  ) : (
-                    <CartItems numItemsInCart={itemsInCart} items={items} />
-                  )}
-                </section>
-                {!itemsInCart || (
-                  <section className="mt-10 md:mt-13">
-                    <OrderSummary cartTotal={totalAmount} />
+              {' '}
+              {isError ? (
+                <NoResult isError={isError} errorText="cart" />
+              ) : (
+                <div
+                  className={` ${
+                    itemsInCart && 'md:grid-cols-3'
+                  }  md:grid gap-x-6`}
+                >
+                  <section className="col-span-2">
+                    {!itemsInCart ? (
+                      <EmptyCart />
+                    ) : (
+                      <CartItems numItemsInCart={itemsInCart} items={items} />
+                    )}
                   </section>
-                )}
-              </div>
-              {isError && <NoResult isError={isError} errorText="cart" />}
+                  {!itemsInCart || (
+                    <section className="mt-10 md:mt-13">
+                      <OrderSummary cartTotal={totalAmount} />
+                    </section>
+                  )}
+                </div>
+              )}
             </>
           )
         ) : (

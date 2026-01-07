@@ -33,15 +33,13 @@ function Wishlist() {
               <WishlistCardSkeleton />
             ) : (
               <>
-                {fetchedWishlists?.length !== 0 &&
-                  fetchedWishlists?.length !== undefined && (
-                    <WishlistItems wishlistItems={fetchedWishlists} />
-                  )}
-
                 {isError ? (
                   <NoResult isError={isError} errorText="your wishlist" />
                 ) : (
-                  fetchedWishlists?.length == 0 && <EmptyWishlist />
+                  <>
+                    <WishlistItems wishlistItems={fetchedWishlists} />
+                    {fetchedWishlists?.length == 0 && <EmptyWishlist />}
+                  </>
                 )}
               </>
             )

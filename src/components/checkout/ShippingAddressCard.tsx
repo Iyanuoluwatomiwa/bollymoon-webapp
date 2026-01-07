@@ -52,7 +52,7 @@ export default function ShippingAddressCard({
       <Checkbox
         checked={id == shippingForm.id}
         onClick={addShippingInformation}
-        className="w-4 h-4 md:w-5 md:h-5 cursor-pointer"
+        className="w-4 h-4 md:w-5 md:h-5 cursor-pointer bg-accent"
       />
     </div>
   )
