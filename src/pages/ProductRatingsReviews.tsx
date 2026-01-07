@@ -12,7 +12,7 @@ import { useParams } from 'react-router-dom'
 export default function ProductRatingsReviews() {
   const { productId } = useParams()
   const { data, isLoading, isError } = useProductReviews(productId)
-  const productReviews: ProductReviews[] = data?.data
+  const productReviews: ProductReviews[] | undefined = data?.data
   return (
     <>
       <PageTitle title="Customer feedback" />

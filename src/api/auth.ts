@@ -69,10 +69,7 @@ export const updateProfile = async (data: ProfileForm) => {
     handleApiError(error)
   }
 }
-export const googleSignIn = async (data: {
-  idToken: string | undefined
-  redirectUrl: string
-}) => {
+export const googleSignIn = async (data: { idToken: string | undefined }) => {
   try {
     const response = await api.post(`/v1/users/google-auth`, data)
     return response

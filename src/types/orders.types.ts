@@ -10,6 +10,10 @@ export type OrderItem = {
   discountPrice?: number
   originalPrice?: number
   productId?: string
+  status?: string
+  reviewed?: boolean
+  updatedAt?: string
+  orderId?: string
 }
 
 export type DeliveryAddress = {

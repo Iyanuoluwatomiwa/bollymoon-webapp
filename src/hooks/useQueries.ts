@@ -11,6 +11,7 @@ import {
 import type {
   CartItemUpload,
   ProductFetch,
+  ProductReviews,
   ProductUpload,
 } from '@/types/product.types'
 import {
@@ -29,7 +30,7 @@ import type { DeliveryAddress } from '@/types/orders.types'
 import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
 import { toast } from 'sonner'
 import { addToCart, getCartItems, removeFromCart, updateCart } from '@/api/cart'
-import { getProductReviews } from '@/api/reviews'
+import { createProductReviews, getProductReviews } from '@/api/reviews'
 
 export const useAllProducts = ({
   search,
@@ -485,4 +486,23 @@ export const useProductReviews = (productId: string | undefined) => {
     queryFn: getAllProductReviews,
   })
   return queryData
+}
+
+export const useCreateProductReviews = () => {
+  const createProductReviewsAction = async (data: ProductReviews) => {
+    try {
+      await createProductReviews(data)
+      toast.success('Review submitted successfully!')
+    } catch (error: any) {
+      toast.error(error?.message)
+    }
+  }
+  const queryClient = useQueryClient()
+  const createProductReviewsFunction = useMutation({
+    mutationFn: createProductReviewsAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviews'] })
+    },
+  })
+  return createProductReviewsFunction
 }

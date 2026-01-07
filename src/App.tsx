@@ -255,7 +255,7 @@ function App() {
     }
     return item
   })
-  console.log(cartItems)
+  console.log(token)
 
   useEffect(() => {
     if (!token) return

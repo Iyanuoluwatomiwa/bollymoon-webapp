@@ -12,7 +12,7 @@ export default function BackNavHeader({
   const navigate = useNavigate()
   return (
     <Container className="py-4">
-      <header className="flex items-center gap-8">
+      <header className="flex items-center gap-2">
         <button
           className={`flex items-center gap-1 font-medium text-gray-800 hover:text-secondary cursor-pointer text-sm lg:text-base ${className} `}
           onClick={() => navigate(-1)}

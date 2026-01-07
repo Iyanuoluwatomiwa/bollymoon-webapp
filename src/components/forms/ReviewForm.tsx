@@ -1,31 +1,34 @@
 import { Star } from 'lucide-react'
 import { useState, type FormEvent } from 'react'
-import { useSelector } from 'react-redux'
-import type { UserProfile } from '@/types/user.types'
 import FormTextArea from '../form-fields/FormTextArea'
 import type { ProductFetch } from '@/types/product.types'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import FormSubmitButton from '../form-fields/FormSubmitButton'
-import FormInput from '../form-fields/FormInput'
+import { useCreateProductReviews } from '@/hooks/useQueries'
 
 function ReviewForm({ product }: { product: ProductFetch | undefined }) {
-  const { userProfile }: { userProfile: UserProfile } = useSelector(
-    (state: any) => state.userState
-  )
   const [formData, setFormData] = useState({
     rating: 0,
     comment: '',
-    name: `${userProfile?.firstName} ${userProfile?.lastName}`,
   })
-  const [submitting, setSubmitting] = useState(false)
+  const { mutate: createReview, isPending } = useCreateProductReviews()
 
   const handleReviewChange = (field: string, value: string | number) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
+  const navigate = useNavigate()
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitting(true)
+    const reviewData = {
+      ...formData,
+      productId: product?.id,
+    }
+    createReview(reviewData, {
+      onSuccess: () => {
+        navigate(`/shop/${product?.category}/${product?.id}/ratings-reviews}`)
+      },
+    })
   }
 
   return (
@@ -90,26 +93,13 @@ function ReviewForm({ product }: { product: ProductFetch | undefined }) {
             required
           />
         </div>
-        <div className="space-y-3">
-          <p className="text-xs md:text-sm font-medium">Your name</p>
-          <FormInput
-            name="name"
-            type="text"
-            value={formData.name}
-            handleInputChange={handleReviewChange}
-            required
-            className="rounded-sm"
-          />
-        </div>
       </div>
 
       <FormSubmitButton
-        submitting={submitting}
+        submitting={isPending}
         text="Submit Review"
         texting="Submitting"
-        disabled={
-          formData.comment == '' || formData.name == '' || formData.rating == 0
-        }
+        disabled={!formData.comment || !formData.rating}
       />
     </form>
   )

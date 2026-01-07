@@ -251,7 +251,7 @@ export const heroCarouselSlides = [
   },
 ]
 
-export const categories = [
+/* export const categories = [
   { value: 'all', label: 'All' },
   { value: 'hair', label: 'Hair' },
   { value: 'hairCare', label: 'Hair Care' },
@@ -285,7 +285,7 @@ export const subcategories = {
     { label: 'Hats', value: 'hats' },
     { label: 'Belts', value: 'belts' },
   ],
-}
+} */
 
 export const shop = {
   categories: [
@@ -1067,15 +1067,43 @@ export const adminProductsFilters: Filters[] = [
   },
 ]
 
-export const hairSubcategory = [
-  'all',
-  'wigs',
-  'hair-extensions',
-  'frontals',
-  'closures',
-  'hair-bundles',
-]
-export const cosmeticsSubcategory = ['all', 'makeup']
+export const subcategories = {
+  hair: [
+    'all',
+    'wigs',
+    'hair-extensions',
+    'frontals',
+    'closures',
+    'hair-bundles',
+  ],
+  hairCare: [
+    'all',
+    'shampoo',
+    'conditioners',
+    'treatments',
+    'oils-serums',
+    'styling-products',
+    'scalp-care',
+  ],
+  clothing: [
+    'all',
+    'dresses',
+    'tops',
+    'bottoms',
+    'skirts',
+    'outwear',
+    'activewear',
+  ],
+  cosmetics: [
+    'all',
+    'face-makeup',
+    'eye-makeup',
+    'lip products',
+    'skincare',
+    'beauty-tools',
+    'makeup-sets',
+  ],
+}
 
 export const deliveryOptions: {
   name: string

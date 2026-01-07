@@ -11,11 +11,7 @@ import { Link } from 'react-router-dom'
 import NoProductFound from '@/components/admin/products/NoProductFound'
 import { useAllProductsByAdmin } from '@/hooks/useQueries'
 import ProductsTableSkeleton from '@/components/skeletons/ProductsTableSkeleton'
-import {
-  adminProductsFilters,
-  cosmeticsSubcategory,
-  hairSubcategory,
-} from '@/assets/data'
+import { adminProductsFilters, subcategories } from '@/assets/data'
 import FiltersDialog, {
   type Filters,
   type SelectedFilters,
@@ -31,14 +27,17 @@ function Products() {
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
-  const subcategories: Record<string, string[]> = {
-    hair: hairSubcategory,
-    cosmetics: cosmeticsSubcategory,
+  const getSubcategory: Record<string, string[]> = {
+    hair: subcategories.hair,
+    hairCare: subcategories.hairCare,
+    clothing: subcategories.clothing,
+    cosmetics: subcategories.cosmetics,
   }
   const { data, isError, isLoading } = useAllProductsByAdmin()
   const products = data?.data
 
-  const subcategoriesOptions = subcategories[formData?.category as string] ?? []
+  const subcategoriesOptions =
+    getSubcategory[formData?.category as string] ?? []
   const subcategory: Filters = {
     label: 'subcategory',
     options: subcategoriesOptions,

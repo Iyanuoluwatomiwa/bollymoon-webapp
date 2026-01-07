@@ -314,7 +314,7 @@ export const orderItemsByUser = [
     productImage,
     updatedAt: Date.now(),
     category: 'clothing',
-    status: 'pending',
+    status: 'delivered',
   },
 ]
 export const RatingsAndReviewsByProduct = [

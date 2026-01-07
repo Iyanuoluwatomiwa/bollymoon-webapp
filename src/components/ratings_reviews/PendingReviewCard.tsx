@@ -1,8 +1,8 @@
-import type { OrderItemByUser } from '@/types/orders.types'
+import type { OrderItem } from '@/types/orders.types'
 import { formatCreatedAt } from '@/utils/format'
 import { Link } from 'react-router-dom'
 
-function PendingReviewCard({ orderItem }: { orderItem: OrderItemByUser }) {
+function PendingReviewCard({ orderItem }: { orderItem: OrderItem }) {
   const { productImage, productName, productId, category, updatedAt, orderId } =
     orderItem
   return (
@@ -18,7 +18,7 @@ function PendingReviewCard({ orderItem }: { orderItem: OrderItemByUser }) {
               loading="lazy"
             />
           </figure>
-          <div className="flex-1 py-2 flex flex-col gap-4 md:gap-6 justify-between">
+          <div className="flex-1 py-2 pr-2 md:pr-4 flex flex-col gap-4 md:gap-6 justify-between">
             {/* Product name, size, and color */}
             <Link to={`/shop/${category}/${productId}`} className="group block">
               <h2 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors line-clamp-2">

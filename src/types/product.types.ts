@@ -89,12 +89,12 @@ export type ProductUpload = {
 }
 
 export type ProductReviews = {
-  id: string
+  id?: string
   rating: number
-  productId: string
-  name: string
+  productId: string | undefined
+  name?: string
   comment: string
-  createdAt: string
+  createdAt?: string
 }
 export type ProductFetch = {
   id: string

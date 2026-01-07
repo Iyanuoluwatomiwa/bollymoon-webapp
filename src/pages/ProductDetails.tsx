@@ -38,7 +38,7 @@ function ProductDetails() {
     isLoading: reviewsLoading,
     isError: reviewsError,
   } = useProductReviews(productId)
-  const productReviews: ProductReviews[] = reviews?.data
+  const productReviews: ProductReviews[] | undefined = reviews?.data
 
   const product: ProductFetch = data?.data
 
@@ -139,9 +139,17 @@ function ProductDetails() {
                       <div className="space-y-4">
                         {/* category and product name */}
                         <div className="space-y-2">
-                          <span className="text-[10px] font-seibold text-white rounded-xs uppercase tracking-wider px-1.5 py-0.5 bg-primary block w-max">
-                            {product?.category}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-[10px] font-seibold text-white rounded-xs uppercase tracking-wider px-1.5 py-0.5 bg-primary block w-max">
+                              {product?.category == 'hairCare'
+                                ? 'hair care'
+                                : product?.category}
+                            </span>
+                            <span className="text-[10px] font-seibold text-white rounded-xs uppercase tracking-wider px-1.5 py-0.5 bg-primary block w-max">
+                              {product?.subcategory.replace(/-/g, ' ')}
+                            </span>
+                          </div>
+
                           <h2 className="text-sm sm:text-base md:text-lg">
                             {product?.name}
                           </h2>
