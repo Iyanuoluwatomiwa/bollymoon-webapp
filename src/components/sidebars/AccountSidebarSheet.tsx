@@ -90,7 +90,7 @@ function AccountSidebarSheet({
         </div>
         <SheetFooter className="p-0">
           <button
-            className="text-primary font-medium text-sm w-full text-center bg-gray-200 h-9 cursor-pointer"
+            className="text-destructive font-medium text-sm w-full text-center bg-destructive/10 h-9 cursor-pointer"
             onClick={handleLogout}
           >
             Logout

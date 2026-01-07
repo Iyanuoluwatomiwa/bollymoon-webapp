@@ -31,18 +31,23 @@ function Shop() {
   const search = queryParams.get('search')
   const navigate = useNavigate()
   //filters
-  const [searchQuery, setSearchQuery] = useState(search || '')
+  const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState<ProductFilter>({
     priceRange: null,
     inStockOnly: null,
     searchQuery,
-    category: category || '',
+    category: '',
   })
 
   useEffect(() => {
     if (category || search) {
       setSearchQuery(search || '')
-      setFilters({ ...filters, category })
+      setFilters({
+        priceRange: null,
+        inStockOnly: null,
+        category: category || '',
+        searchQuery: search || '',
+      })
       navigate(location.pathname, { replace: true })
     }
   }, [category, search, navigate, location.pathname])

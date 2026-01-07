@@ -24,6 +24,8 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
   const navigate = useNavigate()
   const handleSearch = () => {
     navigate(`/shop?search=${searchQuery}`)
+    setShowSearchBar(false)
+    setSearchQuery('')
   }
   const { userProfile }: { userProfile: UserProfile | null } = useSelector(
     (state: any) => state.userState

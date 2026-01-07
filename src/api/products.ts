@@ -30,10 +30,12 @@ export const getProducts = async ({
   currentPage?: number
   stock?: boolean | null
 }) => {
+  console.log(search)
+
   try {
     const response = await api.get(
-      `/v1/products?search=${search && search}&category=${
-        category && category
+      `/v1/products?category=${category && category}&search=${
+        search && search
       }&minPrice=${minPrice && minPrice}&maxPrice=${
         maxPrice && maxPrice
       }&stock=${stock && stock}&page=${currentPage}`
