@@ -30,7 +30,7 @@ function ProgressIndicator() {
       <div
         className={`${
           step > 1 ? 'bg-primary' : 'bg-gray-400'
-        } absolute w-[38%] top-1/2 -translate-y-1/2 z-30  h-[2px]`}
+        } absolute w-[50%] top-1/2 -translate-y-1/2 z-30  h-[2px]`}
       />
     </div>
   )

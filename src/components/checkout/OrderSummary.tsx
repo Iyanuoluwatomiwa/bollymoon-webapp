@@ -4,6 +4,7 @@ import { currencyFormatter } from '@/utils/format'
 import type { CartItem, FetchedCartItem } from '@/types/product.types'
 import { useCartItems, useMyOrders } from '@/hooks/useQueries'
 import { Loader2 } from 'lucide-react'
+import type { DeliveryAddress } from '@/types/orders.types'
 
 function OrderSummary() {
   const { token }: { token: string | null } = useSelector(
@@ -14,6 +15,10 @@ function OrderSummary() {
     cartTotal,
   }: { numItemsInCart: number; cartItems: CartItem[]; cartTotal: number } =
     useSelector((state: any) => state.cartState)
+  const {
+    deliveryOption,
+  }: { shippingForm: DeliveryAddress; deliveryOption: 'standard' | 'express' } =
+    useSelector((state: any) => state.checkoutState)
   const { data, isLoading, isError } = useCartItems()
   const {
     data: myOrders,
@@ -35,12 +40,12 @@ function OrderSummary() {
   const fetchedCartTotal: number = data?.data?.cartTotal
   const items = token ? fetchedCartItems : cartItems
   const totalAmount = token ? fetchedCartTotal : cartTotal
-  const shipping = totalAmount > 30 ? 0 : 5
-  const tax = 0.05 * totalAmount
+  const shippingCost = deliveryOption == 'standard' ? 5 : 14
+  const shipping = totalAmount > 25 ? 0 : shippingCost
   const checkFirstOrder = allMyOrders
     ? totalAmount - 0.1 * totalAmount
     : totalAmount
-  const orderTotal = checkFirstOrder + tax + shipping
+  const orderTotal = checkFirstOrder + shipping
 
   return (
     <Card className="bg-gray-50 border-0 rounded-sm">
@@ -107,11 +112,6 @@ function OrderSummary() {
                       <span>{currencyFormatter(shipping)}</span>
                     )}
                   </div>
-                </div>
-
-                <div className="flex justify-between font-medium text-sm sm:text-base gap-4">
-                  <span>Tax</span>
-                  <span>{currencyFormatter(tax)}</span>
                 </div>
                 {allMyOrders?.length == 0 && (
                   <div className="flex justify-between font-medium text-sm sm:text-base gap-4">

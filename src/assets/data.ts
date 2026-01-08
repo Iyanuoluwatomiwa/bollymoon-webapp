@@ -535,6 +535,10 @@ export const checkoutProgress = [
     number: 2,
     name: 'review',
   },
+  {
+    number: 3,
+    name: 'Payment',
+  },
 ]
 
 export const productSizesList = {
@@ -1072,14 +1076,17 @@ export const subcategories = {
 export const deliveryOptions: {
   name: string
   value: 'standard' | 'express'
+  desc: string
 }[] = [
   {
     name: 'Standard Delivery',
     value: 'standard',
+    desc: '2-5 business days',
   },
   {
     name: 'Express Delivery',
     value: 'express',
+    desc: '1-3 business days',
   },
 ]
 

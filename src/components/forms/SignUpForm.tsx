@@ -13,6 +13,7 @@ import SignInOptions from '../auth/SignInOptions'
 import PasswordRequirements from '../auth/PasswordRequirements'
 import { passwordRules } from '@/utils/format'
 import { register } from '@/api/auth'
+import { Check, X } from 'lucide-react'
 
 function SignUpForm() {
   const [formData, setFormData] = useState({
@@ -104,15 +105,35 @@ function SignUpForm() {
               <PasswordRequirements password={formData.password} />
             )}
           </div>
+          <div>
+            <FormPassword
+              name="password2"
+              label="Confirm Password"
+              placeholder="Confirm your password"
+              value={formData.password2}
+              handleInputChange={handleInputChange}
+              required
+            />
+            {formData.password2 && (
+              <li className="flex items-center gap-2 mt-2 text-xs">
+                {formData.password === formData.password2 ? (
+                  <Check className="w-4 h-4 text-green-600" />
+                ) : (
+                  <X className="w-4 h-4 text-red-500" />
+                )}
+                <span
+                  className={
+                    formData.password === formData.password2
+                      ? 'text-green-600'
+                      : 'text-muted-foreground'
+                  }
+                >
+                  Password match
+                </span>
+              </li>
+            )}
+          </div>
 
-          <FormPassword
-            name="password2"
-            label="Confirm Password"
-            placeholder="Confirm your password"
-            value={formData.password2}
-            handleInputChange={handleInputChange}
-            required
-          />
           <div className="mt-8">
             <FormSubmitButton
               submitting={submitting}

@@ -55,6 +55,7 @@ const AdminSettings = lazy(() => import('./pages/AdminSettings'))
 const TermsConditions = lazy(() => import('./pages/TermsConditions'))
 const Faqs = lazy(() => import('./pages/FAQs'))
 const CollectionDetails = lazy(() => import('./pages/CollectionDetails'))
+const CloseAccount = lazy(() => import('./pages/CloseAccount'))
 
 const router = createBrowserRouter([
   {
@@ -174,6 +175,12 @@ const router = createBrowserRouter([
         path: 'address-book',
         element: (
           <ProtectedRoute>{pageSuspense(<AddressBook />)}</ProtectedRoute>
+        ),
+      },
+      {
+        path: 'close-account',
+        element: (
+          <ProtectedRoute>{pageSuspense(<CloseAccount />)}</ProtectedRoute>
         ),
       },
     ],

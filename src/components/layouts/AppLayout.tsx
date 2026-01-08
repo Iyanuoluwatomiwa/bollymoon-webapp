@@ -31,7 +31,7 @@ function AppLayout() {
           <div className="text-xs sm:text-sm text-center py-1.5 sm:py-2 w-full font-medium flex items-center gap-1.5 justify-center tracking-wide">
             Enjoy <span className="text-primary">free shipping</span>
             <Truck className="w-3 h-3" /> on orders above
-            <span>{currencyFormatter(30)}</span>
+            <span>{currencyFormatter(25)}</span>
           </div>
           <div className="bg-gradient-to-b from-primary/10 to-accent/50 w-full">
             <AppHeader toggleAccountMenu={() => setAccountMenuOpen(true)} />

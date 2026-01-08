@@ -5,6 +5,7 @@ import OrderReview from '@/components/checkout/OrderReview'
 import Container from '@/components/global/Container'
 import ProgressIndicator from '@/components/checkout/ProgressIndicator'
 import BreadcrumbHeader from '@/components/headers/BreadcrumbHeader'
+import Payment from '@/components/checkout/Payment'
 
 const Checkout = () => {
   const { step }: { step: number } = useSelector(
@@ -13,6 +14,7 @@ const Checkout = () => {
   const checkoutComponents: Record<number, React.ComponentType> = {
     1: ShippingInformation,
     2: OrderReview,
+    3: Payment,
   }
 
   const Component = checkoutComponents[step]

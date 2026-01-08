@@ -5,42 +5,11 @@ import { Button } from '../ui/button'
 import ShippingAddress from './ShippingAddress'
 import { useDispatch } from 'react-redux'
 import { handleStepChange } from '@/features/checkout/checkoutSlice'
-import { useSelector } from 'react-redux'
-import type { DeliveryAddress } from '@/types/orders.types'
-import { paymentCheckout } from '@/api/payment'
-import { toast } from 'sonner'
 
 function OrderReview() {
   const dispatch = useDispatch()
   const handleStep = (step: number) => {
     dispatch(handleStepChange({ step }))
-  }
-  const {
-    deliveryOption,
-    shippingForm,
-  }: { deliveryOption: string; shippingForm: DeliveryAddress } = useSelector(
-    (state: any) => state.checkoutState
-  )
-  const {
-    shipping,
-    orderTotal,
-  }: {
-    shipping: number
-    orderTotal: number
-  } = useSelector((state: any) => state.cartState)
-
-  const paymentData = {
-    totalAmount: orderTotal,
-    deliveryFee: shipping,
-    deliveryOption,
-    shippingDetailsId: shippingForm.id,
-  }
-  const handlePaymentSession = async () => {
-    try {
-      await paymentCheckout(paymentData)
-    } catch (error: any) {
-      toast.error(error.message)
-    }
   }
 
   return (
@@ -72,7 +41,7 @@ function OrderReview() {
               type="submit"
               size="lg"
               className="h-9 sm:flex-1 "
-              onClick={handlePaymentSession}
+              onClick={() => handleStep(3)}
             >
               Proceed to Payment
             </Button>

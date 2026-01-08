@@ -77,3 +77,11 @@ export const googleSignIn = async (data: { idToken: string | undefined }) => {
     handleApiError(error)
   }
 }
+export const deactivateAccount = async () => {
+  try {
+    const response = await api.post(`/v1/users/me`)
+    return response
+  } catch (error) {
+    handleApiError(error)
+  }
+}

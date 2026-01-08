@@ -52,23 +52,26 @@ function ShippingInformation() {
                   Delivery Options
                 </h2>
                 <div className="space-y-2">
-                  {deliveryOptions.map(({ name, value }) => {
+                  {deliveryOptions.map(({ name, value, desc }) => {
                     return (
-                      <div key={value} className="flex items-center gap-3">
+                      <div key={value} className="flex items-start gap-3">
                         <Checkbox
                           checked={deliveryOption == value}
-                          className="rounded-full w-4 h-4 cursor-pointer"
+                          className="rounded-full w-4 h-4 cursor-pointer mt-0.5"
                           onCheckedChange={() => selectDeliveryOption(value)}
                         />{' '}
-                        <span
-                          className={`text-xs md:text-sm transition ${
-                            value == deliveryOption
-                              ? 'font-medium text-primary'
-                              : 'font-normal'
-                          }`}
-                        >
-                          {name}
-                        </span>
+                        <div className="text-xs md:text-sm space-y-0.5 ">
+                          <span
+                            className={`transition block ${
+                              value == deliveryOption
+                                ? 'font-medium text-primary'
+                                : 'font-normal'
+                            }`}
+                          >
+                            {name}
+                          </span>
+                          <p className="text-muted-foreground">{desc}</p>
+                        </div>
                       </div>
                     )
                   })}

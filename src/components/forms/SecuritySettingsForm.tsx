@@ -7,6 +7,7 @@ import PasswordRequirements from '../auth/PasswordRequirements'
 import { passwordRules } from '@/utils/format'
 import { changePassword } from '@/api/auth'
 import { toast } from 'sonner'
+import { Check, X } from 'lucide-react'
 
 export default function SecuritySettingsForm() {
   const [formData, setFormData] = useState({
@@ -81,15 +82,35 @@ export default function SecuritySettingsForm() {
           <PasswordRequirements password={formData.newPassword} />
         )}
       </div>
+      <div>
+        <FormPassword
+          name="confirmNewPassword"
+          label="Confirm New Password"
+          value={formData.confirmNewPassword}
+          handleInputChange={handleInputChange}
+          placeholder="Confirm New Password"
+          required
+        />
+        {formData.confirmNewPassword && (
+          <li className="flex items-center gap-2 mt-2 text-xs">
+            {formData.newPassword === formData.confirmNewPassword ? (
+              <Check className="w-4 h-4 text-green-600" />
+            ) : (
+              <X className="w-4 h-4 text-red-500" />
+            )}
+            <span
+              className={
+                formData.newPassword === formData.confirmNewPassword
+                  ? 'text-green-600'
+                  : 'text-muted-foreground'
+              }
+            >
+              Password match
+            </span>
+          </li>
+        )}
+      </div>
 
-      <FormPassword
-        name="confirmNewPassword"
-        label="Confirm New Password"
-        value={formData.confirmNewPassword}
-        handleInputChange={handleInputChange}
-        placeholder="Confirm New Password"
-        required
-      />
       <FormSubmitButton
         text="Update Password"
         texting="Updating"
