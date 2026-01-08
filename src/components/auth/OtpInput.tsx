@@ -8,7 +8,7 @@ import {
 import FormSubmitButton from '../form-fields/FormSubmitButton'
 
 function OtpInput() {
-  const [resending, setResending] = useState(false)
+  /*  const [resending, setResending] = useState(false) */
   const [values, setValues] = useState(['', '', '', ''])
   const inputsRef = useRef<(HTMLInputElement | null)[]>([])
   const handleChange = (index: number, value: string) => {
@@ -74,9 +74,9 @@ function OtpInput() {
         type="button"
         className="text-primary text-sm font-medium text-center mt-3 mb-6 w-full "
         onClick={handleResendCode}
-        disabled={resending}
+        disabled={false}
       >
-        {resending ? 'Resend code' : 'Resend verification code'}
+        Send code
       </button>
       <div className="max-w-xs mx-auto">
         <FormSubmitButton
