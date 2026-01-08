@@ -3,7 +3,7 @@ import Container from '../global/Container'
 import { Link } from 'react-router-dom'
 import { useCollectionProducts } from '@/hooks/useQueries'
 import type { ProductFetch } from '@/types/product.types'
-import { Loader2 } from 'lucide-react'
+import ProductCardListSkeleton from '../skeletons/ProductCardListSkeleton'
 
 function OtherCollections() {
   const {
@@ -35,9 +35,7 @@ function OtherCollections() {
             </Link>
           </div>
           {newArrivalsLoading ? (
-            <div className="w-full h-[25vh] flex items-center justify-center">
-              <Loader2 className="w-5 h-5 animate-spin" />
-            </div>
+            <ProductCardListSkeleton />
           ) : (
             <>
               <div className="space-y-2 lg:space-y-4 ">
@@ -72,9 +70,7 @@ function OtherCollections() {
           </div>
 
           {saleLoading ? (
-            <div className="w-full h-[25vh] flex items-center justify-center">
-              <Loader2 className="w-5 h-5 animate-spin" />
-            </div>
+            <ProductCardListSkeleton />
           ) : (
             <>
               <div className="space-y-2 lg:space-y-4 ">

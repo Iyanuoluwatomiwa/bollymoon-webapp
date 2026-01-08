@@ -9,8 +9,8 @@ import {
 import ProductCardGrid from '../shop/ProductCardGrid'
 import { Link } from 'react-router-dom'
 import { useCollectionProducts } from '@/hooks/useQueries'
-import { Loader2 } from 'lucide-react'
 import type { ProductFetch } from '@/types/product.types'
+import ProductCardGridSkeleton from '../skeletons/ProductCardGridSkeleton'
 
 function BestSellers() {
   const { data, isLoading, isError } = useCollectionProducts('best-sellers')
@@ -24,9 +24,7 @@ function BestSellers() {
           <span className="text-primary"> best selling</span> items
         </h2>
         {isLoading ? (
-          <div className="w-full h-[25vh] flex items-center justify-center">
-            <Loader2 className="w-5 h-5 animate-spin" />
-          </div>
+          <ProductCardGridSkeleton />
         ) : (
           <>
             <div className="relative mx-auto">
