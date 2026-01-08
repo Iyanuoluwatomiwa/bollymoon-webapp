@@ -89,7 +89,7 @@ function Payment() {
           selected={selected === 'klarna'}
           onSelect={() => setSelected('klarna')}
           icon={<KlarnaLogo />}
-          title="Installment"
+          title="Klarna (Installment)"
         />
         <div className="flex flex-col sm:flex-row gap-3 mt-8">
           <Button

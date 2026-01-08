@@ -22,6 +22,9 @@ export const PaymentMethodCard = ({
     >
       {/* Selection indicator */}
       <div className="flex items-center gap-4">
+        <h3 className="flex-1 text-xs md:text-sm font-medim text-foreground">
+          {title}
+        </h3>
         <div
           className="
             flex shrink-0 items-center justify-center  transition-colors
@@ -29,10 +32,6 @@ export const PaymentMethodCard = ({
         >
           {icon}
         </div>
-
-        <h3 className="flex-1 text-xs md:text-sm font-medim text-foreground">
-          {title}
-        </h3>
       </div>
       <div
         className={`
