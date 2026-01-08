@@ -28,8 +28,10 @@ function ForgotPasswordForm() {
       return
     }
     try {
-      const response = await forgotPassword(validatedData)
-      toast.success(response?.data?.message)
+      await forgotPassword(validatedData)
+      toast.success(
+        'Password reset link successfully sent to your email address.'
+      )
       setSubmitting(false)
     } catch (error: any) {
       toast.error(error?.message)

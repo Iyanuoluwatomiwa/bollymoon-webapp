@@ -20,19 +20,13 @@ function GoogleSignInButton() {
       const response = await googleSignIn({
         idToken,
       })
-
       const token = response?.data?.data?.token
-      if (!token) {
-        toast.error('Authentication failed')
-        return
-      }
 
       dispatch(setToken({ token }))
       toast.success("Welcome, you've logged in successfully!")
       navigate('/')
-    } catch (err: any) {
-      console.error(err)
-      toast.error(err?.response?.data?.message || 'Login failed')
+    } catch (error: any) {
+      toast.error(error?.message)
     }
   }
 

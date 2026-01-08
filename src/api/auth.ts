@@ -79,7 +79,15 @@ export const googleSignIn = async (data: { idToken: string | undefined }) => {
 }
 export const deactivateAccount = async () => {
   try {
-    const response = await api.post(`/v1/users/me`)
+    const response = await api.delete(`/v1/users/me`)
+    return response
+  } catch (error) {
+    handleApiError(error)
+  }
+}
+export const confirmDeactivation = async (otp: { otp: string }) => {
+  try {
+    const response = await api.post(`/v1/users/confirm-deletion`, otp)
     return response
   } catch (error) {
     handleApiError(error)
