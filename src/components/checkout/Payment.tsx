@@ -2,10 +2,7 @@ import { CreditCard } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { useDispatch } from 'react-redux'
-import {
-  handleStepChange,
-  resetCheckout,
-} from '@/features/checkout/checkoutSlice'
+import { handleStepChange } from '@/features/checkout/checkoutSlice'
 import visaLogo from '@/assets/images/visa-logo.svg'
 import mastercardLogo from '@/assets/images/mastercard-logo.svg'
 import googlePayLogo from '@/assets/images/google-pay-logo.svg'
@@ -68,7 +65,6 @@ function Payment() {
       const data = response?.data
       if (data) {
         window.location.href = data.url
-        dispatch(resetCheckout())
       }
     } catch (error: any) {
       toast.error(error.message)

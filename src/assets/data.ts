@@ -1081,12 +1081,12 @@ export const deliveryOptions: {
   {
     name: 'Standard Delivery',
     value: 'standard',
-    desc: '2-5 business days',
+    desc: '2-4 business days',
   },
   {
     name: 'Express Delivery',
     value: 'express',
-    desc: '1-3 business days',
+    desc: '1-2 business days',
   },
 ]
 

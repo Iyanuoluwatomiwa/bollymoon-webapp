@@ -46,21 +46,6 @@ const checkoutSlice = createSlice({
       state.totalAmount = totalAmount
       sessionStorage.setItem('checkout', JSON.stringify(state))
     },
-    resetCheckout: (state) => {
-      state.step = 1
-      state.shippingForm = {
-        addressLine: '',
-        city: '',
-        state: '',
-        postalCode: '',
-        phone: '',
-        country: 'UK',
-        note: '',
-      }
-      state.deliveryOption = 'standard'
-      state.totalAmount = null
-      sessionStorage.setItem('checkout', JSON.stringify(state))
-    },
   },
 })
 
@@ -68,7 +53,6 @@ export const {
   handleShippingInformation,
   handleStepChange,
   handleDeliveryOption,
-  resetCheckout,
   handleTotalAmount,
 } = checkoutSlice.actions
 
