@@ -2,13 +2,20 @@ import { CreditCard } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Button } from '../ui/button'
 import { useDispatch } from 'react-redux'
-import { handleStepChange } from '@/features/checkout/checkoutSlice'
+import {
+  handleStepChange,
+  resetCheckout,
+} from '@/features/checkout/checkoutSlice'
 import visaLogo from '@/assets/images/visa-logo.svg'
 import mastercardLogo from '@/assets/images/mastercard-logo.svg'
 import googlePayLogo from '@/assets/images/google-pay-logo.svg'
 import klarnaLogo from '@/assets/images/klarna-logo.png'
 import { useState } from 'react'
 import { PaymentMethodCard } from './PaymentMethodCard'
+import type { DeliveryAddress } from '@/types/orders.types'
+import { useSelector } from 'react-redux'
+import { paymentCheckout } from '@/api/payment'
+import { toast } from 'sonner'
 
 type PaymentMethod = 'card' | 'google-pay' | 'klarna'
 const CardLogos = () => (
@@ -36,32 +43,35 @@ function Payment() {
   const handleStep = (step: number) => {
     dispatch(handleStepChange({ step }))
   }
-  /* const {
-      deliveryOption,
-      shippingForm,
-    }: { deliveryOption: string; shippingForm: DeliveryAddress } = useSelector(
-      (state: any) => state.checkoutState
-    )
-     const {
-       shipping,
-       orderTotal,
-     }: {
-       shipping: number
-       orderTotal: number
-     } = useSelector((state: any) => state.cartState)
-    const paymentData = {
-      totalAmount: orderTotal,
-      deliveryFee: shipping,
-      deliveryOption,
-      shippingDetailsId: shippingForm.id,
-    }
-     const handlePaymentSession = async () => {
-      try {
-        await paymentCheckout(paymentData)
-      } catch (error: any) {
-        toast.error(error.message)
+  const {
+    deliveryOption,
+    shippingForm,
+    totalAmount,
+  }: {
+    deliveryOption: string
+    shippingForm: DeliveryAddress
+    totalAmount: number
+  } = useSelector((state: any) => state.checkoutState)
+
+  const deliveryFee = deliveryOption == 'standard' ? 5 : 14
+  const paymentData = {
+    totalAmount,
+    deliveryFee,
+    deliveryOption,
+    shippingDetailsId: shippingForm.id,
+  }
+  const handlePaymentSession = async () => {
+    try {
+      const response = await paymentCheckout(paymentData)
+      const data = response?.data
+      if (data) {
+        dispatch(resetCheckout())
+        window.location.href = data.url
       }
-    }  */
+    } catch (error: any) {
+      toast.error(error.message)
+    }
+  }
   return (
     <Card className="rounded-sm bg-white gap-4">
       <CardHeader className="px-2 md:px-6">
@@ -75,21 +85,21 @@ function Payment() {
           selected={selected === 'card'}
           onSelect={() => setSelected('card')}
           icon={<CardLogos />}
-          title="Credit or Debit Card"
+          title="Credit or Debit Cards"
         />
 
         <PaymentMethodCard
           selected={selected === 'google-pay'}
           onSelect={() => setSelected('google-pay')}
           icon={<GooglePayLogo />}
-          title="Google Pay"
+          title="Wallet"
         />
 
         <PaymentMethodCard
           selected={selected === 'klarna'}
           onSelect={() => setSelected('klarna')}
           icon={<KlarnaLogo />}
-          title="Klarna (Installment)"
+          title="Buy now, pay later"
         />
         <div className="flex flex-col sm:flex-row gap-3 mt-8">
           <Button
@@ -100,7 +110,12 @@ function Payment() {
           >
             Back to Review
           </Button>
-          <Button type="submit" size="lg" className="h-9 sm:flex-1 ">
+          <Button
+            type="submit"
+            size="lg"
+            className="h-9 sm:flex-1 "
+            onClick={handlePaymentSession}
+          >
             Pay Now
           </Button>
         </div>

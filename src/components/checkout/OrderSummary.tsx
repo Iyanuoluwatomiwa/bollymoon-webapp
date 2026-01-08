@@ -5,6 +5,12 @@ import type { CartItem, FetchedCartItem } from '@/types/product.types'
 import { useCartItems, useMyOrders } from '@/hooks/useQueries'
 import { Loader2 } from 'lucide-react'
 import type { DeliveryAddress } from '@/types/orders.types'
+import { useDispatch } from 'react-redux'
+import {
+  handleStepChange,
+  handleTotalAmount,
+} from '@/features/checkout/checkoutSlice'
+import { Button } from '../ui/button'
 
 function OrderSummary() {
   const { token }: { token: string | null } = useSelector(
@@ -19,6 +25,10 @@ function OrderSummary() {
     deliveryOption,
   }: { shippingForm: DeliveryAddress; deliveryOption: 'standard' | 'express' } =
     useSelector((state: any) => state.checkoutState)
+  const dispatch = useDispatch()
+  const handleStep = (step: number) => {
+    dispatch(handleStepChange({ step }))
+  }
   const { data, isLoading, isError } = useCartItems()
   const {
     data: myOrders,
@@ -46,6 +56,14 @@ function OrderSummary() {
     ? totalAmount - 0.1 * totalAmount
     : totalAmount
   const orderTotal = checkFirstOrder + shipping
+
+  const setTotalAmount = () => {
+    dispatch(
+      handleTotalAmount({
+        totalAmount: orderTotal,
+      })
+    )
+  }
 
   return (
     <Card className="bg-gray-50 border-0 rounded-sm">
@@ -123,6 +141,29 @@ function OrderSummary() {
                   <span>Total</span>
                   <span>{currencyFormatter(orderTotal)}</span>
                 </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-3 mt-8">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  onClick={() => handleStep(1)}
+                  className="sm:flex-1 bg-accent shadow-sm hover:shadow-md border-0 hover:bg-transparent hover:text-foreground h-9"
+                >
+                  Back to Shipping
+                </Button>
+                <Button
+                  type="submit"
+                  size="lg"
+                  className="h-9 sm:flex-1 "
+                  onClick={() => {
+                    setTotalAmount()
+                    handleStep(3)
+                  }}
+                  disabled={!orderTotal}
+                >
+                  Proceed to Payment
+                </Button>
               </div>
             </CardContent>
           )}

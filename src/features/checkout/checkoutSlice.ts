@@ -14,6 +14,7 @@ const defaultState: Checkout = {
   },
   step: 1,
   deliveryOption: 'standard',
+  totalAmount: null,
 }
 
 const getCheckoutFromSessionStorage = () => {
@@ -40,6 +41,11 @@ const checkoutSlice = createSlice({
       state.deliveryOption = option
       sessionStorage.setItem('checkout', JSON.stringify(state))
     },
+    handleTotalAmount: (state, action) => {
+      const { totalAmount } = action.payload
+      state.totalAmount = totalAmount
+      sessionStorage.setItem('checkout', JSON.stringify(state))
+    },
     resetCheckout: (state) => {
       state.step = 1
       state.shippingForm = {
@@ -51,7 +57,8 @@ const checkoutSlice = createSlice({
         country: 'UK',
         note: '',
       }
-      state.type = 'saved'
+      state.deliveryOption = 'standard'
+      state.totalAmount = null
       sessionStorage.setItem('checkout', JSON.stringify(state))
     },
   },
@@ -62,6 +69,7 @@ export const {
   handleStepChange,
   handleDeliveryOption,
   resetCheckout,
+  handleTotalAmount,
 } = checkoutSlice.actions
 
 export default checkoutSlice.reducer

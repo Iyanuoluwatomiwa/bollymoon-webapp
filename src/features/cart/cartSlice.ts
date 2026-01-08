@@ -6,18 +6,12 @@ export interface Cart {
   cartItems: CartItem[]
   numItemsInCart: number
   cartTotal: number
-  shipping: number
-  orderTotal: number
-  tax: number
 }
 
 const defaultState: Cart = {
   cartItems: [],
   numItemsInCart: 0,
   cartTotal: 0,
-  shipping: 8,
-  orderTotal: 0,
-  tax: 0,
 }
 
 const getCartFromLocalStorage = () => {
@@ -47,7 +41,6 @@ const cartSlice = createSlice({
         state.numItemsInCart += product.quantity
         state.cartTotal += product.price * product.quantity
       }
-      cartSlice.caseReducers.calculateTotals(state)
       toast.success(
         `${product.quantity > 1 ? `${product.quantity}X` : ''} ${
           product.name
@@ -64,7 +57,6 @@ const cartSlice = createSlice({
       )
       state.numItemsInCart -= product.quantity
       state.cartTotal -= product.price * product.quantity
-      cartSlice.caseReducers.calculateTotals(state)
       toast.success(`${name} has been  removed from your cart`)
     },
     editItem: (state, action) => {
@@ -75,7 +67,6 @@ const cartSlice = createSlice({
       state.numItemsInCart += quantity - item.quantity
       state.cartTotal += item.price * (quantity - item.quantity)
       item.quantity = quantity
-      cartSlice.caseReducers.calculateTotals(state)
       toast.success('Cart updated')
     },
     clearCart: (state) => {
@@ -85,12 +76,6 @@ const cartSlice = createSlice({
       state.shipping = 0
       state.orderTotal = 0
       localStorage.setItem('cart', JSON.stringify(defaultState))
-    },
-    calculateTotals: (state) => {
-      state.tax = 0.1 * state.cartTotal
-      state.shipping = defaultState.shipping
-      state.orderTotal = state.cartTotal + state.shipping + state.tax
-      localStorage.setItem('cart', JSON.stringify(state))
     },
   },
 })

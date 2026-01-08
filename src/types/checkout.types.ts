@@ -4,4 +4,5 @@ export type Checkout = {
   shippingForm: DeliveryAddress
   step: number
   deliveryOption: 'standard' | 'express'
+  totalAmount: number | null
 }
