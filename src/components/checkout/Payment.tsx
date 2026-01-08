@@ -9,6 +9,7 @@ import {
 import visaLogo from '@/assets/images/visa-logo.svg'
 import mastercardLogo from '@/assets/images/mastercard-logo.svg'
 import googlePayLogo from '@/assets/images/google-pay-logo.svg'
+import amexLogo from '@/assets/images/amex-logo.svg'
 import klarnaLogo from '@/assets/images/klarna-logo.png'
 import { useState } from 'react'
 import { PaymentMethodCard } from './PaymentMethodCard'
@@ -22,6 +23,7 @@ const CardLogos = () => (
   <div className="flex items-center gap-2 w-20">
     <img src={visaLogo} alt="Visa" className="h-6 w-auto" />
     <img src={mastercardLogo} alt="Mastercard" className="h-6 w-auto" />
+    <img src={amexLogo} alt="America Express" className="h-6 w-auto" />
   </div>
 )
 
@@ -65,8 +67,8 @@ function Payment() {
       const response = await paymentCheckout(paymentData)
       const data = response?.data
       if (data) {
-        dispatch(resetCheckout())
         window.location.href = data.url
+        dispatch(resetCheckout())
       }
     } catch (error: any) {
       toast.error(error.message)
@@ -85,7 +87,7 @@ function Payment() {
           selected={selected === 'card'}
           onSelect={() => setSelected('card')}
           icon={<CardLogos />}
-          title="Credit or Debit Cards"
+          title="Credit or Debit Card"
         />
 
         <PaymentMethodCard
