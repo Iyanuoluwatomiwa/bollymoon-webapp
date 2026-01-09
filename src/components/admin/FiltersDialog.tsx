@@ -72,7 +72,7 @@ function FiltersDialog({
                   <div className="space-y-1">
                     {options.map((option) => {
                       return (
-                        <div key={label}>
+                        <div key={option}>
                           <div className="flex items-center space-x-2 md:space-x-3">
                             <Checkbox
                               className="w-3 h-3 md:w-4 md:h-4"

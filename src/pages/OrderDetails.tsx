@@ -150,10 +150,9 @@ function OrderDetails() {
                       </h2>
                       <div className="space-y-0.5 text-xs md:text-sm">
                         <p className="font-medium">
-                          {order?.user?.firstName ?? 'Gideon'}{' '}
-                          {order?.user?.lastName ?? 'Onita'}
+                          {order?.user?.firstName} {order?.user?.lastName}
                         </p>
-                        <p>{order?.user?.email} onitagideon30@gmail.com</p>
+                        <p>{order?.user?.email}</p>
                       </div>
                     </div>
                   )}

@@ -234,7 +234,7 @@ export const useSingleOrder = (orderId: string | undefined) => {
     return singleOrder
   }
   const queryData = useQuery({
-    queryKey: ['order-details'],
+    queryKey: ['order-details', orderId],
     queryFn: singleOrder,
   })
 
