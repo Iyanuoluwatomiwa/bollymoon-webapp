@@ -7,6 +7,8 @@ import visaLogo from '@/assets/images/visa-logo.svg'
 import mastercardLogo from '@/assets/images/mastercard-logo.svg'
 import amexLogo from '@/assets/images/amex-logo.svg'
 import klarnaLogo from '@/assets/images/klarna-logo.png'
+import googlePayLogo from '@/assets/images/google-pay-logo.svg'
+
 import { PaymentMethodCard } from './PaymentMethodCard'
 import type { DeliveryAddress } from '@/types/orders.types'
 import { useSelector } from 'react-redux'
@@ -19,6 +21,14 @@ const CardLogos = () => (
     <img src={mastercardLogo} alt="Mastercard" className="h-6 w-auto" />
     <img src={amexLogo} alt="America Express" className="h-6 w-auto" />
   </div>
+)
+
+const GooglePayLogo = () => (
+  <img
+    src={googlePayLogo}
+    alt="Klarna"
+    className="h-4.5 w-auto object-contain"
+  />
 )
 
 const KlarnaLogo = () => (
@@ -68,6 +78,7 @@ function Payment() {
       </CardHeader>
       <CardContent className=" px-2 md:px-6 space-y-6 md:space-y-6">
         <PaymentMethodCard icon={<CardLogos />} title="Credit or Debit Card" />
+        <PaymentMethodCard icon={<GooglePayLogo />} title="Google Pay" />
 
         <PaymentMethodCard icon={<KlarnaLogo />} title="Buy now, pay later" />
         <p className="text-xs text-gray-600 mt-2">

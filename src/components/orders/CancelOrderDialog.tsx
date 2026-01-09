@@ -55,7 +55,7 @@ function CancelOrderDialog({ id, orderID }: UpdateOrderDialogProp) {
         <AlertDialogHeader>
           <AlertDialogTitle>Cancel Order</AlertDialogTitle>
           <AlertDialogDescription className="font-medium">
-            Are you sure you want to cancel "Order {orderID}"? This action
+            Are you sure you want to cancel "Order ID: {orderID}"? This action
             cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>

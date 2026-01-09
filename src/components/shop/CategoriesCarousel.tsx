@@ -6,6 +6,7 @@ import {
   CarouselPrevious,
 } from '../ui/carousel'
 import { Badge } from '../ui/badge'
+import { useNavigate } from 'react-router-dom'
 
 interface CategoriesCarouselProp {
   selectedCategory: string | null | undefined
@@ -18,6 +19,8 @@ function CategoriesCarousel({
   setSelectedCategory,
   category,
 }: CategoriesCarouselProp) {
+  const navigate = useNavigate()
+
   return (
     <div className="relative">
       <Carousel
@@ -35,7 +38,13 @@ function CategoriesCarousel({
                     ? 'bg-primary/20 text-primary'
                     : 'border border-primary/20 bg-transparent text-foreground hover:bg-primary/10 hover:text-primary'
                 }`}
-                onClick={() => setSelectedCategory(value)}
+                onClick={() => {
+                  setSelectedCategory(value)
+
+                  navigate(`${value ? `/shop?category=${value}` : '/shop'}`, {
+                    replace: true,
+                  })
+                }}
               >
                 <span className="block text-ellipsis overflow-hidden w-full text-center">
                   {label}

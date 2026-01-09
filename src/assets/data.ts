@@ -257,6 +257,7 @@ export const shop = {
     { value: 'hair', label: 'Hair' },
     { value: 'hairCare', label: 'Hair Care' },
     { value: 'clothing', label: 'Clothing' },
+    { value: 'cosmetics', label: 'Cosmetics' },
     { value: 'accessories', label: 'Accessories' },
   ],
   sorting: [

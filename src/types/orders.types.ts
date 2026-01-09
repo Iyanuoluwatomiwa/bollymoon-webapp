@@ -30,18 +30,24 @@ export type DeliveryAddress = {
 
 export type Order = {
   id: string
-  orderId: string
-  createdAt: number | string
-  updatedAt: number | string
+  stripePaymentIntentId: string
+  userId: string
+  status: string
+  createdAt: string
+  updatedAt: string
+  deliveryFee: number
+  deliveryOption: string
   orderTotal: number
   paymentMethod: string
   subtotal: number
-  deliveryFee: number
-  deliveryOption: string
-  shippingDetails: DeliveryAddress
-  status: string
-  userId: string
-  orderItems?: OrderItem[]
+  user: {
+    id: string
+    firstName: string
+    lastName: string
+    email: string
+  }
+  items: OrderItem[]
+  shippingAddress: DeliveryAddress
 }
 
 export type OrderItemByUser = {

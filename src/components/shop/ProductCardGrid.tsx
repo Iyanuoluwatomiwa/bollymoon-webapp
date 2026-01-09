@@ -141,7 +141,7 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
           </div>
           {/* Stock Status */}
           <>
-            {stock < 10 && (
+            {stock < 10 && stock !== 0 && (
               <p className="text-xs text-primary font-medium">Few items left</p>
             )}
             {stock == 0 && (

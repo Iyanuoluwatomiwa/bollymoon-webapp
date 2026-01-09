@@ -48,7 +48,6 @@ function Shop() {
         category: category || '',
         searchQuery: search || '',
       })
-      navigate(location.pathname, { replace: true })
     }
   }, [category, search, navigate, location.pathname])
 
@@ -84,6 +83,16 @@ function Shop() {
   const handleSearchQuery = () => {
     setFilters({ ...filters, searchQuery })
     setCurrentPage(1)
+    navigate(
+      `${
+        category
+          ? `/shop?category=${category}?search=${searchQuery}`
+          : `/shop?search=${searchQuery}`
+      }`,
+      {
+        replace: true,
+      }
+    )
   }
   const handleSelectedCategory = (value: string) => {
     setFilters({ ...filters, category: value })

@@ -15,7 +15,7 @@ export default function OrderItemsCard({ item }: { item: OrderItem }) {
             <img
               src={item?.productImage}
               alt={item?.productName}
-              className="aspect-square w-full object-cover"
+              className="aspect-square w-full object-cover object-top"
               loading="lazy"
             />
           </figure>
@@ -59,17 +59,8 @@ export default function OrderItemsCard({ item }: { item: OrderItem }) {
             {/* Discount and original price */}
             <div className="flex gap-x-2 ">
               <span className="text-[15px]/5 sm:text-lg font-semibold text-foreground">
-                {item?.discountPrice
-                  ? currencyFormatter(item?.discountPrice)
-                  : currencyFormatter(item?.originalPrice)}
+                {currencyFormatter(item?.price)}
               </span>
-              {!item?.discountPrice || (
-                <div className="flex items-center gap-2">
-                  <span className="text-[12px] sm:text-sm text-muted-foreground line-through font-medium italic">
-                    {currencyFormatter(item?.originalPrice)}
-                  </span>
-                </div>
-              )}
             </div>
           </div>
         </div>
