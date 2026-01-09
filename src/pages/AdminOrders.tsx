@@ -35,7 +35,9 @@ function AdminOrders() {
   const filteredOrders = allOrders?.filter((order: Order) => {
     const matchesSearch =
       !formData.searchQuery ||
-      order.orderId.toLowerCase().includes(formData.searchQuery.toLowerCase())
+      order.stripePaymentIntentId
+        .toLowerCase()
+        .includes(formData.searchQuery.toLowerCase())
 
     const matchesStatus =
       !formData.status ||
