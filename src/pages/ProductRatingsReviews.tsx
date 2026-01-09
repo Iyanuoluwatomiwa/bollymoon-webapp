@@ -19,10 +19,6 @@ export default function ProductRatingsReviews() {
       <BackNavHeader title="Customer Feedback" />
       <Container className="pb-10 lg:pt-2 pt-0">
         <div className="space-y-2 md:space-y-6 relative">
-          <h1 className="text-lg md:text-xl font-bold text-foreground">
-            Customer Feedback
-            {productReviews && `(${productReviews.length})`}
-          </h1>
           {isLoading ? (
             <ReviewCardSkeleton />
           ) : (

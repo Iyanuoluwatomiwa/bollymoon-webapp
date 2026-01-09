@@ -11,7 +11,7 @@ export default function BackNavHeader({
 }) {
   const navigate = useNavigate()
   return (
-    <Container className={`${title ? 'py-4' : 'py-6'}`}>
+    <Container className="py-6">
       <header className="text-center relative">
         <button
           className={`flex items-center gap-1 font-medium text-gray-800 hover:text-secondary cursor-pointer text-sm lg:text-base absolute left-0 top-1/2 -translate-y-1/2 ${className} `}
