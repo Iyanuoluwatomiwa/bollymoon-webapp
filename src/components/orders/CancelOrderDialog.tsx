@@ -11,14 +11,13 @@ import {
 import { Button } from '@/components/ui/button'
 import { useUpdateOrder } from '@/hooks/useQueries'
 import { useState } from 'react'
-import { toast } from 'sonner'
 
 interface UpdateOrderDialogProp {
   id: string | undefined
-  orderID: string | undefined
+  orderId: string | undefined
 }
 
-function CancelOrderDialog({ id, orderID }: UpdateOrderDialogProp) {
+function CancelOrderDialog({ id, orderId }: UpdateOrderDialogProp) {
   const [isUpdateOrderStatusDialogOpen, setIsUpdateOrderStatusDialogOpen] =
     useState(false)
 
@@ -28,17 +27,7 @@ function CancelOrderDialog({ id, orderID }: UpdateOrderDialogProp) {
     newStatus: 'canceled'
   ) => {
     setIsUpdateOrderStatusDialogOpen(true)
-    updateOrderStatus(
-      { orderId: id, status: { status: newStatus } },
-      {
-        onSuccess: () => {
-          setIsUpdateOrderStatusDialogOpen(false)
-          toast.success(
-            `Order Updated - Order ${orderID} status has been changed to ${newStatus}`
-          )
-        },
-      }
-    )
+    updateOrderStatus({ id, status: newStatus, orderId })
   }
 
   return (
@@ -55,7 +44,7 @@ function CancelOrderDialog({ id, orderID }: UpdateOrderDialogProp) {
         <AlertDialogHeader>
           <AlertDialogTitle>Cancel Order</AlertDialogTitle>
           <AlertDialogDescription className="font-medium">
-            Are you sure you want to cancel "Order ID: {orderID}"? This action
+            Are you sure you want to cancel "Order ID: {orderId}"? This action
             cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>

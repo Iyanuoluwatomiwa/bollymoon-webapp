@@ -201,6 +201,9 @@ function Shop() {
                   setFilters={handleFilters}
                   maxPrice={maxPrice}
                   disabled={isLoading}
+                  subcategory={subcategory}
+                  setSubcategory={setSubcategory}
+                  subcategories={subcategories}
                 />
               </div>
 

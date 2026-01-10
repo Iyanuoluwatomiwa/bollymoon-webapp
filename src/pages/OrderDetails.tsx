@@ -161,7 +161,7 @@ function OrderDetails() {
                     role == 'admin' && (
                       <div className="ml-auto w-max">
                         <CancelOrderDialog
-                          orderID={order?.stripePaymentIntentId}
+                          orderId={order?.stripePaymentIntentId}
                           id={order?.id}
                         />
                       </div>

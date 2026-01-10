@@ -15,12 +15,18 @@ interface FiltersDialogProps {
   setFilters: (priceRange: number[] | null, inStockOnly: boolean | null) => void
   maxPrice: number
   disabled: boolean
+  subcategory: string
+  subcategories: { label: string; value: string }[]
+  setSubcategory: (value: string) => void
 }
 
 export default function FiltersDialog({
   setFilters,
   maxPrice,
   disabled,
+  subcategory,
+  subcategories,
+  setSubcategory,
 }: FiltersDialogProps) {
   const [isOpen, setIsOpen] = useState(false)
   return (
@@ -44,6 +50,9 @@ export default function FiltersDialog({
           maxPrice={maxPrice}
           setIsOpen={setIsOpen}
           disabled={disabled}
+          subcategory={subcategory}
+          setSubcategory={setSubcategory}
+          subcategories={subcategories}
         />
       </DialogContent>
     </Dialog>
