@@ -261,6 +261,99 @@ export const shop = {
     { value: 'cosmetics', label: 'Cosmetics' },
     { value: 'accessories', label: 'Accessories' },
   ],
+  subcategories: {
+    hair: [
+      { label: 'Wigs', value: 'wigs' },
+      { label: 'Hair Extensions', value: 'hair-extensions' },
+      { label: 'Frontals', value: 'frontals' },
+      { label: 'Closures', value: 'closures' },
+      { label: 'Hair Bundles', value: 'hair-bundles' },
+    ],
+    hairCare: [
+      {
+        label: 'Shampoos',
+        value: 'shampoo',
+      },
+      {
+        label: 'Conditioners',
+        value: 'conditioners',
+      },
+      {
+        label: 'Treatments',
+        value: 'treatments',
+      },
+      {
+        label: 'Oils & Serums',
+        value: 'oils-serums',
+      },
+      {
+        label: 'Styling Products',
+        value: 'styling-products',
+      },
+      {
+        label: 'Scalp Care',
+        value: 'scalp-care',
+      },
+    ],
+    clothing: [
+      {
+        label: 'Dresses',
+        value: 'dresses',
+      },
+      {
+        label: 'Tops',
+        value: 'tops',
+      },
+      {
+        label: 'Bottoms',
+        value: 'bottoms',
+      },
+      {
+        label: 'Skirts',
+        value: 'skirts',
+      },
+      {
+        label: 'Outwear',
+        value: 'outwear',
+      },
+      {
+        label: 'Activewear',
+        value: 'activewear',
+      },
+    ],
+    cosmetics: [
+      {
+        label: 'Face Makeup',
+        value: 'face-makeup',
+      },
+      {
+        label: 'Eye Makeup',
+        value: 'eye-makeup',
+      },
+      {
+        label: 'Lip Products',
+        value: 'lip products',
+      },
+      {
+        label: 'Skincare',
+        value: 'skincare',
+      },
+      {
+        label: 'Beauty Tools',
+        value: 'beauty-tools',
+      },
+      {
+        label: 'Makeup Sets',
+        value: 'makeup-sets',
+      },
+    ],
+    accessories: [
+      {
+        label: 'Accessories',
+        value: 'accessories',
+      },
+    ],
+  },
   sorting: [
     {
       value: 'relevance',

@@ -11,12 +11,18 @@ interface FiltersProps {
   maxPrice: number
   setIsOpen?: (value: boolean) => void
   disabled?: boolean
+  subcategory: string
+  subcategories: { label: string; value: string }[]
+  setSubcategory: (value: string) => void
 }
 const Filters = ({
   setFilters,
   maxPrice,
   setIsOpen,
   disabled,
+  subcategories,
+  setSubcategory,
+  subcategory,
 }: FiltersProps) => {
   const [priceRange, setPriceRange] = useState([0, maxPrice])
   const [inStockOnly, setInStockOnly] = useState(false)
@@ -67,7 +73,6 @@ const Filters = ({
             </Label>
           </div>
         </div>
-
         {/* Action Buttons */}
         <div className="grid grid-cols-2 gap-2 space-x-3 pt-4 border-t border-muted-foreground">
           <Button
@@ -91,6 +96,28 @@ const Filters = ({
             Apply
           </Button>
         </div>
+      </div>
+      <div className="mt-6 space-y-4">
+        <h2 className="text-lg font-medium">Tags</h2>
+        <ul className="space-y-2">
+          {subcategories?.map(({ label, value }) => {
+            return (
+              <li
+                key={label}
+                className={`px-4 py-2 ${
+                  subcategory == value ? 'bg-primary text-white' : 'bg-muted'
+                } rounded-sm`}
+                onClick={() =>
+                  value == subcategory
+                    ? setSubcategory('')
+                    : setSubcategory(value)
+                }
+              >
+                {label}
+              </li>
+            )
+          })}
+        </ul>
       </div>
     </div>
   )

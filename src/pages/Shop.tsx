@@ -10,7 +10,6 @@ import { shop } from '@/assets/data'
 import Container from '@/components/global/Container'
 import SearchBar from '@/components/global/SearchBar'
 import type { ProductFetch, ProductFilter } from '@/types/product.types'
-import Filters from '@/components/shop/Filters'
 import FiltersDialog from '@/components/shop/FiltersDialog'
 import FiltersDisplay from '@/components/shop/FiltersDisplay'
 import { useAllProducts, useProductsMaxPrice } from '@/hooks/useQueries'
@@ -19,11 +18,13 @@ import ProductCardListSkeleton from '@/components/skeletons/ProductCardListSkele
 import NoResult from '@/components/global/NoResult'
 import { Loader2, Package } from 'lucide-react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import Filters from '@/components/shop/Filters'
 
 type ViewMode = 'grid' | 'list'
 const getViewMode =
   (localStorage.getItem('product-view-mode') as ViewMode) || 'grid'
 
+type Category = keyof typeof shop.subcategories
 function Shop() {
   const location = useLocation()
   const queryParams = new URLSearchParams(location.search)
@@ -61,6 +62,8 @@ function Shop() {
   //product view mode
   const [viewMode, setViewMode] = useState<ViewMode>(getViewMode)
 
+  const [subcategory, setSubcategory] = useState('')
+
   const modifiedFilters = {
     minPrice: filters.priceRange && filters.priceRange[0],
     maxPrice: filters.priceRange && filters.priceRange[1],
@@ -80,7 +83,7 @@ function Shop() {
 
   const { data, isLoading, isError } = useAllProducts(modifiedFilters)
   const products: ProductFetch[] | undefined = data?.data
-
+  const subcategories = shop.subcategories[filters.category as Category] ?? []
   const handleSearchQuery = () => {
     setFilters({ ...filters, searchQuery })
     setCurrentPage(1)
@@ -102,10 +105,22 @@ function Shop() {
 
   const totalPages = products && Math.ceil(products?.length / itemsPerPage)
 
+  //filter by subcategory
+  const filteredProductsBySubcategory = products?.filter(
+    (product: ProductFetch) => {
+      const matchesSubcategory =
+        !subcategory ||
+        subcategory == 'all' ||
+        product.subcategory === subcategory
+
+      return matchesSubcategory
+    }
+  )
+
   // Sort products
   const sortedProducts =
-    products &&
-    products.flat().sort((a, b) => {
+    filteredProductsBySubcategory &&
+    filteredProductsBySubcategory.flat().sort((a, b) => {
       const aMaxPrice =
         a.discountPriceMax && Math.max(a.discountPriceMax, a.originalPriceMax)
       const bMaxPrice =
@@ -119,7 +134,6 @@ function Shop() {
           return 0
       }
     })
-
   let productView
   if (isLoading) {
     productView =
@@ -166,6 +180,9 @@ function Shop() {
                 setFilters={handleFilters}
                 maxPrice={maxPrice}
                 disabled={isLoading}
+                subcategory={subcategory}
+                setSubcategory={setSubcategory}
+                subcategories={subcategories}
               />
             )}
           </div>
@@ -180,7 +197,6 @@ function Shop() {
                   searchQuery={searchQuery}
                   setSearchQuery={setSearchQuery}
                 />
-
                 <FiltersDialog
                   setFilters={handleFilters}
                   maxPrice={maxPrice}
