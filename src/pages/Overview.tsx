@@ -1,46 +1,53 @@
 /* import { useSelector } from 'react-redux' */
 
+import DashboardStats from '@/components/admin/overview/DashboardStats'
+import LowStockCard from '@/components/admin/overview/LowStockCard'
+import RecentOrdersCard from '@/components/admin/overview/RecentOrdersCard'
+import Container from '@/components/global/Container'
+import { useAllOrders, useAllProductsByAdmin } from '@/hooks/useQueries'
+
 function Overview() {
-  /* const { user }: { user: User } = useSelector((state: any) => state.userState) */
-  /* const {
-    data: products,
+  const {
+    data: productsData,
     isLoading: productsLoading,
     isError: productsError,
-  } = useVendorProducts(user?.id)
+  } = useAllProductsByAdmin()
+  const products = productsData?.data
+
   const {
-    data: ordersData,
+    data: orders,
     isLoading: ordersDataLoading,
     isError: ordersDataError,
-  } = useVendorOrders(user) */
-  /* const { data: ordersTrend, isLoading: ordersTrendLoading } =
-    useVendorOrdersTrend()
-  const { data: productsTrend, isLoading: productsTrendLoading } = useVendorProductTrend() */
+  } = useAllOrders()
+  const ordersData = orders?.data
 
   return (
-    <div className="space-y-6 my-6">
-      {/* Stats Grid */}
-      {/* <DashboardStats
-        ordersData={ordersData}
-        ordersDataLoading={ordersDataLoading}
-        products={products}
-        productsLoading={productsLoading}
-      /> */}
-      <div className="grid gap-4 lg:grid-cols-2">
-        {/* Recent Orders */}
-        {/* <RecentOrdersCard
+    <Container>
+      <div className="space-y-6 my-6">
+        {/* Stats Grid */}
+        <DashboardStats
           ordersData={ordersData}
           ordersDataLoading={ordersDataLoading}
-          isError={ordersDataError}
-        /> */}
-        {/* Low Stock Alert */}
+          products={products}
+          productsLoading={productsLoading}
+        />
+        <div className="grid gap-x-4 gap-y-8 lg:grid-cols-2">
+          {/* Recent Orders */}
+          <RecentOrdersCard
+            ordersData={ordersData}
+            ordersDataLoading={ordersDataLoading}
+            isError={ordersDataError}
+          />
+          {/* Low Stock Alert */}
 
-        {/* <LowStockCard
+          <LowStockCard
             products={products}
             productsLoading={productsLoading}
             isError={productsError}
-          />  */}
+          />
+        </div>
       </div>
-    </div>
+    </Container>
   )
 }
 export default Overview

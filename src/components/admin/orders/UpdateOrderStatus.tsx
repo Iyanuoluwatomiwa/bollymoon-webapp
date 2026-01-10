@@ -27,7 +27,7 @@ function UpdateOrderStatus({ order }: OrderStatusProp) {
           <UpdateOrderDialog
             newStatus={newStatus}
             trigger={newStatus}
-            orderID={order?.orderId}
+            orderId={order?.stripePaymentIntentId}
             id={order?.id}
           />
         </DropdownMenuItem>

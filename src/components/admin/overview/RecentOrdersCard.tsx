@@ -3,22 +3,23 @@ import { ShoppingBag } from 'lucide-react'
 import Orders from './Orders'
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { nullSuspense } from '@/utils/suspense'
-import { lazy } from 'react'
 import RecentOrdersSkeleton from '@/components/skeletons/RecentOrdersSkeleton'
+import NoResult from '@/components/global/NoResult'
+import type { Order } from '@/types/orders.types'
+import { groupOrdersByDay } from '@/utils/format'
 
 interface RecentOrdersCardProp {
-  ordersData: any
+  ordersData: Order[]
   ordersDataLoading: boolean
   isError: boolean
 }
-const NoResult = lazy(() => import('@/components/global/NoResult'))
 
 function RecentOrdersCard({
   ordersData,
   ordersDataLoading,
   isError,
 }: RecentOrdersCardProp) {
+  const groupedOrders = Object.entries(groupOrdersByDay(ordersData) ?? [])
   return (
     <Card>
       <CardHeader className="">
@@ -27,10 +28,10 @@ function RecentOrdersCard({
             <div className="p-2 bg-primary/10 rounded-lg w-max">
               <ShoppingBag className="h-5 w-5 text-primary" />
             </div>
-            Recent Orders from Your Store
+            Recent Orders
           </div>
           <Button asChild size="sm" className="cursor-pointer">
-            <Link to="/account/orders">View all</Link>
+            <Link to="/admin/orders">View all</Link>
           </Button>
         </CardTitle>
       </CardHeader>
@@ -39,18 +40,14 @@ function RecentOrdersCard({
           <RecentOrdersSkeleton />
         ) : (
           <>
-            <Orders data={ordersData?.sortedGroupedOrders} />
-            {nullSuspense(
-              <>
-                {ordersData?.orders?.length == 0 && (
-                  <NoResult
-                    isError={isError}
-                    errorText="your recent orders"
-                    icon={ShoppingBag}
-                    text="No recent orders found"
-                  />
-                )}
-              </>
+            <Orders data={groupedOrders} />
+            {(ordersData?.length == 0 || ordersData?.length == undefined) && (
+              <NoResult
+                isError={isError}
+                errorText="recent orders"
+                icon={ShoppingBag}
+                text="No recent orders found"
+              />
             )}
           </>
         )}

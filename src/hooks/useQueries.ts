@@ -243,16 +243,19 @@ export const useSingleOrder = (orderId: string | undefined) => {
 
 export const useUpdateOrder = () => {
   const updateOrderAction = async ({
-    orderId,
+    id,
     status,
+    orderId,
   }: {
+    id: string | undefined
+    status: string
     orderId: string | undefined
-    status: {
-      status: 'processing' | 'delivered' | 'canceled'
-    }
   }) => {
     try {
-      await updateOrder({ orderId, status })
+      await updateOrder({ id, status })
+      toast.success(
+        `Order Updated - Order ${orderId} status has been changed to ${status}`
+      )
     } catch (error: any) {
       toast.error(error?.message)
     }

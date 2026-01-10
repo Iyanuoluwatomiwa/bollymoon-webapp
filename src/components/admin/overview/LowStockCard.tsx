@@ -17,7 +17,7 @@ function LowStockCard({ products, productsLoading, isError }: LowStockProp) {
   const criticalProducts = products?.filter((p) => p.stock <= 3)
 
   return (
-    <Card>
+    <Card className="h-max">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
           <div className="flex items-center gap-2 text-sm font-semibold">
@@ -40,7 +40,8 @@ function LowStockCard({ products, productsLoading, isError }: LowStockProp) {
           <>
             <>
               <LowStock lowStockProducts={lowStockProducts} />
-              {lowStockProducts?.length == 0 && (
+              {(lowStockProducts?.length == 0 ||
+                lowStockProducts?.length == undefined) && (
                 <NoResult
                   isError={isError}
                   errorText="low stock products"

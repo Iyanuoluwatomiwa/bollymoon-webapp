@@ -33,14 +33,14 @@ export const getMyOrders = async () => {
 }
 
 export const updateOrder = async ({
-  orderId,
+  id,
   status,
 }: {
-  orderId: string | undefined
-  status: {
-    status: 'processing' | 'delivered' | 'canceled'
-  }
+  id: string | undefined
+  status: string
 }) => {
-  const response = await api.put(`/v1/orders/${orderId}`, status)
+  const response = await api.put(`/v1/orders/${id}`, {
+    status: status.toUpperCase(),
+  })
   return response.data
 }

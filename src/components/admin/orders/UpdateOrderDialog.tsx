@@ -12,18 +12,17 @@ import { Button } from '@/components/ui/button'
 import { useUpdateOrder } from '@/hooks/useQueries'
 import { RefreshCcw } from 'lucide-react'
 import { useState } from 'react'
-import { toast } from 'sonner'
 
 interface UpdateOrderDialogProp {
   trigger: string
-  orderID: string | undefined
+  orderId: string | undefined
   newStatus: 'processing' | 'delivered'
   id: string | undefined
 }
 
 function UpdateOrderDialog({
   trigger,
-  orderID,
+  orderId,
   newStatus,
   id,
 }: UpdateOrderDialogProp) {
@@ -31,19 +30,13 @@ function UpdateOrderDialog({
     useState(false)
 
   const { mutate: updateOrderStatus, isPending: updating } = useUpdateOrder()
-  const handleStatusUpdate = (
-    id: string | undefined,
-    newStatus: 'processing' | 'delivered'
-  ) => {
+  const handleStatusUpdate = (id: string | undefined, newStatus: string) => {
     setIsUpdateOrderStatusDialogOpen(true)
     updateOrderStatus(
-      { orderId: id, status: { status: newStatus } },
+      { id, status: newStatus, orderId },
       {
         onSuccess: () => {
           setIsUpdateOrderStatusDialogOpen(false)
-          toast.success(
-            `Order Updated - Order ${orderID} status has been changed to ${newStatus}`
-          )
         },
       }
     )
@@ -63,7 +56,7 @@ function UpdateOrderDialog({
         <AlertDialogHeader>
           <AlertDialogTitle>Update Order Status</AlertDialogTitle>
           <AlertDialogDescription className="font-medium">
-            Are you sure you want to update "Order {orderID}" status to{' '}
+            Are you sure you want to update "Order {orderId}" status to{' '}
             {newStatus}? This action cannot be undone.
           </AlertDialogDescription>
         </AlertDialogHeader>

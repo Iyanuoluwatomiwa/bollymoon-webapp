@@ -21,6 +21,7 @@ function AdminOrders() {
     searchQuery: '',
     status: 'all',
   })
+
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
   }
@@ -37,6 +38,12 @@ function AdminOrders() {
       !formData.searchQuery ||
       order.stripePaymentIntentId
         .toLowerCase()
+        .includes(formData.searchQuery.toLowerCase()) ||
+      order.user.firstName
+        .toLowerCase()
+        .includes(formData.searchQuery.toLowerCase()) ||
+      order.user.lastName
+        .toLowerCase()
         .includes(formData.searchQuery.toLowerCase())
 
     const matchesStatus =
@@ -50,7 +57,7 @@ function AdminOrders() {
     groupOrdersByDay(filteredOrders) ?? []
   )
   return (
-    <Container className="py-4 lg:py-6">
+    <Container className="pt-4 lg:pt-6 pb-10">
       <div className="space-y-4 lg:space-y-6">
         <AdminPagesHeading
           pageTitle="Orders"
@@ -80,9 +87,9 @@ function AdminOrders() {
             <OrderCardSkeleton />
           ) : (
             <>
-              {groupedFilteredOrders?.map(([day, orders]) => {
+              {groupedFilteredOrders?.map(([day, orders], index) => {
                 return (
-                  <div key={day} className="space-y-2 md:space-y-4">
+                  <div key={index} className="space-y-2 md:space-y-4">
                     <h2 className="text-sm md:text-base font-semibold capitalize">
                       {day}
                     </h2>

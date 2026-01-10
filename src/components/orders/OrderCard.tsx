@@ -9,25 +9,38 @@ function OrderCard({
   updatedAt,
   orderTotal,
   status,
+  user,
+  items,
 }: Order) {
   return (
     <div
-      className={`p-2 md:p-4 shadow-sm hover:shadow-md transition-shadow border-0 border-l-4 ${getStatusColor[status]?.border} rounded-sm bg-white space-y-4`}
+      className={`p-2 md:p-4 shadow-sm hover:shadow-md transition-shadow border-0 border-l-4 ${getStatusColor[status]?.border} rounded-sm bg-white space-y-2`}
     >
-      <div className="flex items-center gap-2 justify-between">
+      <div className="flex items-start gap-2 justify-between">
         <span className="text-xs">Order ID: {stripePaymentIntentId}</span>
         <div className="flex flex-col items-end">
           <p className="text-base md:text-lg font-semibold text-primary">
             {currencyFormatter(orderTotal)}
           </p>
+          <p className="text-xs md:text-sm text-muted-foreground font-medium">
+            {items?.length} item{items?.length > 1 && 's'}
+          </p>
         </div>
+      </div>
+      <div>
+        <p className="flex items-center gap-1">
+          <span className="text-[10px] md:text-xs">Ordered by</span>
+          <span className="font-medium text-xs md:text-sm">
+            {user?.firstName} {user?.lastName}
+          </span>
+        </p>
       </div>
       <div className="flex items-end gap-4 justify-between">
         <div>
           <span
-            className={`${getStatusColor[status]?.bg} capitalize text-[10px] text-white py-0.5 px-1 rounded-xs uppercase block w-max`}
+            className={`${getStatusColor[status]?.bg} capitalize text-[10px] text-red-500 py-0.5 px-1 rounded-xs uppercase block w-max `}
           >
-            {status}
+            {status ?? 'pending'}
           </span>
           <span className="text-xs font-medium">
             On {formatCreatedAt(updatedAt)}
