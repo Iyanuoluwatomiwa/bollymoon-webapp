@@ -135,7 +135,7 @@ export const padNumber = (n: number | undefined) => {
 export const getUrgencyLevel = (current: number) => {
   if (current == 0)
     return {
-      level: 'out of stock',
+      level: 'critical',
       className: 'bg-destructive text-white',
       label: 'Out of Stock',
     }

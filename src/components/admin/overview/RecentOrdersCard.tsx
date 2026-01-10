@@ -21,8 +21,8 @@ function RecentOrdersCard({
 }: RecentOrdersCardProp) {
   const groupedOrders = Object.entries(groupOrdersByDay(ordersData) ?? [])
   return (
-    <Card>
-      <CardHeader className="">
+    <Card className="py-4 h-max">
+      <CardHeader className="px-2 md:px-4">
         <CardTitle className="flex items-center gap-4 justify-between text-sm font-semibold">
           <div className="flex items-center gap-2">
             <div className="p-2 bg-primary/10 rounded-lg w-max">
@@ -35,7 +35,7 @@ function RecentOrdersCard({
           </Button>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 px-2 md:px-4">
         {ordersDataLoading ? (
           <RecentOrdersSkeleton />
         ) : (
