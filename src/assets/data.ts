@@ -19,7 +19,8 @@ import {
   Truck,
 } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
-import heroHair from '@/assets/images/hero-hair.webp'
+import heroWelcome from '@/assets/images/hero-hair.webp'
+import heroHair from '@/assets/images/hero-slide-2.jpeg'
 import heroClothing from '@/assets/images/hero-clothing.webp'
 import type { SizeGuideData } from '@/types/sizeGuide.types'
 import type { Filters } from '@/components/admin/FiltersDialog'
@@ -223,7 +224,7 @@ export const footer = {
 export const heroCarouselSlides = [
   {
     id: 1,
-    image: heroHair,
+    image: heroWelcome,
     title: 'Welcome to Bollymoon',
     description:
       'Home of carefully handmade wigs, nourishing hair care, and stylish fashion pieces designed to help you show up confidently every day',
