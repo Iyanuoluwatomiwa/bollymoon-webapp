@@ -36,7 +36,7 @@ export const getProducts = async ({
         search && search
       }&minPrice=${minPrice && minPrice}&maxPrice=${
         maxPrice && maxPrice
-      }&stock=${stock && stock}&page=${currentPage}`
+      }&inStock=${stock && stock}&page=${currentPage}`
     )
     return response?.data
   } catch (error) {
