@@ -6,8 +6,8 @@ import { useDispatch } from 'react-redux'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
 import AddToCart from '../shop/AddToCart'
 import { useSelector } from 'react-redux'
-import { toast } from 'sonner'
 import { useRemoveFromWishlist } from '@/hooks/useQueries'
+import { Loader2 } from 'lucide-react'
 
 function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
   const {
@@ -29,20 +29,12 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
     discount(originalPriceMax, discountPriceMax)
   const dispatch = useDispatch()
   const { token }: { token: string | null } = useSelector(
-    (state: any) => state.wishlistState
+    (state: any) => state.userState
   )
 
   const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
   const handleRemoveItem = async () => {
-    removeItem(id, {
-      onSuccess: () => {
-        toast.success(`${name} has been  removed from your wishlist`)
-      },
-      onError: () => {
-        toast.error('Error removing item from your wishlist. Please try again.')
-        return
-      },
-    })
+    removeItem({ id, name })
   }
   const handleRemoveFromWishlist = async () => {
     if (token) {
@@ -123,11 +115,18 @@ function WishlistItemCard({ wishlistItem }: { wishlistItem: ProductFetch }) {
           <div className="flex items-center gap-4 justify-between">
             {/* Remove button */}
             <button
-              className="text-primary font-medium text-sm cursor-pointer h-8 px-2"
+              className="text-primary font-medium text-sm cursor-pointer h-8 px-2 capitalize"
               onClick={handleRemoveFromWishlist}
               disabled={removing}
             >
-              Remove
+              {removing ? (
+                <span className="flex items-center gap-1">
+                  removing...
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                </span>
+              ) : (
+                'Remove'
+              )}
             </button>
             {/* Add to cart button */}
             <div className="w-32">

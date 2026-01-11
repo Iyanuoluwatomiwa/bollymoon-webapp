@@ -45,7 +45,8 @@ function OtherCollections() {
               </div>
               {newArrivalsError && (
                 <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4 text-center">
-                  An error occured. Please check your internet connection.
+                  An error occured. Please check your internet connection and refresh the page.
+             
                 </div>
               )}
               {newArrivalsProducts?.length == 0 && (
@@ -80,7 +81,7 @@ function OtherCollections() {
               </div>
               {saleError && (
                 <div className="w-full h-[25vh] flex items-center justify-center text-xs sm:text-sm font-medium px-4 text-center ">
-                  An error occured. Please check your internet connection.
+                  An error occured. Please check your internet connection and refresh the page.
                 </div>
               )}
               {saleProducts?.length == 0 && (

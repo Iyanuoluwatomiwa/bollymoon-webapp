@@ -27,9 +27,20 @@ import {
   updateDeliveryAddress,
 } from '@/api/address'
 import type { DeliveryAddress } from '@/types/orders.types'
-import { addToWishlist, getWishlists, removeFromWishlist } from '@/api/wishlist'
+import {
+  addBulkWishlist,
+  addToWishlist,
+  getWishlists,
+  removeFromWishlist,
+} from '@/api/wishlist'
 import { toast } from 'sonner'
-import { addToCart, getCartItems, removeFromCart, updateCart } from '@/api/cart'
+import {
+  addBulkCartItems,
+  addToCart,
+  getCartItems,
+  removeFromCart,
+  updateCart,
+} from '@/api/cart'
 import { createProductReviews, getProductReviews } from '@/api/reviews'
 
 export const useAllProducts = ({
@@ -365,8 +376,19 @@ export const useWishlists = () => {
 }
 
 export const useAddToWishlist = () => {
-  const addToWishlistAction = async (id: string | undefined) => {
-    await addToWishlist(id)
+  const addToWishlistAction = async ({
+    name,
+    id,
+  }: {
+    id: string | undefined
+    name: string | undefined
+  }) => {
+    try {
+      await addToWishlist(id)
+      toast.success(`${name} has been  added to your wishlist`)
+    } catch (error: any) {
+      toast.error(`Error adding ${name} to your wishlist. Please try again.`)
+    }
   }
   const queryClient = useQueryClient()
   const addToWishlistFunction = useMutation({
@@ -378,10 +400,39 @@ export const useAddToWishlist = () => {
 
   return addToWishlistFunction
 }
+export const useAddBulkWishlist = () => {
+  const addBulkWishlistAction = async (ids: string[]) => {
+    try {
+      await addBulkWishlist(ids)
+    } catch (error: any) {}
+  }
+  const queryClient = useQueryClient()
+  const addToWishlistFunction = useMutation({
+    mutationFn: addBulkWishlistAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['wishlists'] })
+    },
+  })
+
+  return addToWishlistFunction
+}
 
 export const useRemoveFromWishlist = () => {
-  const removeFromWishlistAction = async (id: string | undefined) => {
-    await removeFromWishlist(id)
+  const removeFromWishlistAction = async ({
+    id,
+    name,
+  }: {
+    id: string | undefined
+    name: string | undefined
+  }) => {
+    try {
+      await removeFromWishlist(id)
+      toast.success(`${name} has been  removed from your wishlist`)
+    } catch (error) {
+      toast.error(
+        `Error removing ${name} from yyour wishlist. Please try again.`
+      )
+    }
   }
   const queryClient = useQueryClient()
   const removeFromWishlistFunction = useMutation({
@@ -425,6 +476,22 @@ export const useAddToCart = () => {
   const queryClient = useQueryClient()
   const addToCartFunction = useMutation({
     mutationFn: addToCartAction,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['cart'] })
+    },
+  })
+
+  return addToCartFunction
+}
+export const useAddBulkCartItems = () => {
+  const addBulkCartItemsAction = async (data: CartItemUpload[]) => {
+    try {
+      await addBulkCartItems(data)
+    } catch (error: any) {}
+  }
+  const queryClient = useQueryClient()
+  const addToCartFunction = useMutation({
+    mutationFn: addBulkCartItemsAction,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['cart'] })
     },

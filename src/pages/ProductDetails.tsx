@@ -24,7 +24,6 @@ import { ChevronRight, Heart, Loader2, Minus } from 'lucide-react'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-import { toast } from 'sonner'
 
 function ProductDetails() {
   const { productId } = useParams()
@@ -71,31 +70,14 @@ function ProductDetails() {
   const inWishlist = token ? inWishlistAuth : inWishlistUnAuth
 
   const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
+
   const handleRemoveItem = async () => {
-    removeItem(product?.id, {
-      onSuccess: () => {
-        toast.success(`${product?.name} has been  removed from your wishlist`)
-      },
-      onError: () => {
-        toast.error(
-          'Error removing item from yyour wishlist. Please try again.'
-        )
-        return
-      },
-    })
+    removeItem({ id: product?.id, name: product?.name })
   }
 
   const { mutate: addItem, isPending: adding } = useAddToWishlist()
   const handleAddItem = async () => {
-    addItem(product?.id, {
-      onSuccess: () => {
-        toast.success(`${name} has been  added to your wishlist`)
-      },
-      onError: () => {
-        toast.error('Error adding item to your wishlist. Please try again.')
-        return
-      },
-    })
+    addItem({ id: product?.id, name: product?.name })
   }
   const dispatch = useDispatch()
   const handleWishlistToggle = async () => {

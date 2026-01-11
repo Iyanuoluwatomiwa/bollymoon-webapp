@@ -19,7 +19,6 @@ import {
 import type { ProductFetch } from '@/types/product.types'
 import { useDispatch } from 'react-redux'
 import { toggleWishlistItem } from '@/features/wishlist/wishlistSlice'
-import { toast } from 'sonner'
 
 function RemoveItemDialog({
   removeFromCart,
@@ -54,16 +53,7 @@ function RemoveItemDialog({
   const inWishlist = token ? inWishlistAuth : inWishlistUnAuth
   const { mutate: addItem, isPending } = useAddToWishlist()
   const handleAddItem = async () => {
-    addItem(productId, {
-      onSuccess: () => {
-        toast.success(`${product.name} has been  added to your wishlist`)
-        isOpen(false)
-      },
-      onError: () => {
-        toast.error('Error adding item to your wishlist. Please try again.')
-        return
-      },
-    })
+    addItem({ id: productId, name: product?.name })
   }
   const handleWishlistToggle = () => {
     if (token) {

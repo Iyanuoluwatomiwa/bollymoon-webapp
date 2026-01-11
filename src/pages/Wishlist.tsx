@@ -12,7 +12,6 @@ function Wishlist() {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
-
   const { data, isLoading, isError } = useWishlists()
   const fetchedWishlists = data?.data?.map(
     ({ product }: { product: ProductFetch }) => product

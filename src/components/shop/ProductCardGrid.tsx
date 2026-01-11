@@ -11,7 +11,6 @@ import {
   useRemoveFromWishlist,
   useWishlists,
 } from '@/hooks/useQueries'
-import { toast } from 'sonner'
 import Ratings from '../global/Ratings'
 
 const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
@@ -47,30 +46,12 @@ const ProductCardGrid = ({ product }: { product: ProductFetch }) => {
   const inWishlistAuth = wishlists?.some((item) => item.id === id)
   const { mutate: removeItem, isPending: removing } = useRemoveFromWishlist()
   const handleRemoveItem = async () => {
-    removeItem(id, {
-      onSuccess: () => {
-        toast.success(`${name} has been  removed from your wishlist`)
-      },
-      onError: () => {
-        toast.error(
-          'Error removing item from yyour wishlist. Please try again.'
-        )
-        return
-      },
-    })
+    removeItem({ id, name })
   }
 
   const { mutate: addItem, isPending: adding } = useAddToWishlist()
   const handleAddItem = async () => {
-    addItem(id, {
-      onSuccess: () => {
-        toast.success(`${name} has been  added to your wishlist`)
-      },
-      onError: () => {
-        toast.error('Error adding item to your wishlist. Please try again.')
-        return
-      },
-    })
+    addItem({ id, name })
   }
 
   const inWishlist = token ? inWishlistAuth : inWishlistUnAuth

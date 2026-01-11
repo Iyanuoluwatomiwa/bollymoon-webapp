@@ -73,8 +73,6 @@ const cartSlice = createSlice({
       state.cartItems = []
       state.numItemsInCart = 0
       state.cartTotal = 0
-      state.shipping = 0
-      state.orderTotal = 0
       localStorage.setItem('cart', JSON.stringify(defaultState))
     },
   },

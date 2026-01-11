@@ -10,12 +10,12 @@ import AppLayout from './components/layouts/AppLayout'
 import AdminLayout from './components/layouts/AdminLayout'
 import { profile } from './api/auth'
 import type { CartItem, ProductFetch } from './types/product.types'
-import { addBulkWishlist } from './api/wishlist'
 import { clearWishlist } from './features/wishlist/wishlistSlice'
-import { addBulkCartItems } from './api/cart'
 import { clearCart } from './features/cart/cartSlice'
 import ProtectedRoute from './components/global/ProtectedRoute'
 import AdminProtectedRoute from './components/global/AdminProtectedRoute'
+import { toast } from 'sonner'
+import { useAddBulkCartItems, useAddBulkWishlist } from './hooks/useQueries'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -252,11 +252,16 @@ function App() {
   const { cartItems }: { cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
+  const { mutate: addBulkWishlist } = useAddBulkWishlist()
+
+  const { mutate: addBulkCartItems } = useAddBulkCartItems()
+
   console.log(token)
+  console.log(wishlistItems)
 
   useEffect(() => {
     if (!token) return
-    const getUserDetails = async () => {
+    const fetchProfile = async () => {
       try {
         const response = await profile()
         dispatch(
@@ -264,8 +269,51 @@ function App() {
             userProfile: response?.data,
           })
         )
+      } catch (error: any) {
+        toast.error(error?.message)
+      }
+    }
+
+    fetchProfile()
+  }, [token, dispatch])
+
+  useEffect(() => {
+    if (!token || !wishlistItems) return
+
+    const syncWishlist = () => {
+      addBulkWishlist(wishlistItems.map(({ id }) => id))
+      dispatch(clearWishlist())
+    }
+    syncWishlist()
+  }, [token, dispatch])
+
+  useEffect(() => {
+    if (!token || !cartItems) return
+
+    const syncCart = () => {
+      addBulkCartItems(
+        cartItems.map(({ specId, colorId, id, quantity }) => ({
+          specId,
+          colorId,
+          quantity,
+          productId: id,
+        }))
+      )
+      dispatch(clearCart())
+      console.log('clear cart')
+    }
+    syncCart()
+  }, [token, dispatch])
+
+  /* useEffect(() => {
+    if (!token) return
+    if (localCartSync && localWishlistSync) return
+
+    const syncLocalData = async () => {
+      try {
         if (wishlistItems.length) {
           await addBulkWishlist(wishlistItems.map(({ id }) => id))
+          setLocalWishlistSync(true)
         }
         if (cartItems.length) {
           await addBulkCartItems({
@@ -276,16 +324,18 @@ function App() {
               productId: id,
             })),
           })
+          setLocalCartSync(true)
         }
       } catch (error: any) {
+        toast.error(error?.message)
         return
       }
       dispatch(clearWishlist())
       dispatch(clearCart())
     }
-    getUserDetails()
-  }, [token, wishlistItems, cartItems, dispatch])
-
+    syncLocalData()
+  }, [token, !localCartSync, !localWishlistSync, dispatch])
+ */
   return (
     <RouterProvider
       router={router}

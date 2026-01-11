@@ -1,4 +1,5 @@
 import { handleApiError } from '@/lib/apiError'
+import type { CartItemUpload } from '@/types/product.types'
 import { api } from '@/utils/axiosConfig'
 
 export const getCartItems = async () => {
@@ -10,9 +11,11 @@ export const getCartItems = async () => {
   }
 }
 
-export const addBulkCartItems = async (cartItems: any) => {
+export const addBulkCartItems = async (cartItems: CartItemUpload[]) => {
   try {
-    const response = await api.post(`/v1/carts/add-many`, cartItems)
+    const response = await api.post(`/v1/carts/add-many`, {
+      items: cartItems,
+    })
     return response?.data
   } catch (error) {
     handleApiError(error)
