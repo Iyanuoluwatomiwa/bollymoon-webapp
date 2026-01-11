@@ -32,6 +32,9 @@ function ForgotPasswordForm() {
       toast.success(
         'Password reset link successfully sent to your email address.'
       )
+      setFormData({
+        email: '',
+      })
       setSubmitting(false)
     } catch (error: any) {
       toast.error(error?.message)

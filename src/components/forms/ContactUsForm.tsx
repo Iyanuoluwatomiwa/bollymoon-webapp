@@ -38,6 +38,7 @@ function ContactUsForm() {
         "Message sent successfully! We'll get back to you within 24 hours."
       )
       resetForm()
+      setSubmitting(false)
     } catch (error: any) {
       toast.error(error?.message)
       setSubmitting(false)
