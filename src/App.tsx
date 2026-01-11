@@ -252,24 +252,11 @@ function App() {
   const { cartItems }: { cartItems: CartItem[] } = useSelector(
     (state: any) => state.cartState
   )
-  const productIds = wishlistItems.map(({ id }) => id)
-  const items = cartItems.map(({ specId, colorId, id, quantity }) => {
-    const item = {
-      specId,
-      colorId,
-      quantity,
-      productId: id,
-    }
-    return item
-  })
   console.log(token)
 
   useEffect(() => {
     if (!token) return
     const getUserDetails = async () => {
-      const uploadCartItems = {
-        items,
-      }
       try {
         const response = await profile()
         dispatch(
@@ -277,11 +264,18 @@ function App() {
             userProfile: response?.data,
           })
         )
-        if (productIds.length) {
-          await addBulkWishlist(productIds)
+        if (wishlistItems.length) {
+          await addBulkWishlist(wishlistItems.map(({ id }) => id))
         }
         if (cartItems.length) {
-          await addBulkCartItems(uploadCartItems)
+          await addBulkCartItems({
+            items: cartItems.map(({ specId, colorId, id, quantity }) => ({
+              specId,
+              colorId,
+              quantity,
+              productId: id,
+            })),
+          })
         }
       } catch (error: any) {
         return
@@ -290,7 +284,7 @@ function App() {
       dispatch(clearCart())
     }
     getUserDetails()
-  }, [token, dispatch])
+  }, [token, wishlistItems, cartItems, dispatch])
 
   return (
     <RouterProvider
