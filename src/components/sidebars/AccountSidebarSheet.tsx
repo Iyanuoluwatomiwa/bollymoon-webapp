@@ -37,9 +37,9 @@ function AccountSidebarSheet({
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogout = () => {
-    dispatch(clearUser())
     toast.success("You've logged out successfully!")
-    return navigate('/')
+    navigate('/')
+    dispatch(clearUser())
   }
 
   return (

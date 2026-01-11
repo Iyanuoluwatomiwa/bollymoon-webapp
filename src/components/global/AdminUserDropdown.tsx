@@ -20,9 +20,9 @@ function AdminUserDropdown({
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const handleLogout = () => {
-    dispatch(clearUser())
     toast.success("You've logged out successfully!")
     navigate('/')
+    dispatch(clearUser())
   }
   return (
     <DropdownMenu>

@@ -53,42 +53,25 @@ function AddToCart({ productId }: { productId: string }) {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
-
-  const getCartItems = () => {
-    if (token) {
-      const {
-        data,
-        isLoading: cartLoading,
-        isError: cartError,
-      } = useCartItems()
-      const cartItems: CartItem[] | undefined = data?.data?.cartItems.map(
-        (item: FetchedCartItem) => {
-          return {
-            ...item,
-            image: item.image.url,
-            id: item.image.productId,
-            price: item.discountPrice ? item.discountPrice : item.originalPrice,
-          }
-        }
-      )
-      return { cartItems, cartLoading, cartError }
-    } else {
-      const { cartItems }: { cartItems: CartItem[] } = useSelector(
-        (state: any) => state.cartState
-      )
-      return { cartItems, cartLoading: false, cartError: false }
-    }
-  }
-
   const {
-    cartItems,
-    cartLoading,
-    cartError,
-  }: {
-    cartItems: CartItem[] | undefined
-    cartLoading: boolean
-    cartError: boolean
-  } = getCartItems()
+    data,
+    isLoading: cartItemsLoading,
+    isError: cartItemsError,
+  } = useCartItems()
+  const localCartItems = useSelector((state: any) => state.cartState.cartItems)
+  const cartItems: CartItem[] | undefined = token
+    ? data?.data?.cartItems?.map(
+        (item: FetchedCartItem): CartItem => ({
+          ...item,
+          image: item.image.url,
+          id: item.image.productId,
+          price: item.discountPrice ?? item.originalPrice,
+        })
+      )
+    : localCartItems
+
+  const cartLoading = token ? cartItemsLoading : false
+  const cartError = token ? cartItemsError : false
 
   const inCart = cartItems?.find((item) => item.id === product?.id)
 
