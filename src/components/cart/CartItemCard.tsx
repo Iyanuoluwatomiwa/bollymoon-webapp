@@ -89,7 +89,7 @@ function CartItemCard({
                   </h2>
                 </Link>
                 <div className="flex items-center text-xs gap-2 font-medium capitalize">
-                  {size && (
+                  {size?.toLowerCase() !== 'n/a' && (
                     <div
                       className=" flex items-center gap-1
                      "
@@ -98,14 +98,15 @@ function CartItemCard({
                       <span>{size} </span>
                     </div>
                   )}
-
-                  <div
-                    className=" flex items-center gap-1
+                  {color?.toLowerCase() !== 'n/a' && (
+                    <div
+                      className=" flex items-center gap-1
                      font-medium"
-                  >
-                    <span>Color:</span>
-                    <span> {color}</span>
-                  </div>
+                    >
+                      <span>Color:</span>
+                      <span> {color}</span>
+                    </div>
+                  )}
                 </div>
               </div>
               {/* Discount and original price */}
