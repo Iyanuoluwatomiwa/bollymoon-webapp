@@ -9,12 +9,13 @@ import type { OrderItem } from '@/types/orders.types'
 
 function RatingsReviews() {
   const { data, isLoading, isError } = useMyOrders()
-  const orderItems: OrderItem[] | undefined = data?.data?.map(
-    (order: any) => order?.items
+  const deliveredOrders: OrderItem[] | undefined = data?.data?.filter(
+    (order: any) => order?.status?.toLowerCase() == 'delivered'
   )
+  const orderItems = deliveredOrders?.map((order: any) => order?.items)
 
   const deliveredPendingReviewOrderItems = orderItems?.filter(
-    (order) => !order?.reviewed && order?.status?.toLowerCase() == 'delivered'
+    (order) => !order?.reviewed
   )
 
   return (
@@ -28,19 +29,20 @@ function RatingsReviews() {
           {isLoading ? (
             <PendingReviewSkeleton />
           ) : (
-            <>
-              <div className="max-w-2xl mx-auto w-full">
-                {deliveredPendingReviewOrderItems?.map((item) => (
-                  <PendingReviewCard key={item.id} orderItem={item} />
-                ))}
-                {deliveredPendingReviewOrderItems?.length === 0 && (
-                  <EmptyRatingsReviews />
-                )}
-                {isError && (
-                  <NoResult isError={isError} errorText="ordered items" />
-                )}
-              </div>
-            </>
+            <div className="max-w-2xl mx-auto w-full">
+              {isError ? (
+                <NoResult isError={isError} errorText="ordered items" />
+              ) : (
+                <>
+                  {deliveredPendingReviewOrderItems?.map((item) => (
+                    <PendingReviewCard key={item.id} orderItem={item} />
+                  ))}
+                  {deliveredPendingReviewOrderItems?.length === 0 && (
+                    <EmptyRatingsReviews />
+                  )}
+                </>
+              )}
+            </div>
           )}
         </div>
       </Container>
