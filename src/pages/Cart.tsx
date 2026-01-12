@@ -34,7 +34,8 @@ function Cart() {
     ?.flat()
     ?.sort(
       (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        new Date(b?.createdAt ?? '').getTime() -
+        new Date(a?.createdAt ?? '').getTime()
     )
     .slice(0, 3)
 

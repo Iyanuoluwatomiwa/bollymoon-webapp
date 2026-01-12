@@ -122,7 +122,7 @@ function AddToCart({ productId }: { productId: string }) {
       colorId: item.colorId,
       productId: item.id,
       quantity: item.quantity,
-    }
+    } 
     if (token) {
       updateCart(data)
     } else {

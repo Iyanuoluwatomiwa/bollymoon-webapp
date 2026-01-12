@@ -26,8 +26,8 @@ export type CartItem = {
   stock: number
   specId?: string | undefined
   colorId?: string | undefined
-  createdAt: string
-  updatedAt: string
+  createdAt?: string
+  updatedAt?: string
 }
 
 export type FetchedCartItem = {
