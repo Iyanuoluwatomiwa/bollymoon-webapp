@@ -37,7 +37,6 @@ const Filters = ({
     setPriceRange([0, maxPrice])
     setInStockOnly(false)
   }
-
   return (
     <div className="px-3 py-4 space-y-4">
       <div className="flex flex-row items-center justify-between border-b border-muted-foreground pb-2">
@@ -98,31 +97,26 @@ const Filters = ({
         </div>
       </div>
       <div className="mt-6 space-y-4">
-        <>
+        {!subcategories.length || <h2 className="text-lg font-medium">Tags</h2>}
+        <ul className="space-y-2">
           {subcategories?.map(({ label, value }) => {
             return (
-              <div key={label} className="space-y-2">
-                <h2 className="text-lg font-medium">Tags</h2>
-                <ul>
-                  <li
-                    className={`px-4 py-2 ${
-                      subcategory == value
-                        ? 'bg-primary text-white'
-                        : 'bg-muted'
-                    } rounded-sm`}
-                    onClick={() =>
-                      value == subcategory
-                        ? setSubcategory('')
-                        : setSubcategory(value)
-                    }
-                  >
-                    {label}
-                  </li>
-                </ul>
-              </div>
+              <li
+                key={label}
+                className={`px-4 py-2 ${
+                  subcategory == value ? 'bg-primary text-white' : 'bg-muted'
+                } rounded-sm`}
+                onClick={() =>
+                  value == subcategory
+                    ? setSubcategory('')
+                    : setSubcategory(value)
+                }
+              >
+                {label}
+              </li>
             )
           })}
-        </>
+        </ul>
       </div>
     </div>
   )

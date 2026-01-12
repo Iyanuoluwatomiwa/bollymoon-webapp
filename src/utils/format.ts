@@ -157,7 +157,7 @@ export const getUrgencyLevel = (current: number) => {
     label: 'Active',
   }
 }
-/* export const urlsToFiles = async (
+export const urlsToFiles = async (
   urls: { url: string; publicId: string }[]
 ): Promise<File[]> => {
   return Promise.all(
@@ -169,4 +169,4 @@ export const getUrgencyLevel = (current: number) => {
       })
     })
   )
-} */
+}

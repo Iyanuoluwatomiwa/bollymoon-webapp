@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react'
+import { useEffect, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 import { productFormSelectOptions } from '@/assets/data'
@@ -14,8 +14,8 @@ import { useValidateSchema } from '@/hooks/useValidateSchema'
 import { productSchema } from '@/utils/schema'
 import { handleImagesUpload } from '@/services/uploadService'
 import type { UseMutateFunction } from '@tanstack/react-query'
-/* import { urlsToFiles } from '@/utils/format'
- */
+import { urlsToFiles } from '@/utils/format'
+
 interface ProductFormProps {
   product?: any
   onSubmit: UseMutateFunction<void, Error, ProductUpload, unknown>
@@ -45,22 +45,11 @@ const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
     hairCare: productFormSelectOptions.subcategories.hairCare,
     accessories: productFormSelectOptions.subcategories.accessories,
   }
-  const resetForm = () => {
-    setFormData({
-      name: '',
-      description: '',
-      category: '',
-      subcategory: '',
-      collection: '',
-    })
-    setVariants([])
-    setImageFiles([])
-  }
-  /* useEffect(() => {
+  useEffect(() => {
     if (product) {
-       urlsToFiles(product?.images).then(setImageFiles) 
+      urlsToFiles(product?.images).then(setImageFiles)
     }
-  }, [product?.images]) */
+  }, [product?.images])
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const validatedData = useValidateSchema(productSchema, formData)
@@ -79,17 +68,12 @@ const ProductForm = ({ product, onSubmit, onSubmitting }: ProductFormProps) => {
       setIsSubmitting(false)
       return
     }
-    const productData = {
+    const productData: ProductUpload = {
       ...validatedData,
       specs: variants,
       images: imageUrls,
     }
-    onSubmit(productData, {
-      onSuccess: () => {
-        resetForm()
-        navigate('/admin/products')
-      },
-    })
+    onSubmit(productData)
     setIsSubmitting(onSubmitting)
   }
 

@@ -347,12 +347,6 @@ export const shop = {
         value: 'makeup-sets',
       },
     ],
-    accessories: [
-      {
-        label: 'Accessories',
-        value: 'accessories',
-      },
-    ],
   },
   sorting: [
     {

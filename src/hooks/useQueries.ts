@@ -191,7 +191,7 @@ export const useUpdateProduct = () => {
     data,
   }: {
     productId: string | undefined
-    data: any
+    data: ProductUpload
   }) => {
     try {
       const response: any = await updateProduct({ productId, data })

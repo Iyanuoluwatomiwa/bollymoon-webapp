@@ -4,15 +4,23 @@ import LoadingIcon from '@/components/global/LoadingIcon'
 import NoResult from '@/components/global/NoResult'
 import AdminPagesHeading from '@/components/headings/AdminPagesHeading'
 import { useSingleProduct, useUpdateProduct } from '@/hooks/useQueries'
-import { useParams } from 'react-router-dom'
+import type { ProductUpload } from '@/types/product.types'
+import { useNavigate, useParams } from 'react-router-dom'
 
 function EditProduct() {
   const { productId } = useParams()
   const { data: product, isLoading, isError } = useSingleProduct(productId)
-
+  const navigate = useNavigate()
   const { mutate: updateProduct, isPending: updating } = useUpdateProduct()
-  const handleUpdateProduct = (product: any) => {
-    updateProduct({ productId, data: product })
+  const handleUpdateProduct = (product: ProductUpload) => {
+    updateProduct(
+      { productId, data: product },
+      {
+        onSuccess: () => {
+          navigate(`/admin/products/view/${productId}`)
+        },
+      }
+    )
   }
   return (
     <Container className="py-4 lg:py-6">

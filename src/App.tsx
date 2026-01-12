@@ -256,9 +256,6 @@ function App() {
 
   const { mutate: addBulkCartItems } = useAddBulkCartItems()
 
-  console.log(token)
-  console.log(wishlistItems)
-
   useEffect(() => {
     if (!token) return
     const fetchProfile = async () => {
@@ -300,42 +297,10 @@ function App() {
         }))
       )
       dispatch(clearCart())
-      console.log('clear cart')
     }
     syncCart()
   }, [token, dispatch])
 
-  /* useEffect(() => {
-    if (!token) return
-    if (localCartSync && localWishlistSync) return
-
-    const syncLocalData = async () => {
-      try {
-        if (wishlistItems.length) {
-          await addBulkWishlist(wishlistItems.map(({ id }) => id))
-          setLocalWishlistSync(true)
-        }
-        if (cartItems.length) {
-          await addBulkCartItems({
-            items: cartItems.map(({ specId, colorId, id, quantity }) => ({
-              specId,
-              colorId,
-              quantity,
-              productId: id,
-            })),
-          })
-          setLocalCartSync(true)
-        }
-      } catch (error: any) {
-        toast.error(error?.message)
-        return
-      }
-      dispatch(clearWishlist())
-      dispatch(clearCart())
-    }
-    syncLocalData()
-  }, [token, !localCartSync, !localWishlistSync, dispatch])
- */
   return (
     <RouterProvider
       router={router}

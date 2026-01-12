@@ -217,12 +217,6 @@ function Shop() {
               />
             </div>
             <section>
-              {/* <QueryHeading
-                query={filters.searchQuery}
-                queryResult={sortedProducts}
-                type="product"
-              /> */}
-
               <div className="flex items-center justify-between gap-2 mb-8">
                 <Sorting
                   sortBy={sortBy}
