@@ -2,9 +2,14 @@ import type { OrderItem } from '@/types/orders.types'
 import { Card, CardContent } from '../ui/card'
 import { Link } from 'react-router-dom'
 import { currencyFormatter } from '@/utils/format'
+import { useSelector } from 'react-redux'
+import type { UserProfile } from '@/types/user.types'
 
 export default function OrderItemsCard({ item }: { item: OrderItem }) {
-  const role: any = 'admin'
+  const { userProfile }: { userProfile: UserProfile } = useSelector(
+    (state: any) => state.userState
+  )
+  const role = userProfile?.role?.name
 
   return (
     <Card className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow rounded-sm duration-200 p-0">

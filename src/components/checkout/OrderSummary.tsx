@@ -50,8 +50,8 @@ function OrderSummary() {
   const fetchedCartTotal: number = data?.data?.cartTotal
   const items = token ? fetchedCartItems : cartItems
   const totalAmount = token ? fetchedCartTotal : cartTotal
-  const shippingCost = deliveryOption == 'standard' ? 5 : 14
-  const shipping = totalAmount > 25 ? 0 : shippingCost
+  const shippingCost = deliveryOption == 'standard' ? 4 : 14
+  const shipping = totalAmount >= 25 ? 0 : shippingCost
   const checkFirstOrder = allMyOrders
     ? totalAmount - 0.1 * totalAmount
     : totalAmount

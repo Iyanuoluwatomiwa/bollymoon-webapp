@@ -103,7 +103,7 @@ const Filters = ({
             return (
               <li
                 key={label}
-                className={`px-4 py-2 ${
+                className={`px-4 py-2 text-xs md:text-sm ${
                   subcategory == value ? 'bg-primary text-white' : 'bg-muted'
                 } rounded-sm`}
                 onClick={() =>

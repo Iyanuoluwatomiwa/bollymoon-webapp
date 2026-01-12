@@ -7,8 +7,8 @@ interface Orders {
 
 function Orders({ data }: Orders) {
   return (
-    <div className="space-y-4">
-      {data?.slice(0, 3)?.map(([day, orders], index) => {
+    <div className="space-y-6">
+      {data?.map(([day, orders], index) => {
         return (
           <div key={index} className="space-y-2 md:space-y-4">
             <h2 className="text-sm md:text-base font-semibold capitalize">

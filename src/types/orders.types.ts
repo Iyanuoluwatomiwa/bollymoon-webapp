@@ -40,7 +40,7 @@ export type Order = {
   orderTotal: number
   paymentMethod: string
   subtotal: number
-  user: {
+  user?: {
     id: string
     firstName: string
     lastName: string

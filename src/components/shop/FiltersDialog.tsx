@@ -41,7 +41,7 @@ export default function FiltersDialog({
       </DialogTrigger>
       <DialogContent className="bg-white">
         <DialogHeader className="sr-only">
-          <DialogTitle>dilters</DialogTitle>
+          <DialogTitle>filters</DialogTitle>
           <DialogDescription>product filtering</DialogDescription>
         </DialogHeader>
 

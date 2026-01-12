@@ -13,7 +13,8 @@ interface OrderStatusProp {
 }
 
 function UpdateOrderStatus({ order }: OrderStatusProp) {
-  const newStatus = order?.status == 'pending' ? 'processing' : 'delivered'
+  const newStatus =
+    order?.status.toLowerCase() == 'pending' ? 'processing' : 'delivered'
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

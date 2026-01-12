@@ -39,10 +39,10 @@ function AdminOrders() {
       order.stripePaymentIntentId
         .toLowerCase()
         .includes(formData.searchQuery.toLowerCase()) ||
-      order.user.firstName
+      order?.user?.firstName
         .toLowerCase()
         .includes(formData.searchQuery.toLowerCase()) ||
-      order.user.lastName
+      order?.user?.lastName
         .toLowerCase()
         .includes(formData.searchQuery.toLowerCase())
 
@@ -57,7 +57,7 @@ function AdminOrders() {
     groupOrdersByDay(filteredOrders) ?? []
   )
   return (
-    <Container className="pt-4 lg:pt-6 pb-10">
+    <Container className="pt-4 lg:pt-6">
       <div className="space-y-4 lg:space-y-6">
         <AdminPagesHeading
           pageTitle="Orders"
@@ -87,20 +87,23 @@ function AdminOrders() {
             <OrderCardSkeleton />
           ) : (
             <>
-              {groupedFilteredOrders?.map(([day, orders], index) => {
-                return (
-                  <div key={index} className="space-y-2 md:space-y-4">
-                    <h2 className="text-sm md:text-base font-semibold capitalize">
-                      {day}
-                    </h2>
-                    <div className="grid grid-cols-1 gap-2 md:gap-3">
-                      {orders?.map((order) => (
-                        <OrderCard key={order.id} {...order} />
-                      ))}
+              <div className="space-y-6">
+                {groupedFilteredOrders?.map(([day, orders], index) => {
+                  return (
+                    <div key={index} className="space-y-2 md:space-y-4">
+                      <h2 className="text-sm md:text-base font-semibold capitalize">
+                        {day}
+                      </h2>
+                      <div className="grid grid-cols-1 gap-2 md:gap-3">
+                        {orders?.map((order) => (
+                          <OrderCard key={order.id} {...order} />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
+
               <div className="bg-white rounded-sm">
                 {(groupedFilteredOrders?.length == 0 ||
                   groupedFilteredOrders?.length == undefined) && (

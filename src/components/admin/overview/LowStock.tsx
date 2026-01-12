@@ -15,7 +15,7 @@ function LowStock({ lowStockProducts }: LowStockProducts) {
   dayjs.extend(relativeTime)
   return (
     <div className="space-y-4">
-      {lowStockProducts?.slice(0, 3).map((product) => {
+      {lowStockProducts?.slice(0, 4).map((product) => {
         const urgency = getUrgencyLevel(product.stock)
         const lastUpdated = dayjs(product.updatedAt).fromNow()
 

@@ -9,7 +9,7 @@ import type { Order } from '@/types/orders.types'
 
 interface DashboardStatsProp {
   ordersDataLoading: boolean
-  ordersData: Order[]
+  ordersData: Order[] | undefined
   productsLoading: boolean
   products: ProductFetch[] | undefined
 }

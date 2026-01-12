@@ -13,9 +13,15 @@ function Wishlist() {
     (state: any) => state.userState
   )
   const { data, isLoading, isError } = useWishlists()
-  const fetchedWishlists = data?.data?.map(
+  const fetchedWishlists: ProductFetch[] = data?.data?.map(
     ({ product }: { product: ProductFetch }) => product
   )
+  const sortFetchedWishlists = fetchedWishlists
+    ?.flat()
+    ?.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
 
   //for unauth users
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
@@ -36,8 +42,8 @@ function Wishlist() {
                   <NoResult isError={isError} errorText="your wishlist" />
                 ) : (
                   <>
-                    <WishlistItems wishlistItems={fetchedWishlists} />
-                    {fetchedWishlists?.length == 0 && <EmptyWishlist />}
+                    <WishlistItems wishlistItems={sortFetchedWishlists} />
+                    {sortFetchedWishlists?.length == 0 && <EmptyWishlist />}
                   </>
                 )}
               </>

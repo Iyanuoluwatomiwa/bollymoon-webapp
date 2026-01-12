@@ -12,9 +12,9 @@ function RatingsReviews() {
   const orderItems: OrderItem[] | undefined = data?.data?.map(
     (order: any) => order?.items
   )
+
   const deliveredPendingReviewOrderItems = orderItems?.filter(
-    (order) =>
-      order.status?.toLowerCase() == 'delivered' && order.reviewed == false
+    (order) => !order?.reviewed && order?.status?.toLowerCase() == 'delivered'
   )
 
   return (

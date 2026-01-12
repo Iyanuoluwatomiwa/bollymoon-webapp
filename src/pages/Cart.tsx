@@ -30,11 +30,18 @@ function Cart() {
       }
     }
   )
+  const sortFetchedCartItems = fetchedCartItems
+    ?.flat()
+    ?.sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
+    .slice(0, 3)
 
   const fetchedNumItemsInCart: number = data?.data?.numItemsInCart
   const fetchedCartTotal: number = data?.data?.cartTotal
   const itemsInCart = fetchedNumItemsInCart
-  const items = fetchedCartItems
+  const items = sortFetchedCartItems
   const totalAmount = fetchedCartTotal
 
   return (

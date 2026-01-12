@@ -62,19 +62,20 @@ function OrderDetails() {
                       <p className="flex items-center gap-1">
                         <span
                           className={`${
-                            order?.status && getStatusColor[order?.status]?.bg
+                            order?.status &&
+                            getStatusColor[order?.status.toLowerCase()]?.bg
                           } capitalize text-[10px] text-white py-0.5 px-1 rounded-xs uppercase w-max`}
                         >
                           {order?.status}
                         </span>
-                        {order?.status !== 'pending' && (
+                        {order?.status.toLowerCase() !== 'pending' && (
                           <span className="text-xs font-medium">
                             On {formatCreatedAt(order?.updatedAt)}
                           </span>
                         )}
                       </p>
-                      {order?.status == 'delivered' ||
-                        order?.status == 'canceled' ||
+                      {order?.status.toLowerCase() == 'delivered' ||
+                        order?.status.toLowerCase() == 'canceled' ||
                         role !== 'admin' || <UpdateOrderStatus order={order} />}
                     </div>
                   </div>
@@ -100,7 +101,7 @@ function OrderDetails() {
                     <h2 className="font-medium capitalize text-xs md:text-sm  ">
                       payment method
                     </h2>
-                    <p className="text-xs md:text-sm ">
+                    <p className="text-xs md:text-sm first-letter:capitalize ">
                       {order?.paymentMethod}
                     </p>
                   </div>
@@ -156,8 +157,8 @@ function OrderDetails() {
                       </div>
                     </div>
                   )}
-                  {(order?.status == 'pending' ||
-                    order?.status == 'processing') &&
+                  {(order?.status.toLowerCase() == 'pending' ||
+                    order?.status.toLowerCase() == 'processing') &&
                     role == 'admin' && (
                       <div className="ml-auto w-max">
                         <CancelOrderDialog
