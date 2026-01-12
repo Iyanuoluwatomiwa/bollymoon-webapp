@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /account/
-Sitemap: https://stylinked.netlify.app/sitemap.xml
+Disallow: /admin/
+Sitemap: https://bollymoon.com/sitemap.xml
