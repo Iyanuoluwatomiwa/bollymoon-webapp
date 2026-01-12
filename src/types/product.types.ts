@@ -96,7 +96,10 @@ export type ProductReviews = {
   id?: string
   rating: number
   productId: string | undefined
-  name?: string
+  user?: {
+    firstName: string
+    lastName: string
+  }
   comment: string
   createdAt?: string
 }

@@ -3,8 +3,15 @@ import { formatCreatedAt } from '@/utils/format'
 import { Link } from 'react-router-dom'
 
 function PendingReviewCard({ orderItem }: { orderItem: OrderItem }) {
-  const { productImage, productName, productId, category, updatedAt, orderId } =
-    orderItem
+  const {
+    productImage,
+    productName,
+    productId,
+    category,
+    updatedAt,
+    size,
+    color,
+  } = orderItem
   return (
     <div className="overflow-hidden border-0 shadow-sm hover:shadow-md transition-shadow rounded-sm duration-200 bg-white">
       <div className="p-0">
@@ -14,19 +21,44 @@ function PendingReviewCard({ orderItem }: { orderItem: OrderItem }) {
             <img
               src={productImage}
               alt={productName}
-              className="aspect-square w-full h-full object-cover"
+              className="aspect-square w-full h-full object-cover object-top"
               loading="lazy"
             />
           </figure>
           <div className="flex-1 py-2 pr-2 md:pr-4 flex flex-col gap-4 md:gap-6 justify-between">
             {/* Product name, size, and color */}
-            <Link to={`/shop/${category}/${productId}`} className="group block">
-              <h2 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors line-clamp-2">
-                {productName}
-              </h2>
-            </Link>
+            <div className="space-y-1">
+              <Link
+                to={`/shop/${category}/${productId}`}
+                className="group block"
+              >
+                <h2 className="font-medium text-sm md:text-base group-hover:text-primary transition-colors line-clamp-2">
+                  {productName}
+                </h2>
+              </Link>
+              <div className="flex items-center text-xs gap-2 font-medium capitalize">
+                {size?.toLowerCase() !== 'n/a' && (
+                  <div
+                    className=" flex items-center gap-1
+                     "
+                  >
+                    <span>{category === 'hair' ? 'Length:' : 'Size:'}</span>
+                    <span>{size} </span>
+                  </div>
+                )}
+                {color?.toLowerCase() !== 'n/a' && (
+                  <div
+                    className=" flex items-center gap-1
+                     font-medium"
+                  >
+                    <span>Color:</span>
+                    <span> {color}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+
             <div className="space-y-0.5">
-              <p className="text-xs md:text-sm font-medium">Order {orderId}</p>
               <p className="text-[10px] md:text-xs">
                 Delivery on {formatCreatedAt(updatedAt)}
               </p>

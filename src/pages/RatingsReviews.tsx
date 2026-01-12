@@ -5,18 +5,17 @@ import EmptyRatingsReviews from '@/components/ratings_reviews/EmptyRatingsReview
 import PendingReviewCard from '@/components/ratings_reviews/PendingReviewCard'
 import PendingReviewSkeleton from '@/components/skeletons/PendingReviewSkeleton'
 import { useMyOrders } from '@/hooks/useQueries'
-import type { OrderItem } from '@/types/orders.types'
+import type { Order, OrderItem } from '@/types/orders.types'
 
 function RatingsReviews() {
   const { data, isLoading, isError } = useMyOrders()
-  const deliveredOrders: OrderItem[] | undefined = data?.data?.filter(
+  const deliveredOrders: Order[] | undefined = data?.data?.filter(
     (order: any) => order?.status?.toLowerCase() == 'delivered'
   )
-  const orderItems = deliveredOrders?.map((order: any) => order?.items)
 
-  const deliveredPendingReviewOrderItems = orderItems?.filter(
-    (order) => !order?.reviewed
-  )
+  const orderItems = deliveredOrders?.flatMap((order: any) => order?.items)
+  const deliveredPendingReviewOrderItems: OrderItem[] | undefined =
+    orderItems?.filter((order) => !order?.product?.hasReviewed)
 
   return (
     <>
@@ -27,16 +26,21 @@ function RatingsReviews() {
             Ratings & Reviews
           </h1>
           {isLoading ? (
-            <PendingReviewSkeleton />
+            <div className="max-w-2xl mx-auto">
+              <PendingReviewSkeleton />
+            </div>
           ) : (
             <div className="max-w-2xl mx-auto w-full">
               {isError ? (
                 <NoResult isError={isError} errorText="ordered items" />
               ) : (
                 <>
-                  {deliveredPendingReviewOrderItems?.map((item) => (
-                    <PendingReviewCard key={item.id} orderItem={item} />
-                  ))}
+                  <div className="space-y-4 lg:space-y-6">
+                    {deliveredPendingReviewOrderItems?.map((item) => (
+                      <PendingReviewCard key={item?.id} orderItem={item} />
+                    ))}
+                  </div>
+
                   {deliveredPendingReviewOrderItems?.length === 0 && (
                     <EmptyRatingsReviews />
                   )}

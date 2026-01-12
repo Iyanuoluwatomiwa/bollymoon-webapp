@@ -162,7 +162,9 @@ function ProductDetails() {
                             <Ratings rating={product?.rating} />
                             <span>
                               {product?.reviewsCount} rating
-                              {product?.reviewsCount !== 0 && 's'}
+                              {product?.reviewsCount &&
+                                product?.reviewsCount > 1 &&
+                                's'}
                             </span>
                           </div>
                           <div className="flex items-center gap-1 sm:gap-2 md:gap-4">
@@ -222,7 +224,9 @@ function ProductDetails() {
                             </span>
                             <span>
                               {product?.reviewsCount} rating
-                              {product?.reviewsCount !== 0 && 's'}
+                              {product?.reviewsCount &&
+                                product?.reviewsCount > 1 &&
+                                's'}
                             </span>
                           </div>
                         </div>

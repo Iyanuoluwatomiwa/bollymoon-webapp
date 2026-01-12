@@ -30,12 +30,13 @@ function Cart() {
       }
     }
   )
+
   const sortFetchedCartItems = fetchedCartItems
     ?.flat()
     ?.sort(
       (a, b) =>
-        new Date(b?.createdAt ?? '').getTime() -
-        new Date(a?.createdAt ?? '').getTime()
+        new Date(b?.updatedAt ?? '').getTime() -
+        new Date(a?.updatedAt ?? '').getTime()
     )
     .slice(0, 3)
 

@@ -11,8 +11,6 @@ import type {
 import { useSelector } from 'react-redux'
 import { MdAddShoppingCart } from 'react-icons/md'
 import { LiaCartArrowDownSolid } from 'react-icons/lia'
-import { Tooltip, TooltipTrigger } from '../ui/tooltip'
-import { TooltipContent } from '@radix-ui/react-tooltip'
 import { Link } from 'react-router-dom'
 import { currencyFormatter } from '@/utils/format'
 import {
@@ -43,6 +41,9 @@ function AddToCart({ productId }: { productId: string }) {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
+
+  console.log(product)
+
   const {
     data,
     isLoading: cartItemsLoading,
@@ -122,7 +123,7 @@ function AddToCart({ productId }: { productId: string }) {
       colorId: item.colorId,
       productId: item.id,
       quantity: item.quantity,
-    } 
+    }
     if (token) {
       updateCart(data)
     } else {
@@ -155,40 +156,22 @@ function AddToCart({ productId }: { productId: string }) {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogTrigger asChild>
           {inCart ? (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  className="text-white font-medium  rounded-md transition-all duration-200 flex items-center justify-center gap-2 bg-primary cursor-pointer hover:bg-primary/90 w-full text-xs sm:text-sm h-8 sm:h-9  rounded-sm"
-                  onClick={() => setIsOpen(true)}
-                >
-                  <span>In Cart</span>
-                  <LiaCartArrowDownSolid className="w-6.5 h-6.5 sm:w-7.5 md:h-7.5" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-none border">
-                  In Cart
-                </span>
-              </TooltipContent>
-            </Tooltip>
+            <button
+              className="text-white font-medium  rounded-md transition-all duration-200 flex items-center justify-center gap-2 bg-primary cursor-pointer hover:bg-primary/90 w-full text-xs sm:text-sm h-8 sm:h-9  rounded-sm"
+              onClick={() => setIsOpen(true)}
+            >
+              <span>In Cart</span>
+              <LiaCartArrowDownSolid className="w-6.5 h-6.5 sm:w-7.5 md:h-7.5" />
+            </button>
           ) : (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <button
-                  disabled={product?.stock === 0}
-                  className="text-white font-medium rounded-md transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-secondary/90 cursor-pointer bg-secondary w-full text-xs sm:text-sm h-8 sm:h-9  rounded-sm"
-                  onClick={() => setIsOpen(true)}
-                >
-                  <span>Add to Cart</span>
-                  <MdAddShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
-                </button>
-              </TooltipTrigger>
-              <TooltipContent side="top" sideOffset={4}>
-                <span className="text-xs px-2 py-0.5 bg-muted text-muted-foreground rounded-none border">
-                  Add to Cart
-                </span>
-              </TooltipContent>
-            </Tooltip>
+            <button
+              disabled={product?.stock === 0}
+              className="text-white font-medium rounded-md transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed hover:bg-secondary/90 cursor-pointer bg-secondary w-full text-xs sm:text-sm h-8 sm:h-9  rounded-sm"
+              onClick={() => setIsOpen(true)}
+            >
+              <span>Add to Cart</span>
+              <MdAddShoppingCart className="w-5 h-5 sm:w-6 sm:h-6" />
+            </button>
           )}
         </DialogTrigger>
         <DialogContent className="p-0">

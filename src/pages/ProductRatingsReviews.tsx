@@ -13,6 +13,7 @@ export default function ProductRatingsReviews() {
   const { productId } = useParams()
   const { data, isLoading, isError } = useProductReviews(productId)
   const productReviews: ProductReviews[] | undefined = data?.data
+
   return (
     <>
       <PageTitle title="Customer feedback" />
@@ -23,7 +24,7 @@ export default function ProductRatingsReviews() {
             <ReviewCardSkeleton />
           ) : (
             <>
-              <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2">
+              <div className="grid grid-cols-1 gap-2 md:gap-4 pb-2 md:pt-2 max-w-2xl mx-auto">
                 {productReviews?.map((review) => (
                   <ReviewCard key={review.id} {...review} />
                 ))}

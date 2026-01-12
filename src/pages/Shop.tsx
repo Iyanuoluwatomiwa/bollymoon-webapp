@@ -134,6 +134,7 @@ function Shop() {
           return 0
       }
     })
+
   let productView
   if (isLoading) {
     productView =

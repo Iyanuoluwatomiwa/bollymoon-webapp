@@ -8,7 +8,7 @@ import {
   BreadcrumbSeparator,
 } from '../ui/breadcrumb'
 
-interface SubPagesHeaderProp {
+interface BreadcrumbHeaderProp {
   currentPage: string | undefined
   previousPage: string
   previousLink?: string
@@ -18,7 +18,7 @@ function BreadcrumbHeader({
   currentPage,
   previousPage,
   previousLink,
-}: SubPagesHeaderProp) {
+}: BreadcrumbHeaderProp) {
   return (
     <header className="py-5">
       <Breadcrumb>

@@ -26,7 +26,7 @@ function ReviewForm({ product }: { product: ProductFetch | undefined }) {
     }
     createReview(reviewData, {
       onSuccess: () => {
-        navigate(`/shop/${product?.category}/${product?.id}/ratings-reviews}`)
+        navigate(`/shop/${product?.category}/${product?.id}`)
       },
     })
   }
@@ -42,12 +42,11 @@ function ReviewForm({ product }: { product: ProductFetch | undefined }) {
             <img
               src={product?.images[0].url}
               alt={product?.name}
-              className="aspect-square w-full h-full object-cover"
+              className="aspect-square w-full h-full object-cover object-top"
               loading="lazy"
             />
           </figure>
           <div className="flex-1 space-y-4 md:space-y-6 py-2">
-            {/* Product name, size, and color */}
             <Link
               to={`/shop/${product?.category}/${product?.id}`}
               className="group block"
