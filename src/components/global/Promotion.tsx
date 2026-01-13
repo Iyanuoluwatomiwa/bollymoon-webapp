@@ -1,5 +1,5 @@
 import Container from './Container'
-import image from '../../assets/images/gallery2_1.png'
+import image from '../../assets/images/gallery2_1.webp'
 import { Link } from 'react-router-dom'
 
 function Promotion() {
