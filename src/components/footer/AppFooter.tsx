@@ -13,7 +13,7 @@ function AppFooter() {
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="space-y-4 border-b border-accent lg:border-b-0 pb-8 lg:col-span-2">
             <div className="space-y-1.5">
-              <Logo size="h-[50px]" />
+              <Logo size="h-[50px] w-[105px]" />
               <p className="text-xs text-accent-foreground font-medium">
                 Where beauty meets confidence
               </p>

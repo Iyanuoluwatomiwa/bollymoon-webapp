@@ -5,17 +5,20 @@ import HeroCarousel from '@/components/home/HeroCarousel'
 import BestSellers from '@/components/home/BestSellers'
 import OtherCollections from '@/components/home/OtherCollections'
 import Promotion from '@/components/global/Promotion'
+import LazyLoad from 'react-lazyload'
 
 function Home() {
   return (
     <>
       <PageTitle title="Home" />
       <HeroCarousel />
-      <Categories />
-      <BestSellers />
-      <Promotion />
-      <OtherCollections />
-      <Features />
+      <LazyLoad>
+        <Categories />
+        <BestSellers />
+        <Promotion />
+        <OtherCollections />
+        <Features />
+      </LazyLoad>
     </>
   )
 }

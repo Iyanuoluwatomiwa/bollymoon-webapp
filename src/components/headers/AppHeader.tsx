@@ -96,7 +96,7 @@ function AppHeader({ toggleAccountMenu }: { toggleAccountMenu: () => void }) {
                 <Menu strokeWidth={1} className="w-6 h-6" />
               </button>
             </div>
-            <Logo size="h-[34px] lg:h-[44px]" />
+            <Logo size="h-[34px] w-[71px]  lg:h-[44px] lg:w-[93px]" />
           </div>
           <div className="hidden lg:flex">
             <Navbar />
