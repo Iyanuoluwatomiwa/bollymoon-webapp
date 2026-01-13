@@ -16,6 +16,7 @@ import ProtectedRoute from './components/global/ProtectedRoute'
 import AdminProtectedRoute from './components/global/AdminProtectedRoute'
 import { toast } from 'sonner'
 import { useAddBulkCartItems, useAddBulkWishlist } from './hooks/useQueries'
+import { GoogleOAuthProvider } from '@react-oauth/google'
 
 //pages
 const Login = lazy(() => import('./pages/Login'))
@@ -60,12 +61,20 @@ const CloseAccount = lazy(() => import('./pages/CloseAccount'))
 const router = createBrowserRouter([
   {
     path: 'login',
-    element: pageSuspense(<Login />),
+    element: pageSuspense(
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <Login />
+      </GoogleOAuthProvider>
+    ),
     errorElement: pageSuspense(<Error />),
   },
   {
     path: 'sign-up',
-    element: pageSuspense(<SignUp />),
+    element: pageSuspense(
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+        <SignUp />
+      </GoogleOAuthProvider>
+    ),
     errorElement: pageSuspense(<Error />),
   },
   {

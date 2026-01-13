@@ -11,14 +11,22 @@ function Home() {
   return (
     <>
       <PageTitle title="Home" />
-      <HeroCarousel />
+      <LazyLoad>
+        <HeroCarousel />
+      </LazyLoad>
       <LazyLoad>
         <Categories />
-        <BestSellers />
-        <Promotion />
-        <OtherCollections />
-        <Features />
       </LazyLoad>
+      <LazyLoad>
+        <BestSellers />
+      </LazyLoad>
+      <LazyLoad>
+        <Promotion />
+      </LazyLoad>
+      <LazyLoad>
+        <OtherCollections />
+      </LazyLoad>
+      <Features />
     </>
   )
 }
