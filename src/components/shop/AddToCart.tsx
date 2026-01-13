@@ -42,8 +42,6 @@ function AddToCart({ productId }: { productId: string }) {
     (state: any) => state.userState
   )
 
-  console.log(product)
-
   const {
     data,
     isLoading: cartItemsLoading,
