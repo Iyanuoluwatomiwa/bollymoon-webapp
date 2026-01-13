@@ -249,7 +249,6 @@ function App() {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
-  console.log(token)
 
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.wishlistState
