@@ -33,7 +33,7 @@ function AdminOrders() {
     setFormData({ ...formData, status: 'all' })
   }
 
-  const filteredOrders = allOrders?.filter((order: Order) => {
+  const filteredOrders: Order[] = allOrders?.filter((order: Order) => {
     const matchesSearch =
       !formData.searchQuery ||
       order.stripePaymentIntentId
@@ -53,8 +53,14 @@ function AdminOrders() {
 
     return matchesSearch && matchesStatus
   })
+  const sortOrdersData = filteredOrders
+    ?.flat()
+    ?.sort(
+      (a, b) =>
+        new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+    )
   const groupedFilteredOrders = Object.entries(
-    groupOrdersByDay(filteredOrders) ?? []
+    groupOrdersByDay(sortOrdersData) ?? []
   )
   return (
     <Container className="pt-4 lg:pt-6">
@@ -95,7 +101,7 @@ function AdminOrders() {
                         {day}
                       </h2>
                       <div className="grid grid-cols-1 gap-2 md:gap-3">
-                        {orders?.map((order) => (
+                        {orders?.map((order: Order) => (
                           <OrderCard key={order.id} {...order} />
                         ))}
                       </div>

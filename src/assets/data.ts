@@ -905,8 +905,8 @@ export const ordersTabHeadList = [
     label: 'delivered',
   },
   {
-    status: 'canceled',
-    label: 'canceled',
+    status: 'cancelled',
+    label: 'cancelled',
   },
 ]
 
@@ -1109,7 +1109,7 @@ export const productsFilters = {
 export const orderFilters: Filters[] = [
   {
     label: 'status',
-    options: ['all', 'pending', 'processing', 'delivered', 'canceled'],
+    options: ['all', 'pending', 'processing', 'delivered', 'cancelled'],
   },
 ]
 

@@ -95,12 +95,12 @@ export const getStatusColor: Record<string, { bg: string; border: string }> = {
     border: 'border-yellow-600',
   },
   delivered: { bg: 'bg-green-600', border: 'border-green-600' },
-  canceled: { bg: 'bg-red-600', border: 'border-red-600' },
+  cancelled: { bg: 'bg-red-600', border: 'border-red-600' },
 }
 
 export function groupOrdersByDay(orders: Order[]) {
   return orders?.reduce((groups: Record<string, Order[]>, order) => {
-    const date = new Date(order.updatedAt)
+    const date = new Date(order.createdAt)
 
     let groupKey: string
     if (isToday(date)) {

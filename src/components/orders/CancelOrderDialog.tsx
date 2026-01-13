@@ -22,12 +22,9 @@ function CancelOrderDialog({ id, orderId }: UpdateOrderDialogProp) {
     useState(false)
 
   const { mutate: updateOrderStatus, isPending: updating } = useUpdateOrder()
-  const handleStatusUpdate = (
-    id: string | undefined,
-    newStatus: 'canceled'
-  ) => {
+  const handleStatusUpdate = () => {
     setIsUpdateOrderStatusDialogOpen(true)
-    updateOrderStatus({ id, status: newStatus, orderId })
+    updateOrderStatus({ id, status: 'cancelled', orderId })
   }
 
   return (
@@ -55,7 +52,7 @@ function CancelOrderDialog({ id, orderId }: UpdateOrderDialogProp) {
           <Button
             className="h-9 text-xs md:text-sm"
             variant="destructive"
-            onClick={() => handleStatusUpdate(id, 'canceled')}
+            onClick={handleStatusUpdate}
           >
             {updating ? 'Canceling' : 'Cancel Order'}
           </Button>

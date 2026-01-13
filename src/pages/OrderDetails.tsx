@@ -75,7 +75,7 @@ function OrderDetails() {
                         )}
                       </p>
                       {order?.status.toLowerCase() == 'delivered' ||
-                        order?.status.toLowerCase() == 'canceled' ||
+                        order?.status.toLowerCase() == 'cancelled' ||
                         role !== 'admin' || <UpdateOrderStatus order={order} />}
                     </div>
                   </div>
