@@ -15,27 +15,25 @@ import {
   ShoppingCart,
   Sparkles,
   Tag,
-  TrendingUp,
   Truck,
 } from 'lucide-react'
 import { FaInstagram, FaTiktok, FaXTwitter } from 'react-icons/fa6'
 import heroWelcome from '@/assets/images/hero-hair.webp'
-import heroHair from '@/assets/images/hero-slide-2.jpeg'
+import heroHair from '@/assets/images/hero-slide-2.webp'
 import heroClothing from '@/assets/images/hero-clothing.webp'
 import type { SizeGuideData } from '@/types/sizeGuide.types'
 import type { Filters } from '@/components/admin/FiltersDialog'
-import gallery1 from './images/gallery1.jpg'
-import gallery2 from './images/gallery2.jpg'
-import gallery3 from './images/gallery3.jpg'
-import gallery1_1 from './images/gallery1_1.png'
-import gallery2_1 from './images/gallery2_1.png'
-import gallery3_1 from './images/gallery3_1.png'
-import gallery4_1 from './images/gallery4_1.png'
-import hair from './images/hair.jpeg'
-import clothing from './images/clothing.jpeg'
-import cosmetics from './images/cosmetics.jpg'
-import hairCare from './images/hairCare.jpeg'
-import accessories from './images/accessories.jpeg'
+import gallery1 from './images/gallery1.webp'
+import gallery2 from './images/gallery2.webp'
+import gallery3 from './images/gallery3.webp'
+import gallery1_1 from './images/gallery1_1.webp'
+import gallery2_1 from './images/gallery2_1.webp'
+import gallery4_1 from './images/gallery4_1.webp'
+import hair from './images/hair.webp'
+import clothing from './images/clothing.webp'
+import cosmetics from './images/cosmetics.webp'
+import hairCare from './images/hairCare.webp'
+import accessories from './images/accessories.webp'
 
 export const navLinks = {
   home: {
@@ -1635,16 +1633,6 @@ export const collectionsData: Record<
     icon: Award,
     badge: 'Top Rated',
     accentColor: 'from-accent via-primary to-secondary',
-  },
-  trending: {
-    title: 'Trending Now',
-    subtitle: "What's Hot",
-    description:
-      'Stay ahead of the style curve with our most popular current looks. These pieces are currently trending across social media and among our customers.',
-    image: gallery3_1,
-    icon: TrendingUp,
-    badge: 'Popular',
-    accentColor: 'from-secondary via-accent to-primary',
   },
   sale: {
     title: 'Sale Items',
