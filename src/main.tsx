@@ -7,6 +7,7 @@ import { store } from './store.ts'
 import { HelmetProvider } from 'react-helmet-async'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import ErrorBoundary from './components/global/ErrorBoundary.tsx'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -19,15 +20,17 @@ const queryClient = new QueryClient({
 })
 
 createRoot(document.getElementById('root')!).render(
-  <HelmetProvider>
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
-          <Toaster position="top-center" />
+  <ErrorBoundary>
+    <HelmetProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
+            <Toaster position="top-center" />
 
-          <App />
-        </GoogleOAuthProvider>
-      </QueryClientProvider>
-    </Provider>
-  </HelmetProvider>
+            <App />
+          </GoogleOAuthProvider>
+        </QueryClientProvider>
+      </Provider>
+    </HelmetProvider>
+  </ErrorBoundary>
 )

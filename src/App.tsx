@@ -61,18 +61,22 @@ const router = createBrowserRouter([
   {
     path: 'login',
     element: pageSuspense(<Login />),
+    errorElement: pageSuspense(<Error />),
   },
   {
     path: 'sign-up',
     element: pageSuspense(<SignUp />),
+    errorElement: pageSuspense(<Error />),
   },
   {
     path: 'forgot-password',
     element: pageSuspense(<ForgotPassword />),
+    errorElement: pageSuspense(<Error />),
   },
   {
     path: 'reset-password',
     element: pageSuspense(<ResetPassword />),
+    errorElement: pageSuspense(<Error />),
   },
   {
     path: '/',
@@ -187,7 +191,6 @@ const router = createBrowserRouter([
   },
   {
     path: 'admin',
-
     element: (
       <AdminProtectedRoute>
         <AdminLayout />
@@ -246,6 +249,8 @@ function App() {
   const { token }: { token: string | null } = useSelector(
     (state: any) => state.userState
   )
+  console.log(token)
+
   const { wishlistItems }: { wishlistItems: ProductFetch[] } = useSelector(
     (state: any) => state.wishlistState
   )
